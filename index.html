@@ -1,1 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Enitoy Database Viewer</title>
+<style>
+:root{
+  --nav:#2f4f73; --nav2:#223b57; --ink:#2b2b2b; --muted:#6f7781; --line:#d7dde4;
+  --paper:#fff; --bg:#eef1f4; --soft:#f7f8fa; --accent:#4f7faf; --link:#2b67a0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+a{color:var(--link);text-decoration:none} a:hover{text-decoration:underline}
+button,input,select{font:inherit}
+.site-header{background:var(--nav);color:#fff;box-shadow:0 2px 7px #0003;position:sticky;top:0;z-index:20}
+.header-main{max-width:1180px;margin:auto;display:flex;align-items:center;gap:18px;padding:13px 18px}
+.brand{font-size:22px;font-weight:800;letter-spacing:.2px;color:#fff;white-space:nowrap;text-decoration:none!important}
+.brand small{font-size:11px;font-weight:600;opacity:.72;margin-left:6px}
+.global-search{position:relative;flex:1;max-width:560px}
+.global-search input{width:100%;border:0;border-radius:5px;padding:9px 12px;outline:0;background:#fff;color:#222}
+.search-results{display:none;position:absolute;left:0;right:0;top:calc(100% + 5px);background:#fff;color:#222;border-radius:5px;box-shadow:0 8px 25px #0004;max-height:420px;overflow:auto}
+.search-results.show{display:block}
+.search-hit{display:flex;justify-content:space-between;gap:12px;padding:9px 12px;border-bottom:1px solid #edf0f2;cursor:pointer}
+.search-hit:hover{background:#f2f6fa}.search-hit small{color:#7a8490}
+.file-button{border:1px solid #ffffff55;background:#ffffff12;color:#fff;padding:8px 11px;border-radius:5px;cursor:pointer;white-space:nowrap}
+.file-button:hover{background:#ffffff22}
+.subnav{background:var(--nav2);overflow:auto;white-space:nowrap}
+.subnav-inner{max-width:1180px;margin:auto;padding:0 12px;display:flex}
+.subnav a{display:block;color:#eaf2f9;padding:9px 10px;font-size:13px;text-decoration:none}
+.subnav a:hover{background:#ffffff12}
+.wrap{max-width:1180px;margin:22px auto 60px;padding:0 18px}
+.breadcrumbs{font-size:13px;color:#7d8791;margin:0 0 10px}.breadcrumbs a{color:#617d98}
+.page-title{margin:0 0 5px;font-size:34px;line-height:1.15;color:#20252b}.subtitle{color:#6d7780;margin:0 0 18px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:7px;box-shadow:0 1px 2px #0000000a;padding:18px}
+.card h2,.section-title{font-size:22px;line-height:1.25;margin:0 0 12px;color:#303840}.card h3{margin:0 0 10px;font-size:17px}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.hero-grid{display:grid;grid-template-columns:minmax(300px,440px) minmax(290px,1fr) minmax(300px,1fr);gap:18px;align-items:start}
+.section{margin-top:22px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:0 0 10px}
+.muted{color:var(--muted)}.tiny{font-size:12px}.nowrap{white-space:nowrap}
+.data-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line)}
+.data-table th,.data-table td{padding:8px 10px;border-bottom:1px solid #e4e8ec;text-align:left;vertical-align:top}
+.data-table th{background:#f3f5f7;color:#4f5963;font-size:12px;text-transform:uppercase;letter-spacing:.025em}
+.data-table tr:last-child td{border-bottom:0}.data-table tbody tr:nth-child(even){background:#fafbfc}
+.key-table{width:100%;border-collapse:collapse}.key-table th,.key-table td{padding:6px 6px;border-bottom:1px solid #eceff2;vertical-align:top}
+.key-table th{text-align:right;color:#6b747d;font-weight:600;width:42%}.key-table tr:last-child th,.key-table tr:last-child td{border-bottom:0}
+.stitches{display:flex;flex-wrap:wrap;gap:6px}.pill{display:inline-flex;align-items:center;justify-content:center;min-width:70px;border-radius:4px;padding:4px 9px;font-size:12px;font-weight:800;letter-spacing:.02em;border:1px solid #0002;box-shadow:inset 0 1px #ffffff55;text-decoration:none!important}
+.portrait{min-height:410px;display:flex;align-items:center;justify-content:center;background:transparent;border-radius:5px;overflow:visible;padding:4px}
+.portrait img{width:100%;max-width:420px;max-height:500px;object-fit:contain;display:block}.placeholder-art{font-size:64px;opacity:.18;font-weight:900}
+.portrait-toggle{display:flex;justify-content:center;margin-top:12px}.portrait-toggle button{border:1px solid #9aa8b4;background:#fff;color:#2e5376;padding:7px 12px;border-radius:5px;cursor:pointer;font-weight:750}.portrait-toggle button:hover{background:#f1f6fa;border-color:#7f9bb4}
+.flavor{font-size:16px;line-height:1.65;margin:0}
+.stat-row{display:grid;grid-template-columns:58px 38px 1fr;align-items:center;gap:8px;margin:7px 0}.stat-label{text-align:right;font-weight:700;font-size:12px;color:#5d6670}.stat-num{text-align:right;font-variant-numeric:tabular-nums}.stat-track{height:12px;background:#e7ebef;border-radius:3px;overflow:hidden}.stat-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#78a8d2,#4f7faf)}
+.stat-total{margin-top:11px;padding-top:10px;border-top:1px solid #e6eaee;display:flex;justify-content:flex-end;gap:10px;font-weight:800}
+.catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px}.catalog-card{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:9px;text-decoration:none!important;min-height:68px}.catalog-card:hover{border-color:#91abc2;box-shadow:0 2px 8px #1f48651c}.catalog-thumb{width:50px;height:50px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#f5f6f7;border-radius:4px;flex:none}.catalog-thumb img{max-width:100%;max-height:100%;object-fit:contain}.catalog-no{font-size:11px;color:#8b949d}.catalog-name{font-weight:750;color:#25313d;line-height:1.2}.catalog-types{margin-top:5px;display:flex;gap:3px;flex-wrap:wrap}.mini-pill{font-size:9px;font-weight:800;padding:2px 5px;border-radius:3px;border:1px solid #0002}
+.quick-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.quick-stat{background:#fff;border:1px solid var(--line);border-radius:6px;padding:13px}.quick-stat b{display:block;font-size:26px;line-height:1}.quick-stat span{color:#6f7881;font-size:12px}
+.dropzone{border:2px dashed #a8b4bf;background:#fff;border-radius:9px;padding:50px 24px;text-align:center}.dropzone.drag{border-color:#4f7faf;background:#f5faff}.dropzone h1{margin:0 0 8px;font-size:32px}.primary{border:0;background:var(--nav);color:#fff;padding:10px 16px;border-radius:5px;cursor:pointer;font-weight:700}.primary:hover{background:#274462}.notice{padding:10px 12px;border-radius:5px;background:#eaf3fb;border:1px solid #c9dfef;color:#34566e}.error{background:#fff0f0;border-color:#efc2c2;color:#8d3333}
+.mod-chain{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.mod-node{background:#fff;border:1px solid var(--line);border-radius:6px;padding:6px;min-width:104px;text-align:center}.mod-sprite{width:92px;height:92px;margin:0 auto;display:flex;align-items:center;justify-content:center;text-decoration:none!important}.mod-sprite img{max-width:100%;max-height:100%;object-fit:contain;display:block}.mod-sprite-placeholder{width:92px;height:92px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;color:#a5adb5}.mod-name{display:block;margin-top:5px;max-width:104px;font-size:11px;font-weight:800;line-height:1.2;text-align:center;overflow-wrap:anywhere;text-decoration:none!important;color:var(--ink)}.mod-name:hover{text-decoration:underline!important}.arrow{color:#81909d;font-weight:800;font-size:20px}.badge{display:inline-block;background:#222;color:#fff;border-radius:3px;padding:2px 6px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.03em}
+.chart-wrap{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:6px}.type-chart{border-collapse:collapse;min-width:980px;font-size:11px}.type-chart th,.type-chart td{border:1px solid #e1e5e8;text-align:center;padding:4px}.type-chart th{background:#f5f6f8;position:sticky;top:0}.fx0{background:#444;color:#fff}.fx50{background:#b9d5ec}.fx200{background:#efb1a5}.fx100{background:#fff;color:#bbb}
+.stitch-calc-selects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.stitch-calc-field label{display:block;margin:0 0 6px;font-size:12px;font-weight:800;color:#59636d;text-transform:uppercase;letter-spacing:.025em}.stitch-calc-field select{width:100%;padding:9px 10px;border:1px solid #bfc8d1;border-radius:5px;background:#fff;color:#222}.stitch-calc-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}.stitch-calc-results .card{min-height:112px}.stitch-calc-note{margin:13px 0 0;color:var(--muted);font-size:13px}.stitch-calc-summary{margin-top:16px;padding:11px 13px;background:#f4f7fa;border:1px solid #d9e0e6;border-radius:6px;color:#47525c}.stitch-calc-summary b{color:#263747}@media(max-width:760px){.stitch-calc-selects,.stitch-calc-results{grid-template-columns:1fr}}
+.list-columns{columns:3 220px;column-gap:20px}.list-columns a{display:block;padding:3px 0;break-inside:avoid}.inline-links{display:flex;flex-wrap:wrap;gap:7px}.chip-link{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 9px;text-decoration:none!important}
+.form-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}.form-tabs a{border:1px solid var(--line);background:#fff;padding:5px 9px;border-radius:4px;text-decoration:none}.form-tabs a.active{background:#dfeaf4;border-color:#9db8d0;font-weight:700}
+.name-origin-list{padding:0}.name-origin-row{display:grid;grid-template-columns:minmax(90px,160px) 1fr;gap:16px;padding:12px 16px;border-bottom:1px solid #e6eaee;align-items:start}.name-origin-row:last-child{border-bottom:0}.name-origin-part{font-weight:800;color:#384550}.name-origin-source b{color:#273f58}
+.footer{color:#7a838c;text-align:center;font-size:12px;padding:24px 10px}.hidden{display:none!important}
 
+.species-pager{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px;margin:0 0 14px}
+.species-pager-center{font-size:12px;color:var(--muted);text-align:center;white-space:nowrap}
+.species-pager-link{display:flex;align-items:center;gap:9px;min-width:0;width:max-content;max-width:100%;padding:8px 11px;border:1px solid var(--line);border-radius:6px;background:#fff;color:#2e5376;text-decoration:none!important;box-shadow:0 1px 2px #0000000a}
+.species-pager-link:hover{background:#f4f8fb;border-color:#9db8d0}
+.species-pager-prev{justify-self:start}.species-pager-next{justify-self:end;text-align:right}
+.species-pager-arrow{font-size:25px;line-height:1;font-weight:800;flex:none}
+.species-pager-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
+.species-pager-disabled{display:flex;align-items:center;padding:8px 11px;color:#bbc2c8;border:1px solid transparent;user-select:none}
+@media(max-width:650px){.species-pager{grid-template-columns:1fr 1fr}.species-pager-center{display:none}.species-pager-link{width:100%}.species-pager-label{font-size:12px}}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr 1fr}.hero-grid>.portrait-card{grid-column:1/-1}.portrait{min-height:340px}.portrait img{max-width:460px;max-height:480px}.grid-3{grid-template-columns:1fr 1fr}.quick-stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:650px){.header-main{flex-wrap:wrap}.brand{width:100%}.global-search{order:3;max-width:none;width:100%}.hero-grid,.grid-2,.grid-3{grid-template-columns:1fr}.quick-stats{grid-template-columns:1fr 1fr}.wrap{padding:0 12px;margin-top:16px}.page-title{font-size:28px}.portrait-card{grid-column:auto!important}.list-columns{columns:2 150px}.data-table{font-size:13px}.data-table th,.data-table td{padding:7px 6px}.name-origin-row{grid-template-columns:1fr;gap:3px}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-main">
+    <a href="#home" class="brand">Enitoy Database <small>Viewer</small></a>
+    <div class="global-search">
+      <input id="search" type="search" placeholder="Search Enitoys, techniques, skills, items…" autocomplete="off" disabled>
+      <div id="search-results" class="search-results"></div>
+    </div>
+    <button id="load-btn" class="file-button" type="button">Load JSON</button>
+    <input id="file-input" type="file" accept=".json,application/json" hidden>
+  </div>
+  <nav class="subnav"><div class="subnav-inner">
+    <a href="#enitoys">Enitoys</a><a href="#moves">Techniques</a><a href="#types">Stitching</a><a href="#stitch-calc">Stitch Calc</a><a href="#skills">Skills</a><a href="#defects">Defects</a><a href="#items">Items</a><a href="#temperaments">Temperaments</a><a href="#locations">Encounters</a><a href="#crafts">Crafts</a>
+  </div></nav>
+</header>
+<main id="app" class="wrap"></main>
+<footer class="footer">Read-only Enitoy Database Viewer · Data stays in your browser.</footer>
+<script>
+(() => {
+'use strict';
+let db = null, loadedFileName = '', species = [], forms = [], searchable = [];
+const REMEMBERED_PROJECT_KEY = 'enitoy-database-viewer:last-project:v2';
+const REMEMBERED_DB_NAME = 'EnitoyDatabaseViewerStorage';
+const REMEMBERED_DB_STORE = 'projects';
+const REMEMBERED_DB_RECORD = 'last-project';
+const $ = s => document.querySelector(s);
+const app = $('#app'), search = $('#search'), searchResults = $('#search-results'), fileInput = $('#file-input');
+const GENDERS = ['Genderless','Male 8/8','Male 7/8','Male 6/8','Male 5/8','Male 4/8','Male 3/8','Male 2/8','Male 1/8','Female 8/8'];
+const STAT_NAMES = ['HP','ATK','DEF','SP. ATK','SP. DEF','SPD'];
+const esc = v => String(v ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const clone = v => v == null ? v : JSON.parse(JSON.stringify(v));
+const slug = v => encodeURIComponent(String(v ?? ''));
+const routeLink = (route, label) => `<a href="#${route}">${esc(label)}</a>`;
+function color(name){ return (db && db.colors && db.colors[name]) || '#9098a0'; }
+function readable(hex){ const h=String(hex||'').replace('#',''); if(!/^[0-9a-f]{6}$/i.test(h)) return '#fff'; const r=parseInt(h.slice(0,2),16),g=parseInt(h.slice(2,4),16),b=parseInt(h.slice(4,6),16); return ((r*299+g*587+b*114)/1000)>170?'#111':'#fff'; }
+function pill(name, mini=false){ if(!name) return ''; const bg=color(name); return `<a class="${mini?'mini-pill':'pill'}" style="background:${bg};color:${readable(bg)}" href="#type/${slug(name)}">${esc(name)}</a>`; }
+function stitches(e){ const out=[]; if(e?.color1) out.push(e.color1); if(e?.color2) out.push(e.color2); if(e?.affinityCount===2 && e?.color3) out.push(e.color3); else if(e?.color3) out.push(e.color3); return [...new Set(out.filter(Boolean))]; }
+function num(n){ return '#'+String(n).padStart(3,'0'); }
+function breadcrumbs(parts){ return `<div class="breadcrumbs"><a href="#home">Home</a>${parts.map(p=>` &rsaquo; ${p.route?routeLink(p.route,p.label):esc(p.label)}`).join('')}</div>`; }
+function empty(msg){ return `<div class="card muted">${esc(msg)}</div>`; }
+function lookup(arr,name){ const low=String(name||'').toLowerCase(); return (arr||[]).find(x=>String(x.name||'').toLowerCase()===low); }
+function speciesBy(gen,name){ return species.find(x=>x.generation===gen && x.entry.name===name) || species.find(x=>x.entry.name===name); }
+function allTypes(){ return [...(db?.materials||[]),...(db?.affinities||[])]; }
+function moveNo(name){ const i=(db?.moves||[]).findIndex(m=>m.name===name); return i>=0?i+1:''; }
+function fmt(v){ return (v===undefined||v===null||v==='')?'—':esc(v); }
+function yesList(arr, mapFn){ return Array.isArray(arr)&&arr.length?arr.map(mapFn).join(''):'<span class="muted">None</span>'; }
+function genderText(v){ return Number.isInteger(v)&&v>=0&&v<GENDERS.length?GENDERS[v]:(v===undefined?'—':String(v)); }
+function formatMoney(v){ return v===undefined||v===null||v==='-'?'—':Number.isFinite(Number(v))?Number(v).toLocaleString():esc(v); }
+function imageBox(e){ return e?.imageData && /^data:image\//i.test(e.imageData) ? `<img src="${e.imageData}" alt="${esc(e.name||'Enitoy')}">` : `<div class="placeholder-art">?</div>`; }
+function hasImageData(v){ return typeof v==='string' && /^data:image\//i.test(v); }
+function setupPortraitToggle(e){ const button=$('#portrait-variant-toggle'), portrait=$('.portrait-card .portrait'); if(!button||!portrait||!hasImageData(e?.misprintImageData))return; let misprint=false; const draw=()=>{const src=misprint?e.misprintImageData:e.imageData; portrait.innerHTML=''; if(hasImageData(src)){const img=document.createElement('img');img.src=src;img.alt=`${e.name||'Enitoy'}${misprint?' Misprint':''}`;portrait.appendChild(img);}else{const p=document.createElement('div');p.className='placeholder-art';p.textContent='?';portrait.appendChild(p);} button.textContent=misprint?'View Default':'View Misprint'; button.setAttribute('aria-pressed',misprint?'true':'false'); button.title=misprint?'Show the default artwork':'Show the Misprint artwork';}; button.addEventListener('click',()=>{misprint=!misprint;draw();}); draw(); }
+function statRows(stats){ if(!Array.isArray(stats)||stats.length!==6) return '<div class="muted">No base stats recorded.</div>'; const total=stats.reduce((a,b)=>a+(Number(b)||0),0); return stats.map((v,i)=>`<div class="stat-row"><div class="stat-label">${STAT_NAMES[i]}</div><div class="stat-num">${v}</div><div class="stat-track"><div class="stat-fill" style="width:${Math.min(100,(Number(v)||0)/255*100)}%"></div></div></div>`).join('')+`<div class="stat-total"><span>BST</span><span>${total}</span></div>`; }
+function effectiveForm(form){ const base=speciesBy(form.generation,form.enitoy); if(!base) return null; const e=clone(base.entry); const ov=form.overrides||{}; Object.keys(ov).forEach(k=>{
+    if(/^stat[0-5]$/.test(k)){ e.stats=Array.isArray(e.stats)?e.stats.slice():[0,0,0,0,0,0]; e.stats[Number(k.slice(4))]=ov[k]; }
+    else if(k==='image' && ov[k] && typeof ov[k]==='object'){ if(ov[k].imageData)e.imageData=ov[k].imageData; if(ov[k].imageName)e.imageName=ov[k].imageName; }
+    else if(k==='misprintImage'){ if(ov[k] && typeof ov[k]==='object' && ov[k].imageData){e.misprintImageData=ov[k].imageData;if(ov[k].imageName)e.misprintImageName=ov[k].imageName;else delete e.misprintImageName;}else{delete e.misprintImageData;delete e.misprintImageName;} }
+    else e[k]=clone(ov[k]);
+  });
+  if(Array.isArray(form.levelUpTechniques)) e.levelUpTechniques=clone(form.levelUpTechniques);
+  if(Array.isArray(form.scrollLearnedTechniques)) e.scrollLearnedTechniques=clone(form.scrollLearnedTechniques);
+  e.name=`${form.formName} ${base.entry.name}`; return e;
+}
+function rebuild(){ species=[]; forms=[]; searchable=[]; let offset=0;
+  (db.regionalGenerations||[]).forEach((g,gi)=>{ (g.enitoys||[]).forEach((e,i)=>{ if(e && e.kind==='concept' && e.name){ const rec={entry:e,generation:g.name,generationIndex:gi,slot:i+1,number:offset+i+1}; species.push(rec); searchable.push({label:e.name,kind:'Enitoy',route:`enitoy/${slug(g.name)}/${slug(e.name)}`}); }}); offset+=(g.enitoys||[]).length; });
+  (db.forms||[]).forEach((f,i)=>{ const base=speciesBy(f.generation,f.enitoy); const e=effectiveForm(f); if(base&&e){ const rec={form:f,entry:e,base,formIndex:i}; forms.push(rec); searchable.push({label:e.name,kind:'Form',route:`form/${slug(f.generation)}/${slug(f.enitoy)}/${slug(f.formName)}`}); }});
+  (db.moves||[]).forEach(m=>searchable.push({label:m.name,kind:'Technique',route:`move/${slug(m.name)}`}));
+  (db.skills||[]).forEach(x=>searchable.push({label:x.name,kind:'Skill',route:`skills/${slug(x.name)}`}));
+  (db.defects||[]).forEach(x=>searchable.push({label:x.name,kind:'Defect',route:`defects/${slug(x.name)}`}));
+  (db.items||[]).forEach(x=>searchable.push({label:x.name,kind:'Item',route:`items/${slug(x.name)}`}));
+  (db.encounters||[]).forEach(g=>(g.locations||[]).forEach(l=>searchable.push({label:l.name,kind:'Location',route:`location/${slug(g.generation)}/${slug(l.name)}`})));
+  search.disabled=false;
+}
+function openRememberedDb(){
+  return new Promise((resolve,reject)=>{
+    if(!('indexedDB' in window)) return reject(new Error('IndexedDB is unavailable.'));
+    let req;
+    try{ req=indexedDB.open(REMEMBERED_DB_NAME,1); }catch(err){ reject(err); return; }
+    req.onupgradeneeded=()=>{
+      const idb=req.result;
+      if(!idb.objectStoreNames.contains(REMEMBERED_DB_STORE)) idb.createObjectStore(REMEMBERED_DB_STORE);
+    };
+    req.onsuccess=()=>resolve(req.result);
+    req.onerror=()=>reject(req.error||new Error('Could not open remembered-project database.'));
+  });
+}
+async function idbSetRemembered(saved){
+  const idb=await openRememberedDb();
+  try{
+    await new Promise((resolve,reject)=>{
+      const tx=idb.transaction(REMEMBERED_DB_STORE,'readwrite');
+      tx.objectStore(REMEMBERED_DB_STORE).put(saved,REMEMBERED_DB_RECORD);
+      tx.oncomplete=()=>resolve();
+      tx.onerror=()=>reject(tx.error||new Error('Could not save remembered project.'));
+      tx.onabort=()=>reject(tx.error||new Error('Remembered-project save was aborted.'));
+    });
+  } finally { idb.close(); }
+}
+async function idbGetRemembered(){
+  const idb=await openRememberedDb();
+  try{
+    return await new Promise((resolve,reject)=>{
+      const tx=idb.transaction(REMEMBERED_DB_STORE,'readonly');
+      const req=tx.objectStore(REMEMBERED_DB_STORE).get(REMEMBERED_DB_RECORD);
+      req.onsuccess=()=>resolve(req.result||null);
+      req.onerror=()=>reject(req.error||new Error('Could not read remembered project.'));
+    });
+  } finally { idb.close(); }
+}
+async function rememberProject(obj,name){
+  const saved={name:name||'Project JSON',data:obj,savedAt:Date.now()};
+  let stored=false;
+  try{ await idbSetRemembered(saved); stored=true; }catch(err){ console.warn('IndexedDB could not remember the Enitoy project.',err); }
+  try{ localStorage.setItem(REMEMBERED_PROJECT_KEY,JSON.stringify(saved)); stored=true; }catch(err){ console.warn('localStorage could not remember the Enitoy project.',err); }
+  return stored;
+}
+async function restoreRememberedProject(){
+  let saved=null;
+  try{ saved=await idbGetRemembered(); }catch(err){ console.warn('IndexedDB restore was unavailable.',err); }
+  if(!saved){
+    let raw=null;
+    try{ raw=localStorage.getItem(REMEMBERED_PROJECT_KEY); }catch(err){ raw=null; }
+    if(raw){ try{ saved=JSON.parse(raw); }catch(err){ try{ localStorage.removeItem(REMEMBERED_PROJECT_KEY); }catch(_){} } }
+  }
+  if(!saved) return false;
+  try{
+    const obj=saved && saved.data ? saved.data : saved;
+    const name=(saved && saved.name)||'Remembered Project JSON';
+    loadObject(obj,name,{remember:false,resetRoute:false});
+    return true;
+  }catch(err){
+    console.warn('The remembered Enitoy project could not be restored.',err);
+    return false;
+  }
+}
+function loadObject(obj,name,options={}){ if(!obj || typeof obj!=='object' || !Array.isArray(obj.regionalGenerations)) throw new Error('This does not look like an Enitoy Database Editor project JSON.'); const remember=options.remember!==false, resetRoute=options.resetRoute!==false; db=obj; loadedFileName=name||'Project JSON'; if(remember)void rememberProject(obj,loadedFileName); rebuild(); search.value=''; searchResults.classList.remove('show'); if(resetRoute)location.hash='#home'; render(); }
+function readFile(file){ const r=new FileReader(); r.onload=()=>{ try{ loadObject(JSON.parse(r.result),file.name,{remember:true,resetRoute:true}); }catch(err){ showLoadError(err.message); } }; r.onerror=()=>showLoadError('The file could not be read.'); r.readAsText(file); }
+function showLoadError(msg){ app.innerHTML=`<div class="notice error"><b>Could not load JSON.</b><br>${esc(msg)}</div>`; }
+$('#load-btn').addEventListener('click',()=>fileInput.click());
+fileInput.addEventListener('change',()=>{ if(fileInput.files?.[0]) readFile(fileInput.files[0]); fileInput.value=''; });
+document.addEventListener('dragover',e=>{e.preventDefault(); const d=$('.dropzone'); if(d)d.classList.add('drag');});
+document.addEventListener('dragleave',()=>{const d=$('.dropzone'); if(d)d.classList.remove('drag');});
+document.addEventListener('drop',e=>{e.preventDefault(); const d=$('.dropzone'); if(d)d.classList.remove('drag'); const f=[...(e.dataTransfer?.files||[])].find(x=>x.name.toLowerCase().endsWith('.json')); if(f)readFile(f);});
+search.addEventListener('input',()=>{ const q=search.value.trim().toLowerCase(); if(!q){searchResults.classList.remove('show');return;} const hits=searchable.filter(x=>x.label.toLowerCase().includes(q)).sort((a,b)=>{const aa=a.label.toLowerCase().startsWith(q)?0:1,bb=b.label.toLowerCase().startsWith(q)?0:1;return aa-bb||a.label.localeCompare(b.label);}).slice(0,14); searchResults.innerHTML=hits.length?hits.map(h=>`<div class="search-hit" data-route="${esc(h.route)}"><span>${esc(h.label)}</span><small>${esc(h.kind)}</small></div>`).join(''):'<div class="search-hit"><span>No matches</span></div>'; searchResults.classList.add('show'); });
+searchResults.addEventListener('click',e=>{ const hit=e.target.closest('[data-route]'); if(hit){location.hash='#'+hit.dataset.route; searchResults.classList.remove('show'); search.blur();} });
+document.addEventListener('click',e=>{if(!e.target.closest('.global-search'))searchResults.classList.remove('show');});
+window.addEventListener('hashchange',render);
+function render(){ if(!db){ renderLoader(); return; } const raw=(location.hash||'#home').slice(1); const p=raw.split('/').map(decodeURIComponent); window.scrollTo(0,0); switch(p[0]){
+  case '': case 'home': return renderHome(); case 'enitoys':return renderCatalog(); case 'enitoy':return renderSpecies(p[1],p[2]); case 'form':return renderForm(p[1],p[2],p[3]); case 'moves':return renderMoves(); case 'move':return renderMove(p[1]); case 'types':return renderTypes(); case 'type':return renderType(p[1]); case 'stitch-calc':return renderStitchCalc(); case 'skills':return p[1]?renderNamedListDetail('Skill',db.skills,p[1],'skills'):renderNamedList('Skills',db.skills,'skills'); case 'defects':return p[1]?renderNamedListDetail('Defect',db.defects,p[1],'defects'):renderNamedList('Defects',db.defects,'defects'); case 'items':return p[1]?renderItem(p[1]):renderItems(); case 'temperaments':return renderTemperaments(); case 'locations':return renderLocations(); case 'location':return renderLocation(p[1],p[2]); case 'crafts':return renderCrafts(); default:return renderHome(); } }
+function renderLoader(){ app.innerHTML=`<div id="dropzone" class="dropzone"><h1>Enitoy Database Viewer</h1><p class="muted">Choose your Enitoy Database Editor JSON once. This viewer stores a private local copy using browser database storage (with a second fallback) and automatically restores it when reopened.</p><p><button class="primary" type="button" id="open-json">Choose JSON file</button></p><div class="tiny muted">You can also drag and drop the JSON anywhere on this page. Loading a different JSON replaces the remembered project. Nothing is uploaded or edited.</div></div>`; $('#open-json').onclick=()=>fileInput.click(); }
+function renderHome(){ const gens=db.regionalGenerations||[]; app.innerHTML=`${breadcrumbs([])}<h1 class="page-title">Enitoy Database</h1><p class="subtitle">Read-only encyclopedia generated from <b>${esc(loadedFileName)}</b> · Project version ${fmt(db.version)}</p>
+<div class="quick-stats"><div class="quick-stat"><b>${species.length}</b><span>Enitoys entered</span></div><div class="quick-stat"><b>${forms.length}</b><span>Forms</span></div><div class="quick-stat"><b>${(db.moves||[]).length}</b><span>Techniques</span></div><div class="quick-stat"><b>${(db.skills||[]).length}</b><span>Skills</span></div><div class="quick-stat"><b>${(db.items||[]).length}</b><span>Items</span></div></div>
+<div class="section grid-2"><div class="card"><h2>Browse the Catalog</h2><p>View every entered Enitoy with its image, Stitching, base stats, Skills, Defect, modifications, movepool, encounters, forms, and other recorded data.</p><p><a class="primary" style="display:inline-block;color:#fff;text-decoration:none" href="#enitoys">Open Enitoy Catalog</a></p></div><div class="card"><h2>Stitching</h2><div class="stitches">${allTypes().map(t=>pill(t)).join('')}</div></div></div>
+<div class="section"><div class="section-head"><h2 class="section-title">Generations</h2></div><div class="grid-3">${gens.map((g,gi)=>{const list=species.filter(s=>s.generationIndex===gi); const start=(gens.slice(0,gi).reduce((n,x)=>n+(x.enitoys||[]).length,0))+1,end=start+(g.enitoys||[]).length-1;return `<div class="card"><h3>${esc(g.name)}</h3><p class="muted">Catalog ${num(start)}–${num(end)} · ${list.length} entered</p><div class="inline-links">${list.slice(0,10).map(s=>routeLink(`enitoy/${slug(s.generation)}/${slug(s.entry.name)}`,s.entry.name)).join('')}${list.length>10?' …':''}</div></div>`}).join('')}</div></div>
+<div class="section notice">This viewer is read-only. Search, filters, and navigation never change the project JSON. The most recently loaded JSON is stored in this browser using persistent local database storage and reopened automatically on startup.</div>`; }
+function renderCatalog(){ app.innerHTML=`${breadcrumbs([{label:'Enitoys'}])}<h1 class="page-title">Enitoy Catalog</h1><p class="subtitle">${species.length} entered Enitoys across ${(db.regionalGenerations||[]).length} generation${(db.regionalGenerations||[]).length===1?'':'s'}.</p>${(db.regionalGenerations||[]).map((g,gi)=>{const list=species.filter(s=>s.generationIndex===gi);return `<section class="section"><h2 class="section-title">${esc(g.name)}</h2>${list.length?`<div class="catalog-grid">${list.map(catalogCard).join('')}</div>`:empty('No Enitoys entered in this generation.')}</section>`}).join('')}`; }
+function catalogCard(s){ const e=s.entry; return `<a class="catalog-card" href="#enitoy/${slug(s.generation)}/${slug(e.name)}"><div class="catalog-thumb">${e.imageData?`<img src="${e.imageData}" alt="">`:'?'}</div><div><div class="catalog-no">${num(s.number)}</div><div class="catalog-name">${esc(e.name)}</div><div class="catalog-types">${stitches(e).map(t=>{const bg=color(t);return `<span class="mini-pill" style="background:${bg};color:${readable(bg)}">${esc(t)}</span>`}).join('')}</div></div></a>`; }
+function renderSpecies(gen,name){ const rec=speciesBy(gen,name); if(!rec){app.innerHTML=empty('Enitoy not found.');return;} renderSpeciesPage(rec.entry,rec,{baseRec:rec}); }
+function renderForm(gen,baseName,formName){ const rec=forms.find(x=>x.form.generation===gen&&x.form.enitoy===baseName&&x.form.formName===formName); if(!rec){app.innerHTML=empty('Form not found.');return;} renderSpeciesPage(rec.entry,rec.base,{formRec:rec,baseRec:rec.base}); }
+
+function renderSpeciesPager(base){ const i=species.findIndex(s=>s===base || (s.generation===base.generation&&s.entry.name===base.entry.name)); const prev=i>0?species[i-1]:null, next=i>=0&&i<species.length-1?species[i+1]:null; const link=(rec,side)=>{ if(!rec)return `<span class="species-pager-disabled species-pager-${side}" aria-hidden="true"><span class="species-pager-arrow">${side==='prev'?'←':'→'}</span></span>`; const route=`enitoy/${slug(rec.generation)}/${slug(rec.entry.name)}`; const arrow=`<span class="species-pager-arrow">${side==='prev'?'←':'→'}</span>`; const label=`<span class="species-pager-label">${num(rec.number)} ${esc(rec.entry.name)}</span>`; return `<a class="species-pager-link species-pager-${side}" href="#${route}" title="${side==='prev'?'Previous':'Next'} Enitoy: ${esc(rec.entry.name)}">${side==='prev'?arrow+label:label+arrow}</a>`; }; return `<nav class="species-pager" aria-label="Enitoy catalog navigation">${link(prev,'prev')}<div class="species-pager-center">Catalog navigation</div>${link(next,'next')}</nav>`; }
+function renderSpeciesPage(e,numberRec,ctx){ const base=ctx.baseRec; const formRec=ctx.formRec; const baseForms=forms.filter(f=>f.base.entry.name===base.entry.name&&f.base.generation===base.generation); const allTabs=[{label:base.entry.name,route:`enitoy/${slug(base.generation)}/${slug(base.entry.name)}`,active:!formRec},...baseForms.map(f=>({label:f.entry.name,route:`form/${slug(f.form.generation)}/${slug(f.form.enitoy)}/${slug(f.form.formName)}`,active:formRec===f}))]; const skill=lookup(db.skills,e.skill), hidden=lookup(db.skills,e.hiddenSkill), defect=lookup(db.defects,e.misprintDefect); const enc=findEncounters(base.entry.name);
+app.innerHTML=`${breadcrumbs([{label:'Enitoys',route:'enitoys'},{label:e.name}])}${renderSpeciesPager(base)}<div class="form-tabs">${allTabs.map(t=>`<a class="${t.active?'active':''}" href="#${t.route}">${esc(t.label)}</a>`).join('')}</div><h1 class="page-title">${formRec?`${num(base.number)}·F${baseForms.indexOf(formRec)+1}`:num(base.number)} ${esc(e.name)}</h1><p class="subtitle">${e.classification?`${esc(e.classification)} Enitoy`:'Enitoy'} · ${esc(base.generation)}</p>
+<div class="hero-grid"><div class="card portrait-card"><div class="portrait">${imageBox(e)}</div>${hasImageData(e.misprintImageData)?'<div class="portrait-toggle"><button id="portrait-variant-toggle" type="button" aria-pressed="false">View Misprint</button></div>':''}<div class="stitches" style="margin-top:14px;justify-content:center">${stitches(e).map(t=>pill(t)).join('')}</div></div>
+<div class="card"><h2>Profile</h2><table class="key-table"><tr><th>Catalog</th><td>${num(base.number)}${formRec?` · Form ${baseForms.indexOf(formRec)+1}`:''}</td></tr><tr><th>Classification</th><td>${fmt(e.classification)}</td></tr><tr><th>Height</th><td>${fmt(e.height)}</td></tr><tr><th>Weight</th><td>${fmt(e.weight)}</td></tr><tr><th>Gender</th><td>${esc(genderText(e.genderRatio))}</td></tr><tr><th>Internal color</th><td>${fmt(e.internalColor)}</td></tr><tr><th>Recruitment rate</th><td>${fmt(e.recruitmentRate)}</td></tr><tr><th>Base EXP</th><td>${fmt(e.baseExp)}</td></tr><tr><th>Growth</th><td>${fmt(e.growthRate)}</td></tr></table></div>
+<div class="card"><h2>Base stats</h2>${statRows(e.stats)}</div></div>
+${e.info?`<section class="section card"><h2>Catalog entry</h2><p class="flavor">${esc(e.info)}</p></section>`:''}
+${renderNameOrigins(e)}
+<section class="section grid-3"><div class="card"><h2>Skills</h2><table class="key-table"><tr><th>Skill</th><td>${e.skill?routeLink(`skills/${slug(e.skill)}`,e.skill):'—'}${skill?`<div class="tiny muted">${esc(skill.effect)}</div>`:''}</td></tr><tr><th>Hidden Skill</th><td>${e.hiddenSkill?routeLink(`skills/${slug(e.hiddenSkill)}`,e.hiddenSkill):'—'}${hidden?`<div class="tiny muted">${esc(hidden.effect)}</div>`:''}</td></tr></table></div><div class="card"><h2>Misprint Defect</h2>${e.misprintDefect?`<b>${routeLink(`defects/${slug(e.misprintDefect)}`,e.misprintDefect)}</b>${defect?`<p class="tiny muted">${esc(defect.effect)}</p>`:''}`:'<span class="muted">None recorded.</span>'}</div><div class="card"><h2>Drops</h2>${renderDrops(e.drops)}</div></section>
+${renderModifications(base,e,formRec)}${renderTechniques(e)}${renderAssistCalls(e)}${enc.length?renderEncounterSection(enc):''}${renderTemperamentLocks(e)}${baseForms.length&&!formRec?`<section class="section"><h2 class="section-title">Forms</h2><div class="catalog-grid">${baseForms.map(f=>`<a class="catalog-card" href="#form/${slug(f.form.generation)}/${slug(f.form.enitoy)}/${slug(f.form.formName)}"><div class="catalog-thumb">${f.entry.imageData?`<img src="${f.entry.imageData}" alt="">`:'?'}</div><div><div class="catalog-no">${num(base.number)}·F${baseForms.indexOf(f)+1}</div><div class="catalog-name">${esc(f.entry.name)}</div><div class="catalog-types">${stitches(f.entry).map(t=>{const bg=color(t);return `<span class="mini-pill" style="background:${bg};color:${readable(bg)}">${esc(t)}</span>`}).join('')}</div></div></a>`).join('')}</div></section>`:''}`; setupPortraitToggle(e); }
+function renderDrops(drops){ if(!Array.isArray(drops)||!drops.length)return '<span class="muted">None</span>'; return `<div class="inline-links">${drops.map(d=>{const name=typeof d==='string'?d:(d.item||d.name||''); const qty=typeof d==='object'&&(d.quantity||d.qty); return name?`<span class="chip-link">${routeLink(`items/${slug(name)}`,name)}${qty?` ×${esc(qty)}`:''}</span>`:''}).join('')}</div>`; }
+function renderNameOrigins(e){ const origins=Array.isArray(e?.nameOrigins)?e.nameOrigins.filter(o=>o&&typeof o==='object'&&String(o.part||'').trim()&&String(o.word||'').trim()&&String(o.description||'').trim()):[]; if(!origins.length)return ''; return `<section class="section"><h2 class="section-title">Name origin</h2><div class="card name-origin-list">${origins.map(o=>{const part=String(o.part).trim(),word=String(o.word).trim(),description=String(o.description).trim();const ending=/[.!?]$/.test(description)?description:description+'.';return `<div class="name-origin-row"><div class="name-origin-part">${esc(part)}</div><div class="name-origin-source">Comes from <b>${esc(word)}</b>, meaning ${esc(ending)}</div></div>`}).join('')}</div></section>`; }
+function modMethod(m){ const p=(m.parameter===undefined||m.parameter===null||m.parameter==='')?'':` · ${typeof m.parameter==='object'?esc(JSON.stringify(m.parameter)):esc(m.parameter)}`; return `${esc(m.method||'Modify')}${p}`; }
+function modSpriteNode(s){ if(!s||!s.entry)return `<div class="mod-node"><div class="mod-sprite-placeholder">?</div><span class="mod-name">Unknown Enitoy</span></div>`; const href=`#enitoy/${slug(s.generation)}/${slug(s.entry.name)}`; const img=s.entry.imageData&&/^data:image\//i.test(s.entry.imageData)?`<img src="${s.entry.imageData}" alt="${esc(s.entry.name)}" title="${esc(s.entry.name)}">`:`<div class="mod-sprite-placeholder" title="${esc(s.entry.name)}">?</div>`; return `<div class="mod-node"><a class="mod-sprite" href="${href}" aria-label="${esc(s.entry.name)}">${img}</a><a class="mod-name" href="${href}">${esc(s.entry.name)}</a></div>`; }
+function renderModifications(base,e,formRec){ if(formRec)return ''; const out=(e.modifications||[]).slice().sort((a,b)=>{ const ta=speciesBy(a.targetGeneration,a.target), tb=speciesBy(b.targetGeneration,b.target); const na=ta?.number??Number.MAX_SAFE_INTEGER, nb=tb?.number??Number.MAX_SAFE_INTEGER; return na-nb || String(a.target||'').localeCompare(String(b.target||'')); }); if(!out.length)return ''; return `<section class="section"><h2 class="section-title">Modification</h2><div class="card">${out.map(m=>{const target=speciesBy(m.targetGeneration,m.target);return `<div class="mod-chain">${modSpriteNode(base)}<span class="arrow">→</span><div class="tiny muted">${modMethod(m)}</div><span class="arrow">→</span>${modSpriteNode(target)}</div>`}).join('<hr style="border:0;border-top:1px solid #e6eaee;margin:12px 0">')}</div></section>`; }
+function renderTechniques(e){ const level=Array.isArray(e.levelUpTechniques)?e.levelUpTechniques:[]; const scroll=Array.isArray(e.scrollLearnedTechniques)?e.scrollLearnedTechniques:[]; if(!level.length&&!scroll.length)return `<section class="section"><h2 class="section-title">Techniques</h2>${empty('No level-up or Scroll techniques are recorded for this Enitoy.')}</section>`; return `<section class="section"><h2 class="section-title">Techniques</h2><div class="grid-2"><div class="card"><h3>Level Up Techniques</h3>${level.length?`<table class="data-table"><thead><tr><th>Lv.</th><th>Technique</th><th>Stitching</th></tr></thead><tbody>${level.slice().sort((a,b)=>(a.level??999)-(b.level??999)||moveNo(a.name)-moveNo(b.name)).map(x=>{const m=lookup(db.moves,x.name);return `<tr><td>${Number(x.level)===0?'<span class="badge">Mod Move</span>':esc(x.level)}</td><td>${routeLink(`move/${slug(x.name)}`,x.name)}</td><td>${m?pill(m.stitching,true):'—'}</td></tr>`}).join('')}</tbody></table>`:'<span class="muted">None recorded.</span>'}</div><div class="card"><h3>Scroll Learned Techniques</h3>${scroll.length?`<table class="data-table"><thead><tr><th>#</th><th>Technique</th><th>Stitching</th></tr></thead><tbody>${scroll.map(n=>{const name=typeof n==='string'?n:n.name; const m=lookup(db.moves,name);return `<tr><td>${moveNo(name)||'—'}</td><td>${routeLink(`move/${slug(name)}`,name)}</td><td>${m?pill(m.stitching,true):'—'}</td></tr>`}).join('')}</tbody></table>`:'<span class="muted">None recorded.</span>'}</div></div></section>`; }
+function renderAssistCalls(e){ const a=e.assistCalls||[]; if(!a.length)return ''; return `<section class="section"><h2 class="section-title">Assist Calls</h2><div class="card"><table class="data-table"><thead><tr><th>Enitoy</th><th>Day</th><th>Night</th></tr></thead><tbody>${a.map(x=>{const t=speciesBy(x.targetGeneration,x.target);return `<tr><td>${t?routeLink(`enitoy/${slug(t.generation)}/${slug(t.entry.name)}`,t.entry.name):esc(x.target)}</td><td>${esc(x.day??0)}%</td><td>${esc(x.night??0)}%</td></tr>`}).join('')}</tbody></table></div></section>`; }
+function renderTemperamentLocks(e){ const a=e.temperamentLock||[]; if(!a.length)return ''; return `<section class="section"><h2 class="section-title">Temperament restrictions</h2><div class="card"><div class="inline-links">${a.map(x=>`<span class="chip-link">${esc(x)}</span>`).join('')}</div></div></section>`; }
+function findEncounters(name){ const out=[]; (db.encounters||[]).forEach(g=>(g.locations||[]).forEach(l=>(l.methods||[]).forEach(m=>{ if(m.gift?.enitoy===name)out.push({generation:g.generation,location:l.name,method:m.name,time:'Gift',level:m.gift.level,percent:'—'}); Object.keys(m).forEach(k=>{const pool=m[k]; if(pool&&typeof pool==='object'&&!Array.isArray(pool)){ ['day','night'].forEach(time=>{(pool[time]||[]).forEach(x=>{if(x.enitoy===name)out.push({generation:g.generation,location:l.name,method:m.name,time:time[0].toUpperCase()+time.slice(1),level:x.minLevel===x.maxLevel?x.minLevel:`${x.minLevel}–${x.maxLevel}`,percent:x.percent});});}); } }); }))); return out; }
+function renderEncounterSection(enc){ return `<section class="section"><h2 class="section-title">Where to find</h2><div class="card"><table class="data-table"><thead><tr><th>Location</th><th>Method</th><th>Time</th><th>Level</th><th>Chance</th></tr></thead><tbody>${enc.map(x=>`<tr><td>${routeLink(`location/${slug(x.generation)}/${slug(x.location)}`,x.location)}</td><td>${esc(x.method)}</td><td>${esc(x.time)}</td><td>${esc(x.level)}</td><td>${x.percent==='—'?'—':esc(x.percent)+'%'}</td></tr>`).join('')}</tbody></table></div></section>`; }
+function renderMoves(){ const moves=db.moves||[]; app.innerHTML=`${breadcrumbs([{label:'Techniques'}])}<h1 class="page-title">Techniques</h1><p class="subtitle">${moves.length} techniques in this project.</p><div class="card"><div class="chart-wrap"><table class="data-table"><thead><tr><th>#</th><th>Name</th><th>Stitching</th><th>Category</th><th>Power</th><th>Accuracy</th><th>Uses</th><th>Priority</th><th>Effect</th></tr></thead><tbody>${moves.map((m,i)=>`<tr><td>${i+1}</td><td>${routeLink(`move/${slug(m.name)}`,m.name)}</td><td>${pill(m.stitching,true)}</td><td>${fmt(m.category)}</td><td>${fmt(m.power)}</td><td>${fmt(m.accuracy)}</td><td>${fmt(m.uses)}</td><td>${fmt(m.priority)}</td><td>${fmt(m.effect)}</td></tr>`).join('')}</tbody></table></div></div>`; }
+function renderMove(name){ const m=lookup(db.moves,name); if(!m){app.innerHTML=empty('Technique not found.');return;} const learners=[]; const add=(label,route,method)=>learners.push({label,route,method}); species.forEach(s=>{const e=s.entry; (e.levelUpTechniques||[]).forEach(x=>{if(x.name===m.name)add(e.name,`enitoy/${slug(s.generation)}/${slug(e.name)}`,Number(x.level)===0?'Mod Move':`Lv. ${x.level}`)}); (e.scrollLearnedTechniques||[]).forEach(x=>{const n=typeof x==='string'?x:x.name;if(n===m.name)add(e.name,`enitoy/${slug(s.generation)}/${slug(e.name)}`,'Scroll')}); }); forms.forEach(f=>{const e=f.entry;(e.levelUpTechniques||[]).forEach(x=>{if(x.name===m.name)add(e.name,`form/${slug(f.form.generation)}/${slug(f.form.enitoy)}/${slug(f.form.formName)}`,Number(x.level)===0?'Mod Move':`Lv. ${x.level}`)});(e.scrollLearnedTechniques||[]).forEach(x=>{const n=typeof x==='string'?x:x.name;if(n===m.name)add(e.name,`form/${slug(f.form.generation)}/${slug(f.form.enitoy)}/${slug(f.form.formName)}`,'Scroll')})}); app.innerHTML=`${breadcrumbs([{label:'Techniques',route:'moves'},{label:m.name}])}<h1 class="page-title">${esc(m.name)}</h1><div class="stitches" style="margin-bottom:18px">${pill(m.stitching)}</div><div class="grid-2"><div class="card"><h2>Technique data</h2><table class="key-table"><tr><th>Category</th><td>${fmt(m.category)}</td></tr><tr><th>Power</th><td>${fmt(m.power)}</td></tr><tr><th>Accuracy</th><td>${fmt(m.accuracy)}</td></tr><tr><th>Uses</th><td>${fmt(m.uses)}</td></tr><tr><th>Priority</th><td>${fmt(m.priority)}</td></tr><tr><th>Effect chance</th><td>${m.effectChance===undefined?'—':esc(m.effectChance)+'%'}</td></tr></table></div><div class="card"><h2>Effect</h2><p>${fmt(m.effect)}</p>${m.description&&m.description!=='--'?`<p class="muted">${esc(m.description)}</p>`:''}</div></div><section class="section"><h2 class="section-title">Learned by</h2>${learners.length?`<div class="card"><table class="data-table"><thead><tr><th>Enitoy</th><th>Method</th></tr></thead><tbody>${learners.map(x=>`<tr><td>${routeLink(x.route,x.label)}</td><td>${esc(x.method)}</td></tr>`).join('')}</tbody></table></div>`:empty('No learner data is present in this export.')}</section>`; }
+function renderTypes(){ const names=allTypes(); app.innerHTML=`${breadcrumbs([{label:'Stitching'}])}<h1 class="page-title">Stitching</h1><p class="subtitle">${(db.materials||[]).length} Materials and ${(db.affinities||[]).length} Affinities.</p><div class="grid-2"><div class="card"><h2>Materials</h2><div class="stitches">${(db.materials||[]).map(t=>pill(t)).join('')}</div></div><div class="card"><h2>Affinities</h2><div class="stitches">${(db.affinities||[]).map(t=>pill(t)).join('')}</div></div></div><section class="section"><h2 class="section-title">Matchup chart</h2><div class="chart-wrap">${renderTypeChart(names)}</div><p class="tiny muted">Rows are attacking Stitching; columns are defending Stitching. Blank = 1×.</p></section>`; }
+function renderTypeChart(names){ const mat=db.matrix||[]; return `<table class="type-chart"><thead><tr><th>ATK ↓ / DEF →</th>${names.map(n=>`<th>${esc(n.slice(0,3).toUpperCase())}</th>`).join('')}</tr></thead><tbody>${names.map((r,ri)=>`<tr><th>${pill(r,true)}</th>${names.map((c,ci)=>{const v=mat?.[ri]?.[ci]??2;return `<td class="fx${v===0?'0':v===1?'50':v===3?'200':'100'}">${v===0?'0×':v===1?'½×':v===3?'2×':''}</td>`}).join('')}</tr>`).join('')}</tbody></table>`; }
+function renderType(name){
+  const names=allTypes(), idx=names.indexOf(name);
+  if(idx<0){app.innerHTML=empty('Stitching not found.');return;}
+  const row=db.matrix?.[idx]||[];
+  const offense={strong:[],resist:[],immune:[]};
+  row.forEach((v,i)=>{if(v===3)offense.strong.push(names[i]);else if(v===1)offense.resist.push(names[i]);else if(v===0)offense.immune.push(names[i]);});
+  const defense={weak:[],resist:[],immune:[]};
+  names.forEach((attackName,attackIdx)=>{const v=db.matrix?.[attackIdx]?.[idx]??2;if(v===3)defense.weak.push(attackName);else if(v===1)defense.resist.push(attackName);else if(v===0)defense.immune.push(attackName);});
+  const users=species.filter(s=>stitches(s.entry).includes(name));
+  app.innerHTML=`${breadcrumbs([{label:'Stitching',route:'types'},{label:name}])}<h1 class="page-title">${esc(name)}</h1><div class="stitches" style="margin-bottom:18px">${pill(name)}</div>
+  <section class="section"><h2 class="section-title">Offensive matchups</h2><div class="grid-3"><div class="card"><h3>Deals 2× to</h3><div class="stitches">${offense.strong.length?offense.strong.map(t=>pill(t,true)).join(''):'<span class="muted">None</span>'}</div></div><div class="card"><h3>Deals ½× to</h3><div class="stitches">${offense.resist.length?offense.resist.map(t=>pill(t,true)).join(''):'<span class="muted">None</span>'}</div></div><div class="card"><h3>Deals 0× to</h3><div class="stitches">${offense.immune.length?offense.immune.map(t=>pill(t,true)).join(''):'<span class="muted">None</span>'}</div></div></div></section>
+  <section class="section"><h2 class="section-title">Defensive matchups</h2><div class="grid-3"><div class="card"><h3>Weak to · takes 2×</h3><div class="stitches">${defense.weak.length?defense.weak.map(t=>pill(t,true)).join(''):'<span class="muted">None</span>'}</div></div><div class="card"><h3>Resists · takes ½×</h3><div class="stitches">${defense.resist.length?defense.resist.map(t=>pill(t,true)).join(''):'<span class="muted">None</span>'}</div></div><div class="card"><h3>Immune to · takes 0×</h3><div class="stitches">${defense.immune.length?defense.immune.map(t=>pill(t,true)).join(''):'<span class="muted">None</span>'}</div></div></div></section>
+  <section class="section"><h2 class="section-title">Enitoys with ${esc(name)}</h2>${users.length?`<div class="catalog-grid">${users.map(catalogCard).join('')}</div>`:empty('No entered Enitoys currently use this Stitching.')}</section>`;
+}
+function combinedDefenseValue(attackIndex,defenseIndexes){
+  let score=0;
+  for(const defenseIndex of defenseIndexes){
+    const value=db.matrix?.[attackIndex]?.[defenseIndex]??2;
+    if(value===0)return 0;
+    if(value===1)score-=1;
+    else if(value===3)score+=1;
+  }
+  if(score<0)return 1;
+  if(score>0)return 3;
+  return 2;
+}
+function renderStitchCalc(){
+  const materials=db.materials||[], affinities=db.affinities||[], names=allTypes();
+  app.innerHTML=`${breadcrumbs([{label:'Stitch Calc'}])}<h1 class="page-title">Stitch Calc</h1><p class="subtitle">Combine one Material with one Affinity and an optional second Affinity to calculate defensive matchups.</p>
+  <div class="card"><div class="stitch-calc-selects"><div class="stitch-calc-field"><label for="calc-material">Material</label><select id="calc-material">${materials.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('')}</select></div><div class="stitch-calc-field"><label for="calc-affinity-one">Affinity</label><select id="calc-affinity-one">${affinities.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('')}</select></div><div class="stitch-calc-field"><label for="calc-affinity-two">Second Affinity (optional)</label><select id="calc-affinity-two"><option value="">None</option>${affinities.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('')}</select></div></div><p class="stitch-calc-note">Combined matchups are capped at 0×, ½×, 1×, or 2×. Weaknesses and resistances cancel each other out; immunities always remain immune.</p><div id="calc-summary" class="stitch-calc-summary"></div></div>
+  <div class="stitch-calc-results"><div class="card"><h3>Weaknesses · 2×</h3><div class="stitches" id="calc-weak"></div></div><div class="card"><h3>Resistances · ½×</h3><div class="stitches" id="calc-resist"></div></div><div class="card"><h3>Immunities · 0×</h3><div class="stitches" id="calc-immune"></div></div></div>`;
+  const material=$('#calc-material'), affinityOne=$('#calc-affinity-one'), affinityTwo=$('#calc-affinity-two');
+  const weak=$('#calc-weak'), resist=$('#calc-resist'), immune=$('#calc-immune'), summary=$('#calc-summary');
+  const renderList=(el,list)=>{el.innerHTML=list.length?list.map(t=>pill(t,true)).join(''):'<span class="muted">None</span>';};
+  const update=()=>{
+    if(affinityTwo.value===affinityOne.value)affinityTwo.value='';
+    const selected=[material.value,affinityOne.value];
+    if(affinityTwo.value)selected.push(affinityTwo.value);
+    const defenseIndexes=selected.map(x=>names.indexOf(x)).filter(i=>i>=0);
+    const w=[],r=[],im=[];
+    names.forEach((attackName,attackIndex)=>{const result=combinedDefenseValue(attackIndex,defenseIndexes);if(result===0)im.push(attackName);else if(result===1)r.push(attackName);else if(result===3)w.push(attackName);});
+    renderList(weak,w);renderList(resist,r);renderList(immune,im);
+    summary.innerHTML=`<b>Selected Stitching:</b> ${selected.map(t=>pill(t,true)).join(' ')}`;
+  };
+  material.addEventListener('change',update); affinityOne.addEventListener('change',update); affinityTwo.addEventListener('change',update); update();
+}
+function renderNamedList(title,list,route){ app.innerHTML=`${breadcrumbs([{label:title}])}<h1 class="page-title">${esc(title)}</h1><p class="subtitle">${(list||[]).length} entries.</p><div class="card"><table class="data-table"><thead><tr><th>Name</th><th>Effect</th></tr></thead><tbody>${(list||[]).map(x=>`<tr><td>${routeLink(`${route}/${slug(x.name)}`,x.name)}</td><td>${fmt(x.effect)}</td></tr>`).join('')}</tbody></table></div>`; }
+function renderNamedListDetail(kind,list,name,route){ const x=lookup(list,name); if(!x){app.innerHTML=empty(kind+' not found.');return;} const users=species.filter(s=>s.entry.skill===x.name||s.entry.hiddenSkill===x.name||s.entry.misprintDefect===x.name); app.innerHTML=`${breadcrumbs([{label:kind==='Skill'?'Skills':'Defects',route},{label:x.name}])}<h1 class="page-title">${esc(x.name)}</h1><div class="card"><h2>${esc(kind)} effect</h2><p class="flavor">${fmt(x.effect)}</p></div><section class="section"><h2 class="section-title">Used by</h2>${users.length?`<div class="catalog-grid">${users.map(catalogCard).join('')}</div>`:empty('No entered Enitoys reference this '+kind.toLowerCase()+'.')}</section>`; }
+function renderItems(){ const items=(db.items||[]).slice().sort((a,b)=>(a.pocket||0)-(b.pocket||0)||a.name.localeCompare(b.name)); app.innerHTML=`${breadcrumbs([{label:'Items'}])}<h1 class="page-title">Items</h1><p class="subtitle">${items.length} items.</p><div class="card"><table class="data-table"><thead><tr><th>Name</th><th>Pocket</th><th>Buy</th><th>Sell</th><th>Description</th></tr></thead><tbody>${items.map(x=>`<tr><td>${routeLink(`items/${slug(x.name)}`,x.name)}</td><td>${fmt(x.pocket)}</td><td>${formatMoney(x.buyPrice)}</td><td>${formatMoney(x.sellPrice)}</td><td>${fmt(x.description)}</td></tr>`).join('')}</tbody></table></div>`; }
+function renderItem(name){ const x=lookup(db.items,name); if(!x){app.innerHTML=empty('Item not found.');return;} const craftAsResult=(db.crafts||[]).filter(c=>c.resultItem===x.name), craftAsIngredient=(db.crafts||[]).filter(c=>(c.ingredients||[]).some(i=>i.item===x.name)); app.innerHTML=`${breadcrumbs([{label:'Items',route:'items'},{label:x.name}])}<h1 class="page-title">${esc(x.name)}</h1><div class="grid-2"><div class="card"><h2>Item data</h2><table class="key-table"><tr><th>Plural</th><td>${fmt(x.pluralName)}</td></tr><tr><th>Pocket</th><td>${fmt(x.pocket)}</td></tr><tr><th>Buy price</th><td>${formatMoney(x.buyPrice)}</td></tr><tr><th>Sell price</th><td>${formatMoney(x.sellPrice)}</td></tr></table></div><div class="card"><h2>Description</h2><p>${fmt(x.description)}</p></div></div>${craftAsResult.length||craftAsIngredient.length?`<section class="section"><h2 class="section-title">Crafting use</h2><div class="card">${craftAsResult.map(renderCraftLine).join('')}${craftAsIngredient.map(renderCraftLine).join('')}</div></section>`:''}`; }
+function renderTemperaments(){ const a=db.temperaments||[]; app.innerHTML=`${breadcrumbs([{label:'Temperaments'}])}<h1 class="page-title">Temperaments</h1><p class="subtitle">${a.length} temperaments.</p><div class="card"><table class="data-table"><thead><tr><th>Name</th><th>Raised stat</th><th>Lowered stat</th></tr></thead><tbody>${a.map(x=>`<tr><td><b>${esc(x.name)}</b></td><td>${fmt(x.upStat)}</td><td>${fmt(x.downStat)}</td></tr>`).join('')}</tbody></table></div>`; }
+function renderLocations(){ app.innerHTML=`${breadcrumbs([{label:'Encounters'}])}<h1 class="page-title">Encounter Locations</h1><p class="subtitle">Wild, fishing, gift, street, sand, and other encounter data from the project.</p>${(db.encounters||[]).map(g=>`<section class="section"><h2 class="section-title">${esc(g.generation)}</h2><div class="grid-3">${(g.locations||[]).map(l=>`<div class="card"><h3>${routeLink(`location/${slug(g.generation)}/${slug(l.name)}`,l.name)}</h3><p class="muted">${(l.methods||[]).map(m=>m.name).join(' · ')||'No methods'}</p></div>`).join('')}</div></section>`).join('')}`; }
+function renderLocation(gen,name){ const g=(db.encounters||[]).find(x=>x.generation===gen), l=g?.locations?.find(x=>x.name===name); if(!l){app.innerHTML=empty('Location not found.');return;} app.innerHTML=`${breadcrumbs([{label:'Encounters',route:'locations'},{label:name}])}<h1 class="page-title">${esc(name)}</h1><p class="subtitle">${esc(gen)}</p>${(l.methods||[]).map(m=>renderMethod(gen,m)).join('')}`; }
+function renderMethod(gen,m){ if(m.gift)return `<section class="section"><h2 class="section-title">${esc(m.name)}</h2><div class="card"><table class="data-table"><thead><tr><th>Enitoy</th><th>Level</th></tr></thead><tbody><tr><td>${speciesBy(gen,m.gift.enitoy)?routeLink(`enitoy/${slug(gen)}/${slug(m.gift.enitoy)}`,m.gift.enitoy):esc(m.gift.enitoy)}</td><td>${esc(m.gift.level)}</td></tr></tbody></table></div></section>`; let pool=null; Object.keys(m).forEach(k=>{if(k!=='name'&&m[k]&&typeof m[k]==='object')pool=m[k]}); if(!pool)return ''; const table=time=>{const rows=pool[time]||[];return `<div class="card"><h3>${time==='day'?'Day':'Night'}</h3>${rows.length?`<table class="data-table"><thead><tr><th>Enitoy</th><th>Level</th><th>Chance</th></tr></thead><tbody>${rows.map(x=>{const s=speciesBy(gen,x.enitoy)||species.find(q=>q.entry.name===x.enitoy);return `<tr><td>${s?routeLink(`enitoy/${slug(s.generation)}/${slug(s.entry.name)}`,s.entry.name):esc(x.enitoy)}</td><td>${x.minLevel===x.maxLevel?esc(x.minLevel):`${esc(x.minLevel)}–${esc(x.maxLevel)}`}</td><td>${esc(x.percent)}%</td></tr>`}).join('')}</tbody></table>`:'<span class="muted">None</span>'}</div>`}; return `<section class="section"><h2 class="section-title">${esc(m.name)}</h2><div class="grid-2">${table('day')}${table('night')}</div></section>`; }
+function renderCraftLine(c){ const method=c.method==='station'?'Crafting Station':c.method==='holdMove'?'Hold + Move Stitch':c.method||'Craft'; return `<div style="padding:8px 0;border-bottom:1px solid #e8ebee"><b>${esc(method)}</b>: ${(c.ingredients||[]).map(i=>`${esc(i.quantity||1)}× ${routeLink(`items/${slug(i.item)}`,i.item)}`).join(' + ')} → ${esc(c.resultQuantity||1)}× ${routeLink(`items/${slug(c.resultItem)}`,c.resultItem)}</div>`; }
+function renderCrafts(){ const cs=db.crafts||[]; app.innerHTML=`${breadcrumbs([{label:'Crafts'}])}<h1 class="page-title">Crafts</h1><p class="subtitle">${cs.length} recipes.</p><div class="card">${cs.length?cs.map(renderCraftLine).join(''):'<span class="muted">No recipes recorded.</span>'}</div>`; }
+restoreRememberedProject().then(restored=>{if(!restored)render();}).catch(()=>render());
+})();
+</script>
+</body>
+</html>
