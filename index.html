@@ -84,7 +84,7 @@ button,input,select{font:inherit}
       <input id="search" type="search" placeholder="Search Enitoys, techniques, skills, items…" autocomplete="off" disabled>
       <div id="search-results" class="search-results"></div>
     </div>
-    <button id="load-btn" class="file-button" type="button">Load json</button>
+    <button id="load-btn" class="file-button" type="button">Load JSON</button>
     <input id="file-input" type="file" accept=".json,application/json" hidden>
   </div>
   <nav class="subnav"><div class="subnav-inner">
@@ -104,18 +104,18 @@ const REMEMBERED_DB_RECORD = 'last-project';
 const GITHUB_OWNER = 'wdgart';
 const GITHUB_REPO = 'Enitoy-Database';
 const GITHUB_BRANCH = 'main';
-const GITHUB_json_PATH = 'Enitoy_Project.json';
-const REMOTE_json_URL = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${GITHUB_json_PATH}`;
-const REMOTE_CHECK_INTERVAL_MS = 30000;
+const GITHUB_JSON_PATH = 'Enitoy_Project.JSON';
+const REMOTE_JSON_URL = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${GITHUB_JSON_PATH}`;
+const REMOTE_CHECK_INTERVAL_MS = 10000;
 const LIVE_SYNC_CHANNEL_NAME = 'EnitoyDatabase.LiveSync.v1';
 const LIVE_SYNC_STORAGE_KEY = 'EnitoyDatabase.LiveSyncSignal.v1';
-let lastRemotejsonText = null;
+let lastRemoteJsonText = null;
 const $ = s => document.querySelector(s);
 const app = $('#app'), search = $('#search'), searchResults = $('#search-results'), fileInput = $('#file-input');
 const GENDERS = ['Genderless','Male 8/8','Male 7/8','Male 6/8','Male 5/8','Male 4/8','Male 3/8','Male 2/8','Male 1/8','Female 8/8'];
 const STAT_NAMES = ['HP','ATK','DEF','SP. ATK','SP. DEF','SPD'];
 const esc = v => String(v ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const clone = v => v == null ? v : json.parse(json.stringify(v));
+const clone = v => v == null ? v : JSON.parse(JSON.stringify(v));
 const slug = v => encodeURIComponent(String(v ?? ''));
 const routeLink = (route, label) => `<a href="#${route}">${esc(label)}</a>`;
 function color(name){ return (db && db.colors && db.colors[name]) || '#9098a0'; }
@@ -194,10 +194,10 @@ async function idbGetRemembered(){
   } finally { idb.close(); }
 }
 async function rememberProject(obj,name){
-  const saved={name:name||'Project json',data:obj,savedAt:Date.now()};
+  const saved={name:name||'Project JSON',data:obj,savedAt:Date.now()};
   let stored=false;
   try{ await idbSetRemembered(saved); stored=true; }catch(err){ console.warn('IndexedDB could not remember the Enitoy project.',err); }
-  try{ localStorage.setItem(REMEMBERED_PROJECT_KEY,json.stringify(saved)); stored=true; }catch(err){ console.warn('localStorage could not remember the Enitoy project.',err); }
+  try{ localStorage.setItem(REMEMBERED_PROJECT_KEY,JSON.stringify(saved)); stored=true; }catch(err){ console.warn('localStorage could not remember the Enitoy project.',err); }
   return stored;
 }
 async function restoreRememberedProject(){
@@ -206,12 +206,12 @@ async function restoreRememberedProject(){
   if(!saved){
     let raw=null;
     try{ raw=localStorage.getItem(REMEMBERED_PROJECT_KEY); }catch(err){ raw=null; }
-    if(raw){ try{ saved=json.parse(raw); }catch(err){ try{ localStorage.removeItem(REMEMBERED_PROJECT_KEY); }catch(_){} } }
+    if(raw){ try{ saved=JSON.parse(raw); }catch(err){ try{ localStorage.removeItem(REMEMBERED_PROJECT_KEY); }catch(_){} } }
   }
   if(!saved) return false;
   try{
     const obj=saved && saved.data ? saved.data : saved;
-    const name=(saved && saved.name)||'Remembered Project json';
+    const name=(saved && saved.name)||'Remembered Project JSON';
     loadObject(obj,name,{remember:false,resetRoute:false});
     return true;
   }catch(err){
@@ -219,32 +219,36 @@ async function restoreRememberedProject(){
     return false;
   }
 }
-function loadObject(obj,name,options={}){ if(!obj || typeof obj!=='object' || !Array.isArray(obj.regionalGenerations)) throw new Error('This does not look like an Enitoy Database Editor project json.'); const remember=options.remember!==false, resetRoute=options.resetRoute!==false; db=obj; loadedFileName=name||'Project json'; if(remember)void rememberProject(obj,loadedFileName); rebuild(); search.value=''; searchResults.classList.remove('show'); if(resetRoute)location.hash='#home'; render(); }
-function readFile(file){ const r=new FileReader(); r.onload=()=>{ try{ loadObject(json.parse(r.result),file.name,{remember:true,resetRoute:true}); }catch(err){ showLoadError(err.message); } }; r.onerror=()=>showLoadError('The file could not be read.'); r.readAsText(file); }
+function loadObject(obj,name,options={}){ if(!obj || typeof obj!=='object' || !Array.isArray(obj.regionalGenerations)) throw new Error('This does not look like an Enitoy Database Editor project JSON.'); const remember=options.remember!==false, resetRoute=options.resetRoute!==false; db=obj; loadedFileName=name||'Project JSON'; if(remember)void rememberProject(obj,loadedFileName); rebuild(); search.value=''; searchResults.classList.remove('show'); if(resetRoute)location.hash='#home'; render(); }
+function readFile(file){ const r=new FileReader(); r.onload=()=>{ try{ loadObject(JSON.parse(r.result),file.name,{remember:true,resetRoute:true}); }catch(err){ showLoadError(err.message); } }; r.onerror=()=>showLoadError('The file could not be read.'); r.readAsText(file); }
 async function loadRemoteDatabase(options={}){
   const force=options.force===true, showError=options.showError===true;
   const ref=typeof options.ref==='string'&&options.ref.trim()?options.ref.trim():GITHUB_BRANCH;
   try{
-    const remoteUrl=`https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${encodeURIComponent(ref)}/${GITHUB_json_PATH}`;
+    const remoteUrl=`https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${encodeURIComponent(ref)}/${GITHUB_JSON_PATH}`;
     const joiner=remoteUrl.includes('?')?'&':'?';
     const response=await fetch(remoteUrl+joiner+'t='+Date.now(),{cache:'no-store',headers:{'Accept':'application/json'}});
     if(!response.ok)throw new Error(`GitHub returned ${response.status} ${response.statusText||''}`.trim());
-    const text=await response.text();
-    if(!force && text===lastRemotejsonText)return false;
-    const obj=json.parse(text);
-    lastRemotejsonText=text;
-    loadObject(obj,`${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_json_PATH}`,{remember:false,resetRoute:false});
+    let text=(await response.text()).replace(/^\uFEFF/, '').trim();
+    if(/^```(?:json)?\s*/i.test(text) && /```\s*$/.test(text))text=text.replace(/^```(?:json)?\s*/i,'').replace(/```\s*$/,'').trim();
+    if(!text)throw new Error(`${GITHUB_JSON_PATH} is empty.`);
+    if(text[0]!=='{')throw new Error(`${GITHUB_JSON_PATH} is not project JSON. GitHub may currently contain HTML or another file type at that path.`);
+    if(!force && text===lastRemoteJsonText)return false;
+    let obj;
+    try{obj=JSON.parse(text);}catch(parseError){throw new Error(`${GITHUB_JSON_PATH} contains malformed JSON: ${parseError.message}`);}
+    lastRemoteJsonText=text;
+    loadObject(obj,`${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_JSON_PATH}`,{remember:false,resetRoute:false});
     return true;
   }catch(err){
     console.warn('Could not load the Enitoy database from GitHub.',err);
-    if(showError)showLoadError(`Could not load ${GITHUB_json_PATH} from GitHub. ${err.message}`);
+    if(showError)showLoadError(`Could not load ${GITHUB_JSON_PATH} from GitHub. ${err.message}`);
     return false;
   }
 }
 
 function installLiveSyncListeners(){
   const refreshFromSignal=message=>{
-    if(!message||message.type!=='enitoy-project-updated'||message.file!==GITHUB_json_PATH)return;
+    if(!message||message.type!=='enitoy-project-updated'||message.file!==GITHUB_JSON_PATH)return;
     const commitSha=typeof message.commitSha==='string'?message.commitSha.trim():'';
     void loadRemoteDatabase({force:true,showError:false,ref:commitSha||GITHUB_BRANCH}).then(ok=>{
       if(!ok&&commitSha){
@@ -262,7 +266,7 @@ function installLiveSyncListeners(){
 
   window.addEventListener('storage',event=>{
     if(event.key!==LIVE_SYNC_STORAGE_KEY||!event.newValue)return;
-    try{refreshFromSignal(json.parse(event.newValue));}catch(err){}
+    try{refreshFromSignal(JSON.parse(event.newValue));}catch(err){}
   });
 }
 
@@ -275,7 +279,7 @@ async function startViewer(){
   }
   window.setInterval(()=>{ void loadRemoteDatabase({force:false,showError:false}); },REMOTE_CHECK_INTERVAL_MS);
 }
-function showLoadError(msg){ app.innerHTML=`<div class="notice error"><b>Could not load json.</b><br>${esc(msg)}</div>`; }
+function showLoadError(msg){ app.innerHTML=`<div class="notice error"><b>Could not load JSON.</b><br>${esc(msg)}</div>`; }
 $('#load-btn').addEventListener('click',()=>fileInput.click());
 fileInput.addEventListener('change',()=>{ if(fileInput.files?.[0]) readFile(fileInput.files[0]); fileInput.value=''; });
 document.addEventListener('dragover',e=>{e.preventDefault(); const d=$('.dropzone'); if(d)d.classList.add('drag');});
@@ -287,12 +291,12 @@ document.addEventListener('click',e=>{if(!e.target.closest('.global-search'))sea
 window.addEventListener('hashchange',render);
 function render(){ if(!db){ renderLoader(); return; } const raw=(location.hash||'#home').slice(1); const p=raw.split('/').map(decodeURIComponent); window.scrollTo(0,0); switch(p[0]){
   case '': case 'home': return renderHome(); case 'enitoys':return renderCatalog(); case 'enitoy':return renderSpecies(p[1],p[2]); case 'form':return renderForm(p[1],p[2],p[3]); case 'moves':return renderMoves(); case 'move':return renderMove(p[1]); case 'types':return renderTypes(); case 'type':return renderType(p[1]); case 'stitch-calc':return renderStitchCalc(); case 'skills':return p[1]?renderNamedListDetail('Skill',db.skills,p[1],'skills'):renderNamedList('Skills',db.skills,'skills'); case 'defects':return p[1]?renderNamedListDetail('Defect',db.defects,p[1],'defects'):renderNamedList('Defects',db.defects,'defects'); case 'items':return p[1]?renderItem(p[1]):renderItems(); case 'temperaments':return renderTemperaments(); case 'locations':return renderLocations(); case 'location':return renderLocation(p[1],p[2]); case 'crafts':return renderCrafts(); default:return renderHome(); } }
-function renderLoader(){ app.innerHTML=`<div id="dropzone" class="dropzone"><h1>Enitoy Database Viewer</h1><p class="muted">This viewer automatically loads Enitoy_Project.json from the wdgart/Enitoy-Database GitHub repository and checks for updates every 30 seconds and refreshes immediately when an open Editor in this browser saves. You can still choose a local json as a temporary fallback.</p><p><button class="primary" type="button" id="open-json">Choose json file</button></p><div class="tiny muted">You can also drag and drop a json anywhere on this page. Local files are only used in this browser; the GitHub database remains read-only from the Viewer.</div></div>`; $('#open-json').onclick=()=>fileInput.click(); }
+function renderLoader(){ app.innerHTML=`<div id="dropzone" class="dropzone"><h1>Enitoy Database Viewer</h1><p class="muted">This viewer automatically loads Enitoy_Project.JSON from the wdgart/Enitoy-Database GitHub repository and checks for updates every 10 seconds and refreshes immediately when an open Editor in this browser saves. You can still choose a local JSON as a temporary fallback.</p><p><button class="primary" type="button" id="open-json">Choose JSON file</button></p><div class="tiny muted">You can also drag and drop a JSON anywhere on this page. Local files are only used in this browser; the GitHub database remains read-only from the Viewer.</div></div>`; $('#open-json').onclick=()=>fileInput.click(); }
 function renderHome(){ const gens=db.regionalGenerations||[]; app.innerHTML=`${breadcrumbs([])}<h1 class="page-title">Enitoy Database</h1><p class="subtitle">Read-only encyclopedia generated from <b>${esc(loadedFileName)}</b> · Project version ${fmt(db.version)}</p>
 <div class="quick-stats"><div class="quick-stat"><b>${species.length}</b><span>Enitoys entered</span></div><div class="quick-stat"><b>${forms.length}</b><span>Forms</span></div><div class="quick-stat"><b>${(db.moves||[]).length}</b><span>Techniques</span></div><div class="quick-stat"><b>${(db.skills||[]).length}</b><span>Skills</span></div><div class="quick-stat"><b>${(db.items||[]).length}</b><span>Items</span></div></div>
 <div class="section grid-2"><div class="card"><h2>Browse the Catalog</h2><p>View every entered Enitoy with its image, Stitching, base stats, Skills, Defect, modifications, movepool, encounters, forms, and other recorded data.</p><p><a class="primary" style="display:inline-block;color:#fff;text-decoration:none" href="#enitoys">Open Enitoy Catalog</a></p></div><div class="card"><h2>Stitching</h2><div class="stitches">${allTypes().map(t=>pill(t)).join('')}</div></div></div>
 <div class="section"><div class="section-head"><h2 class="section-title">Generations</h2></div><div class="grid-3">${gens.map((g,gi)=>{const list=species.filter(s=>s.generationIndex===gi); const start=(gens.slice(0,gi).reduce((n,x)=>n+(x.enitoys||[]).length,0))+1,end=start+(g.enitoys||[]).length-1;return `<div class="card"><h3>${esc(g.name)}</h3><p class="muted">Catalog ${num(start)}–${num(end)} · ${list.length} entered</p><div class="inline-links">${list.slice(0,10).map(s=>routeLink(`enitoy/${slug(s.generation)}/${slug(s.entry.name)}`,s.entry.name)).join('')}${list.length>10?' …':''}</div></div>`}).join('')}</div></div>
-<div class="section notice">This viewer is read-only. It reloads immediately when an open Editor in this browser saves, and also checks the shared GitHub json every 30 seconds for updates from other devices. Search, filters, and navigation never modify the project json.</div>`; }
+<div class="section notice">This viewer is read-only. It reloads immediately when an open Editor in this browser saves, and also checks the shared GitHub JSON every 30 seconds for updates from other devices. Search, filters, and navigation never modify the project JSON.</div>`; }
 function renderCatalog(){ app.innerHTML=`${breadcrumbs([{label:'Enitoys'}])}<h1 class="page-title">Enitoy Catalog</h1><p class="subtitle">${species.length} entered Enitoys across ${(db.regionalGenerations||[]).length} generation${(db.regionalGenerations||[]).length===1?'':'s'}.</p>${(db.regionalGenerations||[]).map((g,gi)=>{const list=species.filter(s=>s.generationIndex===gi);return `<section class="section"><h2 class="section-title">${esc(g.name)}</h2>${list.length?`<div class="catalog-grid">${list.map(catalogCard).join('')}</div>`:empty('No Enitoys entered in this generation.')}</section>`}).join('')}`; }
 function catalogCard(s){ const e=s.entry; return `<a class="catalog-card" href="#enitoy/${slug(s.generation)}/${slug(e.name)}"><div class="catalog-thumb">${e.imageData?`<img src="${e.imageData}" alt="">`:'?'}</div><div><div class="catalog-no">${num(s.number)}</div><div class="catalog-name">${esc(e.name)}</div><div class="catalog-types">${stitches(e).map(t=>{const bg=color(t);return `<span class="mini-pill" style="background:${bg};color:${readable(bg)}">${esc(t)}</span>`}).join('')}</div></div></a>`; }
 function renderSpecies(gen,name){ const rec=speciesBy(gen,name); if(!rec){app.innerHTML=empty('Enitoy not found.');return;} renderSpeciesPage(rec.entry,rec,{baseRec:rec}); }
@@ -310,7 +314,7 @@ ${renderNameOrigins(e)}
 ${renderModifications(base,e,formRec)}${renderTechniques(e)}${renderAssistCalls(e)}${enc.length?renderEncounterSection(enc):''}${renderTemperamentLocks(e)}${baseForms.length&&!formRec?`<section class="section"><h2 class="section-title">Forms</h2><div class="catalog-grid">${baseForms.map(f=>`<a class="catalog-card" href="#form/${slug(f.form.generation)}/${slug(f.form.enitoy)}/${slug(f.form.formName)}"><div class="catalog-thumb">${f.entry.imageData?`<img src="${f.entry.imageData}" alt="">`:'?'}</div><div><div class="catalog-no">${num(base.number)}·F${baseForms.indexOf(f)+1}</div><div class="catalog-name">${esc(f.entry.name)}</div><div class="catalog-types">${stitches(f.entry).map(t=>{const bg=color(t);return `<span class="mini-pill" style="background:${bg};color:${readable(bg)}">${esc(t)}</span>`}).join('')}</div></div></a>`).join('')}</div></section>`:''}`; setupPortraitToggle(e); }
 function renderDrops(drops){ if(!Array.isArray(drops)||!drops.length)return '<span class="muted">None</span>'; return `<div class="inline-links">${drops.map(d=>{const name=typeof d==='string'?d:(d.item||d.name||''); const qty=typeof d==='object'&&(d.quantity||d.qty); return name?`<span class="chip-link">${routeLink(`items/${slug(name)}`,name)}${qty?` ×${esc(qty)}`:''}</span>`:''}).join('')}</div>`; }
 function renderNameOrigins(e){ const origins=Array.isArray(e?.nameOrigins)?e.nameOrigins.filter(o=>o&&typeof o==='object'&&String(o.part||'').trim()&&String(o.word||'').trim()&&String(o.description||'').trim()):[]; if(!origins.length)return ''; return `<section class="section"><h2 class="section-title">Name origin</h2><div class="card name-origin-list">${origins.map(o=>{const part=String(o.part).trim(),word=String(o.word).trim(),description=String(o.description).trim();const ending=/[.!?]$/.test(description)?description:description+'.';return `<div class="name-origin-row"><div class="name-origin-part">${esc(part)}</div><div class="name-origin-source">Comes from <b>${esc(word)}</b>, meaning ${esc(ending)}</div></div>`}).join('')}</div></section>`; }
-function modMethod(m){ const p=(m.parameter===undefined||m.parameter===null||m.parameter==='')?'':` · ${typeof m.parameter==='object'?esc(json.stringify(m.parameter)):esc(m.parameter)}`; return `${esc(m.method||'Modify')}${p}`; }
+function modMethod(m){ const p=(m.parameter===undefined||m.parameter===null||m.parameter==='')?'':` · ${typeof m.parameter==='object'?esc(JSON.stringify(m.parameter)):esc(m.parameter)}`; return `${esc(m.method||'Modify')}${p}`; }
 function modSpriteNode(s){ if(!s||!s.entry)return `<div class="mod-node"><div class="mod-sprite-placeholder">?</div><span class="mod-name">Unknown Enitoy</span></div>`; const href=`#enitoy/${slug(s.generation)}/${slug(s.entry.name)}`; const img=s.entry.imageData&&/^data:image\//i.test(s.entry.imageData)?`<img src="${s.entry.imageData}" alt="${esc(s.entry.name)}" title="${esc(s.entry.name)}">`:`<div class="mod-sprite-placeholder" title="${esc(s.entry.name)}">?</div>`; return `<div class="mod-node"><a class="mod-sprite" href="${href}" aria-label="${esc(s.entry.name)}">${img}</a><a class="mod-name" href="${href}">${esc(s.entry.name)}</a></div>`; }
 function renderModifications(base,e,formRec){ if(formRec)return ''; const out=(e.modifications||[]).slice().sort((a,b)=>{ const ta=speciesBy(a.targetGeneration,a.target), tb=speciesBy(b.targetGeneration,b.target); const na=ta?.number??Number.MAX_SAFE_INTEGER, nb=tb?.number??Number.MAX_SAFE_INTEGER; return na-nb || String(a.target||'').localeCompare(String(b.target||'')); }); if(!out.length)return ''; return `<section class="section"><h2 class="section-title">Modification</h2><div class="card">${out.map(m=>{const target=speciesBy(m.targetGeneration,m.target);return `<div class="mod-chain">${modSpriteNode(base)}<span class="arrow">→</span><div class="tiny muted">${modMethod(m)}</div><span class="arrow">→</span>${modSpriteNode(target)}</div>`}).join('<hr style="border:0;border-top:1px solid #e6eaee;margin:12px 0">')}</div></section>`; }
 function renderTechniques(e){ const level=Array.isArray(e.levelUpTechniques)?e.levelUpTechniques:[]; const scroll=Array.isArray(e.scrollLearnedTechniques)?e.scrollLearnedTechniques:[]; if(!level.length&&!scroll.length)return `<section class="section"><h2 class="section-title">Techniques</h2>${empty('No level-up or Scroll techniques are recorded for this Enitoy.')}</section>`; return `<section class="section"><h2 class="section-title">Techniques</h2><div class="grid-2"><div class="card"><h3>Level Up Techniques</h3>${level.length?`<table class="data-table"><thead><tr><th>Lv.</th><th>Technique</th><th>Stitching</th></tr></thead><tbody>${level.slice().sort((a,b)=>(a.level??999)-(b.level??999)||moveNo(a.name)-moveNo(b.name)).map(x=>{const m=lookup(db.moves,x.name);return `<tr><td>${Number(x.level)===0?'<span class="badge">Mod Move</span>':esc(x.level)}</td><td>${routeLink(`move/${slug(x.name)}`,x.name)}</td><td>${m?pill(m.stitching,true):'—'}</td></tr>`}).join('')}</tbody></table>`:'<span class="muted">None recorded.</span>'}</div><div class="card"><h3>Scroll Learned Techniques</h3>${scroll.length?`<table class="data-table"><thead><tr><th>#</th><th>Technique</th><th>Stitching</th></tr></thead><tbody>${scroll.map(n=>{const name=typeof n==='string'?n:n.name; const m=lookup(db.moves,name);return `<tr><td>${moveNo(name)||'—'}</td><td>${routeLink(`move/${slug(name)}`,name)}</td><td>${m?pill(m.stitching,true):'—'}</td></tr>`}).join('')}</tbody></table>`:'<span class="muted">None recorded.</span>'}</div></div></section>`; }
