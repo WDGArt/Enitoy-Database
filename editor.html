@@ -5738,7 +5738,7 @@ dialog,
                     <tbody id="move-list-body"></tbody>
                 </table>
             </div>
-            <p class="move-save-note">Save Project publishes the current database to the shared GitHub json used by the Viewer. Projects still stores named browser-local copies, and Export Project still creates the portable json project file (plus the type-chart PNG).</p>
+            <p class="move-save-note">Save Project publishes the current database to the shared GitHub JSON used by the Viewer. Projects still stores named browser-local copies, and Export Project still creates the portable JSON project file (plus the type-chart PNG).</p>
         </section>
 
         <section class="page-section" id="movepool-database" hidden>
@@ -6833,7 +6833,7 @@ dialog,
             <div class="internal-project-panel">
                 <div class="internal-project-header">
                     <h2>Internal Projects</h2>
-                    <p>These saves stay in this browser so you can switch between projects without importing a file. json export remains the portable backup for moving projects to another browser or computer.</p>
+                    <p>These saves stay in this browser so you can switch between projects without importing a file. JSON export remains the portable backup for moving projects to another browser or computer.</p>
                 </div>
                 <div id="internal-project-list" class="internal-project-list"></div>
                 <div class="internal-project-footer">
@@ -7821,15 +7821,15 @@ dialog,
                     setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
                 }
 
-                function exportChartjson() {
-                    var json = json.stringify(chartProjectData(), null, 2);
-                    downloadBlob(new Blob([json], { type: "application/json" }), "Enitoy_Project.json");
+                function exportChartJson() {
+                    var json = JSON.stringify(chartProjectData(), null, 2);
+                    downloadBlob(new Blob([json], { type: "application/json" }), "Enitoy_Project.JSON");
                 }
 
                 var githubOwner = "wdgart";
                 var githubRepo = "Enitoy-Database";
                 var githubBranch = "main";
-                var githubjsonPath = "Enitoy_Project.json";
+                var githubJsonPath = "Enitoy_Project.JSON";
                 var githubTokenSessionKey = "EnitoyDatabaseEditor.GitHubToken.v1";
                 var githubViewerSyncChannelName = "EnitoyDatabase.LiveSync.v1";
                 var githubViewerSyncStorageKey = "EnitoyDatabase.LiveSyncSignal.v1";
@@ -7842,7 +7842,7 @@ dialog,
 
                     token = prompt(
                         "Paste the fine-grained GitHub token for wdgart/Enitoy-Database.\n\n" +
-                        "It needs Contents: Read and write permission. The token is kept only for this browser tab and is never written into the HTML or project json."
+                        "It needs Contents: Read and write permission. The token is kept only for this browser tab and is never written into the HTML or project JSON."
                     ) || "";
                     token = token.trim();
                     if (!token) return "";
@@ -7866,7 +7866,7 @@ dialog,
                 }
 
                 function githubContentsApiUrl() {
-                    return "https://api.github.com/repos/" + encodeURIComponent(githubOwner) + "/" + encodeURIComponent(githubRepo) + "/contents/" + githubjsonPath.split("/").map(encodeURIComponent).join("/");
+                    return "https://api.github.com/repos/" + encodeURIComponent(githubOwner) + "/" + encodeURIComponent(githubRepo) + "/contents/" + githubJsonPath.split("/").map(encodeURIComponent).join("/");
                 }
 
                 function githubHeaders(token) {
@@ -7880,7 +7880,7 @@ dialog,
                 function notifyOpenViewersOfGitHubSave(commitSha) {
                     var message = {
                         type: "enitoy-project-updated",
-                        file: githubjsonPath,
+                        file: githubJsonPath,
                         commitSha: commitSha || "",
                         savedAt: Date.now()
                     };
@@ -7896,7 +7896,7 @@ dialog,
                     }
 
                     try {
-                        localStorage.setItem(githubViewerSyncStorageKey, json.stringify(message));
+                        localStorage.setItem(githubViewerSyncStorageKey, JSON.stringify(message));
                     } catch (error) {
                         console.warn("Could not write the Enitoy Viewer refresh signal.", error);
                     }
@@ -7929,10 +7929,14 @@ dialog,
                             currentSha = currentFile && currentFile.sha ? currentFile.sha : null;
                         } else if (readResponse.status !== 404) {
                             if (readResponse.status === 401 || readResponse.status === 403) clearGitHubToken();
-                            throw new Error("Could not read the current GitHub json (" + readResponse.status + ").");
+                            throw new Error("Could not read the current GitHub JSON (" + readResponse.status + ").");
                         }
 
-                        var jsonText = json.stringify(chartProjectData(), null, 2);
+                        var projectData = chartProjectData();
+                        var validationError = validateImportedChart(projectData);
+                        if (validationError) throw new Error("The current Editor project cannot be saved: " + validationError);
+                        var jsonText = JSON.stringify(projectData, null, 2);
+                        JSON.parse(jsonText); // Final local validity check before anything is sent to GitHub.
                         var body = {
                             message: "Update Enitoy database from editor",
                             content: utf8ToBase64(jsonText),
@@ -7943,7 +7947,7 @@ dialog,
                         var saveResponse = await fetch(apiUrl, {
                             method: "PUT",
                             headers: Object.assign({ "Content-Type": "application/json" }, githubHeaders(token)),
-                            body: json.stringify(body)
+                            body: JSON.stringify(body)
                         });
 
                         if (!saveResponse.ok) {
@@ -7963,7 +7967,7 @@ dialog,
                         var savedCommitSha = savedResult && savedResult.commit && savedResult.commit.sha ? savedResult.commit.sha : "";
                         notifyOpenViewersOfGitHubSave(savedCommitSha);
 
-                        if (saveControl) saveControl.textContent = "Saved! Viewer updating...";
+                        if (saveControl) saveControl.textContent = "Saved valid JSON! Viewer updating...";
                         return true;
                     } catch (error) {
                         console.error("Could not save the Enitoy project to GitHub.", error);
@@ -7980,17 +7984,47 @@ dialog,
                     }
                 }
 
+                function normalizeGitHubJsonText(text) {
+                    var normalized = String(text == null ? "" : text).replace(/^\uFEFF/, "").trim();
+                    if (/^```(?:json)?\s*/i.test(normalized) && /```\s*$/.test(normalized)) {
+                        normalized = normalized.replace(/^```(?:json)?\s*/i, "").replace(/```\s*$/, "").trim();
+                    }
+                    return normalized;
+                }
+
+                function parseGitHubProjectJson(text) {
+                    var normalized = normalizeGitHubJsonText(text);
+                    if (!normalized) throw new Error("Enitoy_Project.JSON is empty.");
+                    if (normalized.charAt(0) !== "{") {
+                        throw new Error("Enitoy_Project.JSON does not begin with a JSON object. It may contain HTML or another file type instead of project JSON.");
+                    }
+                    var data;
+                    try {
+                        data = JSON.parse(normalized);
+                    } catch (error) {
+                        throw new Error("Enitoy_Project.JSON contains malformed JSON: " + error.message);
+                    }
+                    var validationError = validateImportedChart(data);
+                    if (validationError) throw new Error(validationError);
+                    return { data: data, text: normalized };
+                }
+
                 async function loadGitHubProjectOnStartup() {
                     if (!/\.github\.io$/i.test(window.location.hostname)) return;
-                    var rawUrl = "https://raw.githubusercontent.com/" + githubOwner + "/" + githubRepo + "/" + githubBranch + "/" + githubjsonPath;
+                    var rawUrl = "https://raw.githubusercontent.com/" + githubOwner + "/" + githubRepo + "/" + githubBranch + "/" + githubJsonPath;
                     try {
-                        var response = await fetch(rawUrl + "?t=" + Date.now(), { cache: "no-store", headers: { "Accept": "application/json" } });
+                        var response = await fetch(rawUrl + "?t=" + Date.now(), { cache: "no-store", headers: { "Accept": "application/json,text/plain,*/*" } });
                         if (!response.ok) throw new Error("GitHub returned " + response.status + ".");
-                        var text = await response.text();
-                        importChartFile(new Blob([text], { type: "application/json" }));
+                        var responseText = await response.text();
+                        var parsed = parseGitHubProjectJson(responseText);
+                        importChartFile(new Blob([parsed.text], { type: "application/json" }));
                     } catch (error) {
                         console.warn("Could not automatically load the shared Enitoy GitHub project.", error);
-                        alert("The shared Enitoy_Project.json could not be loaded from GitHub. The editor is still open, but make sure you are editing the intended project before saving.");
+                        alert(
+                            "The GitHub Enitoy_Project.JSON is not usable yet.\n\n" +
+                            error.message +
+                            "\n\nThe Editor will remain open. If the project currently shown here is the project you want to publish, click Save Project once. Save Project will overwrite Enitoy_Project.JSON with fresh valid project JSON."
+                        );
                     }
                 }
 
@@ -8007,7 +8041,7 @@ dialog,
                         return true;
                     } catch (error) {
                         if (showError !== false) {
-                            alert("Internal project storage is not available in this browser. You can still use Export Project to save json files.");
+                            alert("Internal project storage is not available in this browser. You can still use Export Project to save JSON files.");
                         }
                         return false;
                     }
@@ -8016,7 +8050,7 @@ dialog,
                 function readInternalProjectIndex() {
                     if (!internalProjectStorageAvailable(false)) return [];
                     try {
-                        var parsed = json.parse(localStorage.getItem(internalProjectIndexKey) || "[]");
+                        var parsed = JSON.parse(localStorage.getItem(internalProjectIndexKey) || "[]");
                         if (!Array.isArray(parsed)) return [];
                         return parsed.filter(function (entry) {
                             return entry && typeof entry.id === "string" && typeof entry.name === "string";
@@ -8027,7 +8061,7 @@ dialog,
                 }
 
                 function writeInternalProjectIndex(index) {
-                    localStorage.setItem(internalProjectIndexKey, json.stringify(index));
+                    localStorage.setItem(internalProjectIndexKey, JSON.stringify(index));
                 }
 
                 function internalProjectDataKey(id) {
@@ -8085,7 +8119,7 @@ dialog,
                     var now = new Date().toISOString();
                     var json;
                     try {
-                        json = json.stringify(chartProjectData());
+                        json = JSON.stringify(chartProjectData());
                     } catch (error) {
                         alert("The current project could not be prepared for internal storage.");
                         return;
@@ -8099,7 +8133,7 @@ dialog,
                         currentInternalProjectId = id;
                         renderInternalProjectLibrary();
                     } catch (error) {
-                        alert("The project could not be stored internally. Your browser may have run out of local storage. Export Project to json for a portable backup.");
+                        alert("The project could not be stored internally. Your browser may have run out of local storage. Export Project to JSON for a portable backup.");
                     }
                 }
 
@@ -8158,7 +8192,7 @@ dialog,
                     var index = readInternalProjectIndex();
                     var entry = index.find(function (candidate) { return candidate.id === id; });
                     if (!entry) return;
-                    if (!confirm('Delete the internal project "' + entry.name + '"? This cannot be undone unless you previously exported it as json.')) return;
+                    if (!confirm('Delete the internal project "' + entry.name + '"? This cannot be undone unless you previously exported it as JSON.')) return;
                     try {
                         localStorage.removeItem(internalProjectDataKey(id));
                         writeInternalProjectIndex(index.filter(function (candidate) { return candidate.id !== id; }));
@@ -8179,7 +8213,7 @@ dialog,
                         return;
                     }
                     downloadBlob(
-                        new Blob([json.stringify(json.parse(raw), null, 2)], { type: "application/json" }),
+                        new Blob([JSON.stringify(JSON.parse(raw), null, 2)], { type: "application/json" }),
                         "Enitoy_Project_" + safeProjectFilename(entry.name) + ".json"
                     );
                 }
@@ -8192,7 +8226,7 @@ dialog,
                     if (!internalProjectStorageAvailable(false)) {
                         var unavailable = document.createElement("p");
                         unavailable.className = "internal-project-empty";
-                        unavailable.textContent = "Internal project storage is unavailable in this browser. json import/export still works normally.";
+                        unavailable.textContent = "Internal project storage is unavailable in this browser. JSON import/export still works normally.";
                         host.appendChild(unavailable);
                         return;
                     }
@@ -8230,7 +8264,7 @@ dialog,
                         actions.className = "internal-project-actions";
                         [
                             { action: "load", label: "Load" },
-                            { action: "export", label: "Export json" },
+                            { action: "export", label: "Export JSON" },
                             { action: "rename", label: "Rename" },
                             { action: "delete", label: "Delete", extraClass: " internal-project-delete" }
                         ].forEach(function (definition) {
@@ -8306,7 +8340,7 @@ dialog,
                 }
 
                 function exportChart() {
-                    exportChartjson();
+                    exportChartJson();
                     exportChartPng();
                 }
 
@@ -9083,9 +9117,9 @@ dialog,
                     reader.onload = function () {
                         var data;
                         try {
-                            data = json.parse(reader.result);
+                            data = JSON.parse(reader.result);
                         } catch (e) {
-                            alert("That file is not valid json.");
+                            alert("That file is not valid JSON.");
                             return;
                         }
 
@@ -15812,7 +15846,7 @@ dialog,
                     regionalSlotSheetTitle.textContent = generationName + " — Slot " + String(slotIndex + 1).padStart(3, "0");
                     regionalSlotSheetSubtitle.textContent = "Edit Regional slot";
                     activeRegionalSlotEntry = entry;
-                    activeRegionalSlotDraft = json.parse(json.stringify(entry));
+                    activeRegionalSlotDraft = JSON.parse(JSON.stringify(entry));
                     activeRegionalImageVariant = "default";
                     activeRegionalSlotIndex = slotIndex;
                     activeRegionalSlotGenerationId = activeRegionalGenerationId;
@@ -17082,7 +17116,7 @@ dialog,
 
                 function cloneFormValue(value) {
                     if (value === undefined) return undefined;
-                    return json.parse(json.stringify(value));
+                    return JSON.parse(JSON.stringify(value));
                 }
 
                 function formsAllowedOverrideFields() {
@@ -18214,7 +18248,7 @@ dialog,
                 function selectedMovepoolSelectionParts() {
                     if (!movepoolEnitoySelect || !movepoolEnitoySelect.value) return null;
                     try {
-                        var selection = json.parse(movepoolEnitoySelect.value);
+                        var selection = JSON.parse(movepoolEnitoySelect.value);
                         return Array.isArray(selection) && selection.length >= 2 ? selection : null;
                     } catch (error) {
                         return null;
@@ -18833,7 +18867,7 @@ dialog,
 
                     var selection;
                     try {
-                        selection = json.parse(movepoolEnitoySelect.value);
+                        selection = JSON.parse(movepoolEnitoySelect.value);
                     } catch (error) {
                         return null;
                     }
@@ -18944,7 +18978,7 @@ dialog,
                         namedEnitoys.forEach(function (entry) {
                             var baseName = entry.name.trim();
                             var option = document.createElement("option");
-                            option.value = json.stringify([generation.name, baseName]);
+                            option.value = JSON.stringify([generation.name, baseName]);
                             option.textContent = baseName;
                             option.dataset.generation = generation.name;
                             option.dataset.enitoy = baseName;
@@ -18958,7 +18992,7 @@ dialog,
                                 }
 
                                 var formOption = document.createElement("option");
-                                formOption.value = json.stringify([generation.name, baseName, formsEntry.formName]);
+                                formOption.value = JSON.stringify([generation.name, baseName, formsEntry.formName]);
                                 formOption.textContent = formDisplayName(formsEntry, baseName);
                                 formOption.dataset.generation = generation.name;
                                 formOption.dataset.enitoy = baseName;
@@ -19541,7 +19575,7 @@ dialog,
                 }
 
                 function battleSimDragPayload(key, sourceSide, sourceIndex, level, nickname, stageKey, knownMoves) {
-                    return json.stringify({
+                    return JSON.stringify({
                         key: key,
                         sourceSide: sourceSide || "selector",
                         sourceIndex: typeof sourceIndex === "number" ? sourceIndex : -1,
@@ -19557,7 +19591,7 @@ dialog,
                     var raw = event.dataTransfer.getData("application/x-enitoy-battle-sim") || event.dataTransfer.getData("text/plain");
                     if (!raw) return null;
                     try {
-                        var parsed = json.parse(raw);
+                        var parsed = JSON.parse(raw);
                         return parsed && typeof parsed.key === "string" ? parsed : null;
                     } catch (error) {
                         return typeof raw === "string" && raw ? { key: raw, sourceSide: "selector", sourceIndex: -1 } : null;
