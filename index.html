@@ -101,6 +101,13 @@ const REMEMBERED_PROJECT_KEY = 'enitoy-database-viewer:last-project:v2';
 const REMEMBERED_DB_NAME = 'EnitoyDatabaseViewerStorage';
 const REMEMBERED_DB_STORE = 'projects';
 const REMEMBERED_DB_RECORD = 'last-project';
+const GITHUB_OWNER = 'wdgart';
+const GITHUB_REPO = 'Enitoy-Database';
+const GITHUB_BRANCH = 'main';
+const GITHUB_JSON_PATH = 'Enitoy_project.json';
+const REMOTE_JSON_URL = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${GITHUB_JSON_PATH}`;
+const REMOTE_CHECK_INTERVAL_MS = 30000;
+let lastRemoteJsonText = null;
 const $ = s => document.querySelector(s);
 const app = $('#app'), search = $('#search'), searchResults = $('#search-results'), fileInput = $('#file-input');
 const GENDERS = ['Genderless','Male 8/8','Male 7/8','Male 6/8','Male 5/8','Male 4/8','Male 3/8','Male 2/8','Male 1/8','Female 8/8'];
@@ -212,6 +219,33 @@ async function restoreRememberedProject(){
 }
 function loadObject(obj,name,options={}){ if(!obj || typeof obj!=='object' || !Array.isArray(obj.regionalGenerations)) throw new Error('This does not look like an Enitoy Database Editor project JSON.'); const remember=options.remember!==false, resetRoute=options.resetRoute!==false; db=obj; loadedFileName=name||'Project JSON'; if(remember)void rememberProject(obj,loadedFileName); rebuild(); search.value=''; searchResults.classList.remove('show'); if(resetRoute)location.hash='#home'; render(); }
 function readFile(file){ const r=new FileReader(); r.onload=()=>{ try{ loadObject(JSON.parse(r.result),file.name,{remember:true,resetRoute:true}); }catch(err){ showLoadError(err.message); } }; r.onerror=()=>showLoadError('The file could not be read.'); r.readAsText(file); }
+async function loadRemoteDatabase(options={}){
+  const force=options.force===true, showError=options.showError===true;
+  try{
+    const joiner=REMOTE_JSON_URL.includes('?')?'&':'?';
+    const response=await fetch(REMOTE_JSON_URL+joiner+'t='+Date.now(),{cache:'no-store',headers:{'Accept':'application/json'}});
+    if(!response.ok)throw new Error(`GitHub returned ${response.status} ${response.statusText||''}`.trim());
+    const text=await response.text();
+    if(!force && text===lastRemoteJsonText)return false;
+    const obj=JSON.parse(text);
+    lastRemoteJsonText=text;
+    loadObject(obj,`${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_JSON_PATH}`,{remember:false,resetRoute:false});
+    return true;
+  }catch(err){
+    console.warn('Could not load the Enitoy database from GitHub.',err);
+    if(showError)showLoadError(`Could not load ${GITHUB_JSON_PATH} from GitHub. ${err.message}`);
+    return false;
+  }
+}
+
+async function startViewer(){
+  const loadedRemote=await loadRemoteDatabase({force:true,showError:false});
+  if(!loadedRemote){
+    const restored=await restoreRememberedProject().catch(()=>false);
+    if(!restored)renderLoader();
+  }
+  window.setInterval(()=>{ void loadRemoteDatabase({force:false,showError:false}); },REMOTE_CHECK_INTERVAL_MS);
+}
 function showLoadError(msg){ app.innerHTML=`<div class="notice error"><b>Could not load JSON.</b><br>${esc(msg)}</div>`; }
 $('#load-btn').addEventListener('click',()=>fileInput.click());
 fileInput.addEventListener('change',()=>{ if(fileInput.files?.[0]) readFile(fileInput.files[0]); fileInput.value=''; });
@@ -224,12 +258,12 @@ document.addEventListener('click',e=>{if(!e.target.closest('.global-search'))sea
 window.addEventListener('hashchange',render);
 function render(){ if(!db){ renderLoader(); return; } const raw=(location.hash||'#home').slice(1); const p=raw.split('/').map(decodeURIComponent); window.scrollTo(0,0); switch(p[0]){
   case '': case 'home': return renderHome(); case 'enitoys':return renderCatalog(); case 'enitoy':return renderSpecies(p[1],p[2]); case 'form':return renderForm(p[1],p[2],p[3]); case 'moves':return renderMoves(); case 'move':return renderMove(p[1]); case 'types':return renderTypes(); case 'type':return renderType(p[1]); case 'stitch-calc':return renderStitchCalc(); case 'skills':return p[1]?renderNamedListDetail('Skill',db.skills,p[1],'skills'):renderNamedList('Skills',db.skills,'skills'); case 'defects':return p[1]?renderNamedListDetail('Defect',db.defects,p[1],'defects'):renderNamedList('Defects',db.defects,'defects'); case 'items':return p[1]?renderItem(p[1]):renderItems(); case 'temperaments':return renderTemperaments(); case 'locations':return renderLocations(); case 'location':return renderLocation(p[1],p[2]); case 'crafts':return renderCrafts(); default:return renderHome(); } }
-function renderLoader(){ app.innerHTML=`<div id="dropzone" class="dropzone"><h1>Enitoy Database Viewer</h1><p class="muted">Choose your Enitoy Database Editor JSON once. This viewer stores a private local copy using browser database storage (with a second fallback) and automatically restores it when reopened.</p><p><button class="primary" type="button" id="open-json">Choose JSON file</button></p><div class="tiny muted">You can also drag and drop the JSON anywhere on this page. Loading a different JSON replaces the remembered project. Nothing is uploaded or edited.</div></div>`; $('#open-json').onclick=()=>fileInput.click(); }
+function renderLoader(){ app.innerHTML=`<div id="dropzone" class="dropzone"><h1>Enitoy Database Viewer</h1><p class="muted">This viewer automatically loads Enitoy_project.json from the wdgart/Enitoy-Database GitHub repository and checks for updates every 30 seconds. You can still choose a local JSON as a temporary fallback.</p><p><button class="primary" type="button" id="open-json">Choose JSON file</button></p><div class="tiny muted">You can also drag and drop a JSON anywhere on this page. Local files are only used in this browser; the GitHub database remains read-only from the Viewer.</div></div>`; $('#open-json').onclick=()=>fileInput.click(); }
 function renderHome(){ const gens=db.regionalGenerations||[]; app.innerHTML=`${breadcrumbs([])}<h1 class="page-title">Enitoy Database</h1><p class="subtitle">Read-only encyclopedia generated from <b>${esc(loadedFileName)}</b> · Project version ${fmt(db.version)}</p>
 <div class="quick-stats"><div class="quick-stat"><b>${species.length}</b><span>Enitoys entered</span></div><div class="quick-stat"><b>${forms.length}</b><span>Forms</span></div><div class="quick-stat"><b>${(db.moves||[]).length}</b><span>Techniques</span></div><div class="quick-stat"><b>${(db.skills||[]).length}</b><span>Skills</span></div><div class="quick-stat"><b>${(db.items||[]).length}</b><span>Items</span></div></div>
 <div class="section grid-2"><div class="card"><h2>Browse the Catalog</h2><p>View every entered Enitoy with its image, Stitching, base stats, Skills, Defect, modifications, movepool, encounters, forms, and other recorded data.</p><p><a class="primary" style="display:inline-block;color:#fff;text-decoration:none" href="#enitoys">Open Enitoy Catalog</a></p></div><div class="card"><h2>Stitching</h2><div class="stitches">${allTypes().map(t=>pill(t)).join('')}</div></div></div>
 <div class="section"><div class="section-head"><h2 class="section-title">Generations</h2></div><div class="grid-3">${gens.map((g,gi)=>{const list=species.filter(s=>s.generationIndex===gi); const start=(gens.slice(0,gi).reduce((n,x)=>n+(x.enitoys||[]).length,0))+1,end=start+(g.enitoys||[]).length-1;return `<div class="card"><h3>${esc(g.name)}</h3><p class="muted">Catalog ${num(start)}–${num(end)} · ${list.length} entered</p><div class="inline-links">${list.slice(0,10).map(s=>routeLink(`enitoy/${slug(s.generation)}/${slug(s.entry.name)}`,s.entry.name)).join('')}${list.length>10?' …':''}</div></div>`}).join('')}</div></div>
-<div class="section notice">This viewer is read-only. Search, filters, and navigation never change the project JSON. The most recently loaded JSON is stored in this browser using persistent local database storage and reopened automatically on startup.</div>`; }
+<div class="section notice">This viewer is read-only. It checks the shared GitHub JSON every 30 seconds and reloads the database when that file changes. Search, filters, and navigation never modify the project JSON.</div>`; }
 function renderCatalog(){ app.innerHTML=`${breadcrumbs([{label:'Enitoys'}])}<h1 class="page-title">Enitoy Catalog</h1><p class="subtitle">${species.length} entered Enitoys across ${(db.regionalGenerations||[]).length} generation${(db.regionalGenerations||[]).length===1?'':'s'}.</p>${(db.regionalGenerations||[]).map((g,gi)=>{const list=species.filter(s=>s.generationIndex===gi);return `<section class="section"><h2 class="section-title">${esc(g.name)}</h2>${list.length?`<div class="catalog-grid">${list.map(catalogCard).join('')}</div>`:empty('No Enitoys entered in this generation.')}</section>`}).join('')}`; }
 function catalogCard(s){ const e=s.entry; return `<a class="catalog-card" href="#enitoy/${slug(s.generation)}/${slug(e.name)}"><div class="catalog-thumb">${e.imageData?`<img src="${e.imageData}" alt="">`:'?'}</div><div><div class="catalog-no">${num(s.number)}</div><div class="catalog-name">${esc(e.name)}</div><div class="catalog-types">${stitches(e).map(t=>{const bg=color(t);return `<span class="mini-pill" style="background:${bg};color:${readable(bg)}">${esc(t)}</span>`}).join('')}</div></div></a>`; }
 function renderSpecies(gen,name){ const rec=speciesBy(gen,name); if(!rec){app.innerHTML=empty('Enitoy not found.');return;} renderSpeciesPage(rec.entry,rec,{baseRec:rec}); }
@@ -315,7 +349,7 @@ function renderLocation(gen,name){ const g=(db.encounters||[]).find(x=>x.generat
 function renderMethod(gen,m){ if(m.gift)return `<section class="section"><h2 class="section-title">${esc(m.name)}</h2><div class="card"><table class="data-table"><thead><tr><th>Enitoy</th><th>Level</th></tr></thead><tbody><tr><td>${speciesBy(gen,m.gift.enitoy)?routeLink(`enitoy/${slug(gen)}/${slug(m.gift.enitoy)}`,m.gift.enitoy):esc(m.gift.enitoy)}</td><td>${esc(m.gift.level)}</td></tr></tbody></table></div></section>`; let pool=null; Object.keys(m).forEach(k=>{if(k!=='name'&&m[k]&&typeof m[k]==='object')pool=m[k]}); if(!pool)return ''; const table=time=>{const rows=pool[time]||[];return `<div class="card"><h3>${time==='day'?'Day':'Night'}</h3>${rows.length?`<table class="data-table"><thead><tr><th>Enitoy</th><th>Level</th><th>Chance</th></tr></thead><tbody>${rows.map(x=>{const s=speciesBy(gen,x.enitoy)||species.find(q=>q.entry.name===x.enitoy);return `<tr><td>${s?routeLink(`enitoy/${slug(s.generation)}/${slug(s.entry.name)}`,s.entry.name):esc(x.enitoy)}</td><td>${x.minLevel===x.maxLevel?esc(x.minLevel):`${esc(x.minLevel)}–${esc(x.maxLevel)}`}</td><td>${esc(x.percent)}%</td></tr>`}).join('')}</tbody></table>`:'<span class="muted">None</span>'}</div>`}; return `<section class="section"><h2 class="section-title">${esc(m.name)}</h2><div class="grid-2">${table('day')}${table('night')}</div></section>`; }
 function renderCraftLine(c){ const method=c.method==='station'?'Crafting Station':c.method==='holdMove'?'Hold + Move Stitch':c.method||'Craft'; return `<div style="padding:8px 0;border-bottom:1px solid #e8ebee"><b>${esc(method)}</b>: ${(c.ingredients||[]).map(i=>`${esc(i.quantity||1)}× ${routeLink(`items/${slug(i.item)}`,i.item)}`).join(' + ')} → ${esc(c.resultQuantity||1)}× ${routeLink(`items/${slug(c.resultItem)}`,c.resultItem)}</div>`; }
 function renderCrafts(){ const cs=db.crafts||[]; app.innerHTML=`${breadcrumbs([{label:'Crafts'}])}<h1 class="page-title">Crafts</h1><p class="subtitle">${cs.length} recipes.</p><div class="card">${cs.length?cs.map(renderCraftLine).join(''):'<span class="muted">No recipes recorded.</span>'}</div>`; }
-restoreRememberedProject().then(restored=>{if(!restored)render();}).catch(()=>render());
+void startViewer();
 })();
 </script>
 </body>
