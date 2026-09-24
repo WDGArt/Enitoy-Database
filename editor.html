@@ -5588,7 +5588,7 @@ dialog,
                 <a id="import-chart" class="type-icon-th" style="cursor: pointer; width: 92px; font-size: 9px;">Import Project</a>
             </div>
             <div class="control-row">
-                <a id="save-internal-project" class="type-icon-th" style="cursor: pointer; width: 92px; font-size: 9px;" title="Save the current project to GitHub so the Viewer can update">Save Project</a>
+                <a id="save-internal-project" class="type-icon-th" style="cursor: pointer; width: 92px; font-size: 9px;" title="Save the current project to GitHub as Enitoy_Project.json so the Viewer can update">Save Project</a>
                 <div class="connector-slot" aria-hidden="true"><span class="floppy-icon">
                     <svg class="floppy-shadow" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M4 3h13l3 3v15H4V3zm2 2v5h10V5H6zm1 9v5h10v-5H7z"/>
@@ -7830,6 +7830,8 @@ dialog,
                 var githubRepo = "Enitoy-Database";
                 var githubBranch = "main";
                 var githubJsonPath = "Enitoy_Project.json";
+                var githubLegacyWrongCasePath = "Enitoy_Project.JSON";
+                var githubSyncBuild = "lowercase-json-v3";
                 var githubTokenSessionKey = "EnitoyDatabaseEditor.GitHubToken.v1";
                 var githubViewerSyncChannelName = "EnitoyDatabase.LiveSync.v1";
                 var githubViewerSyncStorageKey = "EnitoyDatabase.LiveSyncSignal.v1";
@@ -7886,26 +7888,32 @@ dialog,
                     };
                 }
 
-                function notifyOpenViewersOfGitHubSave(commitSha) {
-                    var message = {
+                function notifyOpenViewersOfGitHubSave(commitSha, projectJsonText) {
+                    var signalMessage = {
                         type: "enitoy-project-updated",
                         file: githubJsonPath,
                         commitSha: commitSha || "",
                         savedAt: Date.now()
                     };
 
+                    // Same-browser Viewer tabs get the exact JSON that GitHub just accepted.
+                    // This avoids waiting for raw.githubusercontent.com/CDN propagation.
                     try {
                         if ("BroadcastChannel" in window) {
                             var channel = new BroadcastChannel(githubViewerSyncChannelName);
-                            channel.postMessage(message);
-                            channel.close();
+                            channel.postMessage(Object.assign({}, signalMessage, {
+                                projectJson: typeof projectJsonText === "string" ? projectJsonText : ""
+                            }));
+                            window.setTimeout(function () { channel.close(); }, 500);
                         }
                     } catch (error) {
-                        console.warn("Could not broadcast the Enitoy Viewer refresh signal.", error);
+                        console.warn("Could not broadcast the Enitoy Viewer refresh data.", error);
                     }
 
+                    // Keep localStorage as a lightweight fallback signal only. The project can
+                    // contain embedded images and may be too large for localStorage quotas.
                     try {
-                        localStorage.setItem(githubViewerSyncStorageKey, JSON.stringify(message));
+                        localStorage.setItem(githubViewerSyncStorageKey, JSON.stringify(signalMessage));
                     } catch (error) {
                         console.warn("Could not write the Enitoy Viewer refresh signal.", error);
                     }
@@ -7978,9 +7986,10 @@ dialog,
 
                         var savedResult = await saveResponse.json();
                         var savedCommitSha = savedResult && savedResult.commit && savedResult.commit.sha ? savedResult.commit.sha : "";
-                        notifyOpenViewersOfGitHubSave(savedCommitSha);
+                        notifyOpenViewersOfGitHubSave(savedCommitSha, jsonText);
 
-                        if (saveControl) saveControl.textContent = "Saved valid JSON! Viewer updating...";
+                        console.info("GitHub save target:", githubJsonPath, "build:", githubSyncBuild);
+                        if (saveControl) saveControl.textContent = "Saved Enitoy_Project.json! Viewer updating...";
                         return true;
                     } catch (error) {
                         console.error("Could not save the Enitoy project to GitHub.", error);
