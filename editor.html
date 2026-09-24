@@ -7823,14 +7823,16 @@ dialog,
 
                 function exportChartJson() {
                     var json = JSON.stringify(chartProjectData(), null, 2);
-                    downloadBlob(new Blob([json], { type: "application/json" }), "Enitoy_Project.json");
+                    downloadBlob(new Blob([json], { type: "application/json" }), "Enitoy_Project.JSON");
                 }
 
                 var githubOwner = "wdgart";
                 var githubRepo = "Enitoy-Database";
                 var githubBranch = "main";
-                var githubJsonPath = "Enitoy_project.json";
+                var githubJsonPath = "Enitoy_Project.JSON";
                 var githubTokenSessionKey = "EnitoyDatabaseEditor.GitHubToken.v1";
+                var githubViewerSyncChannelName = "EnitoyDatabase.LiveSync.v1";
+                var githubViewerSyncStorageKey = "EnitoyDatabase.LiveSyncSignal.v1";
                 var githubSaveInProgress = false;
 
                 function getGitHubToken() {
@@ -7873,6 +7875,31 @@ dialog,
                         "Authorization": "Bearer " + token,
                         "X-GitHub-Api-Version": "2022-11-28"
                     };
+                }
+
+                function notifyOpenViewersOfGitHubSave(commitSha) {
+                    var message = {
+                        type: "enitoy-project-updated",
+                        file: githubJsonPath,
+                        commitSha: commitSha || "",
+                        savedAt: Date.now()
+                    };
+
+                    try {
+                        if ("BroadcastChannel" in window) {
+                            var channel = new BroadcastChannel(githubViewerSyncChannelName);
+                            channel.postMessage(message);
+                            channel.close();
+                        }
+                    } catch (error) {
+                        console.warn("Could not broadcast the Enitoy Viewer refresh signal.", error);
+                    }
+
+                    try {
+                        localStorage.setItem(githubViewerSyncStorageKey, JSON.stringify(message));
+                    } catch (error) {
+                        console.warn("Could not write the Enitoy Viewer refresh signal.", error);
+                    }
                 }
 
                 async function saveProjectToGitHub() {
@@ -7932,7 +7959,11 @@ dialog,
                             throw new Error("GitHub save failed (" + saveResponse.status + ")." + detail);
                         }
 
-                        if (saveControl) saveControl.textContent = "Saved!";
+                        var savedResult = await saveResponse.json();
+                        var savedCommitSha = savedResult && savedResult.commit && savedResult.commit.sha ? savedResult.commit.sha : "";
+                        notifyOpenViewersOfGitHubSave(savedCommitSha);
+
+                        if (saveControl) saveControl.textContent = "Saved! Viewer updating...";
                         return true;
                     } catch (error) {
                         console.error("Could not save the Enitoy project to GitHub.", error);
@@ -7959,7 +7990,7 @@ dialog,
                         importChartFile(new Blob([text], { type: "application/json" }));
                     } catch (error) {
                         console.warn("Could not automatically load the shared Enitoy GitHub project.", error);
-                        alert("The shared Enitoy_project.json could not be loaded from GitHub. The editor is still open, but make sure you are editing the intended project before saving.");
+                        alert("The shared Enitoy_Project.JSON could not be loaded from GitHub. The editor is still open, but make sure you are editing the intended project before saving.");
                     }
                 }
 
