@@ -7823,13 +7823,13 @@ dialog,
 
                 function exportChartJson() {
                     var json = JSON.stringify(chartProjectData(), null, 2);
-                    downloadBlob(new Blob([json], { type: "application/json" }), "Enitoy_Project.JSON");
+                    downloadBlob(new Blob([json], { type: "application/json" }), "Enitoy_Project.json");
                 }
 
                 var githubOwner = "wdgart";
                 var githubRepo = "Enitoy-Database";
                 var githubBranch = "main";
-                var githubJsonPath = "Enitoy_Project.JSON";
+                var githubJsonPath = "Enitoy_Project.json";
                 var githubTokenSessionKey = "EnitoyDatabaseEditor.GitHubToken.v1";
                 var githubViewerSyncChannelName = "EnitoyDatabase.LiveSync.v1";
                 var githubViewerSyncStorageKey = "EnitoyDatabase.LiveSyncSignal.v1";
@@ -8007,15 +8007,15 @@ dialog,
 
                 function parseGitHubProjectJson(text) {
                     var normalized = normalizeGitHubJsonText(text);
-                    if (!normalized) throw new Error("Enitoy_Project.JSON is empty.");
+                    if (!normalized) throw new Error("Enitoy_Project.json is empty.");
                     if (normalized.charAt(0) !== "{") {
-                        throw new Error("Enitoy_Project.JSON does not begin with a JSON object. It may contain HTML or another file type instead of project JSON.");
+                        throw new Error("Enitoy_Project.json does not begin with a JSON object. It may contain HTML or another file type instead of project JSON.");
                     }
                     var data;
                     try {
                         data = JSON.parse(normalized);
                     } catch (error) {
-                        throw new Error("Enitoy_Project.JSON contains malformed JSON: " + error.message);
+                        throw new Error("Enitoy_Project.json contains malformed JSON: " + error.message);
                     }
                     var validationError = validateImportedChart(data);
                     if (validationError) throw new Error(validationError);
@@ -8034,9 +8034,9 @@ dialog,
                     } catch (error) {
                         console.warn("Could not automatically load the shared Enitoy GitHub project.", error);
                         alert(
-                            "The GitHub Enitoy_Project.JSON is not usable yet.\n\n" +
+                            "The GitHub Enitoy_Project.json is not usable yet.\n\n" +
                             error.message +
-                            "\n\nThe Editor will remain open. If the project currently shown here is the project you want to publish, click Save Project once. Save Project will overwrite Enitoy_Project.JSON with fresh valid project JSON."
+                            "\n\nThe Editor will remain open. If the project currently shown here is the project you want to publish, click Save Project once. Save Project will overwrite Enitoy_Project.json with fresh valid project JSON."
                         );
                     }
                 }
