@@ -7869,7 +7869,16 @@ dialog,
                     return "https://api.github.com/repos/" + encodeURIComponent(githubOwner) + "/" + encodeURIComponent(githubRepo) + "/contents/" + githubJsonPath.split("/").map(encodeURIComponent).join("/");
                 }
 
-                function githubHeaders(token) {
+                function githubReadHeaders() {
+                    // This repository is public, so reading the current file does not need
+                    // (and should not depend on) the user's write token being valid.
+                    return {
+                        "Accept": "application/vnd.github+json",
+                        "X-GitHub-Api-Version": "2022-11-28"
+                    };
+                }
+
+                function githubWriteHeaders(token) {
                     return {
                         "Accept": "application/vnd.github+json",
                         "Authorization": "Bearer " + token,
@@ -7919,7 +7928,7 @@ dialog,
                         var apiUrl = githubContentsApiUrl();
                         var readResponse = await fetch(apiUrl + "?ref=" + encodeURIComponent(githubBranch), {
                             method: "GET",
-                            headers: githubHeaders(token),
+                            headers: githubReadHeaders(),
                             cache: "no-store"
                         });
 
@@ -7928,7 +7937,6 @@ dialog,
                             var currentFile = await readResponse.json();
                             currentSha = currentFile && currentFile.sha ? currentFile.sha : null;
                         } else if (readResponse.status !== 404) {
-                            if (readResponse.status === 401 || readResponse.status === 403) clearGitHubToken();
                             throw new Error("Could not read the current GitHub JSON (" + readResponse.status + ").");
                         }
 
@@ -7946,18 +7954,23 @@ dialog,
 
                         var saveResponse = await fetch(apiUrl, {
                             method: "PUT",
-                            headers: Object.assign({ "Content-Type": "application/json" }, githubHeaders(token)),
+                            headers: Object.assign({ "Content-Type": "application/json" }, githubWriteHeaders(token)),
                             body: JSON.stringify(body)
                         });
 
                         if (!saveResponse.ok) {
-                            if (saveResponse.status === 401 || saveResponse.status === 403) clearGitHubToken();
                             var detail = "";
                             try {
                                 var errorBody = await saveResponse.json();
                                 detail = errorBody && errorBody.message ? " " + errorBody.message : "";
                             } catch (error) {}
-                            if (saveResponse.status === 409) {
+
+                            if (saveResponse.status === 401) {
+                                clearGitHubToken();
+                                detail += " GitHub rejected the saved token. Click Save Project again and paste a newly generated fine-grained token for wdgart/Enitoy-Database.";
+                            } else if (saveResponse.status === 403) {
+                                detail += " GitHub recognized the request but did not allow the write. Make sure the fine-grained token is allowed to access wdgart/Enitoy-Database and has Repository permissions → Contents: Read and write.";
+                            } else if (saveResponse.status === 409) {
                                 detail += " The GitHub file changed before this save finished. Click Save Project again to retry with the newest file version.";
                             }
                             throw new Error("GitHub save failed (" + saveResponse.status + ")." + detail);
