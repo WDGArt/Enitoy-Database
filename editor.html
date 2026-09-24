@@ -7836,6 +7836,7 @@ dialog,
                 var githubViewerSyncChannelName = "EnitoyDatabase.LiveSync.v1";
                 var githubViewerSyncStorageKey = "EnitoyDatabase.LiveSyncSignal.v1";
                 var githubSaveInProgress = false;
+                var githubCurrentFileSha = "";
 
                 function getGitHubToken() {
                     var token = "";
@@ -7919,6 +7920,44 @@ dialog,
                     }
                 }
 
+                async function readCurrentGitHubFileSha(apiUrl) {
+                    var response = await fetch(
+                        apiUrl + "?ref=" + encodeURIComponent(githubBranch) + "&_=" + Date.now(),
+                        {
+                            method: "GET",
+                            headers: githubReadHeaders(),
+                            cache: "no-store"
+                        }
+                    );
+
+                    if (response.status === 404) {
+                        githubCurrentFileSha = "";
+                        return "";
+                    }
+                    if (!response.ok) {
+                        throw new Error("Could not read the current GitHub JSON (" + response.status + ").");
+                    }
+
+                    var currentFile = await response.json();
+                    githubCurrentFileSha = currentFile && currentFile.sha ? currentFile.sha : "";
+                    return githubCurrentFileSha;
+                }
+
+                async function putProjectJsonToGitHub(apiUrl, token, jsonText, fileSha) {
+                    var body = {
+                        message: "Update Enitoy database from editor",
+                        content: utf8ToBase64(jsonText),
+                        branch: githubBranch
+                    };
+                    if (fileSha) body.sha = fileSha;
+
+                    return fetch(apiUrl, {
+                        method: "PUT",
+                        headers: Object.assign({ "Content-Type": "application/json" }, githubWriteHeaders(token)),
+                        body: JSON.stringify(body)
+                    });
+                }
+
                 async function saveProjectToGitHub() {
                     if (githubSaveInProgress) return false;
                     var token = getGitHubToken();
@@ -7934,37 +7973,39 @@ dialog,
 
                     try {
                         var apiUrl = githubContentsApiUrl();
-                        var readResponse = await fetch(apiUrl + "?ref=" + encodeURIComponent(githubBranch), {
-                            method: "GET",
-                            headers: githubReadHeaders(),
-                            cache: "no-store"
-                        });
-
-                        var currentSha = null;
-                        if (readResponse.ok) {
-                            var currentFile = await readResponse.json();
-                            currentSha = currentFile && currentFile.sha ? currentFile.sha : null;
-                        } else if (readResponse.status !== 404) {
-                            throw new Error("Could not read the current GitHub JSON (" + readResponse.status + ").");
-                        }
 
                         var projectData = chartProjectData();
                         var validationError = validateImportedChart(projectData);
                         if (validationError) throw new Error("The current Editor project cannot be saved: " + validationError);
                         var jsonText = JSON.stringify(projectData, null, 2);
                         JSON.parse(jsonText); // Final local validity check before anything is sent to GitHub.
-                        var body = {
-                            message: "Update Enitoy database from editor",
-                            content: utf8ToBase64(jsonText),
-                            branch: githubBranch
-                        };
-                        if (currentSha) body.sha = currentSha;
 
-                        var saveResponse = await fetch(apiUrl, {
-                            method: "PUT",
-                            headers: Object.assign({ "Content-Type": "application/json" }, githubWriteHeaders(token)),
-                            body: JSON.stringify(body)
-                        });
+                        // First save in this browser session needs the current GitHub file SHA.
+                        // After every successful save we keep GitHub's NEW SHA in memory, so the
+                        // next save can happen immediately without a hard refresh.
+                        if (!githubCurrentFileSha) {
+                            await readCurrentGitHubFileSha(apiUrl);
+                        }
+
+                        var saveResponse = await putProjectJsonToGitHub(
+                            apiUrl,
+                            token,
+                            jsonText,
+                            githubCurrentFileSha
+                        );
+
+                        // If the file changed outside this Editor tab, our remembered SHA can be
+                        // stale. Refresh it once and retry automatically instead of making the user
+                        // press Ctrl+Shift+R.
+                        if (saveResponse.status === 409 || saveResponse.status === 422) {
+                            await readCurrentGitHubFileSha(apiUrl);
+                            saveResponse = await putProjectJsonToGitHub(
+                                apiUrl,
+                                token,
+                                jsonText,
+                                githubCurrentFileSha
+                            );
+                        }
 
                         if (!saveResponse.ok) {
                             var detail = "";
@@ -7978,18 +8019,28 @@ dialog,
                                 detail += " GitHub rejected the saved token. Click Save Project again and paste a newly generated fine-grained token for wdgart/Enitoy-Database.";
                             } else if (saveResponse.status === 403) {
                                 detail += " GitHub recognized the request but did not allow the write. Make sure the fine-grained token is allowed to access wdgart/Enitoy-Database and has Repository permissions → Contents: Read and write.";
-                            } else if (saveResponse.status === 409) {
-                                detail += " The GitHub file changed before this save finished. Click Save Project again to retry with the newest file version.";
+                            } else if (saveResponse.status === 409 || saveResponse.status === 422) {
+                                detail += " GitHub still reports a version conflict after the automatic retry. Another tab or process may be updating Enitoy_Project.json at the same time.";
                             }
                             throw new Error("GitHub save failed (" + saveResponse.status + ")." + detail);
                         }
 
                         var savedResult = await saveResponse.json();
                         var savedCommitSha = savedResult && savedResult.commit && savedResult.commit.sha ? savedResult.commit.sha : "";
+
+                        // THIS is the important part for repeat saves: GitHub returns the SHA of the
+                        // newly written file. Remember it immediately for the next click.
+                        if (savedResult && savedResult.content && savedResult.content.sha) {
+                            githubCurrentFileSha = savedResult.content.sha;
+                        } else {
+                            // Very defensive fallback in case GitHub ever omits content.sha.
+                            await readCurrentGitHubFileSha(apiUrl);
+                        }
+
                         notifyOpenViewersOfGitHubSave(savedCommitSha, jsonText);
 
-                        console.info("GitHub save target:", githubJsonPath, "build:", githubSyncBuild);
-                        if (saveControl) saveControl.textContent = "Saved Enitoy_Project.json! Viewer updating...";
+                        console.info("GitHub save target:", githubJsonPath, "new file SHA:", githubCurrentFileSha, "build:", githubSyncBuild);
+                        if (saveControl) saveControl.textContent = "Saved Enitoy_Project.json! Ready to save again.";
                         return true;
                     } catch (error) {
                         console.error("Could not save the Enitoy project to GitHub.", error);
@@ -8001,7 +8052,7 @@ dialog,
                             saveControl.removeAttribute("aria-disabled");
                             window.setTimeout(function () {
                                 saveControl.textContent = originalText;
-                            }, 1200);
+                            }, 1400);
                         }
                     }
                 }
