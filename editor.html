@@ -5588,7 +5588,7 @@ dialog,
                 <a id="import-chart" class="type-icon-th" style="cursor: pointer; width: 92px; font-size: 9px;">Import Project</a>
             </div>
             <div class="control-row">
-                <a id="save-internal-project" class="type-icon-th" style="cursor: pointer; width: 92px; font-size: 9px;">Save Project</a>
+                <a id="save-internal-project" class="type-icon-th" style="cursor: pointer; width: 92px; font-size: 9px;" title="Save the current project to GitHub so the Viewer can update">Save Project</a>
                 <div class="connector-slot" aria-hidden="true"><span class="floppy-icon">
                     <svg class="floppy-shadow" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M4 3h13l3 3v15H4V3zm2 2v5h10V5H6zm1 9v5h10v-5H7z"/>
@@ -5738,7 +5738,7 @@ dialog,
                     <tbody id="move-list-body"></tbody>
                 </table>
             </div>
-            <p class="move-save-note">Save Project stores a named copy in this browser. Export Project still creates the portable JSON project file (plus the type-chart PNG). Internal projects contain the same full database data as JSON exports, including Assist Calls and Modifications.</p>
+            <p class="move-save-note">Save Project publishes the current database to the shared GitHub JSON used by the Viewer. Projects still stores named browser-local copies, and Export Project still creates the portable JSON project file (plus the type-chart PNG).</p>
         </section>
 
         <section class="page-section" id="movepool-database" hidden>
@@ -7826,6 +7826,143 @@ dialog,
                     downloadBlob(new Blob([json], { type: "application/json" }), "Enitoy_Project.json");
                 }
 
+                var githubOwner = "wdgart";
+                var githubRepo = "Enitoy-Database";
+                var githubBranch = "main";
+                var githubJsonPath = "Enitoy_project.json";
+                var githubTokenSessionKey = "EnitoyDatabaseEditor.GitHubToken.v1";
+                var githubSaveInProgress = false;
+
+                function getGitHubToken() {
+                    var token = "";
+                    try { token = sessionStorage.getItem(githubTokenSessionKey) || ""; } catch (error) {}
+                    if (token) return token;
+
+                    token = prompt(
+                        "Paste the fine-grained GitHub token for wdgart/Enitoy-Database.\n\n" +
+                        "It needs Contents: Read and write permission. The token is kept only for this browser tab and is never written into the HTML or project JSON."
+                    ) || "";
+                    token = token.trim();
+                    if (!token) return "";
+                    try { sessionStorage.setItem(githubTokenSessionKey, token); } catch (error) {}
+                    return token;
+                }
+
+                function clearGitHubToken() {
+                    try { sessionStorage.removeItem(githubTokenSessionKey); } catch (error) {}
+                }
+
+                function utf8ToBase64(text) {
+                    var bytes = new TextEncoder().encode(text);
+                    var chunks = [];
+                    var chunkSize = 0x8000;
+                    for (var offset = 0; offset < bytes.length; offset += chunkSize) {
+                        var chunk = bytes.subarray(offset, Math.min(offset + chunkSize, bytes.length));
+                        chunks.push(String.fromCharCode.apply(null, chunk));
+                    }
+                    return btoa(chunks.join(""));
+                }
+
+                function githubContentsApiUrl() {
+                    return "https://api.github.com/repos/" + encodeURIComponent(githubOwner) + "/" + encodeURIComponent(githubRepo) + "/contents/" + githubJsonPath.split("/").map(encodeURIComponent).join("/");
+                }
+
+                function githubHeaders(token) {
+                    return {
+                        "Accept": "application/vnd.github+json",
+                        "Authorization": "Bearer " + token,
+                        "X-GitHub-Api-Version": "2022-11-28"
+                    };
+                }
+
+                async function saveProjectToGitHub() {
+                    if (githubSaveInProgress) return false;
+                    var token = getGitHubToken();
+                    if (!token) return false;
+
+                    var saveControl = document.getElementById("save-internal-project");
+                    var originalText = saveControl ? saveControl.textContent : "Save Project";
+                    githubSaveInProgress = true;
+                    if (saveControl) {
+                        saveControl.textContent = "Saving...";
+                        saveControl.setAttribute("aria-disabled", "true");
+                    }
+
+                    try {
+                        var apiUrl = githubContentsApiUrl();
+                        var readResponse = await fetch(apiUrl + "?ref=" + encodeURIComponent(githubBranch), {
+                            method: "GET",
+                            headers: githubHeaders(token),
+                            cache: "no-store"
+                        });
+
+                        var currentSha = null;
+                        if (readResponse.ok) {
+                            var currentFile = await readResponse.json();
+                            currentSha = currentFile && currentFile.sha ? currentFile.sha : null;
+                        } else if (readResponse.status !== 404) {
+                            if (readResponse.status === 401 || readResponse.status === 403) clearGitHubToken();
+                            throw new Error("Could not read the current GitHub JSON (" + readResponse.status + ").");
+                        }
+
+                        var jsonText = JSON.stringify(chartProjectData(), null, 2);
+                        var body = {
+                            message: "Update Enitoy database from editor",
+                            content: utf8ToBase64(jsonText),
+                            branch: githubBranch
+                        };
+                        if (currentSha) body.sha = currentSha;
+
+                        var saveResponse = await fetch(apiUrl, {
+                            method: "PUT",
+                            headers: Object.assign({ "Content-Type": "application/json" }, githubHeaders(token)),
+                            body: JSON.stringify(body)
+                        });
+
+                        if (!saveResponse.ok) {
+                            if (saveResponse.status === 401 || saveResponse.status === 403) clearGitHubToken();
+                            var detail = "";
+                            try {
+                                var errorBody = await saveResponse.json();
+                                detail = errorBody && errorBody.message ? " " + errorBody.message : "";
+                            } catch (error) {}
+                            if (saveResponse.status === 409) {
+                                detail += " The GitHub file changed before this save finished. Click Save Project again to retry with the newest file version.";
+                            }
+                            throw new Error("GitHub save failed (" + saveResponse.status + ")." + detail);
+                        }
+
+                        if (saveControl) saveControl.textContent = "Saved!";
+                        return true;
+                    } catch (error) {
+                        console.error("Could not save the Enitoy project to GitHub.", error);
+                        alert("The project could not be saved to GitHub. " + error.message);
+                        return false;
+                    } finally {
+                        githubSaveInProgress = false;
+                        if (saveControl) {
+                            saveControl.removeAttribute("aria-disabled");
+                            window.setTimeout(function () {
+                                saveControl.textContent = originalText;
+                            }, 1200);
+                        }
+                    }
+                }
+
+                async function loadGitHubProjectOnStartup() {
+                    if (!/\.github\.io$/i.test(window.location.hostname)) return;
+                    var rawUrl = "https://raw.githubusercontent.com/" + githubOwner + "/" + githubRepo + "/" + githubBranch + "/" + githubJsonPath;
+                    try {
+                        var response = await fetch(rawUrl + "?t=" + Date.now(), { cache: "no-store", headers: { "Accept": "application/json" } });
+                        if (!response.ok) throw new Error("GitHub returned " + response.status + ".");
+                        var text = await response.text();
+                        importChartFile(new Blob([text], { type: "application/json" }));
+                    } catch (error) {
+                        console.warn("Could not automatically load the shared Enitoy GitHub project.", error);
+                        alert("The shared Enitoy_project.json could not be loaded from GitHub. The editor is still open, but make sure you are editing the intended project before saving.");
+                    }
+                }
+
 
                 var internalProjectIndexKey = "EnitoyDatabaseEditor.InternalProjects.Index.v1";
                 var internalProjectDataPrefix = "EnitoyDatabaseEditor.InternalProjects.Data.v1.";
@@ -9633,7 +9770,7 @@ dialog,
 
 
                 document.getElementById("save-internal-project").addEventListener("click", function () {
-                    saveInternalProject();
+                    void saveProjectToGitHub();
                 }, false);
 
                 document.getElementById("manage-internal-projects").addEventListener("click", function () {
@@ -20117,6 +20254,8 @@ dialog,
                             + encodeHash();
                     history.replaceState(null, "", url);
                 }
+
+                void loadGitHubProjectOnStartup();
             }, false);
         </script>
     </body>
