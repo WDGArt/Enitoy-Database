@@ -39,6 +39,13 @@ button,input,select{font:inherit}
 .card h2,.section-title{font-size:22px;line-height:1.25;margin:0 0 12px;color:#303840}.card h3{margin:0 0 10px;font-size:17px}
 .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .hero-grid{display:grid;grid-template-columns:minmax(300px,440px) minmax(290px,1fr) minmax(300px,1fr);gap:18px;align-items:start}
+.hero-side-stack{display:grid;gap:18px;min-width:0}
+.stitch-defense-card .defense-note{margin:0 0 10px;color:var(--muted);font-size:12px}
+.stitch-defense-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(42px,1fr));gap:4px}
+.stitch-defense-item{min-width:0;border:1px solid #dfe4e9;border-radius:3px;overflow:hidden;background:#fff;text-align:center}
+.stitch-defense-name{display:flex;align-items:center;justify-content:center;min-height:27px;padding:3px 2px;font-size:10px;font-weight:850;letter-spacing:.035em}
+.stitch-defense-value{display:flex;align-items:center;justify-content:center;min-height:25px;padding:2px;font-size:12px;font-weight:850;background:#f7f8fa}
+.stitch-defense-value.fx0{background:#444;color:#fff}.stitch-defense-value.fx50{background:#b9d5ec;color:#24313d}.stitch-defense-value.fx200{background:#efb1a5;color:#56271f}.stitch-defense-value.fx100{background:#fff;color:#bbb}
 .section{margin-top:22px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:0 0 10px}
 .muted{color:var(--muted)}.tiny{font-size:12px}.nowrap{white-space:nowrap}
 .data-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line)}
@@ -325,7 +332,7 @@ function renderSpeciesPage(e,numberRec,ctx){ const base=ctx.baseRec; const formR
 app.innerHTML=`${breadcrumbs([{label:'Enitoys',route:'enitoys'},{label:e.name}])}${renderSpeciesPager(base)}<div class="form-tabs">${allTabs.map(t=>`<a class="${t.active?'active':''}" href="#${t.route}">${esc(t.label)}</a>`).join('')}</div><h1 class="page-title">${formRec?`${num(base.number)}·F${baseForms.indexOf(formRec)+1}`:num(base.number)} ${esc(e.name)}</h1><p class="subtitle">${e.classification?`${esc(e.classification)} Enitoy`:'Enitoy'} · ${esc(base.generation)}</p>
 <div class="hero-grid"><div class="card portrait-card"><div class="portrait">${imageBox(e)}</div>${hasImageData(e.misprintImageData)?'<div class="portrait-toggle"><button id="portrait-variant-toggle" type="button" aria-pressed="false">View Misprint</button></div>':''}<div class="stitches" style="margin-top:14px;justify-content:center">${stitches(e).map(t=>pill(t)).join('')}</div></div>
 <div class="card"><h2>Profile</h2><table class="key-table"><tr><th>Catalog</th><td>${num(base.number)}${formRec?` · Form ${baseForms.indexOf(formRec)+1}`:''}</td></tr><tr><th>Classification</th><td>${fmt(e.classification)}</td></tr><tr><th>Height</th><td>${fmt(e.height)}</td></tr><tr><th>Weight</th><td>${fmt(e.weight)}</td></tr><tr><th>Gender</th><td>${esc(genderText(e.genderRatio))}</td></tr><tr><th>Internal color</th><td>${fmt(e.internalColor)}</td></tr><tr><th>Recruitment rate</th><td>${fmt(e.recruitmentRate)}</td></tr><tr><th>Base EXP</th><td>${fmt(e.baseExp)}</td></tr><tr><th>Growth</th><td>${fmt(e.growthRate)}</td></tr></table></div>
-<div class="card"><h2>Base stats</h2>${statRows(e.stats)}</div></div>
+<div class="hero-side-stack"><div class="card"><h2>Base stats</h2>${statRows(e.stats)}</div>${renderStitchDefenses(e)}</div></div>
 ${e.info?`<section class="section card"><h2>Catalog entry</h2><p class="flavor">${esc(e.info)}</p></section>`:''}
 ${renderNameOrigins(e)}
 <section class="section grid-3"><div class="card"><h2>Skills</h2><table class="key-table"><tr><th>Skill</th><td>${e.skill?routeLink(`skills/${slug(e.skill)}`,e.skill):'—'}${skill?`<div class="tiny muted">${esc(skill.effect)}</div>`:''}</td></tr><tr><th>Hidden Skill</th><td>${e.hiddenSkill?routeLink(`skills/${slug(e.hiddenSkill)}`,e.hiddenSkill):'—'}${hidden?`<div class="tiny muted">${esc(hidden.effect)}</div>`:''}</td></tr></table></div><div class="card"><h2>Misprint Defect</h2>${e.misprintDefect?`<b>${routeLink(`defects/${slug(e.misprintDefect)}`,e.misprintDefect)}</b>${defect?`<p class="tiny muted">${esc(defect.effect)}</p>`:''}`:'<span class="muted">None recorded.</span>'}</div><div class="card"><h2>Drops</h2>${renderDrops(e.drops)}</div></section>
@@ -358,6 +365,23 @@ function renderType(name){
   <section class="section"><h2 class="section-title">Defensive matchups</h2><div class="grid-3"><div class="card"><h3>Weak to · takes 2×</h3><div class="stitches">${defense.weak.length?defense.weak.map(t=>pill(t,true)).join(''):'<span class="muted">None</span>'}</div></div><div class="card"><h3>Resists · takes ½×</h3><div class="stitches">${defense.resist.length?defense.resist.map(t=>pill(t,true)).join(''):'<span class="muted">None</span>'}</div></div><div class="card"><h3>Immune to · takes 0×</h3><div class="stitches">${defense.immune.length?defense.immune.map(t=>pill(t,true)).join(''):'<span class="muted">None</span>'}</div></div></div></section>
   <section class="section"><h2 class="section-title">Enitoys with ${esc(name)}</h2>${users.length?`<div class="catalog-grid">${users.map(catalogCard).join('')}</div>`:empty('No entered Enitoys currently use this Stitching.')}</section>`;
 }
+function renderStitchDefenses(e){
+  const names=allTypes();
+  const selected=stitches(e);
+  const defenseIndexes=selected.map(x=>names.indexOf(x)).filter(i=>i>=0);
+  if(!names.length || !defenseIndexes.length)return `<div class="card stitch-defense-card"><h2>Stitch defenses</h2><p class="muted">No defensive Stitching data is available.</p></div>`;
+  const cells=names.map((attackName,attackIndex)=>{
+    const result=combinedDefenseValue(attackIndex,defenseIndexes);
+    const fxClass=result===0?'fx0':result===1?'fx50':result===3?'fx200':'fx100';
+    const value=result===0?'0×':result===1?'½×':result===3?'2×':'';
+    const bg=color(attackName);
+    const label=attackName.slice(0,3).toUpperCase();
+    const spoken=result===0?'immune':result===1?'half damage':result===3?'double damage':'normal damage';
+    return `<div class="stitch-defense-item" title="${esc(attackName)}: ${spoken}"><div class="stitch-defense-name" style="background:${bg};color:${readable(bg)}">${esc(label)}</div><div class="stitch-defense-value ${fxClass}">${value}</div></div>`;
+  }).join('');
+  return `<div class="card stitch-defense-card"><h2>Stitch defenses</h2><p class="defense-note">The effectiveness of each Stitch against ${esc(e.name)}.</p><div class="stitch-defense-grid">${cells}</div></div>`;
+}
+
 function combinedDefenseValue(attackIndex,defenseIndexes){
   let score=0;
   for(const defenseIndex of defenseIndexes){
