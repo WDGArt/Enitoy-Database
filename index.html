@@ -108,6 +108,8 @@ button,input,select{font:inherit}
 
 /* Daily connection puzzles */
 .puzzle-hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:start}.puzzle-date{font-weight:800;color:#33495e}.puzzle-summary{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.puzzle-summary-box{min-width:100px;background:#f6f8fa;border:1px solid #dbe1e7;border-radius:7px;padding:9px 11px;text-align:center}.puzzle-summary-box b{display:block;font-size:20px;line-height:1.1}.puzzle-summary-box span{display:block;margin-top:3px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.puzzle-board{display:grid;gap:9px;margin-top:16px}.puzzle-board.p4{grid-template-columns:repeat(4,minmax(0,1fr))}.puzzle-board.p5{grid-template-columns:repeat(5,minmax(0,1fr))}.puzzle-tile{min-height:74px;border:1px solid #cbd4dc;background:#fff;border-radius:8px;padding:9px 7px;font-weight:850;color:#273744;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;transition:background .12s ease,border-color .12s ease,transform .05s ease}.puzzle-tile:hover:not(:disabled){background:#f4f7f9;border-color:#91a9bd}.puzzle-tile:active:not(:disabled){transform:translateY(1px)}.puzzle-tile.selected{background:#dfeaf3;border-color:#688ca9;box-shadow:inset 0 0 0 1px #688ca9}.puzzle-tile:disabled{cursor:default}.puzzle-solved{border:1px solid #cfd8e0;border-radius:8px;padding:13px 15px;margin-top:9px;background:#f7f9fb;text-align:center}.puzzle-solved b{display:block;font-size:16px;color:#243b50}.puzzle-solved span{display:block;margin-top:5px;font-weight:700;color:#5d6975}.puzzle-controls{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:16px}.puzzle-message{text-align:center;min-height:24px;margin:12px 0 0;font-weight:800}.puzzle-message.good{color:#2b6a39}.puzzle-message.bad{color:#8a3838}.puzzle-lives{font-size:21px;letter-spacing:3px}.puzzle-finished{text-align:center;padding:26px}.puzzle-finished h2{margin:5px 0 8px}.puzzle-explain{margin-top:18px}.puzzle-explain summary{cursor:pointer;font-weight:800;color:#314b63}.puzzle-pool-note{margin-top:14px;font-size:12px;color:var(--muted);text-align:center}.puzzle-switches{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.puzzle-switches a{display:inline-block;border:1px solid #bdc8d2;border-radius:999px;padding:6px 10px;text-decoration:none;font-weight:800;color:#385770;background:#fff}.puzzle-switches a.active{background:#385770;color:#fff;border-color:#385770}@media(max-width:720px){.puzzle-hero{grid-template-columns:1fr}.puzzle-summary{justify-content:flex-start}.puzzle-tile{min-height:64px;font-size:12px;padding:7px 4px}.puzzle-board{gap:6px}}@media(max-width:480px){.puzzle-board.p5{gap:4px}.puzzle-board.p5 .puzzle-tile{font-size:10px;min-height:58px;padding:5px 2px;border-radius:6px}}
+.puzzle-tile.has-art{padding:4px;min-height:104px;overflow:hidden}.puzzle-tile.has-art img{width:100%;height:96px;object-fit:contain;display:block;pointer-events:none}.puzzle-board.p5 .puzzle-tile.has-art{min-height:92px}.puzzle-board.p5 .puzzle-tile.has-art img{height:84px}@media(max-width:720px){.puzzle-tile.has-art{min-height:82px}.puzzle-tile.has-art img{height:74px}.puzzle-board.p5 .puzzle-tile.has-art{min-height:72px}.puzzle-board.p5 .puzzle-tile.has-art img{height:64px}}
+.profile-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}.profile-form{display:grid;gap:11px}.profile-form label{display:grid;gap:5px;font-weight:800;color:#34495c}.profile-form input{width:100%;box-sizing:border-box;border:1px solid #cbd5df;border-radius:6px;padding:10px 11px;font:inherit}.profile-actions{display:flex;gap:8px;flex-wrap:wrap}.profile-badge{display:inline-flex;align-items:center;gap:7px;border:1px solid #c6d3de;background:#f4f8fb;border-radius:999px;padding:6px 10px;font-weight:800;color:#385770}.profile-status{padding:12px 14px;border:1px solid #d9e1e7;border-radius:7px;background:#f8fafb}.profile-status.good{background:#edf8ef;border-color:#b8ddc0}.profile-status.bad{background:#fff1f1;border-color:#edc5c5}.profile-completion-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.profile-completion-grid>div{padding:13px;border:1px solid #dbe2e8;border-radius:7px;background:#f8fafb;text-align:center}.profile-completion-grid b{display:block;font-size:24px}.profile-completion-grid span{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase}@media(max-width:700px){.profile-grid{grid-template-columns:1fr}.profile-completion-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -129,9 +131,10 @@ button,input,select{font:inherit}
     </div>
     <button id="load-btn" class="file-button" type="button">Load JSON</button>
     <input id="file-input" type="file" accept=".json,application/json" hidden>
+    <input id="profile-file-input" type="file" accept=".json,application/json" hidden>
   </div>
   <nav class="subnav"><div class="subnav-inner">
-    <a href="#enitoys">Enitoys</a><a href="#moves">Techniques</a><a href="#types">Stitching</a><a href="#stitch-calc">Stitch Calc</a><a href="#daily-quiz">Daily Quiz</a><a href="#daily-puzzle-4">4×4 Puzzle</a><a href="#daily-puzzle-5">5×5 Puzzle</a><a href="#skills">Skills</a><a href="#defects">Defects</a><a href="#items">Items</a><a href="#temperaments">Temperaments</a><a href="#locations">Encounters</a><a href="#crafts">Crafts</a>
+    <a href="#enitoys">Enitoys</a><a href="#moves">Techniques</a><a href="#types">Stitching</a><a href="#stitch-calc">Stitch Calc</a><a href="#daily-quiz">Daily Quiz</a><a href="#daily-puzzle-4">4×4 Puzzle</a><a href="#daily-puzzle-5">5×5 Puzzle</a><a href="#profiles">Profiles</a><a href="#skills">Skills</a><a href="#defects">Defects</a><a href="#items">Items</a><a href="#temperaments">Temperaments</a><a href="#locations">Encounters</a><a href="#crafts">Crafts</a>
   </div></nav>
 </header>
 <main id="app" class="wrap"></main>
@@ -163,10 +166,14 @@ const DAILY_FALLBACK_PREFIX = 'enitoy-database-viewer:daily-record-fallback:v1:'
 const DAILY_PUZZLE_STATE_PREFIX = 'enitoy-database-viewer:daily-connection:v2:';
 const MUSIC_ENABLED_KEY = 'enitoy-database-viewer:music-enabled:v1';
 const MUSIC_VOLUME_KEY = 'enitoy-database-viewer:music-volume:v1';
+const PROFILE_STORAGE_KEY = 'enitoy-database-viewer:Enitoy_Profiles.json:v1';
+const PROFILE_SESSION_KEY = 'enitoy-database-viewer:active-profile:v1';
+const PROFILE_FILE_NAME = 'Enitoy_Profiles.json';
 let musicEnabled = true, musicVolume = 0.32, musicCtx = null, musicMaster = null, musicSource = null, musicStarted = false;
+let profileMessage = '';
 let lastRemoteJsonText = null;
 const $ = s => document.querySelector(s);
-const app = $('#app'), search = $('#search'), searchResults = $('#search-results'), fileInput = $('#file-input');
+const app = $('#app'), search = $('#search'), searchResults = $('#search-results'), fileInput = $('#file-input'), profileFileInput = $('#profile-file-input');
 const musicButton = $('#music-button'), musicPanel = $('#music-panel'), musicClose = $('#music-close'), musicPlay = $('#music-play'), musicVolumeInput = $('#music-volume'), musicVolumeValue = $('#music-volume-value');
 const GENDERS = ['Genderless','Male 8/8','Male 7/8','Male 6/8','Male 5/8','Male 4/8','Male 3/8','Male 2/8','Male 1/8','Female 8/8'];
 const STAT_NAMES = ['HP','ATK','DEF','SP. ATK','SP. DEF','SPD'];
@@ -179,6 +186,73 @@ function readable(hex){ const h=String(hex||'').replace('#',''); if(!/^[0-9a-f]{
 function pill(name, mini=false){ if(!name) return ''; const bg=color(name); return `<a class="${mini?'mini-pill':'pill'}" style="background:${bg};color:${readable(bg)}" href="#type/${slug(name)}">${esc(name)}</a>`; }
 function stitches(e){ const out=[]; if(e?.color1) out.push(e.color1); if(e?.color2) out.push(e.color2); if(e?.affinityCount===2 && e?.color3) out.push(e.color3); else if(e?.color3) out.push(e.color3); return [...new Set(out.filter(Boolean))]; }
 function num(n){ return '#'+String(n).padStart(3,'0'); }
+
+function profileLoadAll(){
+  try{const raw=localStorage.getItem(PROFILE_STORAGE_KEY);const a=raw?JSON.parse(raw):[];return Array.isArray(a)?a:[];}catch(err){return [];}
+}
+function profileSaveAll(profiles){ localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify(Array.isArray(profiles)?profiles:[])); }
+function profileActiveUsername(){ try{return localStorage.getItem(PROFILE_SESSION_KEY)||'';}catch(err){return '';} }
+function profileSetActive(username){ try{if(username)localStorage.setItem(PROFILE_SESSION_KEY,username);else localStorage.removeItem(PROFILE_SESSION_KEY);}catch(err){} }
+function profileActive(){const u=profileActiveUsername().toLowerCase();return profileLoadAll().find(p=>String(p.Username||'').toLowerCase()===u)||null;}
+function profileDayNumber(dateKey){
+  const a=new Date(DAILY_START_DATE_KEY+'T00:00:00Z'),b=new Date(dailyNormalizeDateKey(dateKey)+'T00:00:00Z');
+  return Math.floor((b-a)/86400000)+1;
+}
+function profileNormalizeEntry(p){
+  const nums=v=>Array.from(new Set((v||[]).map(Number).filter(n=>Number.isInteger(n)&&n>0))).sort((a,b)=>a-b);
+  return {Email:String(p?.Email||''),Username:String(p?.Username||''),Password:String(p?.Password||''),CompletedQuizzes:nums(p?.CompletedQuizzes),Completed44:nums(p?.Completed44),Completed55:nums(p?.Completed55)};
+}
+function profileBytesToB64(bytes){let s='';bytes.forEach(b=>s+=String.fromCharCode(b));return btoa(s);}
+function profileB64ToBytes(s){const raw=atob(s),out=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)out[i]=raw.charCodeAt(i);return out;}
+async function profileHashPassword(password,saltBytes){
+  if(!crypto?.subtle)throw new Error('This browser does not support secure password hashing.');
+  const salt=saltBytes||crypto.getRandomValues(new Uint8Array(16)),iterations=150000;
+  const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),'PBKDF2',false,['deriveBits']);
+  const bits=await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt,iterations},key,256);
+  return `pbkdf2-sha256$${iterations}$${profileBytesToB64(salt)}$${profileBytesToB64(new Uint8Array(bits))}`;
+}
+async function profileVerifyPassword(password,stored){
+  const parts=String(stored||'').split('$'); if(parts.length!==4||parts[0]!=='pbkdf2-sha256')return false;
+  const iterations=Number(parts[1]),salt=profileB64ToBytes(parts[2]);
+  const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),'PBKDF2',false,['deriveBits']);
+  const bits=new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt,iterations},key,256)),expected=profileB64ToBytes(parts[3]);
+  if(bits.length!==expected.length)return false; let diff=0;for(let i=0;i<bits.length;i++)diff|=bits[i]^expected[i];return diff===0;
+}
+function profileMarkComplete(field,dateKey){
+  const username=profileActiveUsername(); if(!username)return;
+  const profiles=profileLoadAll(),i=profiles.findIndex(p=>String(p.Username||'').toLowerCase()===username.toLowerCase()); if(i<0)return;
+  const day=profileDayNumber(dateKey); if(day<1)return;
+  profiles[i]=profileNormalizeEntry(profiles[i]); if(!profiles[i][field].includes(day))profiles[i][field].push(day); profiles[i][field].sort((a,b)=>a-b); profileSaveAll(profiles);
+}
+function profileIsComplete(field,dateKey){const p=profileActive();if(!p)return false;const day=profileDayNumber(dateKey);return (profileNormalizeEntry(p)[field]||[]).includes(day);}
+function profileExportJson(){
+  const data=JSON.stringify(profileLoadAll().map(profileNormalizeEntry),null,2),blob=new Blob([data],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download=PROFILE_FILE_NAME;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+async function profileImportFile(file){
+  try{
+    const parsed=JSON.parse(await file.text()); if(!Array.isArray(parsed))throw new Error('The profile JSON must be an array of profiles.');
+    const incoming=parsed.map(profileNormalizeEntry); const seenUser=new Set(),seenMail=new Set();
+    for(const p of incoming){if(!p.Email||!p.Username||!p.Password)throw new Error('Every profile needs Email, Username, and Password.');const u=p.Username.toLowerCase(),e=p.Email.toLowerCase();if(seenUser.has(u)||seenMail.has(e))throw new Error('The imported JSON contains duplicate usernames or emails.');seenUser.add(u);seenMail.add(e);}
+    profileSaveAll(incoming); if(profileActiveUsername()&&!incoming.some(p=>p.Username.toLowerCase()===profileActiveUsername().toLowerCase()))profileSetActive('');
+    profileMessage=`Imported ${incoming.length} profile${incoming.length===1?'':'s'} from ${PROFILE_FILE_NAME}.`; renderProfiles();
+  }catch(err){profileMessage='Import failed: '+(err?.message||err);renderProfiles();}
+}
+function profileStatusHtml(){const p=profileActive();return p?`<span class="profile-badge">Signed in as ${esc(p.Username)}</span>`:`<span class="profile-badge">No active profile</span>`;}
+function renderProfiles(){
+  const active=profileActive(),profiles=profileLoadAll();
+  const message=profileMessage?`<div class="profile-status ${/^Import failed:|^Could not|^Invalid|^That |^Password/i.test(profileMessage)?'bad':'good'}">${esc(profileMessage)}</div>`:''; profileMessage='';
+  if(active){
+    const p=profileNormalizeEntry(active);
+    app.innerHTML=`${breadcrumbs([{label:'Profiles'}])}<h1 class="page-title">Profiles</h1><p class="subtitle">Local Viewer profile backed by the ${PROFILE_FILE_NAME} structure.</p>${message}<div class="profile-grid"><div class="card"><h2>${esc(p.Username)}</h2><p><b>Email:</b> ${esc(p.Email)}</p><div class="profile-completion-grid"><div><b>${p.CompletedQuizzes.length}</b><span>Quizzes complete</span></div><div><b>${p.Completed44.length}</b><span>4×4 complete</span></div><div><b>${p.Completed55.length}</b><span>5×5 complete</span></div></div><p class="tiny muted">Completed arrays store Daily Day numbers, where September 25, 2026 is Day 1.</p><div class="profile-actions"><button class="primary" id="profile-export" type="button">Export ${PROFILE_FILE_NAME}</button><button class="quiz-secondary" id="profile-import" type="button">Import Profile JSON</button><button class="quiz-secondary" id="profile-logout" type="button">Sign Out</button></div></div><div class="card"><h2>Completion arrays</h2><p><b>CompletedQuizzes</b><br><span class="muted">${p.CompletedQuizzes.length?p.CompletedQuizzes.join(', '):'None yet'}</span></p><p><b>Completed44</b><br><span class="muted">${p.Completed44.length?p.Completed44.join(', '):'None yet'}</span></p><p><b>Completed55</b><br><span class="muted">${p.Completed55.length?p.Completed55.join(', '):'None yet'}</span></p></div></div>`;
+    $('#profile-export')?.addEventListener('click',profileExportJson);$('#profile-import')?.addEventListener('click',()=>profileFileInput.click());$('#profile-logout')?.addEventListener('click',()=>{profileSetActive('');profileMessage='Signed out.';renderProfiles();});return;
+  }
+  app.innerHTML=`${breadcrumbs([{label:'Profiles'}])}<h1 class="page-title">Profiles</h1><p class="subtitle">Create or sign into a profile on this device. ${profiles.length} profile${profiles.length===1?'':'s'} currently stored.</p>${message}<div class="profile-grid"><div class="card"><h2>Create Profile</h2><form id="profile-register" class="profile-form"><label>Email<input name="email" type="email" autocomplete="email" required></label><label>Username<input name="username" type="text" autocomplete="username" minlength="3" required></label><label>Password<input name="password" type="password" autocomplete="new-password" minlength="8" required></label><button class="primary" type="submit">Create Profile</button></form></div><div class="card"><h2>Sign In</h2><form id="profile-login" class="profile-form"><label>Username or Email<input name="identity" type="text" autocomplete="username" required></label><label>Password<input name="password" type="password" autocomplete="current-password" required></label><button class="primary" type="submit">Sign In</button></form><hr style="border:0;border-top:1px solid #e3e8ed;margin:18px 0"><div class="profile-actions"><button class="quiz-secondary" id="profile-import" type="button">Import ${PROFILE_FILE_NAME}</button><button class="quiz-secondary" id="profile-export" type="button" ${profiles.length?'':'disabled'}>Export ${PROFILE_FILE_NAME}</button></div></div></div><div class="notice" style="margin-top:18px"><b>Password storage:</b> the JSON field is named <code>Password</code>, but it contains a salted PBKDF2-SHA-256 hash rather than the readable password. A static Viewer cannot securely synchronize this file between devices by itself; importing/exporting is provided for the companion JSON.</div>`;
+  $('#profile-register')?.addEventListener('submit',async e=>{e.preventDefault();const fd=new FormData(e.currentTarget),email=String(fd.get('email')||'').trim(),username=String(fd.get('username')||'').trim(),password=String(fd.get('password')||'');const all=profileLoadAll();if(all.some(p=>String(p.Email||'').toLowerCase()===email.toLowerCase())){profileMessage='That email is already used by a profile.';return renderProfiles();}if(all.some(p=>String(p.Username||'').toLowerCase()===username.toLowerCase())){profileMessage='That username is already used by a profile.';return renderProfiles();}if(username.length<3||password.length<8){profileMessage='Username must be at least 3 characters and password at least 8 characters.';return renderProfiles();}try{const hash=await profileHashPassword(password);all.push({Email:email,Username:username,Password:hash,CompletedQuizzes:[],Completed44:[],Completed55:[]});profileSaveAll(all);profileSetActive(username);profileMessage='Profile created and signed in.';renderProfiles();}catch(err){profileMessage='Could not create profile: '+(err?.message||err);renderProfiles();}});
+  $('#profile-login')?.addEventListener('submit',async e=>{e.preventDefault();const fd=new FormData(e.currentTarget),identity=String(fd.get('identity')||'').trim().toLowerCase(),password=String(fd.get('password')||''),p=profileLoadAll().find(x=>String(x.Username||'').toLowerCase()===identity||String(x.Email||'').toLowerCase()===identity);if(!p||!(await profileVerifyPassword(password,p.Password).catch(()=>false))){profileMessage='Username/email or password did not match.';return renderProfiles();}profileSetActive(p.Username);profileMessage='Signed in.';renderProfiles();});
+  $('#profile-import')?.addEventListener('click',()=>profileFileInput.click());$('#profile-export')?.addEventListener('click',profileExportJson);
+}
+
 function breadcrumbs(parts){ return `<div class="breadcrumbs"><a href="#home">Home</a>${parts.map(p=>` &rsaquo; ${p.route?routeLink(p.route,p.label):esc(p.label)}`).join('')}</div>`; }
 function empty(msg){ return `<div class="card muted">${esc(msg)}</div>`; }
 function lookup(arr,name){ const low=String(name||'').toLowerCase(); return (arr||[]).find(x=>String(x.name||'').toLowerCase()===low); }
@@ -488,6 +562,7 @@ async function startViewer(){
 function showLoadError(msg){ app.innerHTML=`<div class="notice error"><b>Could not load JSON.</b><br>${esc(msg)}</div>`; }
 $('#load-btn').addEventListener('click',()=>fileInput.click());
 fileInput.addEventListener('change',()=>{ if(fileInput.files?.[0]) readFile(fileInput.files[0]); fileInput.value=''; });
+profileFileInput.addEventListener('change',()=>{const f=profileFileInput.files?.[0];if(f)void profileImportFile(f);profileFileInput.value='';});
 document.addEventListener('dragover',e=>{e.preventDefault(); const d=$('.dropzone'); if(d)d.classList.add('drag');});
 document.addEventListener('dragleave',()=>{const d=$('.dropzone'); if(d)d.classList.remove('drag');});
 document.addEventListener('drop',e=>{e.preventDefault(); const d=$('.dropzone'); if(d)d.classList.remove('drag'); const f=[...(e.dataTransfer?.files||[])].find(x=>x.name.toLowerCase().endsWith('.json')); if(f)readFile(f);});
@@ -496,9 +571,9 @@ searchResults.addEventListener('click',e=>{ const hit=e.target.closest('[data-ro
 document.addEventListener('click',e=>{if(!e.target.closest('.global-search'))searchResults.classList.remove('show');});
 window.addEventListener('hashchange',render);
 function render(){ if(!db){ renderLoader(); return; } const raw=(location.hash||'#home').slice(1); const p=raw.split('/').map(decodeURIComponent); window.scrollTo(0,0); switch(p[0]){
-  case '': case 'home': return renderHome(); case 'enitoys':return renderCatalog(); case 'enitoy':return renderSpecies(p[1],p[2]); case 'form':return renderForm(p[1],p[2],p[3]); case 'moves':return renderMoves(); case 'move':return renderMove(p[1]); case 'types':return renderTypes(); case 'type':return renderType(p[1]); case 'stitch-calc':return renderStitchCalc(); case 'daily-quiz':return renderDailyQuiz(p[1]); case 'daily-puzzle-4':return renderDailyPuzzle(4,p[1]); case 'daily-puzzle-5':return renderDailyPuzzle(5,p[1]); case 'skills':return p[1]?renderNamedListDetail('Skill',db.skills,p[1],'skills'):renderNamedList('Skills',db.skills,'skills'); case 'defects':return p[1]?renderNamedListDetail('Defect',db.defects,p[1],'defects'):renderNamedList('Defects',db.defects,'defects'); case 'items':return p[1]?renderItem(p[1]):renderItems(); case 'temperaments':return renderTemperaments(); case 'locations':return renderLocations(); case 'location':return renderLocation(p[1],p[2]); case 'crafts':return renderCrafts(); default:return renderHome(); } }
+  case '': case 'home': return renderHome(); case 'enitoys':return renderCatalog(); case 'enitoy':return renderSpecies(p[1],p[2]); case 'form':return renderForm(p[1],p[2],p[3]); case 'moves':return renderMoves(); case 'move':return renderMove(p[1]); case 'types':return renderTypes(); case 'type':return renderType(p[1]); case 'stitch-calc':return renderStitchCalc(); case 'daily-quiz':return renderDailyQuiz(p[1]); case 'daily-puzzle-4':return renderDailyPuzzle(4,p[1]); case 'daily-puzzle-5':return renderDailyPuzzle(5,p[1]); case 'profiles':return renderProfiles(); case 'skills':return p[1]?renderNamedListDetail('Skill',db.skills,p[1],'skills'):renderNamedList('Skills',db.skills,'skills'); case 'defects':return p[1]?renderNamedListDetail('Defect',db.defects,p[1],'defects'):renderNamedList('Defects',db.defects,'defects'); case 'items':return p[1]?renderItem(p[1]):renderItems(); case 'temperaments':return renderTemperaments(); case 'locations':return renderLocations(); case 'location':return renderLocation(p[1],p[2]); case 'crafts':return renderCrafts(); default:return renderHome(); } }
 function renderLoader(){ app.innerHTML=`<div id="dropzone" class="dropzone"><h1>Enitoy Database Viewer</h1><p class="muted">This viewer automatically loads Enitoy_Project.json from the wdgart/Enitoy-Database GitHub repository and checks for updates every 10 seconds and refreshes immediately when an open Editor in this browser saves. You can still choose a local JSON as a temporary fallback.</p><p><button class="primary" type="button" id="open-json">Choose JSON file</button></p><div class="tiny muted">You can also drag and drop a JSON anywhere on this page. Local files are only used in this browser; the GitHub database remains read-only from the Viewer.</div></div>`; $('#open-json').onclick=()=>fileInput.click(); }
-function renderHome(){ const gens=db.regionalGenerations||[]; app.innerHTML=`${breadcrumbs([])}<h1 class="page-title">Enitoy Database</h1><p class="subtitle">Read-only encyclopedia generated from <b>${esc(loadedFileName)}</b> · Project version ${fmt(db.version)}</p>
+function renderHome(){ const gens=db.regionalGenerations||[]; app.innerHTML=`${breadcrumbs([])}<h1 class="page-title">Enitoy Database</h1><p class="subtitle">Read-only encyclopedia generated from <b>${esc(loadedFileName)}</b> · Project version ${fmt(db.version)}</p><p>${profileStatusHtml()} <a href="#profiles" class="chip-link">Profiles</a></p>
 <div class="quick-stats"><div class="quick-stat"><b>${species.length}</b><span>Enitoys entered</span></div><div class="quick-stat"><b>${forms.length}</b><span>Forms</span></div><div class="quick-stat"><b>${(db.moves||[]).length}</b><span>Techniques</span></div><div class="quick-stat"><b>${(db.skills||[]).length}</b><span>Skills</span></div><div class="quick-stat"><b>${(db.items||[]).length}</b><span>Items</span></div></div>
 <div class="section grid-3"><div class="card"><h2>Browse the Catalog</h2><p>View every entered Enitoy with its image, Stitching, base stats, Skills, Defect, modifications, movepool, encounters, forms, and other recorded data.</p><p><a class="primary" style="display:inline-block;color:#fff;text-decoration:none" href="#enitoys">Open Enitoy Catalog</a></p></div><div class="card"><h2>Daily Quiz</h2><p>Take 10 questions drawn from a question pool that automatically expands from every usable piece of information in the loaded JSON. Daily history is available back to September 25, 2026.</p><p><a class="primary quiz-home-link" style="color:#fff;text-decoration:none" href="#daily-quiz">Take Today's Quiz</a></p></div><div class="card"><h2>Daily Connection Puzzles</h2><p>Sort Enitoys into hidden JSON-driven categories. The 4×4 has four groups of four; the 5×5 has five groups of five. Both have a daily archive beginning September 25, 2026.</p><p><a class="primary quiz-home-link" style="color:#fff;text-decoration:none" href="#daily-puzzle-4">Play 4×4</a> <a class="quiz-secondary" style="display:inline-block;text-decoration:none" href="#daily-puzzle-5">Play 5×5</a></p></div></div>
 <div class="section"><div class="card"><h2>Stitching</h2><div class="stitches">${allTypes().map(t=>pill(t)).join('')}</div></div></div>
@@ -604,7 +679,9 @@ function quizNextDateKey(key){ const [y,m,d]=String(key).split('-').map(Number);
 function dailyNormalizeDateKey(key){ const today=quizDateKey(); const raw=/^\d{4}-\d{2}-\d{2}$/.test(String(key||''))?String(key):today; if(raw<DAILY_START_DATE_KEY)return DAILY_START_DATE_KEY; if(raw>today)return today; return raw; }
 function dailyDateNav(route,date){
   const today=quizDateKey(),prev=quizPreviousDateKey(date),next=quizNextDateKey(date),atStart=date<=DAILY_START_DATE_KEY,atToday=date>=today;
-  return `<div class="daily-date-nav"><div class="daily-date-nav-group"><a class="${atStart?'disabled':''}" href="#${route}/${atStart?date:prev}" aria-disabled="${atStart?'true':'false'}">← Previous</a><a class="${atToday?'disabled':''}" href="#${route}/${atToday?date:next}" aria-disabled="${atToday?'true':'false'}">Next →</a><a class="${atToday?'disabled':''}" href="#${route}/${today}">Today</a></div><div class="daily-date-nav-group"><span class="daily-date-nav-label">Daily archive</span><input id="daily-date-picker" type="date" min="${DAILY_START_DATE_KEY}" max="${today}" value="${date}" aria-label="Choose archived daily date"></div></div><div class="daily-device-note"><b>Saved on this device:</b> progress survives refreshes and reopening this Viewer in the same browser/profile. Archive begins September 25, 2026.</div>`;
+  const field=route==='daily-quiz'?'CompletedQuizzes':route==='daily-puzzle-4'?'Completed44':route==='daily-puzzle-5'?'Completed55':null,active=profileActive(),profileDone=field&&active?profileIsComplete(field,date):false;
+  const profileNote=active?` <b>Profile ${esc(active.Username)}:</b> ${profileDone?'✓ completed':'not completed'} for this day.`:` <a href="#profiles">Sign in to a profile</a> to record completion in ${PROFILE_FILE_NAME}.`;
+  return `<div class="daily-date-nav"><div class="daily-date-nav-group"><a class="${atStart?'disabled':''}" href="#${route}/${atStart?date:prev}" aria-disabled="${atStart?'true':'false'}">← Previous</a><a class="${atToday?'disabled':''}" href="#${route}/${atToday?date:next}" aria-disabled="${atToday?'true':'false'}">Next →</a><a class="${atToday?'disabled':''}" href="#${route}/${today}">Today</a></div><div class="daily-date-nav-group"><span class="daily-date-nav-label">Daily archive</span><input id="daily-date-picker" type="date" min="${DAILY_START_DATE_KEY}" max="${today}" value="${date}" aria-label="Choose archived daily date"></div></div><div class="daily-device-note"><b>Saved on this device:</b> exact progress survives refreshes and reopening this Viewer. Archive begins September 25, 2026.${profileNote}</div>`;
 }
 function bindDailyDatePicker(route){ const picker=$('#daily-date-picker'); if(picker)picker.addEventListener('change',()=>{ const date=dailyNormalizeDateKey(picker.value); location.hash=`#${route}/${date}`; }); }
 function dailyRecordKey(kind,date){ return `${kind}|${date}`; }
@@ -791,6 +868,7 @@ function quizMediaHtml(q){ const media=quizResolveMedia(q?.media); return media?
 function quizPoolDetails(state){ const counts=Object.entries(state.categoryCounts||{}).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])); return `<details class="card quiz-pool-details"><summary><b>Question Pool When This Day Was Created:</b> ${Number(state.poolSize||0).toLocaleString()} possible questions from ${Number(state.factCount||0).toLocaleString()} database facts across ${Number(state.categoryCount||counts.length)} categories</summary><p class="tiny muted">Each date is frozen after it is first generated on this device. New JSON data expands the generator for future or not-yet-opened dates without replacing a day you already started.</p><div class="quiz-pool-grid">${counts.map(([name,count])=>`<div><b>${esc(name)}</b><span>${Number(count).toLocaleString()}</span></div>`).join('')}</div></details>`; }
 async function renderDailyQuiz(requestedDate){
   const date=dailyNormalizeDateKey(requestedDate), state=await quizLoadState(date), total=state.questions.length, history=quizLoadHistory(), streak=quizStreak(history), isToday=date===quizDateKey();
+  if(state.completed)profileMarkComplete('CompletedQuizzes',state.date);
   if(!total){ app.innerHTML=`${breadcrumbs([{label:'Daily Quiz'}])}<h1 class="page-title">Daily Quiz</h1>${dailyDateNav('daily-quiz',date)}<div class="card quiz-empty"><h2>Not enough quiz data yet</h2><p class="muted">The viewer could not build enough unambiguous multiple-choice questions from the currently loaded JSON.</p></div>${quizPoolDetails(state)}`; bindDailyDatePicker('daily-quiz'); return; }
   const answered=state.answers.filter(x=>x!==null&&x!==undefined).length, score=quizScore(state), bestForDate=history[state.date]?.score;
   const summary=`<div class="quiz-summary"><div class="quiz-summary-box"><b>${answered}/${total}</b><span>Answered</span></div>${isToday?`<div class="quiz-summary-box"><b>${streak}</b><span>Day streak</span></div>`:''}<div class="quiz-summary-box"><b>${Number(state.poolSize||0).toLocaleString()}</b><span>Question pool</span></div>${bestForDate!==undefined?`<div class="quiz-summary-box"><b>${bestForDate}/${total}</b><span>Best score</span></div>`:''}</div>`;
@@ -808,7 +886,7 @@ async function renderDailyQuiz(requestedDate){
   app.innerHTML=`${breadcrumbs([{label:'Daily Quiz'}])}<div class="quiz-hero"><div><h1 class="page-title">Daily Quiz</h1><p class="subtitle"><span class="quiz-date">${esc(quizDateLabel(state.date))}</span> · One frozen 10-question daily set.</p>${dayLinks}</div>${summary}</div>${nav}<div class="quiz-progress-track" aria-label="Quiz progress"><div class="quiz-progress-fill" style="width:${progress}%"></div></div><div class="card quiz-question-card"><div class="quiz-question-top"><span class="quiz-category">${esc(q.category)}</span><span class="quiz-count">Question ${state.current+1} of ${total}</span></div>${quizMediaHtml(q)}<h2 class="quiz-question">${esc(q.prompt)}</h2><div class="quiz-options">${options}</div>${feedback}<div class="quiz-actions"><button class="quiz-secondary" type="button" id="quiz-reset">Restart This Day's Quiz</button>${hasAnswered?`<button class="primary" type="button" id="quiz-next">${nextLabel}</button>`:'<span></span>'}</div></div>${quizPoolDetails(state)}`;
   document.querySelectorAll('[data-quiz-option]').forEach(btn=>btn.addEventListener('click',()=>{ const index=Number(btn.dataset.quizOption); if(!Number.isInteger(index)||state.answers[state.current]!==null)return; state.answers[state.current]=index; quizSaveState(state); renderDailyQuiz(date); }));
   $('#quiz-reset')?.addEventListener('click',()=>quizResetDate(date));
-  $('#quiz-next')?.addEventListener('click',()=>{ if(state.current>=total-1){ state.completed=true; quizSaveState(state); quizRecordCompletion(state); renderDailyQuiz(date); }else{ state.current++; quizSaveState(state); renderDailyQuiz(date); } });
+  $('#quiz-next')?.addEventListener('click',()=>{ if(state.current>=total-1){ state.completed=true; quizSaveState(state); quizRecordCompletion(state); profileMarkComplete('CompletedQuizzes',state.date); renderDailyQuiz(date); }else{ state.current++; quizSaveState(state); renderDailyQuiz(date); } });
   bindDailyDatePicker('daily-quiz');
 }
 
@@ -954,7 +1032,7 @@ function puzzleSubmit(state){
   if(state.selected.length!==size)return;
   const selectedKey=puzzleSetKey(state.selected); let hit=-1;
   state.groups.forEach((g,i)=>{if(!state.solved.includes(i)&&puzzleSetKey(g.members)===selectedKey)hit=i;});
-  if(hit>=0){ state.solved.push(hit); state.selected=[]; state.message=`Connected: ${state.groups[hit].label}`; if(state.solved.length===size){state.completed=true;} puzzleSaveState(state); renderDailyPuzzle(size,state.date); return; }
+  if(hit>=0){ state.solved.push(hit); state.selected=[]; state.message=`Connected: ${state.groups[hit].label}`; if(state.solved.length===size){state.completed=true;profileMarkComplete(size===4?'Completed44':'Completed55',state.date);} puzzleSaveState(state); renderDailyPuzzle(size,state.date); return; }
   let nearest=0; state.groups.forEach((g,i)=>{if(state.solved.includes(i))return; const set=new Set(g.members); nearest=Math.max(nearest,state.selected.filter(n=>set.has(n)).length);});
   state.lives=Math.max(0,state.lives-1); state.mistakes++; state.message=nearest===size-1?`One away! ${size-1} of those belong together.`:'Those do not make one of this day\'s groups.'; state.selected=[]; if(state.lives<=0)state.failed=true; puzzleSaveState(state); renderDailyPuzzle(size,state.date);
 }
@@ -967,12 +1045,18 @@ function puzzleControlsHtml(state){
   if(state.completed||state.failed)return `<div class="puzzle-controls"><button class="quiz-secondary" id="puzzle-reset" type="button">Replay This Day's Same Puzzle</button></div>`;
   return `<div class="puzzle-controls"><button class="quiz-secondary" id="puzzle-shuffle" type="button">Shuffle</button><button class="quiz-secondary" id="puzzle-clear" type="button">Deselect All</button><button class="primary" id="puzzle-submit" type="button" ${state.selected.length===state.size?'':'disabled'}>Submit ${state.size}</button><button class="quiz-secondary" id="puzzle-reveal" type="button">Reveal</button></div>`;
 }
+function puzzleTileContent(name){
+  const rec=species.find(s=>s.entry?.name===name),img=rec?.entry?.imageData;
+  if(hasImageData(img))return {html:`<img src="${img}" alt="${esc(name)}" title="${esc(name)}">`,hasArt:true};
+  return {html:esc(name),hasArt:false};
+}
 async function renderDailyPuzzle(size,requestedDate){
   const date=dailyNormalizeDateKey(requestedDate),state=await puzzleLoadState(size,date),title=`Daily ${size}×${size} Connection`;
+  if(state.completed)profileMarkComplete(size===4?'Completed44':'Completed55',state.date);
   if(!state.groups.length){ app.innerHTML=`${breadcrumbs([{label:title}])}<h1 class="page-title">${title}</h1>${dailyDateNav(`daily-puzzle-${size}`,date)}<div class="card quiz-empty"><h2>Not enough groupable data yet</h2><p>The loaded JSON does not currently contain enough repeated Enitoy relationships to build a ${size}×${size} board automatically. As more data is added, this puzzle will become available on its own.</p></div>`; bindDailyDatePicker(`daily-puzzle-${size}`); return; }
   const solvedSet=new Set(state.groups.filter((_,i)=>state.solved.includes(i)).flatMap(g=>g.members));
   const remaining=state.board.filter(n=>!solvedSet.has(n));
-  const tiles=remaining.map(n=>`<button type="button" class="puzzle-tile ${state.selected.includes(n)?'selected':''}" data-puzzle-name="${esc(n)}" ${(state.completed||state.failed)?'disabled':''}>${esc(n)}</button>`).join('');
+  const tiles=remaining.map(n=>{const v=puzzleTileContent(n);return `<button type="button" class="puzzle-tile ${v.hasArt?'has-art ':''}${state.selected.includes(n)?'selected':''}" data-puzzle-name="${esc(n)}" aria-label="${esc(n)}" ${(state.completed||state.failed)?'disabled':''}>${v.html}</button>`;}).join('');
   const lives='●'.repeat(state.lives)+'○'.repeat(Math.max(0,size-state.lives));
   const status=state.completed?'Solved!':state.failed?'Revealed':'In progress';
   const summary=`<div class="puzzle-summary"><div class="puzzle-summary-box"><b>${state.solved.length}/${size}</b><span>Groups</span></div><div class="puzzle-summary-box"><b class="puzzle-lives">${lives}</b><span>Lives</span></div><div class="puzzle-summary-box"><b>${state.mistakes}</b><span>Mistakes</span></div></div>`;
