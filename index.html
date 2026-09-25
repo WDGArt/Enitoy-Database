@@ -28,6 +28,23 @@ button,input,select{font:inherit}
 .search-hit:hover{background:#f2f6fa}.search-hit small{color:#7a8490}
 .file-button{border:1px solid #ffffff55;background:#ffffff12;color:#fff;padding:8px 11px;border-radius:5px;cursor:pointer;white-space:nowrap}
 .file-button:hover{background:#ffffff22}
+
+.music-shell{position:relative;flex:none}
+.music-button{display:inline-flex;align-items:center;gap:7px;min-width:104px;justify-content:center}
+.music-button .music-dot{width:7px;height:7px;border-radius:50%;background:#9db0c1;box-shadow:0 0 0 2px #ffffff18}
+.music-button.is-playing .music-dot{background:#9fe0ad;box-shadow:0 0 0 2px #9fe0ad2e,0 0 9px #9fe0ad99}
+.music-panel{display:none;position:absolute;right:0;top:calc(100% + 8px);width:300px;background:#fff;color:#26313b;border:1px solid #cbd4dd;border-radius:8px;box-shadow:0 12px 34px #0004;padding:14px;z-index:50;white-space:normal}
+.music-panel.show{display:block}
+.music-panel-head{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.music-panel-title{font-weight:850;font-size:16px;line-height:1.2}.music-panel-sub{font-size:11px;color:var(--muted);margin-top:3px}
+.music-close{border:0;background:transparent;color:#607080;font-size:19px;line-height:1;cursor:pointer;padding:0 2px}
+.music-track{display:flex;align-items:center;gap:10px;background:#f5f7f9;border:1px solid #e0e5ea;border-radius:6px;padding:10px;margin-bottom:12px}
+.music-note{font-size:25px;line-height:1}.music-track b{display:block;font-size:13px}.music-track span{display:block;font-size:11px;color:var(--muted);margin-top:1px}
+.music-controls{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center}
+.music-play{border:0;background:var(--nav);color:#fff;border-radius:5px;padding:8px 12px;cursor:pointer;font-weight:800;min-width:78px}.music-play:hover{background:#274462}
+.music-volume-wrap{display:grid;grid-template-columns:auto 1fr auto;gap:7px;align-items:center;font-size:11px;color:#5d6974}.music-volume-wrap input{width:100%;accent-color:var(--accent)}
+.music-browser-note{margin-top:11px;padding-top:10px;border-top:1px solid #e5e9ed;font-size:11px;color:var(--muted);line-height:1.4}
+@media(max-width:650px){.music-shell{order:2;margin-left:auto}.music-panel{position:fixed;left:12px;right:12px;top:70px;width:auto}.music-button{min-width:auto}.music-button .music-label{display:none}}
 .subnav{background:var(--nav2);overflow:auto;white-space:nowrap}
 .subnav-inner{max-width:1180px;margin:auto;padding:0 12px;display:flex}
 .subnav a{display:block;color:#eaf2f9;padding:9px 10px;font-size:13px;text-decoration:none}
@@ -72,6 +89,9 @@ button,input,select{font:inherit}
 .name-origin-list{padding:0}.name-origin-row{display:grid;grid-template-columns:minmax(90px,160px) 1fr;gap:16px;padding:12px 16px;border-bottom:1px solid #e6eaee;align-items:start}.name-origin-row:last-child{border-bottom:0}.name-origin-part{font-weight:800;color:#384550}.name-origin-source b{color:#273f58}
 .footer{color:#7a838c;text-align:center;font-size:12px;padding:24px 10px}.hidden{display:none!important}
 
+.quiz-hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:start}.quiz-date{font-weight:800;color:#33495e}.quiz-summary{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.quiz-summary-box{min-width:105px;background:#f6f8fa;border:1px solid #dbe1e7;border-radius:6px;padding:9px 11px;text-align:center}.quiz-summary-box b{display:block;font-size:20px;line-height:1.1}.quiz-summary-box span{display:block;margin-top:3px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.quiz-progress-track{height:9px;background:#e3e8ed;border-radius:999px;overflow:hidden;margin:8px 0 18px}.quiz-progress-fill{height:100%;background:var(--accent);border-radius:999px;transition:width .2s ease}.quiz-question-card{padding:22px}.quiz-question-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}.quiz-category{display:inline-block;border-radius:999px;background:#e8f0f7;color:#315a7d;padding:4px 9px;font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.035em}.quiz-count{font-size:12px;color:var(--muted);font-weight:700}.quiz-question{font-size:23px;line-height:1.3;margin:8px 0 17px;color:#25313d}.quiz-options{display:grid;gap:9px}.quiz-option{width:100%;text-align:left;border:1px solid #cfd7df;background:#fff;color:#26313b;border-radius:7px;padding:11px 13px;cursor:pointer;font-weight:700;transition:background .12s ease,border-color .12s ease,transform .05s ease}.quiz-option:hover:not(:disabled){background:#f3f7fa;border-color:#8ea9c0}.quiz-option:active:not(:disabled){transform:translateY(1px)}.quiz-option:disabled{cursor:default}.quiz-option.correct{background:#edf8ef;border-color:#79b887;color:#245d30}.quiz-option.wrong{background:#fff0f0;border-color:#d99797;color:#7c3030}.quiz-option.selected:not(.correct):not(.wrong){border-color:#7c9bb6;background:#f0f5f9}.quiz-feedback{margin-top:16px;padding:13px 14px;border-radius:7px;border:1px solid #d4dce4;background:#f8fafb}.quiz-feedback.correct{background:#edf8ef;border-color:#b8ddc0}.quiz-feedback.wrong{background:#fff1f1;border-color:#edc5c5}.quiz-feedback-title{font-weight:850;margin-bottom:4px}.quiz-source{margin-top:8px;font-size:12px;color:var(--muted)}.quiz-actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:17px}.quiz-secondary{border:1px solid #aebac5;background:#fff;color:#395873;padding:9px 13px;border-radius:5px;cursor:pointer;font-weight:700}.quiz-secondary:hover{background:#f3f7fa}.quiz-complete{text-align:center;padding:28px}.quiz-score{font-size:54px;line-height:1;font-weight:900;color:#263f57;margin:8px 0}.quiz-review{margin-top:18px}.quiz-review-row{display:grid;grid-template-columns:42px minmax(0,1fr) minmax(150px,.55fr);gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid #e8ecef}.quiz-review-row:last-child{border-bottom:0}.quiz-review-no{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#edf1f4;font-weight:850}.quiz-review-answer{font-size:13px}.quiz-review-answer b{display:block}.quiz-empty{padding:24px;text-align:center}.quiz-home-link{display:inline-block;margin-top:5px}.quiz-reset-note{font-size:12px;color:var(--muted);margin-top:8px}@media(max-width:650px){.quiz-hero{grid-template-columns:1fr}.quiz-summary{justify-content:flex-start}.quiz-question{font-size:20px}.quiz-review-row{grid-template-columns:36px 1fr}.quiz-review-answer{grid-column:2}}
+
+
 .species-pager{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px;margin:0 0 14px}
 .species-pager-center{font-size:12px;color:var(--muted);text-align:center;white-space:nowrap}
 .species-pager-link{display:flex;align-items:center;gap:9px;min-width:0;width:max-content;max-width:100%;padding:8px 11px;border:1px solid var(--line);border-radius:6px;background:#fff;color:#2e5376;text-decoration:none!important;box-shadow:0 1px 2px #0000000a}
@@ -93,11 +113,20 @@ button,input,select{font:inherit}
       <input id="search" type="search" placeholder="Search Enitoys, techniques, skills, items…" autocomplete="off" disabled>
       <div id="search-results" class="search-results"></div>
     </div>
+    <div class="music-shell">
+      <button id="music-button" class="file-button music-button" type="button" aria-expanded="false" aria-controls="music-panel"><span aria-hidden="true">♪</span><span class="music-label">Music</span><span class="music-dot" aria-hidden="true"></span></button>
+      <div id="music-panel" class="music-panel" role="dialog" aria-label="Music player">
+        <div class="music-panel-head"><div><div class="music-panel-title">Viewer Music</div><div class="music-panel-sub">Background music for the Enitoy Database</div></div><button id="music-close" class="music-close" type="button" aria-label="Close music controls">×</button></div>
+        <div class="music-track"><div class="music-note" aria-hidden="true">♫</div><div><b>Database Theme</b><span>Original built-in Enitoy Viewer loop</span></div></div>
+        <div class="music-controls"><button id="music-play" class="music-play" type="button">Pause</button><label class="music-volume-wrap"><span>🔉</span><input id="music-volume" type="range" min="0" max="100" step="1" value="32" aria-label="Music volume"><span id="music-volume-value">32%</span></label></div>
+        <div class="music-browser-note">Music starts after your first interaction with the page because browsers block sound before a click or keypress. Your on/off setting and volume are remembered.</div>
+      </div>
+    </div>
     <button id="load-btn" class="file-button" type="button">Load JSON</button>
     <input id="file-input" type="file" accept=".json,application/json" hidden>
   </div>
   <nav class="subnav"><div class="subnav-inner">
-    <a href="#enitoys">Enitoys</a><a href="#moves">Techniques</a><a href="#types">Stitching</a><a href="#stitch-calc">Stitch Calc</a><a href="#skills">Skills</a><a href="#defects">Defects</a><a href="#items">Items</a><a href="#temperaments">Temperaments</a><a href="#locations">Encounters</a><a href="#crafts">Crafts</a>
+    <a href="#enitoys">Enitoys</a><a href="#moves">Techniques</a><a href="#types">Stitching</a><a href="#stitch-calc">Stitch Calc</a><a href="#daily-quiz">Daily Quiz</a><a href="#skills">Skills</a><a href="#defects">Defects</a><a href="#items">Items</a><a href="#temperaments">Temperaments</a><a href="#locations">Encounters</a><a href="#crafts">Crafts</a>
   </div></nav>
 </header>
 <main id="app" class="wrap"></main>
@@ -105,7 +134,7 @@ button,input,select{font:inherit}
 <script>
 (() => {
 'use strict';
-let db = null, loadedFileName = '', species = [], forms = [], searchable = [];
+let db = null, loadedFileName = '', species = [], forms = [], searchable = [], dailyQuizMemoryState = null, dailyQuizMemoryHistory = {};
 const REMEMBERED_PROJECT_KEY = 'enitoy-database-viewer:last-project:v2';
 const REMEMBERED_DB_NAME = 'EnitoyDatabaseViewerStorage';
 const REMEMBERED_DB_STORE = 'projects';
@@ -118,9 +147,16 @@ const REMOTE_JSON_URL = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GIT
 const REMOTE_CHECK_INTERVAL_MS = 10000;
 const LIVE_SYNC_CHANNEL_NAME = 'EnitoyDatabase.LiveSync.v1';
 const LIVE_SYNC_STORAGE_KEY = 'EnitoyDatabase.LiveSyncSignal.v1';
+const DAILY_QUIZ_STATE_KEY = 'enitoy-database-viewer:daily-quiz:v1';
+const DAILY_QUIZ_HISTORY_KEY = 'enitoy-database-viewer:daily-quiz-history:v1';
+const DAILY_QUIZ_LENGTH = 10;
+const MUSIC_ENABLED_KEY = 'enitoy-database-viewer:music-enabled:v1';
+const MUSIC_VOLUME_KEY = 'enitoy-database-viewer:music-volume:v1';
+let musicEnabled = true, musicVolume = 0.32, musicCtx = null, musicMaster = null, musicSource = null, musicStarted = false;
 let lastRemoteJsonText = null;
 const $ = s => document.querySelector(s);
 const app = $('#app'), search = $('#search'), searchResults = $('#search-results'), fileInput = $('#file-input');
+const musicButton = $('#music-button'), musicPanel = $('#music-panel'), musicClose = $('#music-close'), musicPlay = $('#music-play'), musicVolumeInput = $('#music-volume'), musicVolumeValue = $('#music-volume-value');
 const GENDERS = ['Genderless','Male 8/8','Male 7/8','Male 6/8','Male 5/8','Male 4/8','Male 3/8','Male 2/8','Male 1/8','Female 8/8'];
 const STAT_NAMES = ['HP','ATK','DEF','SP. ATK','SP. DEF','SPD'];
 const esc = v => String(v ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -155,6 +191,93 @@ function effectiveForm(form){ const base=speciesBy(form.generation,form.enitoy);
   if(Array.isArray(form.levelUpTechniques)) e.levelUpTechniques=clone(form.levelUpTechniques);
   if(Array.isArray(form.scrollLearnedTechniques)) e.scrollLearnedTechniques=clone(form.scrollLearnedTechniques);
   e.name=`${form.formName} ${base.entry.name}`; return e;
+}
+function musicMidi(note){ return 440*Math.pow(2,(note-69)/12); }
+function buildDatabaseTheme(ctx){
+  const sr=ctx.sampleRate, duration=16, length=Math.floor(sr*duration), buffer=ctx.createBuffer(2,length,sr);
+  const left=buffer.getChannelData(0), right=buffer.getChannelData(1);
+  const beat=.5, eighth=.25, chordSpan=4;
+  const chords=[[48,55,60,64],[45,52,57,60],[41,48,53,57],[43,50,55,59]];
+  const melody=[72,-1,76,79, 76,-1,74,72, 69,-1,72,76, 74,-1,71,74, 72,76,79,-1, 81,79,76,-1, 74,76,72,69, 71,-1,74,67,
+                72,-1,76,79, 83,-1,79,76, 77,76,72,-1, 69,72,74,-1, 71,74,79,76, 74,72,71,-1, 69,-1,67,71, 72,-1,-1,-1];
+  const sparkle=[84,-1,-1,88,-1,-1,86,-1, 84,-1,91,-1,-1,88,-1,-1];
+  for(let i=0;i<length;i++){
+    const t=i/sr, ci=Math.floor(t/chordSpan)%chords.length, chord=chords[ci], localChord=t%chordSpan;
+    let pad=0;
+    const breathe=.72+.28*Math.sin(Math.PI*2*t/8);
+    for(let n=0;n<4;n++){
+      const f=musicMidi(chord[n]-12), detune=(n-1.5)*.12;
+      pad += Math.sin(Math.PI*2*(f+detune)*t + n*.7) * (.032-(n*.003));
+    }
+    pad*=breathe*(.8+.2*Math.sin(Math.PI*Math.min(1,localChord/.8)));
+    const beatIndex=Math.floor(t/beat), beatLocal=t%beat, bassNote=chord[0]-12+(beatIndex%8===6?7:0);
+    const bassEnv=Math.min(1,beatLocal/.018)*Math.exp(-beatLocal*4.4);
+    const bf=musicMidi(bassNote), bass=(Math.sin(Math.PI*2*bf*t)+.24*Math.sin(Math.PI*4*bf*t))*bassEnv*.085;
+    const mi=Math.floor(t/eighth)%melody.length, ml=t%eighth, mn=melody[mi];
+    let lead=0;
+    if(mn>0){ const env=Math.min(1,ml/.012)*Math.exp(-ml*8.5); const f=musicMidi(mn); lead=(Math.sin(Math.PI*2*f*t)+.20*Math.sin(Math.PI*6*f*t))*env*.072; }
+    const si=Math.floor(t/.5)%sparkle.length, sl=t%.5, sn=sparkle[si];
+    let bell=0;
+    if(sn>0){ const env=Math.min(1,sl/.008)*Math.exp(-sl*10); const f=musicMidi(sn); bell=(Math.sin(Math.PI*2*f*t)+.33*Math.sin(Math.PI*4*f*t))*env*.028; }
+    const kickPhase=beatLocal/beat, kick=kickPhase<.22?Math.sin(Math.PI*2*(58-24*kickPhase)*t)*Math.exp(-kickPhase*18)*.045:0;
+    const sample=Math.tanh((pad+bass+lead+bell+kick)*1.12);
+    left[i]=sample;
+    right[i]=Math.tanh((pad*.98+bass+lead*.92+bell*1.08+kick)*1.12);
+  }
+  return buffer;
+}
+function musicLoadPrefs(){
+  try{ const saved=localStorage.getItem(MUSIC_ENABLED_KEY); if(saved!==null)musicEnabled=saved==='true'; }catch(_){ }
+  try{ const saved=Number(localStorage.getItem(MUSIC_VOLUME_KEY)); if(Number.isFinite(saved)&&saved>=0&&saved<=1)musicVolume=saved; }catch(_){ }
+}
+function musicSavePrefs(){
+  try{ localStorage.setItem(MUSIC_ENABLED_KEY,String(musicEnabled)); localStorage.setItem(MUSIC_VOLUME_KEY,String(musicVolume)); }catch(_){ }
+}
+function musicUpdateUI(){
+  if(!musicButton)return;
+  musicButton.classList.toggle('is-playing',musicEnabled&&musicStarted&&musicCtx?.state==='running');
+  musicButton.title=musicEnabled?'Music is enabled':'Music is paused';
+  musicPlay.textContent=musicEnabled?'Pause':'Play';
+  musicVolumeInput.value=String(Math.round(musicVolume*100));
+  musicVolumeValue.textContent=Math.round(musicVolume*100)+'%';
+}
+async function musicEnsure(){
+  if(!musicCtx){
+    const AudioCtx=window.AudioContext||window.webkitAudioContext;
+    if(!AudioCtx)return false;
+    musicCtx=new AudioCtx();
+    musicMaster=musicCtx.createGain(); musicMaster.gain.value=musicVolume; musicMaster.connect(musicCtx.destination);
+    musicSource=musicCtx.createBufferSource(); musicSource.buffer=buildDatabaseTheme(musicCtx); musicSource.loop=true; musicSource.loopStart=0; musicSource.loopEnd=musicSource.buffer.duration; musicSource.connect(musicMaster); musicSource.start(); musicStarted=true;
+  }
+  return true;
+}
+async function musicStart(){
+  musicEnabled=true; musicSavePrefs();
+  if(await musicEnsure()){
+    if(musicMaster)musicMaster.gain.setValueAtTime(musicVolume,musicCtx.currentTime);
+    try{ await musicCtx.resume(); }catch(_){ }
+  }
+  musicUpdateUI();
+}
+async function musicPause(){
+  musicEnabled=false; musicSavePrefs();
+  if(musicCtx&&musicCtx.state==='running'){ try{ await musicCtx.suspend(); }catch(_){ } }
+  musicUpdateUI();
+}
+function musicOpenPanel(open){ const show=open===undefined?!musicPanel.classList.contains('show'):!!open; musicPanel.classList.toggle('show',show); musicButton.setAttribute('aria-expanded',show?'true':'false'); }
+function initMusic(){
+  if(!musicButton)return;
+  musicLoadPrefs(); musicUpdateUI();
+  musicButton.addEventListener('click',async e=>{ e.stopPropagation(); musicOpenPanel(); if(musicEnabled&&!musicStarted)await musicStart(); });
+  musicClose.addEventListener('click',()=>musicOpenPanel(false));
+  musicPanel.addEventListener('click',e=>e.stopPropagation());
+  musicPlay.addEventListener('click',()=>musicEnabled?musicPause():musicStart());
+  musicVolumeInput.addEventListener('input',()=>{ musicVolume=Math.max(0,Math.min(1,Number(musicVolumeInput.value)/100)); if(musicMaster&&musicCtx)musicMaster.gain.setValueAtTime(musicVolume,musicCtx.currentTime); musicSavePrefs(); musicUpdateUI(); });
+  document.addEventListener('click',()=>musicOpenPanel(false));
+  const unlock=async()=>{ if(musicEnabled&&!musicStarted)await musicStart(); else if(musicEnabled&&musicCtx?.state==='suspended'){try{await musicCtx.resume();musicUpdateUI();}catch(_){}} };
+  document.addEventListener('pointerdown',unlock,{once:true,capture:true});
+  document.addEventListener('keydown',unlock,{once:true,capture:true});
+  document.addEventListener('visibilitychange',()=>{ if(!document.hidden&&musicEnabled&&musicCtx?.state==='suspended')musicCtx.resume().then(musicUpdateUI).catch(()=>{}); });
 }
 function rebuild(){ species=[]; forms=[]; searchable=[]; let offset=0;
   (db.regionalGenerations||[]).forEach((g,gi)=>{ (g.enitoys||[]).forEach((e,i)=>{ if(e && e.kind==='concept' && e.name){ const rec={entry:e,generation:g.name,generationIndex:gi,slot:i+1,number:offset+i+1}; species.push(rec); searchable.push({label:e.name,kind:'Enitoy',route:`enitoy/${slug(g.name)}/${slug(e.name)}`}); }}); offset+=(g.enitoys||[]).length; });
@@ -315,11 +438,11 @@ searchResults.addEventListener('click',e=>{ const hit=e.target.closest('[data-ro
 document.addEventListener('click',e=>{if(!e.target.closest('.global-search'))searchResults.classList.remove('show');});
 window.addEventListener('hashchange',render);
 function render(){ if(!db){ renderLoader(); return; } const raw=(location.hash||'#home').slice(1); const p=raw.split('/').map(decodeURIComponent); window.scrollTo(0,0); switch(p[0]){
-  case '': case 'home': return renderHome(); case 'enitoys':return renderCatalog(); case 'enitoy':return renderSpecies(p[1],p[2]); case 'form':return renderForm(p[1],p[2],p[3]); case 'moves':return renderMoves(); case 'move':return renderMove(p[1]); case 'types':return renderTypes(); case 'type':return renderType(p[1]); case 'stitch-calc':return renderStitchCalc(); case 'skills':return p[1]?renderNamedListDetail('Skill',db.skills,p[1],'skills'):renderNamedList('Skills',db.skills,'skills'); case 'defects':return p[1]?renderNamedListDetail('Defect',db.defects,p[1],'defects'):renderNamedList('Defects',db.defects,'defects'); case 'items':return p[1]?renderItem(p[1]):renderItems(); case 'temperaments':return renderTemperaments(); case 'locations':return renderLocations(); case 'location':return renderLocation(p[1],p[2]); case 'crafts':return renderCrafts(); default:return renderHome(); } }
+  case '': case 'home': return renderHome(); case 'enitoys':return renderCatalog(); case 'enitoy':return renderSpecies(p[1],p[2]); case 'form':return renderForm(p[1],p[2],p[3]); case 'moves':return renderMoves(); case 'move':return renderMove(p[1]); case 'types':return renderTypes(); case 'type':return renderType(p[1]); case 'stitch-calc':return renderStitchCalc(); case 'daily-quiz':return renderDailyQuiz(); case 'skills':return p[1]?renderNamedListDetail('Skill',db.skills,p[1],'skills'):renderNamedList('Skills',db.skills,'skills'); case 'defects':return p[1]?renderNamedListDetail('Defect',db.defects,p[1],'defects'):renderNamedList('Defects',db.defects,'defects'); case 'items':return p[1]?renderItem(p[1]):renderItems(); case 'temperaments':return renderTemperaments(); case 'locations':return renderLocations(); case 'location':return renderLocation(p[1],p[2]); case 'crafts':return renderCrafts(); default:return renderHome(); } }
 function renderLoader(){ app.innerHTML=`<div id="dropzone" class="dropzone"><h1>Enitoy Database Viewer</h1><p class="muted">This viewer automatically loads Enitoy_Project.json from the wdgart/Enitoy-Database GitHub repository and checks for updates every 10 seconds and refreshes immediately when an open Editor in this browser saves. You can still choose a local JSON as a temporary fallback.</p><p><button class="primary" type="button" id="open-json">Choose JSON file</button></p><div class="tiny muted">You can also drag and drop a JSON anywhere on this page. Local files are only used in this browser; the GitHub database remains read-only from the Viewer.</div></div>`; $('#open-json').onclick=()=>fileInput.click(); }
 function renderHome(){ const gens=db.regionalGenerations||[]; app.innerHTML=`${breadcrumbs([])}<h1 class="page-title">Enitoy Database</h1><p class="subtitle">Read-only encyclopedia generated from <b>${esc(loadedFileName)}</b> · Project version ${fmt(db.version)}</p>
 <div class="quick-stats"><div class="quick-stat"><b>${species.length}</b><span>Enitoys entered</span></div><div class="quick-stat"><b>${forms.length}</b><span>Forms</span></div><div class="quick-stat"><b>${(db.moves||[]).length}</b><span>Techniques</span></div><div class="quick-stat"><b>${(db.skills||[]).length}</b><span>Skills</span></div><div class="quick-stat"><b>${(db.items||[]).length}</b><span>Items</span></div></div>
-<div class="section grid-2"><div class="card"><h2>Browse the Catalog</h2><p>View every entered Enitoy with its image, Stitching, base stats, Skills, Defect, modifications, movepool, encounters, forms, and other recorded data.</p><p><a class="primary" style="display:inline-block;color:#fff;text-decoration:none" href="#enitoys">Open Enitoy Catalog</a></p></div><div class="card"><h2>Stitching</h2><div class="stitches">${allTypes().map(t=>pill(t)).join('')}</div></div></div>
+<div class="section grid-3"><div class="card"><h2>Browse the Catalog</h2><p>View every entered Enitoy with its image, Stitching, base stats, Skills, Defect, modifications, movepool, encounters, forms, and other recorded data.</p><p><a class="primary" style="display:inline-block;color:#fff;text-decoration:none" href="#enitoys">Open Enitoy Catalog</a></p></div><div class="card"><h2>Daily Quiz</h2><p>Take 10 questions generated from the information currently recorded in the Enitoy database. The same quiz stays available for the whole day.</p><p><a class="primary quiz-home-link" style="color:#fff;text-decoration:none" href="#daily-quiz">Take Today's Quiz</a></p></div><div class="card"><h2>Stitching</h2><div class="stitches">${allTypes().map(t=>pill(t)).join('')}</div></div></div>
 <div class="section"><div class="section-head"><h2 class="section-title">Generations</h2></div><div class="grid-3">${gens.map((g,gi)=>{const list=species.filter(s=>s.generationIndex===gi); const start=(gens.slice(0,gi).reduce((n,x)=>n+(x.enitoys||[]).length,0))+1,end=start+(g.enitoys||[]).length-1;return `<div class="card"><h3>${esc(g.name)}</h3><p class="muted">Catalog ${num(start)}–${num(end)} · ${list.length} entered</p><div class="inline-links">${list.slice(0,10).map(s=>routeLink(`enitoy/${slug(s.generation)}/${slug(s.entry.name)}`,s.entry.name)).join('')}${list.length>10?' …':''}</div></div>`}).join('')}</div></div>
 <div class="section notice">This viewer is read-only. It reloads immediately when an open Editor in this browser saves, and also checks the shared GitHub JSON every 30 seconds for updates from other devices. Search, filters, and navigation never modify the project JSON.</div>`; }
 function renderCatalog(){ app.innerHTML=`${breadcrumbs([{label:'Enitoys'}])}<h1 class="page-title">Enitoy Catalog</h1><p class="subtitle">${species.length} entered Enitoys across ${(db.regionalGenerations||[]).length} generation${(db.regionalGenerations||[]).length===1?'':'s'}.</p>${(db.regionalGenerations||[]).map((g,gi)=>{const list=species.filter(s=>s.generationIndex===gi);return `<section class="section"><h2 class="section-title">${esc(g.name)}</h2>${list.length?`<div class="catalog-grid">${list.map(catalogCard).join('')}</div>`:empty('No Enitoys entered in this generation.')}</section>`}).join('')}`; }
@@ -414,6 +537,146 @@ function renderStitchCalc(){
   };
   material.addEventListener('change',update); affinityOne.addEventListener('change',update); affinityTwo.addEventListener('change',update); update();
 }
+
+function quizDateKey(date=new Date()){ const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,'0'),d=String(date.getDate()).padStart(2,'0'); return `${y}-${m}-${d}`; }
+function quizDateLabel(key){ const parts=String(key).split('-').map(Number); if(parts.length!==3||parts.some(x=>!Number.isFinite(x)))return key; return new Intl.DateTimeFormat(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'}).format(new Date(parts[0],parts[1]-1,parts[2])); }
+function quizPreviousDateKey(key){ const [y,m,d]=String(key).split('-').map(Number); const x=new Date(y,m-1,d-1); return quizDateKey(x); }
+function quizHash(text){ let h=2166136261>>>0; for(const ch of String(text)){ h^=ch.charCodeAt(0); h=Math.imul(h,16777619); } return h>>>0; }
+function quizRandom(seed){ let a=seed>>>0; return ()=>{ a=(a+0x6D2B79F5)>>>0; let t=a; t=Math.imul(t^(t>>>15),t|1); t^=t+Math.imul(t^(t>>>7),t|61); return ((t^(t>>>14))>>>0)/4294967296; }; }
+function quizShuffle(arr,rng){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(rng()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function quizUnique(values){ const seen=new Set(),out=[]; for(const v of values||[]){ if(v===undefined||v===null)continue; const x=String(v).trim(); if(!x||x==='--'||seen.has(x))continue; seen.add(x); out.push(x); } return out; }
+function quizHasValue(v){ return v!==undefined&&v!==null&&String(v).trim()!==''&&String(v).trim()!=='--'; }
+function quizMethodText(m){ if(!m)return 'Modify'; const base=String(m.method||'Modify'); if(m.parameter===undefined||m.parameter===null||m.parameter==='')return base; const p=typeof m.parameter==='object'?JSON.stringify(m.parameter):String(m.parameter); return `${base} · ${p}`; }
+function quizEffectLabel(v){ return v===0?'0× (immune)':v===1?'½×':v===3?'2×':'1×'; }
+function quizNumberDistractors(correct,values,min=0,max=999){ const c=Number(correct), out=quizUnique(values); if(Number.isFinite(c)){ const steps=[1,2,3,5,10,15,20,25,30,40,50]; for(const step of steps){ for(const sign of [-1,1]){ const n=c+step*sign; if(n>=min&&n<=max)out.push(String(n)); } } } return quizUnique(out); }
+function quizMakeQuestion(category,subject,prompt,correct,candidates,source,explanation,rng,idHint=''){ const answer=String(correct); const wrong=quizShuffle(quizUnique(candidates).filter(x=>x!==answer),rng).slice(0,3); if(wrong.length<3)return null; const options=quizShuffle([answer,...wrong],rng); return {id:String(quizHash(`${idHint}|${category}|${prompt}|${answer}`)),category,subject,prompt,options,correctIndex:options.indexOf(answer),source,explanation:explanation||`The correct answer is ${answer}.`}; }
+function quizAdd(pool,q){ if(q)pool.push(q); }
+function buildDailyQuizPool(rng){
+  const pool=[];
+  const skillNames=quizUnique((db.skills||[]).map(x=>x.name));
+  const defectNames=quizUnique((db.defects||[]).map(x=>x.name));
+  const speciesNames=quizUnique(species.map(s=>s.entry.name));
+  const allMoveNames=quizUnique((db.moves||[]).map(m=>m.name));
+  const allStitches=quizUnique(allTypes());
+  const stitchCombos=quizUnique(species.map(s=>stitches(s.entry).join(' / ')).filter(Boolean));
+  const classifications=quizUnique(species.map(s=>s.entry.classification));
+  const growthRates=quizUnique(species.map(s=>s.entry.growthRate));
+  const heights=quizUnique(species.map(s=>s.entry.height));
+  const weights=quizUnique(species.map(s=>s.entry.weight));
+  const genders=quizUnique(species.map(s=>genderText(s.entry.genderRatio)));
+  const recruitRates=quizUnique(species.map(s=>s.entry.recruitmentRate));
+  const baseExps=quizUnique(species.map(s=>s.entry.baseExp));
+  const catalogNos=quizUnique(species.map(s=>num(s.number)));
+  const allLevelLabels=quizUnique(species.flatMap(s=>(s.entry.levelUpTechniques||[]).map(x=>Number(x.level)===0?'Mod Move':quizHasValue(x.level)?`Lv. ${x.level}`:null)));
+  const allLocations=quizUnique((db.encounters||[]).flatMap(g=>(g.locations||[]).map(l=>l.name)));
+
+  species.forEach(s=>{
+    const e=s.entry, subject=`enitoy:${e.name}`, src=`Catalog → ${e.name}`;
+    const combo=stitches(e).join(' / ');
+    if(combo)quizAdd(pool,quizMakeQuestion('Catalog',subject,`What is ${e.name}'s Stitching?`,combo,stitchCombos,`${src} → Stitching`,`${e.name} is recorded as ${combo}.`,rng,`${e.name}:stitching`));
+    if(quizHasValue(e.classification))quizAdd(pool,quizMakeQuestion('Catalog',subject,`What is ${e.name}'s classification?`,e.classification,classifications,`${src} → Classification`,`${e.name} is the ${e.classification} Enitoy.`,rng,`${e.name}:classification`));
+    quizAdd(pool,quizMakeQuestion('Catalog',subject,`What is ${e.name}'s Catalog number?`,num(s.number),catalogNos,`${src} → Catalog`,`${e.name} is Catalog ${num(s.number)}.`,rng,`${e.name}:catalog`));
+    if(quizHasValue(e.height))quizAdd(pool,quizMakeQuestion('Catalog',subject,`What height is recorded for ${e.name}?`,e.height,heights,`${src} → Profile → Height`,`${e.name}'s recorded height is ${e.height}.`,rng,`${e.name}:height`));
+    if(quizHasValue(e.weight))quizAdd(pool,quizMakeQuestion('Catalog',subject,`What weight is recorded for ${e.name}?`,e.weight,weights,`${src} → Profile → Weight`,`${e.name}'s recorded weight is ${e.weight}.`,rng,`${e.name}:weight`));
+    if(quizHasValue(e.genderRatio))quizAdd(pool,quizMakeQuestion('Catalog',subject,`What is ${e.name}'s gender ratio?`,genderText(e.genderRatio),genders,`${src} → Profile → Gender`,`${e.name}'s recorded gender ratio is ${genderText(e.genderRatio)}.`,rng,`${e.name}:gender`));
+    if(quizHasValue(e.growthRate))quizAdd(pool,quizMakeQuestion('Catalog',subject,`What growth rate does ${e.name} use?`,e.growthRate,growthRates,`${src} → Profile → Growth`,`${e.name} uses the ${e.growthRate} growth rate.`,rng,`${e.name}:growth`));
+    if(quizHasValue(e.recruitmentRate))quizAdd(pool,quizMakeQuestion('Catalog',subject,`What is ${e.name}'s recruitment rate?`,e.recruitmentRate,quizNumberDistractors(e.recruitmentRate,recruitRates,1,1000),`${src} → Profile → Recruitment rate`,`${e.name}'s recruitment rate is ${e.recruitmentRate}.`,rng,`${e.name}:recruit`));
+    if(quizHasValue(e.baseExp))quizAdd(pool,quizMakeQuestion('Catalog',subject,`How much Base EXP is recorded for ${e.name}?`,e.baseExp,quizNumberDistractors(e.baseExp,baseExps,1,1000),`${src} → Profile → Base EXP`,`${e.name}'s Base EXP is ${e.baseExp}.`,rng,`${e.name}:exp`));
+
+    if(Array.isArray(e.stats)&&e.stats.length===6){
+      e.stats.forEach((value,i)=>{ const sameStat=species.map(x=>Array.isArray(x.entry.stats)?x.entry.stats[i]:null); quizAdd(pool,quizMakeQuestion('Stats',subject,`What is ${e.name}'s base ${STAT_NAMES[i]} stat?`,value,quizNumberDistractors(value,sameStat,0,255),`${src} → Base stats → ${STAT_NAMES[i]}`,`${e.name}'s base ${STAT_NAMES[i]} is ${value}.`,rng,`${e.name}:stat:${i}`)); });
+      const bst=e.stats.reduce((a,b)=>a+(Number(b)||0),0); const bsts=species.filter(x=>Array.isArray(x.entry.stats)&&x.entry.stats.length===6).map(x=>x.entry.stats.reduce((a,b)=>a+(Number(b)||0),0));
+      quizAdd(pool,quizMakeQuestion('Stats',subject,`What is ${e.name}'s base stat total (BST)?`,bst,quizNumberDistractors(bst,bsts,1,999),`${src} → Base stats → BST`,`${e.name}'s six base stats add up to ${bst}.`,rng,`${e.name}:bst`));
+    }
+
+    if(e.skill)quizAdd(pool,quizMakeQuestion('Skills',subject,`What is ${e.name}'s standard Skill?`,e.skill,skillNames,`${src} → Skills → Skill`,`${e.name}'s standard Skill is ${e.skill}.`,rng,`${e.name}:skill`));
+    if(e.hiddenSkill)quizAdd(pool,quizMakeQuestion('Skills',subject,`What is ${e.name}'s Hidden Skill?`,e.hiddenSkill,skillNames,`${src} → Skills → Hidden Skill`,`${e.name}'s Hidden Skill is ${e.hiddenSkill}.`,rng,`${e.name}:hidden`));
+    if(e.misprintDefect)quizAdd(pool,quizMakeQuestion('Skills',subject,`What Misprint Defect is recorded for ${e.name}?`,e.misprintDefect,defectNames,`${src} → Misprint Defect`,`${e.name}'s Misprint Defect is ${e.misprintDefect}.`,rng,`${e.name}:defect`));
+
+    (e.modifications||[]).forEach((m,mi)=>{
+      if(m.target)quizAdd(pool,quizMakeQuestion('Modifications',subject,`Which Enitoy can ${e.name} modify into using “${quizMethodText(m)}”?`,m.target,speciesNames,`${src} → Modification`,`${e.name} can modify into ${m.target} using ${quizMethodText(m)}.`,rng,`${e.name}:modtarget:${mi}`));
+      if(m.target){ const methods=species.flatMap(x=>(x.entry.modifications||[]).map(quizMethodText)); quizAdd(pool,quizMakeQuestion('Modifications',subject,`How can ${e.name} modify into ${m.target}?`,quizMethodText(m),methods,`${src} → Modification`,`${e.name} modifies into ${m.target} using ${quizMethodText(m)}.`,rng,`${e.name}:modmethod:${mi}`)); }
+    });
+
+    const levelMoves=Array.isArray(e.levelUpTechniques)?e.levelUpTechniques:[];
+    levelMoves.forEach((x,xi)=>{ if(!x?.name||!quizHasValue(x.level))return; const label=Number(x.level)===0?'Mod Move':`Lv. ${x.level}`; quizAdd(pool,quizMakeQuestion('Techniques',subject,`When does ${e.name} learn ${x.name}?`,label,allLevelLabels,`${src} → Level Up Techniques`,`${e.name} learns ${x.name} at ${label}.`,rng,`${e.name}:levelmove:${xi}`)); });
+    const scrollMoves=quizUnique((e.scrollLearnedTechniques||[]).map(x=>typeof x==='string'?x:x?.name));
+    scrollMoves.forEach((moveName,xi)=>{ const wrong=allMoveNames.filter(n=>!scrollMoves.includes(n)); quizAdd(pool,quizMakeQuestion('Techniques',subject,`Which of these techniques can ${e.name} learn from a Scroll?`,moveName,wrong,`${src} → Scroll Learned Techniques`,`${moveName} is listed among ${e.name}'s Scroll-learned techniques.`,rng,`${e.name}:scroll:${xi}`)); });
+
+    const encounters=findEncounters(e.name); const validLocs=quizUnique(encounters.map(x=>x.location));
+    validLocs.forEach((loc,li)=>{ const wrong=allLocations.filter(x=>!validLocs.includes(x)); quizAdd(pool,quizMakeQuestion('Encounters',subject,`Which of these is a location where ${e.name} can be encountered?`,loc,wrong,`${src} → Where to find`,`${e.name} is recorded as obtainable at ${loc}.`,rng,`${e.name}:enc:${li}`)); });
+  });
+
+  (db.moves||[]).forEach((m,mi)=>{
+    const subject=`move:${m.name}`,src=`Techniques → ${m.name}`;
+    if(m.stitching)quizAdd(pool,quizMakeQuestion('Techniques',subject,`What Stitching does the technique ${m.name} use?`,m.stitching,allStitches,`${src} → Stitching`,`${m.name} is a ${m.stitching} technique.`,rng,`${m.name}:type`));
+    const categories=quizUnique((db.moves||[]).map(x=>x.category)); if(quizHasValue(m.category))quizAdd(pool,quizMakeQuestion('Techniques',subject,`What category is ${m.name}?`,m.category,categories,`${src} → Category`,`${m.name}'s category is ${m.category}.`,rng,`${m.name}:category`));
+    const numericFields=[['power','Power',0,999],['accuracy','Accuracy',0,1000],['uses','Uses',0,999],['priority','Priority',-10,10]];
+    numericFields.forEach(([key,label,min,max])=>{ if(!quizHasValue(m[key]))return; const vals=(db.moves||[]).map(x=>x[key]); quizAdd(pool,quizMakeQuestion('Techniques',subject,`What ${label.toLowerCase()} value is recorded for ${m.name}?`,m[key],quizNumberDistractors(m[key],vals,min,max),`${src} → ${label}`,`${m.name}'s recorded ${label.toLowerCase()} is ${m[key]}.`,rng,`${m.name}:${key}`)); });
+  });
+
+  const names=allTypes(); names.forEach((attack,ai)=>names.forEach((defend,di)=>{ const v=db.matrix?.[ai]?.[di]??2; const correct=quizEffectLabel(v); quizAdd(pool,quizMakeQuestion('Stitching',`type:${attack}`,`How effective is ${attack} against a defending ${defend} Stitch?`,correct,['0× (immune)','½×','1×','2×'],`Stitching → ${attack} → Offensive matchups`,`${attack} deals ${correct} damage to ${defend}.`,rng,`${attack}:${defend}:matchup`)); }));
+
+  forms.forEach((f,fi)=>{ const base=f.base?.entry?.name; if(!base)return; quizAdd(pool,quizMakeQuestion('Forms',`form:${f.entry.name}`,`${f.entry.name} is a recorded form of which Enitoy?`,base,speciesNames,`Catalog → ${base} → Forms`,`${f.entry.name} is recorded as a form of ${base}.`,rng,`form:${fi}`)); });
+  return pool;
+}
+function buildDailyQuizQuestions(dateKey){
+  const rng=quizRandom(quizHash(`Enitoy Daily Quiz|${dateKey}`));
+  const pool=buildDailyQuizPool(rng);
+  const groups={}; pool.forEach(q=>{(groups[q.category]||(groups[q.category]=[])).push(q);});
+  Object.keys(groups).forEach(k=>groups[k]=quizShuffle(groups[k],rng));
+  const categories=quizShuffle(Object.keys(groups),rng), selected=[], usedSubjects=new Set();
+  while(selected.length<DAILY_QUIZ_LENGTH){
+    let added=false;
+    for(const cat of categories){
+      const group=groups[cat]||[]; if(!group.length)continue;
+      let idx=group.findIndex(q=>!usedSubjects.has(q.subject)); if(idx<0)idx=0;
+      const [q]=group.splice(idx,1); selected.push(q); usedSubjects.add(q.subject); added=true;
+      if(selected.length>=DAILY_QUIZ_LENGTH)break;
+    }
+    if(!added)break;
+  }
+  return selected;
+}
+function quizLoadHistory(){ try{ const raw=localStorage.getItem(DAILY_QUIZ_HISTORY_KEY); if(raw){ const parsed=JSON.parse(raw); if(parsed&&typeof parsed==='object')dailyQuizMemoryHistory=parsed; } }catch(err){} return dailyQuizMemoryHistory||{}; }
+function quizSaveHistory(history){ dailyQuizMemoryHistory=history; try{ localStorage.setItem(DAILY_QUIZ_HISTORY_KEY,JSON.stringify(history)); }catch(err){} }
+function quizSaveState(state){ dailyQuizMemoryState=state; try{ localStorage.setItem(DAILY_QUIZ_STATE_KEY,JSON.stringify(state)); }catch(err){} }
+function quizLoadState(){
+  const today=quizDateKey(); let state=null;
+  try{ const raw=localStorage.getItem(DAILY_QUIZ_STATE_KEY); if(raw)state=JSON.parse(raw); }catch(err){}
+  if(!state&&dailyQuizMemoryState)state=dailyQuizMemoryState;
+  if(!state||state.date!==today||!Array.isArray(state.questions)){
+    const questions=buildDailyQuizQuestions(today); state={version:1,date:today,questions,answers:Array(questions.length).fill(null),current:0,completed:false}; quizSaveState(state);
+  }
+  if(!Array.isArray(state.answers)||state.answers.length!==state.questions.length)state.answers=Array(state.questions.length).fill(null);
+  state.current=Math.max(0,Math.min(Number(state.current)||0,Math.max(0,state.questions.length-1)));
+  dailyQuizMemoryState=state; return state;
+}
+function quizScore(state){ return state.questions.reduce((score,q,i)=>score+(state.answers[i]===q.correctIndex?1:0),0); }
+function quizStreak(history){ const today=quizDateKey(); let key=history[today]?today:quizPreviousDateKey(today),streak=0; while(history[key]?.completed){streak++;key=quizPreviousDateKey(key);} return streak; }
+function quizRecordCompletion(state){ const history=quizLoadHistory(); const score=quizScore(state), prior=history[state.date]; history[state.date]={completed:true,score:prior?Math.max(Number(prior.score)||0,score):score,total:state.questions.length,completedAt:Date.now()}; quizSaveHistory(history); }
+function quizResetToday(){ const state=quizLoadState(); state.answers=Array(state.questions.length).fill(null); state.current=0; state.completed=false; quizSaveState(state); renderDailyQuiz(); }
+function renderDailyQuiz(){
+  const state=quizLoadState(), total=state.questions.length, history=quizLoadHistory(), streak=quizStreak(history);
+  if(!total){ app.innerHTML=`${breadcrumbs([{label:'Daily Quiz'}])}<h1 class="page-title">Daily Quiz</h1><div class="card quiz-empty"><h2>Not enough quiz data yet</h2><p class="muted">The viewer could not build enough unambiguous multiple-choice questions from the currently loaded JSON.</p></div>`; return; }
+  const answered=state.answers.filter(x=>x!==null&&x!==undefined).length, score=quizScore(state), bestToday=history[state.date]?.score;
+  const summary=`<div class="quiz-summary"><div class="quiz-summary-box"><b>${answered}/${total}</b><span>Answered</span></div><div class="quiz-summary-box"><b>${streak}</b><span>Day streak</span></div>${bestToday!==undefined?`<div class="quiz-summary-box"><b>${bestToday}/${total}</b><span>Best today</span></div>`:''}</div>`;
+  if(state.completed){
+    const pct=Math.round(score/total*100); const review=state.questions.map((q,i)=>{const chosen=state.answers[i],ok=chosen===q.correctIndex;return `<div class="quiz-review-row"><div class="quiz-review-no">${ok?'✓':'×'}</div><div><b>${esc(q.prompt)}</b><div class="tiny muted">${esc(q.source)}</div></div><div class="quiz-review-answer"><span class="muted">Your answer</span><b>${chosen===null||chosen===undefined?'No answer':esc(q.options[chosen])}</b>${ok?'':`<span class="muted">Correct answer</span><b>${esc(q.options[q.correctIndex])}</b>`}</div></div>`}).join('');
+    app.innerHTML=`${breadcrumbs([{label:'Daily Quiz'}])}<div class="quiz-hero"><div><h1 class="page-title">Daily Quiz</h1><p class="subtitle"><span class="quiz-date">${esc(quizDateLabel(state.date))}</span> · Questions generated from the Enitoy database.</p></div>${summary}</div><div class="card quiz-complete"><div class="quiz-category">Complete</div><h2>Today's quiz score</h2><div class="quiz-score">${score}/${total}</div><p class="muted">${pct}% correct. Tomorrow's date generates a different set of questions.</p><button class="quiz-secondary" type="button" id="quiz-reset">Retake today's same quiz</button><div class="quiz-reset-note">Retaking keeps the questions the same and preserves your best score for today.</div></div><section class="section"><h2 class="section-title">Review</h2><div class="card quiz-review">${review}</div></section>`;
+    $('#quiz-reset')?.addEventListener('click',quizResetToday); return;
+  }
+  const q=state.questions[state.current], chosen=state.answers[state.current], hasAnswered=chosen!==null&&chosen!==undefined, correct=hasAnswered&&chosen===q.correctIndex;
+  const progress=Math.round(answered/total*100);
+  const options=q.options.map((option,i)=>{ let cls='quiz-option'; if(hasAnswered){ if(i===q.correctIndex)cls+=' correct'; else if(i===chosen)cls+=' wrong'; } return `<button class="${cls}" type="button" data-quiz-option="${i}" ${hasAnswered?'disabled':''}>${esc(option)}</button>`; }).join('');
+  const feedback=hasAnswered?`<div class="quiz-feedback ${correct?'correct':'wrong'}"><div class="quiz-feedback-title">${correct?'Correct!':'Not quite.'}</div><div>${esc(q.explanation)}</div><div class="quiz-source"><b>From:</b> ${esc(q.source)}</div></div>`:'';
+  const nextLabel=state.current===total-1?'Finish Quiz':'Next Question';
+  app.innerHTML=`${breadcrumbs([{label:'Daily Quiz'}])}<div class="quiz-hero"><div><h1 class="page-title">Daily Quiz</h1><p class="subtitle"><span class="quiz-date">${esc(quizDateLabel(state.date))}</span> · One 10-question set generated from the loaded JSON each day.</p></div>${summary}</div><div class="quiz-progress-track" aria-label="Quiz progress"><div class="quiz-progress-fill" style="width:${progress}%"></div></div><div class="card quiz-question-card"><div class="quiz-question-top"><span class="quiz-category">${esc(q.category)}</span><span class="quiz-count">Question ${state.current+1} of ${total}</span></div><h2 class="quiz-question">${esc(q.prompt)}</h2><div class="quiz-options">${options}</div>${feedback}<div class="quiz-actions"><button class="quiz-secondary" type="button" id="quiz-reset">Restart Today's Quiz</button>${hasAnswered?`<button class="primary" type="button" id="quiz-next">${nextLabel}</button>`:'<span></span>'}</div></div>`;
+  document.querySelectorAll('[data-quiz-option]').forEach(btn=>btn.addEventListener('click',()=>{ const index=Number(btn.dataset.quizOption); if(!Number.isInteger(index)||state.answers[state.current]!==null)return; state.answers[state.current]=index; quizSaveState(state); renderDailyQuiz(); }));
+  $('#quiz-reset')?.addEventListener('click',quizResetToday);
+  $('#quiz-next')?.addEventListener('click',()=>{ if(state.current>=total-1){ state.completed=true; quizSaveState(state); quizRecordCompletion(state); renderDailyQuiz(); }else{ state.current++; quizSaveState(state); renderDailyQuiz(); } });
+}
+
 function renderNamedList(title,list,route){ app.innerHTML=`${breadcrumbs([{label:title}])}<h1 class="page-title">${esc(title)}</h1><p class="subtitle">${(list||[]).length} entries.</p><div class="card"><table class="data-table"><thead><tr><th>Name</th><th>Effect</th></tr></thead><tbody>${(list||[]).map(x=>`<tr><td>${routeLink(`${route}/${slug(x.name)}`,x.name)}</td><td>${fmt(x.effect)}</td></tr>`).join('')}</tbody></table></div>`; }
 function renderNamedListDetail(kind,list,name,route){ const x=lookup(list,name); if(!x){app.innerHTML=empty(kind+' not found.');return;} const users=species.filter(s=>s.entry.skill===x.name||s.entry.hiddenSkill===x.name||s.entry.misprintDefect===x.name); app.innerHTML=`${breadcrumbs([{label:kind==='Skill'?'Skills':'Defects',route},{label:x.name}])}<h1 class="page-title">${esc(x.name)}</h1><div class="card"><h2>${esc(kind)} effect</h2><p class="flavor">${fmt(x.effect)}</p></div><section class="section"><h2 class="section-title">Used by</h2>${users.length?`<div class="catalog-grid">${users.map(catalogCard).join('')}</div>`:empty('No entered Enitoys reference this '+kind.toLowerCase()+'.')}</section>`; }
 function renderItems(){ const items=(db.items||[]).slice().sort((a,b)=>(a.pocket||0)-(b.pocket||0)||a.name.localeCompare(b.name)); app.innerHTML=`${breadcrumbs([{label:'Items'}])}<h1 class="page-title">Items</h1><p class="subtitle">${items.length} items.</p><div class="card"><table class="data-table"><thead><tr><th>Name</th><th>Pocket</th><th>Buy</th><th>Sell</th><th>Description</th></tr></thead><tbody>${items.map(x=>`<tr><td>${routeLink(`items/${slug(x.name)}`,x.name)}</td><td>${fmt(x.pocket)}</td><td>${formatMoney(x.buyPrice)}</td><td>${formatMoney(x.sellPrice)}</td><td>${fmt(x.description)}</td></tr>`).join('')}</tbody></table></div>`; }
@@ -424,6 +687,7 @@ function renderLocation(gen,name){ const g=(db.encounters||[]).find(x=>x.generat
 function renderMethod(gen,m){ if(m.gift)return `<section class="section"><h2 class="section-title">${esc(m.name)}</h2><div class="card"><table class="data-table"><thead><tr><th>Enitoy</th><th>Level</th></tr></thead><tbody><tr><td>${speciesBy(gen,m.gift.enitoy)?routeLink(`enitoy/${slug(gen)}/${slug(m.gift.enitoy)}`,m.gift.enitoy):esc(m.gift.enitoy)}</td><td>${esc(m.gift.level)}</td></tr></tbody></table></div></section>`; let pool=null; Object.keys(m).forEach(k=>{if(k!=='name'&&m[k]&&typeof m[k]==='object')pool=m[k]}); if(!pool)return ''; const table=time=>{const rows=pool[time]||[];return `<div class="card"><h3>${time==='day'?'Day':'Night'}</h3>${rows.length?`<table class="data-table"><thead><tr><th>Enitoy</th><th>Level</th><th>Chance</th></tr></thead><tbody>${rows.map(x=>{const s=speciesBy(gen,x.enitoy)||species.find(q=>q.entry.name===x.enitoy);return `<tr><td>${s?routeLink(`enitoy/${slug(s.generation)}/${slug(s.entry.name)}`,s.entry.name):esc(x.enitoy)}</td><td>${x.minLevel===x.maxLevel?esc(x.minLevel):`${esc(x.minLevel)}–${esc(x.maxLevel)}`}</td><td>${esc(x.percent)}%</td></tr>`}).join('')}</tbody></table>`:'<span class="muted">None</span>'}</div>`}; return `<section class="section"><h2 class="section-title">${esc(m.name)}</h2><div class="grid-2">${table('day')}${table('night')}</div></section>`; }
 function renderCraftLine(c){ const method=c.method==='station'?'Crafting Station':c.method==='holdMove'?'Hold + Move Stitch':c.method||'Craft'; return `<div style="padding:8px 0;border-bottom:1px solid #e8ebee"><b>${esc(method)}</b>: ${(c.ingredients||[]).map(i=>`${esc(i.quantity||1)}× ${routeLink(`items/${slug(i.item)}`,i.item)}`).join(' + ')} → ${esc(c.resultQuantity||1)}× ${routeLink(`items/${slug(c.resultItem)}`,c.resultItem)}</div>`; }
 function renderCrafts(){ const cs=db.crafts||[]; app.innerHTML=`${breadcrumbs([{label:'Crafts'}])}<h1 class="page-title">Crafts</h1><p class="subtitle">${cs.length} recipes.</p><div class="card">${cs.length?cs.map(renderCraftLine).join(''):'<span class="muted">No recipes recorded.</span>'}</div>`; }
+initMusic();
 void startViewer();
 })();
 </script>
