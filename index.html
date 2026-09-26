@@ -108,7 +108,7 @@ button,input,select{font:inherit}
 
 /* Daily connection puzzles */
 .puzzle-hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:start}.puzzle-date{font-weight:800;color:#33495e}.puzzle-summary{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.puzzle-summary-box{min-width:100px;background:#f6f8fa;border:1px solid #dbe1e7;border-radius:7px;padding:9px 11px;text-align:center}.puzzle-summary-box b{display:block;font-size:20px;line-height:1.1}.puzzle-summary-box span{display:block;margin-top:3px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.puzzle-board{display:grid;gap:9px;margin-top:16px}.puzzle-board.p4{grid-template-columns:repeat(4,minmax(0,1fr))}.puzzle-board.p5{grid-template-columns:repeat(5,minmax(0,1fr))}.puzzle-tile{min-height:74px;border:1px solid #cbd4dc;background:#fff;border-radius:8px;padding:9px 7px;font-weight:850;color:#273744;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;transition:background .12s ease,border-color .12s ease,transform .05s ease}.puzzle-tile:hover:not(:disabled){background:#f4f7f9;border-color:#91a9bd}.puzzle-tile:active:not(:disabled){transform:translateY(1px)}.puzzle-tile.selected{background:#dfeaf3;border-color:#688ca9;box-shadow:inset 0 0 0 1px #688ca9}.puzzle-tile:disabled{cursor:default}.puzzle-solved{border:1px solid #cfd8e0;border-radius:8px;padding:13px 15px;margin-top:9px;background:#f7f9fb;text-align:center}.puzzle-solved b{display:block;font-size:16px;color:#243b50}.puzzle-solved span{display:block;margin-top:5px;font-weight:700;color:#5d6975}.puzzle-controls{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:16px}.puzzle-message{text-align:center;min-height:24px;margin:12px 0 0;font-weight:800}.puzzle-message.good{color:#2b6a39}.puzzle-message.bad{color:#8a3838}.puzzle-lives{font-size:21px;letter-spacing:3px}.puzzle-finished{text-align:center;padding:26px}.puzzle-finished h2{margin:5px 0 8px}.puzzle-explain{margin-top:18px}.puzzle-explain summary{cursor:pointer;font-weight:800;color:#314b63}.puzzle-pool-note{margin-top:14px;font-size:12px;color:var(--muted);text-align:center}.puzzle-switches{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.puzzle-switches a{display:inline-block;border:1px solid #bdc8d2;border-radius:999px;padding:6px 10px;text-decoration:none;font-weight:800;color:#385770;background:#fff}.puzzle-switches a.active{background:#385770;color:#fff;border-color:#385770}@media(max-width:720px){.puzzle-hero{grid-template-columns:1fr}.puzzle-summary{justify-content:flex-start}.puzzle-tile{min-height:64px;font-size:12px;padding:7px 4px}.puzzle-board{gap:6px}}@media(max-width:480px){.puzzle-board.p5{gap:4px}.puzzle-board.p5 .puzzle-tile{font-size:10px;min-height:58px;padding:5px 2px;border-radius:6px}}
-.puzzle-tile.has-art{padding:4px;min-height:104px;overflow:hidden}.puzzle-tile.has-art img{width:100%;height:96px;object-fit:contain;display:block;pointer-events:none}.puzzle-board.p5 .puzzle-tile.has-art{min-height:92px}.puzzle-board.p5 .puzzle-tile.has-art img{height:84px}@media(max-width:720px){.puzzle-tile.has-art{min-height:82px}.puzzle-tile.has-art img{height:74px}.puzzle-board.p5 .puzzle-tile.has-art{min-height:72px}.puzzle-board.p5 .puzzle-tile.has-art img{height:64px}}
+.puzzle-tile.has-art{padding:4px;min-height:104px;overflow:hidden;position:relative}.puzzle-tile.has-art img{width:100%;height:96px;object-fit:contain;display:block;pointer-events:none}.puzzle-board.p5 .puzzle-tile.has-art{min-height:92px}.puzzle-board.p5 .puzzle-tile.has-art img{height:84px}.puzzle-tile.is-misprint::after,.puzzle-solved-member.is-misprint::after{content:"★ Misprint";position:absolute;top:4px;right:4px;background:#7a2248;color:#fff;border-radius:999px;padding:2px 6px;font-size:9px;font-weight:900;letter-spacing:.03em;box-shadow:0 1px 4px #0003}.puzzle-solved-members{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:8px}.puzzle-solved-member{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:60px;min-height:60px;padding:4px 6px;border:1px solid #d8e0e7;border-radius:8px;background:#fff}.puzzle-solved-member.has-art{padding:4px;width:78px;height:78px;overflow:hidden}.puzzle-solved-member.has-art img{width:100%;height:100%;object-fit:contain;display:block}.puzzle-solved-member.no-art{font-size:11px;font-weight:800;line-height:1.15;color:#4d5a66;max-width:110px;text-align:center}@media(max-width:720px){.puzzle-tile.has-art{min-height:82px}.puzzle-tile.has-art img{height:74px}.puzzle-board.p5 .puzzle-tile.has-art{min-height:72px}.puzzle-board.p5 .puzzle-tile.has-art img{height:64px}.puzzle-solved-member.has-art{width:64px;height:64px}.puzzle-solved-member.is-misprint::after,.puzzle-tile.is-misprint::after{font-size:8px;padding:2px 5px}}
 .profile-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}.profile-form{display:grid;gap:11px}.profile-form label{display:grid;gap:5px;font-weight:800;color:#34495c}.profile-form input{width:100%;box-sizing:border-box;border:1px solid #cbd5df;border-radius:6px;padding:10px 11px;font:inherit}.profile-actions{display:flex;gap:8px;flex-wrap:wrap}.profile-file-status{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:6px;margin-bottom:10px}.profile-file-status.good{background:#edf8ef;border:1px solid #b8ddc0;color:#245d30}.profile-file-status.bad{background:#fff4e8;border:1px solid #ebcfaa;color:#775021}.profile-file-status span{font-size:12px;font-weight:700}.profile-badge{display:inline-flex;align-items:center;gap:7px;border:1px solid #c6d3de;background:#f4f8fb;border-radius:999px;padding:6px 10px;font-weight:800;color:#385770}.profile-status{padding:12px 14px;border:1px solid #d9e1e7;border-radius:7px;background:#f8fafb}.profile-status.good{background:#edf8ef;border-color:#b8ddc0}.profile-status.bad{background:#fff1f1;border-color:#edc5c5}.profile-completion-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.profile-completion-grid>div{padding:13px;border:1px solid #dbe2e8;border-radius:7px;background:#f8fafb;text-align:center}.profile-completion-grid b{display:block;font-size:24px}.profile-completion-grid span{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase}@media(max-width:700px){.profile-grid{grid-template-columns:1fr}.profile-completion-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -220,24 +220,11 @@ async function profileRefreshSession(){
 }
 function profileLogout(){profileSetToken('');profileSetActiveProfile(null);profileSyncWarning='';}
 async function profileMarkComplete(field,dateKey){
-  const p=profileActive();
-  if(!p||!profileToken())return false;
-  const day=profileDayNumber(dateKey);
-  if(day<1)return false;
-  const kind=field==='CompletedQuizzes'?'quiz':field==='Completed44'?'44':field==='Completed55'?'55':'';
-  if(!kind)return false;
-  try{
-    // Always let the shared backend confirm the completion. The backend already
-    // ignores duplicate Day numbers, so a stale browser cache can never prevent
-    // a missing completion from being written to Enitoy_Profiles.json.
-    const data=await profileApi('/complete',{method:'POST',body:JSON.stringify({kind,day})});
-    profileSetActiveProfile(data.profile);
-    profileSyncWarning='';
-    return true;
-  }catch(err){
-    profileSyncWarning=`Profile completion could not sync: ${err.message||err}`;
-    return false;
-  }
+  const p=profileActive();if(!p||!profileToken())return;
+  const day=profileDayNumber(dateKey);if(day<1||p[field]?.includes(day))return;
+  const kind=field==='CompletedQuizzes'?'quiz':field==='Completed44'?'44':field==='Completed55'?'55':'';if(!kind)return;
+  try{const data=await profileApi('/complete',{method:'POST',body:JSON.stringify({kind,day})});profileSetActiveProfile(data.profile);profileSyncWarning='';}
+  catch(err){profileSyncWarning=`Profile completion could not sync: ${err.message||err}`;}
 }
 function profileIsComplete(field,dateKey){const p=profileActive();if(!p)return false;const day=profileDayNumber(dateKey);return (p[field]||[]).includes(day);}
 function profileStatusHtml(){const p=profileActive();return p?`<span class="profile-badge">Signed in as ${esc(p.Username)}</span>`:`<span class="profile-badge">No active profile</span>`;}
@@ -874,7 +861,7 @@ function quizMediaHtml(q){ const media=quizResolveMedia(q?.media); return media?
 function quizPoolDetails(state){ const counts=Object.entries(state.categoryCounts||{}).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])); return `<details class="card quiz-pool-details"><summary><b>Question Pool When This Day Was Created:</b> ${Number(state.poolSize||0).toLocaleString()} possible questions from ${Number(state.factCount||0).toLocaleString()} database facts across ${Number(state.categoryCount||counts.length)} categories</summary><p class="tiny muted">Each date is frozen after it is first generated on this device. New JSON data expands the generator for future or not-yet-opened dates without replacing a day you already started.</p><div class="quiz-pool-grid">${counts.map(([name,count])=>`<div><b>${esc(name)}</b><span>${Number(count).toLocaleString()}</span></div>`).join('')}</div></details>`; }
 async function renderDailyQuiz(requestedDate){
   const date=dailyNormalizeDateKey(requestedDate), state=await quizLoadState(date), total=state.questions.length, history=quizLoadHistory(), streak=quizStreak(history), isToday=date===quizDateKey();
-  if(state.completed)await profileMarkComplete('CompletedQuizzes',state.date);
+  if(state.completed)profileMarkComplete('CompletedQuizzes',state.date);
   if(!total){ app.innerHTML=`${breadcrumbs([{label:'Daily Quiz'}])}<h1 class="page-title">Daily Quiz</h1>${dailyDateNav('daily-quiz',date)}<div class="card quiz-empty"><h2>Not enough quiz data yet</h2><p class="muted">The viewer could not build enough unambiguous multiple-choice questions from the currently loaded JSON.</p></div>${quizPoolDetails(state)}`; bindDailyDatePicker('daily-quiz'); return; }
   const answered=state.answers.filter(x=>x!==null&&x!==undefined).length, score=quizScore(state), bestForDate=history[state.date]?.score;
   const summary=`<div class="quiz-summary"><div class="quiz-summary-box"><b>${answered}/${total}</b><span>Answered</span></div>${isToday?`<div class="quiz-summary-box"><b>${streak}</b><span>Day streak</span></div>`:''}<div class="quiz-summary-box"><b>${Number(state.poolSize||0).toLocaleString()}</b><span>Question pool</span></div>${bestForDate!==undefined?`<div class="quiz-summary-box"><b>${bestForDate}/${total}</b><span>Best score</span></div>`:''}</div>`;
@@ -892,7 +879,7 @@ async function renderDailyQuiz(requestedDate){
   app.innerHTML=`${breadcrumbs([{label:'Daily Quiz'}])}<div class="quiz-hero"><div><h1 class="page-title">Daily Quiz</h1><p class="subtitle"><span class="quiz-date">${esc(quizDateLabel(state.date))}</span> · One frozen 10-question daily set.</p>${dayLinks}</div>${summary}</div>${nav}<div class="quiz-progress-track" aria-label="Quiz progress"><div class="quiz-progress-fill" style="width:${progress}%"></div></div><div class="card quiz-question-card"><div class="quiz-question-top"><span class="quiz-category">${esc(q.category)}</span><span class="quiz-count">Question ${state.current+1} of ${total}</span></div>${quizMediaHtml(q)}<h2 class="quiz-question">${esc(q.prompt)}</h2><div class="quiz-options">${options}</div>${feedback}<div class="quiz-actions"><button class="quiz-secondary" type="button" id="quiz-reset">Restart This Day's Quiz</button>${hasAnswered?`<button class="primary" type="button" id="quiz-next">${nextLabel}</button>`:'<span></span>'}</div></div>${quizPoolDetails(state)}`;
   document.querySelectorAll('[data-quiz-option]').forEach(btn=>btn.addEventListener('click',()=>{ const index=Number(btn.dataset.quizOption); if(!Number.isInteger(index)||state.answers[state.current]!==null)return; state.answers[state.current]=index; quizSaveState(state); renderDailyQuiz(date); }));
   $('#quiz-reset')?.addEventListener('click',()=>quizResetDate(date));
-  $('#quiz-next')?.addEventListener('click',async()=>{ if(state.current>=total-1){ state.completed=true; quizSaveState(state); quizRecordCompletion(state); await profileMarkComplete('CompletedQuizzes',state.date); renderDailyQuiz(date); }else{ state.current++; quizSaveState(state); renderDailyQuiz(date); } });
+  $('#quiz-next')?.addEventListener('click',()=>{ if(state.current>=total-1){ state.completed=true; quizSaveState(state); quizRecordCompletion(state); profileMarkComplete('CompletedQuizzes',state.date); renderDailyQuiz(date); }else{ state.current++; quizSaveState(state); renderDailyQuiz(date); } });
   bindDailyDatePicker('daily-quiz');
 }
 
@@ -1038,9 +1025,7 @@ async function puzzleSubmit(state){
   if(state.selected.length!==size)return;
   const selectedKey=puzzleSetKey(state.selected);
   let hit=-1;
-  state.groups.forEach((g,i)=>{
-    if(!state.solved.includes(i)&&puzzleSetKey(g.members)===selectedKey)hit=i;
-  });
+  state.groups.forEach((g,i)=>{ if(!state.solved.includes(i) && puzzleSetKey(g.members)===selectedKey) hit=i; });
   if(hit>=0){
     state.solved.push(hit);
     state.selected=[];
@@ -1068,20 +1053,38 @@ async function puzzleSubmit(state){
   puzzleSaveState(state);
   renderDailyPuzzle(size,state.date);
 }
-
 function puzzleReveal(state){ state.failed=true; state.lives=0; state.selected=[]; state.message='Puzzle revealed.'; puzzleSaveState(state); renderDailyPuzzle(state.size,state.date); }
+function puzzleVisualForName(name,state){
+  const rec=species.find(s=>s.entry?.name===name),entry=rec?.entry;
+  const hasDefault=hasImageData(entry?.imageData),hasMisprint=hasImageData(entry?.misprintImageData);
+  let isMisprint=false,src='';
+  if(hasDefault && hasMisprint){
+    const seed=quizHash(`${state?.date||''}|${state?.size||''}|${state?.signature||''}|${name}|misprint-roll`);
+    isMisprint=(seed%300)===0;
+  }
+  if(hasDefault)src=isMisprint&&hasMisprint?entry.misprintImageData:entry.imageData;
+  return {name,src,hasArt:hasImageData(src),isMisprint};
+}
+function puzzleSolvedMemberHtml(name,state){
+  const v=puzzleVisualForName(name,state);
+  if(v.hasArt)return `<div class="puzzle-solved-member has-art ${v.isMisprint?'is-misprint':''}" title="${esc(v.name)}${v.isMisprint?' — Misprint!':''}"><img src="${v.src}" alt="${esc(v.name)}${v.isMisprint?' Misprint':''}"></div>`;
+  return `<div class="puzzle-solved-member no-art" title="${esc(v.name)}">${esc(v.name)}</div>`;
+}
 function puzzleSolvedHtml(state){
   const showAll=state.completed||state.failed;
-  return state.groups.map((g,i)=>{ if(!state.solved.includes(i)&&!showAll)return ''; return `<div class="puzzle-solved"><b>${esc(g.label)}</b><span>${g.members.map(esc).join(' · ')}</span></div>`; }).join('');
+  return state.groups.map((g,i)=>{
+    if(!state.solved.includes(i)&&!showAll)return '';
+    return `<div class="puzzle-solved"><b>${esc(g.label)}</b><div class="puzzle-solved-members">${g.members.map(name=>puzzleSolvedMemberHtml(name,state)).join('')}</div></div>`;
+  }).join('');
 }
 function puzzleControlsHtml(state){
   if(state.completed||state.failed)return `<div class="puzzle-controls"><button class="quiz-secondary" id="puzzle-reset" type="button">Replay This Day's Same Puzzle</button></div>`;
   return `<div class="puzzle-controls"><button class="quiz-secondary" id="puzzle-shuffle" type="button">Shuffle</button><button class="quiz-secondary" id="puzzle-clear" type="button">Deselect All</button><button class="primary" id="puzzle-submit" type="button" ${state.selected.length===state.size?'':'disabled'}>Submit ${state.size}</button><button class="quiz-secondary" id="puzzle-reveal" type="button">Reveal</button></div>`;
 }
-function puzzleTileContent(name){
-  const rec=species.find(s=>s.entry?.name===name),img=rec?.entry?.imageData;
-  if(hasImageData(img))return {html:`<img src="${img}" alt="${esc(name)}" title="${esc(name)}">`,hasArt:true};
-  return {html:esc(name),hasArt:false};
+function puzzleTileContent(name,state){
+  const v=puzzleVisualForName(name,state);
+  if(v.hasArt)return {html:`<img src="${v.src}" alt="${esc(v.name)}${v.isMisprint?' Misprint':''}" title="${esc(v.name)}${v.isMisprint?' — Misprint!':''}">`,hasArt:true,isMisprint:v.isMisprint};
+  return {html:esc(v.name),hasArt:false,isMisprint:false};
 }
 async function renderDailyPuzzle(size,requestedDate){
   const date=dailyNormalizeDateKey(requestedDate),state=await puzzleLoadState(size,date),title=`Daily ${size}×${size} Connection`;
@@ -1089,14 +1092,14 @@ async function renderDailyPuzzle(size,requestedDate){
   if(!state.groups.length){ app.innerHTML=`${breadcrumbs([{label:title}])}<h1 class="page-title">${title}</h1>${dailyDateNav(`daily-puzzle-${size}`,date)}<div class="card quiz-empty"><h2>Not enough groupable data yet</h2><p>The loaded JSON does not currently contain enough repeated Enitoy relationships to build a ${size}×${size} board automatically. As more data is added, this puzzle will become available on its own.</p></div>`; bindDailyDatePicker(`daily-puzzle-${size}`); return; }
   const solvedSet=new Set(state.groups.filter((_,i)=>state.solved.includes(i)).flatMap(g=>g.members));
   const remaining=state.board.filter(n=>!solvedSet.has(n));
-  const tiles=remaining.map(n=>{const v=puzzleTileContent(n);return `<button type="button" class="puzzle-tile ${v.hasArt?'has-art ':''}${state.selected.includes(n)?'selected':''}" data-puzzle-name="${esc(n)}" aria-label="${esc(n)}" ${(state.completed||state.failed)?'disabled':''}>${v.html}</button>`;}).join('');
+  const tiles=remaining.map(n=>{const v=puzzleTileContent(n,state);return `<button type="button" class="puzzle-tile ${v.hasArt?'has-art ':''}${v.isMisprint?'is-misprint ':''}${state.selected.includes(n)?'selected':''}" data-puzzle-name="${esc(n)}" aria-label="${esc(n)}${v.isMisprint?' Misprint':''}" ${(state.completed||state.failed)?'disabled':''}>${v.html}</button>`;}).join('');
   const lives='●'.repeat(state.lives)+'○'.repeat(Math.max(0,size-state.lives));
   const status=state.completed?'Solved!':state.failed?'Revealed':'In progress';
   const summary=`<div class="puzzle-summary"><div class="puzzle-summary-box"><b>${state.solved.length}/${size}</b><span>Groups</span></div><div class="puzzle-summary-box"><b class="puzzle-lives">${lives}</b><span>Lives</span></div><div class="puzzle-summary-box"><b>${state.mistakes}</b><span>Mistakes</span></div></div>`;
   const switches=`<div class="puzzle-switches"><a href="#daily-quiz/${date}">Quiz</a><a class="${size===4?'active':''}" href="#daily-puzzle-4/${date}">4×4</a><a class="${size===5?'active':''}" href="#daily-puzzle-5/${date}">5×5</a></div>`;
   app.innerHTML=`${breadcrumbs([{label:title}])}<div class="puzzle-hero"><div><h1 class="page-title">${title}</h1><p class="subtitle"><span class="puzzle-date">${esc(quizDateLabel(state.date))}</span> · Find ${size} hidden groups of ${size} Enitoys. This exact board is frozen once generated on this device.</p>${switches}</div>${summary}</div>${dailyDateNav(`daily-puzzle-${size}`,date)}${puzzleSolvedHtml(state)}${state.completed||state.failed?`<div class="card puzzle-finished"><div class="quiz-category">${esc(status)}</div><h2>${state.completed?'You found every connection!':'This day\'s groups'}</h2><p class="muted">${state.completed?`Solved with ${state.mistakes} mistake${state.mistakes===1?'':'s'}. Your completion is saved on this device.`:'Use the revealed categories as a database study guide, then replay the same archived board if you want another try.'}</p></div>`:''}<div class="puzzle-board p${size}">${tiles}</div><div class="puzzle-message ${state.message.startsWith('Connected')?'good':state.message?'bad':''}">${esc(state.message||'Select '+size+' Enitoys that share one database connection.')}</div>${puzzleControlsHtml(state)}<div class="puzzle-pool-note">Created from ${Number(state.relationsCount||0).toLocaleString()} usable Enitoy relationships available when this date was first opened on this device. New JSON data is eligible for future or not-yet-opened daily boards.${state.relaxed?' The generator used its relaxed fallback for this board because the stricter no-ambiguity search could not find enough groups.':''}</div><details class="card puzzle-explain"><summary>How this teaches the database</summary><p>Possible connections come directly from repeated Enitoy facts: Stitching, Skills, Hidden Skills, Defects, techniques, Drops, growth rates, internal colors, gender ratios, stats, encounter locations/methods, modification families, Assist Calls, temperament locks, and other repeatable fields. When you add data to the JSON, those relationships enter the generator automatically for dates that have not yet been frozen.</p></details>`;
   document.querySelectorAll('[data-puzzle-name]').forEach(btn=>btn.addEventListener('click',()=>{ const n=btn.dataset.puzzleName; if(state.completed||state.failed)return; if(state.selected.includes(n))state.selected=state.selected.filter(x=>x!==n); else if(state.selected.length<size)state.selected.push(n); state.message=''; puzzleSaveState(state); renderDailyPuzzle(size,date); }));
-  $('#puzzle-submit')?.addEventListener('click',async()=>{await puzzleSubmit(state);});
+  $('#puzzle-submit')?.addEventListener('click',()=>puzzleSubmit(state));
   $('#puzzle-clear')?.addEventListener('click',()=>{state.selected=[];state.message='';puzzleSaveState(state);renderDailyPuzzle(size,date);});
   $('#puzzle-shuffle')?.addEventListener('click',()=>puzzleShuffleRemaining(state));
   $('#puzzle-reveal')?.addEventListener('click',()=>puzzleReveal(state));
