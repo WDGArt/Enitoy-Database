@@ -556,7 +556,6 @@ async function startViewer(){
 function showLoadError(msg){ app.innerHTML=`<div class="notice error"><b>Could not load JSON.</b><br>${esc(msg)}</div>`; }
 $('#load-btn').addEventListener('click',()=>fileInput.click());
 fileInput.addEventListener('change',()=>{ if(fileInput.files?.[0]) readFile(fileInput.files[0]); fileInput.value=''; });
-profileFileInput.addEventListener('change',()=>{const f=profileFileInput.files?.[0];if(f)void profileImportFile(f);profileFileInput.value='';});
 document.addEventListener('dragover',e=>{e.preventDefault(); const d=$('.dropzone'); if(d)d.classList.add('drag');});
 document.addEventListener('dragleave',()=>{const d=$('.dropzone'); if(d)d.classList.remove('drag');});
 document.addEventListener('drop',e=>{e.preventDefault(); const d=$('.dropzone'); if(d)d.classList.remove('drag'); const f=[...(e.dataTransfer?.files||[])].find(x=>x.name.toLowerCase().endsWith('.json')); if(f)readFile(f);});
