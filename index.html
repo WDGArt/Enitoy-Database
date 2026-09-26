@@ -109,7 +109,7 @@ button,input,select{font:inherit}
 /* Daily connection puzzles */
 .puzzle-hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:start}.puzzle-date{font-weight:800;color:#33495e}.puzzle-summary{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.puzzle-summary-box{min-width:100px;background:#f6f8fa;border:1px solid #dbe1e7;border-radius:7px;padding:9px 11px;text-align:center}.puzzle-summary-box b{display:block;font-size:20px;line-height:1.1}.puzzle-summary-box span{display:block;margin-top:3px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.puzzle-board{display:grid;gap:9px;margin-top:16px}.puzzle-board.p4{grid-template-columns:repeat(4,minmax(0,1fr))}.puzzle-board.p5{grid-template-columns:repeat(5,minmax(0,1fr))}.puzzle-tile{min-height:74px;border:1px solid #cbd4dc;background:#fff;border-radius:8px;padding:9px 7px;font-weight:850;color:#273744;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;transition:background .12s ease,border-color .12s ease,transform .05s ease}.puzzle-tile:hover:not(:disabled){background:#f4f7f9;border-color:#91a9bd}.puzzle-tile:active:not(:disabled){transform:translateY(1px)}.puzzle-tile.selected{background:#dfeaf3;border-color:#688ca9;box-shadow:inset 0 0 0 1px #688ca9}.puzzle-tile:disabled{cursor:default}.puzzle-solved{border:1px solid #cfd8e0;border-radius:8px;padding:13px 15px;margin-top:9px;background:#f7f9fb;text-align:center}.puzzle-solved b{display:block;font-size:16px;color:#243b50}.puzzle-solved span{display:block;margin-top:5px;font-weight:700;color:#5d6975}.puzzle-controls{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:16px}.puzzle-message{text-align:center;min-height:24px;margin:12px 0 0;font-weight:800}.puzzle-message.good{color:#2b6a39}.puzzle-message.bad{color:#8a3838}.puzzle-lives{font-size:21px;letter-spacing:3px}.puzzle-finished{text-align:center;padding:26px}.puzzle-finished h2{margin:5px 0 8px}.puzzle-explain{margin-top:18px}.puzzle-explain summary{cursor:pointer;font-weight:800;color:#314b63}.puzzle-pool-note{margin-top:14px;font-size:12px;color:var(--muted);text-align:center}.puzzle-switches{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.puzzle-switches a{display:inline-block;border:1px solid #bdc8d2;border-radius:999px;padding:6px 10px;text-decoration:none;font-weight:800;color:#385770;background:#fff}.puzzle-switches a.active{background:#385770;color:#fff;border-color:#385770}@media(max-width:720px){.puzzle-hero{grid-template-columns:1fr}.puzzle-summary{justify-content:flex-start}.puzzle-tile{min-height:64px;font-size:12px;padding:7px 4px}.puzzle-board{gap:6px}}@media(max-width:480px){.puzzle-board.p5{gap:4px}.puzzle-board.p5 .puzzle-tile{font-size:10px;min-height:58px;padding:5px 2px;border-radius:6px}}
 .puzzle-tile.has-art{padding:4px;min-height:104px;overflow:hidden}.puzzle-tile.has-art img{width:100%;height:96px;object-fit:contain;display:block;pointer-events:none}.puzzle-board.p5 .puzzle-tile.has-art{min-height:92px}.puzzle-board.p5 .puzzle-tile.has-art img{height:84px}@media(max-width:720px){.puzzle-tile.has-art{min-height:82px}.puzzle-tile.has-art img{height:74px}.puzzle-board.p5 .puzzle-tile.has-art{min-height:72px}.puzzle-board.p5 .puzzle-tile.has-art img{height:64px}}
-.profile-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}.profile-form{display:grid;gap:11px}.profile-form label{display:grid;gap:5px;font-weight:800;color:#34495c}.profile-form input{width:100%;box-sizing:border-box;border:1px solid #cbd5df;border-radius:6px;padding:10px 11px;font:inherit}.profile-actions{display:flex;gap:8px;flex-wrap:wrap}.profile-badge{display:inline-flex;align-items:center;gap:7px;border:1px solid #c6d3de;background:#f4f8fb;border-radius:999px;padding:6px 10px;font-weight:800;color:#385770}.profile-status{padding:12px 14px;border:1px solid #d9e1e7;border-radius:7px;background:#f8fafb}.profile-status.good{background:#edf8ef;border-color:#b8ddc0}.profile-status.bad{background:#fff1f1;border-color:#edc5c5}.profile-completion-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.profile-completion-grid>div{padding:13px;border:1px solid #dbe2e8;border-radius:7px;background:#f8fafb;text-align:center}.profile-completion-grid b{display:block;font-size:24px}.profile-completion-grid span{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase}@media(max-width:700px){.profile-grid{grid-template-columns:1fr}.profile-completion-grid{grid-template-columns:1fr}}
+.profile-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}.profile-form{display:grid;gap:11px}.profile-form label{display:grid;gap:5px;font-weight:800;color:#34495c}.profile-form input{width:100%;box-sizing:border-box;border:1px solid #cbd5df;border-radius:6px;padding:10px 11px;font:inherit}.profile-actions{display:flex;gap:8px;flex-wrap:wrap}.profile-file-status{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:6px;margin-bottom:10px}.profile-file-status.good{background:#edf8ef;border:1px solid #b8ddc0;color:#245d30}.profile-file-status.bad{background:#fff4e8;border:1px solid #ebcfaa;color:#775021}.profile-file-status span{font-size:12px;font-weight:700}.profile-badge{display:inline-flex;align-items:center;gap:7px;border:1px solid #c6d3de;background:#f4f8fb;border-radius:999px;padding:6px 10px;font-weight:800;color:#385770}.profile-status{padding:12px 14px;border:1px solid #d9e1e7;border-radius:7px;background:#f8fafb}.profile-status.good{background:#edf8ef;border-color:#b8ddc0}.profile-status.bad{background:#fff1f1;border-color:#edc5c5}.profile-completion-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.profile-completion-grid>div{padding:13px;border:1px solid #dbe2e8;border-radius:7px;background:#f8fafb;text-align:center}.profile-completion-grid b{display:block;font-size:24px}.profile-completion-grid span{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase}@media(max-width:700px){.profile-grid{grid-template-columns:1fr}.profile-completion-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -138,7 +138,7 @@ button,input,select{font:inherit}
   </div></nav>
 </header>
 <main id="app" class="wrap"></main>
-<footer class="footer">Read-only Enitoy Database Viewer · Data stays in your browser.</footer>
+<footer class="footer">Enitoy Database Viewer · Enitoy project data is read-only · Linked profile progress can be written to Enitoy_Profiles.json.</footer>
 <script>
 (() => {
 'use strict';
@@ -169,6 +169,8 @@ const MUSIC_VOLUME_KEY = 'enitoy-database-viewer:music-volume:v1';
 const PROFILE_STORAGE_KEY = 'enitoy-database-viewer:Enitoy_Profiles.json:v1';
 const PROFILE_SESSION_KEY = 'enitoy-database-viewer:active-profile:v1';
 const PROFILE_FILE_NAME = 'Enitoy_Profiles.json';
+const PROFILE_FILE_HANDLE_RECORD = 'profile-file-handle';
+let profileFileHandle = null, profileFilePermissionState = 'none', profileFileWriteWarning = '';
 let musicEnabled = true, musicVolume = 0.32, musicCtx = null, musicMaster = null, musicSource = null, musicStarted = false;
 let profileMessage = '';
 let lastRemoteJsonText = null;
@@ -190,7 +192,81 @@ function num(n){ return '#'+String(n).padStart(3,'0'); }
 function profileLoadAll(){
   try{const raw=localStorage.getItem(PROFILE_STORAGE_KEY);const a=raw?JSON.parse(raw):[];return Array.isArray(a)?a:[];}catch(err){return [];}
 }
-function profileSaveAll(profiles){ localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify(Array.isArray(profiles)?profiles:[])); }
+async function profileStoreFileHandle(handle){
+  profileFileHandle=handle||null;
+  if(!handle)return;
+  try{
+    const idb=await openRememberedDb();
+    await new Promise((resolve,reject)=>{const tx=idb.transaction(REMEMBERED_DB_STORE,'readwrite');tx.objectStore(REMEMBERED_DB_STORE).put(handle,PROFILE_FILE_HANDLE_RECORD);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error||new Error('Could not remember profile file.'));});
+  }catch(err){}
+}
+async function profileRestoreFileHandle(){
+  try{
+    const idb=await openRememberedDb();
+    const handle=await new Promise((resolve,reject)=>{const tx=idb.transaction(REMEMBERED_DB_STORE,'readonly'),req=tx.objectStore(REMEMBERED_DB_STORE).get(PROFILE_FILE_HANDLE_RECORD);req.onsuccess=()=>resolve(req.result||null);req.onerror=()=>reject(req.error);});
+    if(handle){profileFileHandle=handle;profileFilePermissionState=await profileQueryPermission(handle);}
+  }catch(err){profileFileHandle=null;profileFilePermissionState='none';}
+}
+async function profileQueryPermission(handle){
+  if(!handle)return 'none';
+  try{return await handle.queryPermission({mode:'readwrite'});}catch(err){return 'unknown';}
+}
+async function profileRequestPermission(handle){
+  if(!handle)return false;
+  let state=await profileQueryPermission(handle);
+  if(state==='granted'){profileFilePermissionState='granted';return true;}
+  try{state=await handle.requestPermission({mode:'readwrite'});}catch(err){state='denied';}
+  profileFilePermissionState=state;return state==='granted';
+}
+async function profileReadFromHandle(handle){
+  const file=await handle.getFile(), text=await file.text();
+  if(!text.trim())return [];
+  const parsed=JSON.parse(text);if(!Array.isArray(parsed))throw new Error('The profile JSON must contain an array of profiles.');
+  return parsed.map(profileNormalizeEntry);
+}
+async function profileWriteLinkedFile(profiles,{requestPermission=false}={}){
+  if(!profileFileHandle)throw new Error(`${PROFILE_FILE_NAME} is not linked.`);
+  const allowed=requestPermission?await profileRequestPermission(profileFileHandle):(await profileQueryPermission(profileFileHandle))==='granted';
+  profileFilePermissionState=allowed?'granted':await profileQueryPermission(profileFileHandle);
+  if(!allowed)throw new Error(`Write permission for ${PROFILE_FILE_NAME} is not available. Reconnect the file from Profiles.`);
+  const writable=await profileFileHandle.createWritable();
+  await writable.write(JSON.stringify((profiles||[]).map(profileNormalizeEntry),null,2)+'\n');
+  await writable.close();
+  profileFileWriteWarning='';
+}
+async function profileSaveAll(profiles,options={}){
+  const normalized=(Array.isArray(profiles)?profiles:[]).map(profileNormalizeEntry);
+  localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify(normalized));
+  if(profileFileHandle){
+    try{await profileWriteLinkedFile(normalized,options);}catch(err){profileFileWriteWarning=err?.message||String(err);if(options.requireFile)throw err;}
+  }else if(options.requireFile){throw new Error(`Link ${PROFILE_FILE_NAME} before saving profiles.`);}
+  return normalized;
+}
+async function profileLinkFile(){
+  if(!window.showOpenFilePicker)throw new Error('This browser does not support direct profile-file editing. Use a Chromium-based desktop browser such as Chrome or Edge, or use the backup import/export controls.');
+  const handles=await window.showOpenFilePicker({multiple:false,types:[{description:'Enitoy profile database',accept:{'application/json':['.json']}}]});
+  const handle=handles?.[0];if(!handle)return false;
+  if(!(await profileRequestPermission(handle)))throw new Error(`Write permission was not granted for ${handle.name||PROFILE_FILE_NAME}.`);
+  const incoming=await profileReadFromHandle(handle);
+  const seenUser=new Set(),seenMail=new Set();
+  for(const p of incoming){if(!p.Email||!p.Username||!p.Password)throw new Error('Every profile needs Email, Username, and Password.');const u=p.Username.toLowerCase(),e=p.Email.toLowerCase();if(seenUser.has(u)||seenMail.has(e))throw new Error('The profile JSON contains duplicate usernames or emails.');seenUser.add(u);seenMail.add(e);}
+  await profileStoreFileHandle(handle);
+  localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify(incoming));
+  if(profileActiveUsername()&&!incoming.some(p=>p.Username.toLowerCase()===profileActiveUsername().toLowerCase()))profileSetActive('');
+  profileMessage=`Linked ${handle.name||PROFILE_FILE_NAME}. Future profile and completion changes will be written directly to this file.`;
+  return true;
+}
+async function profileCreateFile(){
+  if(!window.showSaveFilePicker)throw new Error('This browser does not support creating a writable profile JSON directly.');
+  const handle=await window.showSaveFilePicker({suggestedName:PROFILE_FILE_NAME,types:[{description:'Enitoy profile database',accept:{'application/json':['.json']}}]});
+  if(!handle)return false;
+  if(!(await profileRequestPermission(handle)))throw new Error(`Write permission was not granted for ${handle.name||PROFILE_FILE_NAME}.`);
+  await profileStoreFileHandle(handle);
+  const current=profileLoadAll().map(profileNormalizeEntry);
+  await profileWriteLinkedFile(current,{requestPermission:true});
+  profileMessage=`Created and linked ${handle.name||PROFILE_FILE_NAME}.`;
+  return true;
+}
 function profileActiveUsername(){ try{return localStorage.getItem(PROFILE_SESSION_KEY)||'';}catch(err){return '';} }
 function profileSetActive(username){ try{if(username)localStorage.setItem(PROFILE_SESSION_KEY,username);else localStorage.removeItem(PROFILE_SESSION_KEY);}catch(err){} }
 function profileActive(){const u=profileActiveUsername().toLowerCase();return profileLoadAll().find(p=>String(p.Username||'').toLowerCase()===u)||null;}
@@ -222,7 +298,7 @@ function profileMarkComplete(field,dateKey){
   const username=profileActiveUsername(); if(!username)return;
   const profiles=profileLoadAll(),i=profiles.findIndex(p=>String(p.Username||'').toLowerCase()===username.toLowerCase()); if(i<0)return;
   const day=profileDayNumber(dateKey); if(day<1)return;
-  profiles[i]=profileNormalizeEntry(profiles[i]); if(!profiles[i][field].includes(day))profiles[i][field].push(day); profiles[i][field].sort((a,b)=>a-b); profileSaveAll(profiles);
+  profiles[i]=profileNormalizeEntry(profiles[i]); if(!profiles[i][field].includes(day))profiles[i][field].push(day); profiles[i][field].sort((a,b)=>a-b); void profileSaveAll(profiles);
 }
 function profileIsComplete(field,dateKey){const p=profileActive();if(!p)return false;const day=profileDayNumber(dateKey);return (profileNormalizeEntry(p)[field]||[]).includes(day);}
 function profileExportJson(){
@@ -234,25 +310,36 @@ async function profileImportFile(file){
     const parsed=JSON.parse(await file.text()); if(!Array.isArray(parsed))throw new Error('The profile JSON must be an array of profiles.');
     const incoming=parsed.map(profileNormalizeEntry); const seenUser=new Set(),seenMail=new Set();
     for(const p of incoming){if(!p.Email||!p.Username||!p.Password)throw new Error('Every profile needs Email, Username, and Password.');const u=p.Username.toLowerCase(),e=p.Email.toLowerCase();if(seenUser.has(u)||seenMail.has(e))throw new Error('The imported JSON contains duplicate usernames or emails.');seenUser.add(u);seenMail.add(e);}
-    profileSaveAll(incoming); if(profileActiveUsername()&&!incoming.some(p=>p.Username.toLowerCase()===profileActiveUsername().toLowerCase()))profileSetActive('');
-    profileMessage=`Imported ${incoming.length} profile${incoming.length===1?'':'s'} from ${PROFILE_FILE_NAME}.`; renderProfiles();
+    localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify(incoming)); if(profileActiveUsername()&&!incoming.some(p=>p.Username.toLowerCase()===profileActiveUsername().toLowerCase()))profileSetActive('');
+    profileMessage=`Imported ${incoming.length} profile${incoming.length===1?'':'s'} as a browser copy. Use Link ${PROFILE_FILE_NAME} if you want changes written back to a real file.`; renderProfiles();
   }catch(err){profileMessage='Import failed: '+(err?.message||err);renderProfiles();}
 }
+function profileFileStatusHtml(){
+  if(profileFileHandle){const state=profileFilePermissionState==='granted'?'Writable':profileFilePermissionState==='prompt'?'Permission needed':'Reconnect needed';return `<div class="profile-file-status ${profileFilePermissionState==='granted'?'good':'bad'}"><b>${esc(profileFileHandle.name||PROFILE_FILE_NAME)}</b><span>${esc(state)}</span></div>`;}
+  return `<div class="profile-file-status bad"><b>No live profile file linked</b><span>Create Profile will require ${esc(PROFILE_FILE_NAME)} to be linked first.</span></div>`;
+}
 function profileStatusHtml(){const p=profileActive();return p?`<span class="profile-badge">Signed in as ${esc(p.Username)}</span>`:`<span class="profile-badge">No active profile</span>`;}
+function bindProfileFileButtons(){
+  $('#profile-link')?.addEventListener('click',async()=>{try{await profileLinkFile();renderProfiles();}catch(err){profileMessage='Could not link profile file: '+(err?.message||err);renderProfiles();}});
+  $('#profile-create-file')?.addEventListener('click',async()=>{try{await profileCreateFile();renderProfiles();}catch(err){profileMessage='Could not create profile file: '+(err?.message||err);renderProfiles();}});
+  $('#profile-import')?.addEventListener('click',()=>profileFileInput.click());
+  $('#profile-export')?.addEventListener('click',profileExportJson);
+}
 function renderProfiles(){
   const active=profileActive(),profiles=profileLoadAll();
+  const warning=profileFileWriteWarning?`<div class="profile-status bad">Profile data changed in this browser, but the linked JSON could not be updated: ${esc(profileFileWriteWarning)}</div>`:'';
   const message=profileMessage?`<div class="profile-status ${/^Import failed:|^Could not|^Invalid|^That |^Password/i.test(profileMessage)?'bad':'good'}">${esc(profileMessage)}</div>`:''; profileMessage='';
+  const fileCard=`<div class="card"><h2>Live profile database</h2>${profileFileStatusHtml()}<p class="muted">For direct saving, link the actual local <b>${PROFILE_FILE_NAME}</b> file. New profiles and Daily completion arrays are then written back to that same file.</p><div class="profile-actions"><button class="primary" id="profile-link" type="button">${profileFileHandle?'Reconnect':'Link'} ${PROFILE_FILE_NAME}</button><button class="quiz-secondary" id="profile-create-file" type="button">Create New Profile JSON</button><button class="quiz-secondary" id="profile-export" type="button" ${profiles.length?'':'disabled'}>Download Backup</button><button class="quiz-secondary" id="profile-import" type="button">Import Browser Copy</button></div></div>`;
   if(active){
     const p=profileNormalizeEntry(active);
-    app.innerHTML=`${breadcrumbs([{label:'Profiles'}])}<h1 class="page-title">Profiles</h1><p class="subtitle">Local Viewer profile backed by the ${PROFILE_FILE_NAME} structure.</p>${message}<div class="profile-grid"><div class="card"><h2>${esc(p.Username)}</h2><p><b>Email:</b> ${esc(p.Email)}</p><div class="profile-completion-grid"><div><b>${p.CompletedQuizzes.length}</b><span>Quizzes complete</span></div><div><b>${p.Completed44.length}</b><span>4×4 complete</span></div><div><b>${p.Completed55.length}</b><span>5×5 complete</span></div></div><p class="tiny muted">Completed arrays store Daily Day numbers, where September 25, 2026 is Day 1.</p><div class="profile-actions"><button class="primary" id="profile-export" type="button">Export ${PROFILE_FILE_NAME}</button><button class="quiz-secondary" id="profile-import" type="button">Import Profile JSON</button><button class="quiz-secondary" id="profile-logout" type="button">Sign Out</button></div></div><div class="card"><h2>Completion arrays</h2><p><b>CompletedQuizzes</b><br><span class="muted">${p.CompletedQuizzes.length?p.CompletedQuizzes.join(', '):'None yet'}</span></p><p><b>Completed44</b><br><span class="muted">${p.Completed44.length?p.Completed44.join(', '):'None yet'}</span></p><p><b>Completed55</b><br><span class="muted">${p.Completed55.length?p.Completed55.join(', '):'None yet'}</span></p></div></div>`;
-    $('#profile-export')?.addEventListener('click',profileExportJson);$('#profile-import')?.addEventListener('click',()=>profileFileInput.click());$('#profile-logout')?.addEventListener('click',()=>{profileSetActive('');profileMessage='Signed out.';renderProfiles();});return;
+    app.innerHTML=`${breadcrumbs([{label:'Profiles'}])}<h1 class="page-title">Profiles</h1><p class="subtitle">Profile progress can be written directly to a linked ${PROFILE_FILE_NAME} file.</p>${message}${warning}${fileCard}<div class="profile-grid" style="margin-top:16px"><div class="card"><h2>${esc(p.Username)}</h2><p><b>Email:</b> ${esc(p.Email)}</p><div class="profile-completion-grid"><div><b>${p.CompletedQuizzes.length}</b><span>Quizzes complete</span></div><div><b>${p.Completed44.length}</b><span>4×4 complete</span></div><div><b>${p.Completed55.length}</b><span>5×5 complete</span></div></div><p class="tiny muted">Completed arrays store Daily Day numbers, where September 25, 2026 is Day 1.</p><div class="profile-actions"><button class="quiz-secondary" id="profile-logout" type="button">Sign Out</button></div></div><div class="card"><h2>Completion arrays</h2><p><b>CompletedQuizzes</b><br><span class="muted">${p.CompletedQuizzes.length?p.CompletedQuizzes.join(', '):'None yet'}</span></p><p><b>Completed44</b><br><span class="muted">${p.Completed44.length?p.Completed44.join(', '):'None yet'}</span></p><p><b>Completed55</b><br><span class="muted">${p.Completed55.length?p.Completed55.join(', '):'None yet'}</span></p></div></div>`;
+    bindProfileFileButtons();$('#profile-logout')?.addEventListener('click',()=>{profileSetActive('');profileMessage='Signed out.';renderProfiles();});return;
   }
-  app.innerHTML=`${breadcrumbs([{label:'Profiles'}])}<h1 class="page-title">Profiles</h1><p class="subtitle">Create or sign into a profile on this device. ${profiles.length} profile${profiles.length===1?'':'s'} currently stored.</p>${message}<div class="profile-grid"><div class="card"><h2>Create Profile</h2><form id="profile-register" class="profile-form"><label>Email<input name="email" type="email" autocomplete="email" required></label><label>Username<input name="username" type="text" autocomplete="username" minlength="3" required></label><label>Password<input name="password" type="password" autocomplete="new-password" minlength="8" required></label><button class="primary" type="submit">Create Profile</button></form></div><div class="card"><h2>Sign In</h2><form id="profile-login" class="profile-form"><label>Username or Email<input name="identity" type="text" autocomplete="username" required></label><label>Password<input name="password" type="password" autocomplete="current-password" required></label><button class="primary" type="submit">Sign In</button></form><hr style="border:0;border-top:1px solid #e3e8ed;margin:18px 0"><div class="profile-actions"><button class="quiz-secondary" id="profile-import" type="button">Import ${PROFILE_FILE_NAME}</button><button class="quiz-secondary" id="profile-export" type="button" ${profiles.length?'':'disabled'}>Export ${PROFILE_FILE_NAME}</button></div></div></div><div class="notice" style="margin-top:18px"><b>Password storage:</b> the JSON field is named <code>Password</code>, but it contains a salted PBKDF2-SHA-256 hash rather than the readable password. A static Viewer cannot securely synchronize this file between devices by itself; importing/exporting is provided for the companion JSON.</div>`;
-  $('#profile-register')?.addEventListener('submit',async e=>{e.preventDefault();const fd=new FormData(e.currentTarget),email=String(fd.get('email')||'').trim(),username=String(fd.get('username')||'').trim(),password=String(fd.get('password')||'');const all=profileLoadAll();if(all.some(p=>String(p.Email||'').toLowerCase()===email.toLowerCase())){profileMessage='That email is already used by a profile.';return renderProfiles();}if(all.some(p=>String(p.Username||'').toLowerCase()===username.toLowerCase())){profileMessage='That username is already used by a profile.';return renderProfiles();}if(username.length<3||password.length<8){profileMessage='Username must be at least 3 characters and password at least 8 characters.';return renderProfiles();}try{const hash=await profileHashPassword(password);all.push({Email:email,Username:username,Password:hash,CompletedQuizzes:[],Completed44:[],Completed55:[]});profileSaveAll(all);profileSetActive(username);profileMessage='Profile created and signed in.';renderProfiles();}catch(err){profileMessage='Could not create profile: '+(err?.message||err);renderProfiles();}});
-  $('#profile-login')?.addEventListener('submit',async e=>{e.preventDefault();const fd=new FormData(e.currentTarget),identity=String(fd.get('identity')||'').trim().toLowerCase(),password=String(fd.get('password')||''),p=profileLoadAll().find(x=>String(x.Username||'').toLowerCase()===identity||String(x.Email||'').toLowerCase()===identity);if(!p||!(await profileVerifyPassword(password,p.Password).catch(()=>false))){profileMessage='Username/email or password did not match.';return renderProfiles();}profileSetActive(p.Username);profileMessage='Signed in.';renderProfiles();});
-  $('#profile-import')?.addEventListener('click',()=>profileFileInput.click());$('#profile-export')?.addEventListener('click',profileExportJson);
+  app.innerHTML=`${breadcrumbs([{label:'Profiles'}])}<h1 class="page-title">Profiles</h1><p class="subtitle">Create or sign into a profile. ${profiles.length} profile${profiles.length===1?'':'s'} currently loaded.</p>${message}${warning}${fileCard}<div class="profile-grid" style="margin-top:16px"><div class="card"><h2>Create Profile</h2><form id="profile-register" class="profile-form"><label>Email<input name="email" type="email" autocomplete="email" required></label><label>Username<input name="username" type="text" autocomplete="username" minlength="3" required></label><label>Password<input name="password" type="password" autocomplete="new-password" minlength="8" required></label><button class="primary" type="submit">Create Profile</button></form></div><div class="card"><h2>Sign In</h2><form id="profile-login" class="profile-form"><label>Username or Email<input name="identity" type="text" autocomplete="username" required></label><label>Password<input name="password" type="password" autocomplete="current-password" required></label><button class="primary" type="submit">Sign In</button></form></div></div><div class="notice" style="margin-top:18px"><b>Password storage:</b> the JSON field is named <code>Password</code>, but it contains a salted PBKDF2-SHA-256 hash rather than the readable password. Direct file editing uses the browser File System Access API and requires permission to a local JSON file.</div>`;
+  bindProfileFileButtons();
+  $('#profile-register')?.addEventListener('submit',async e=>{e.preventDefault();const fd=new FormData(e.currentTarget),email=String(fd.get('email')||'').trim(),username=String(fd.get('username')||'').trim(),password=String(fd.get('password')||'');try{if(!profileFileHandle){await profileLinkFile();}else if(!(await profileRequestPermission(profileFileHandle)))throw new Error(`Write permission for ${PROFILE_FILE_NAME} is required.`);const latest=await profileReadFromHandle(profileFileHandle);localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify(latest));const all=profileLoadAll();if(all.some(p=>String(p.Email||'').toLowerCase()===email.toLowerCase())){profileMessage='That email is already used by a profile.';return renderProfiles();}if(all.some(p=>String(p.Username||'').toLowerCase()===username.toLowerCase())){profileMessage='That username is already used by a profile.';return renderProfiles();}if(username.length<3||password.length<8){profileMessage='Username must be at least 3 characters and password at least 8 characters.';return renderProfiles();}const hash=await profileHashPassword(password);all.push({Email:email,Username:username,Password:hash,CompletedQuizzes:[],Completed44:[],Completed55:[]});await profileSaveAll(all,{requireFile:true,requestPermission:true});profileSetActive(username);profileMessage=`Profile created, written to ${profileFileHandle.name||PROFILE_FILE_NAME}, and signed in.`;renderProfiles();}catch(err){profileMessage='Could not create profile: '+(err?.message||err);renderProfiles();}});
+  $('#profile-login')?.addEventListener('submit',async e=>{e.preventDefault();const fd=new FormData(e.currentTarget),identity=String(fd.get('identity')||'').trim().toLowerCase(),password=String(fd.get('password')||'');try{if(profileFileHandle&&(await profileQueryPermission(profileFileHandle))==='granted'){const latest=await profileReadFromHandle(profileFileHandle);localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify(latest));}const p=profileLoadAll().find(x=>String(x.Username||'').toLowerCase()===identity||String(x.Email||'').toLowerCase()===identity);if(!p||!(await profileVerifyPassword(password,p.Password).catch(()=>false))){profileMessage='Username/email or password did not match.';return renderProfiles();}profileSetActive(p.Username);profileMessage='Signed in.';renderProfiles();}catch(err){profileMessage='Could not sign in: '+(err?.message||err);renderProfiles();}});
 }
-
 function breadcrumbs(parts){ return `<div class="breadcrumbs"><a href="#home">Home</a>${parts.map(p=>` &rsaquo; ${p.route?routeLink(p.route,p.label):esc(p.label)}`).join('')}</div>`; }
 function empty(msg){ return `<div class="card muted">${esc(msg)}</div>`; }
 function lookup(arr,name){ const low=String(name||'').toLowerCase(); return (arr||[]).find(x=>String(x.name||'').toLowerCase()===low); }
@@ -1083,7 +1170,7 @@ function renderMethod(gen,m){ if(m.gift)return `<section class="section"><h2 cla
 function renderCraftLine(c){ const method=c.method==='station'?'Crafting Station':c.method==='holdMove'?'Hold + Move Stitch':c.method||'Craft'; return `<div style="padding:8px 0;border-bottom:1px solid #e8ebee"><b>${esc(method)}</b>: ${(c.ingredients||[]).map(i=>`${esc(i.quantity||1)}× ${routeLink(`items/${slug(i.item)}`,i.item)}`).join(' + ')} → ${esc(c.resultQuantity||1)}× ${routeLink(`items/${slug(c.resultItem)}`,c.resultItem)}</div>`; }
 function renderCrafts(){ const cs=db.crafts||[]; app.innerHTML=`${breadcrumbs([{label:'Crafts'}])}<h1 class="page-title">Crafts</h1><p class="subtitle">${cs.length} recipes.</p><div class="card">${cs.length?cs.map(renderCraftLine).join(''):'<span class="muted">No recipes recorded.</span>'}</div>`; }
 initMusic();
-void startViewer();
+void (async()=>{await profileRestoreFileHandle();await startViewer();})();
 })();
 </script>
 </body>
