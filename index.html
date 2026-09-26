@@ -220,11 +220,24 @@ async function profileRefreshSession(){
 }
 function profileLogout(){profileSetToken('');profileSetActiveProfile(null);profileSyncWarning='';}
 async function profileMarkComplete(field,dateKey){
-  const p=profileActive();if(!p||!profileToken())return;
-  const day=profileDayNumber(dateKey);if(day<1||p[field]?.includes(day))return;
-  const kind=field==='CompletedQuizzes'?'quiz':field==='Completed44'?'44':field==='Completed55'?'55':'';if(!kind)return;
-  try{const data=await profileApi('/complete',{method:'POST',body:JSON.stringify({kind,day})});profileSetActiveProfile(data.profile);profileSyncWarning='';}
-  catch(err){profileSyncWarning=`Profile completion could not sync: ${err.message||err}`;}
+  const p=profileActive();
+  if(!p||!profileToken())return false;
+  const day=profileDayNumber(dateKey);
+  if(day<1)return false;
+  const kind=field==='CompletedQuizzes'?'quiz':field==='Completed44'?'44':field==='Completed55'?'55':'';
+  if(!kind)return false;
+  try{
+    // Always let the shared backend confirm the completion. The backend already
+    // ignores duplicate Day numbers, so a stale browser cache can never prevent
+    // a missing completion from being written to Enitoy_Profiles.json.
+    const data=await profileApi('/complete',{method:'POST',body:JSON.stringify({kind,day})});
+    profileSetActiveProfile(data.profile);
+    profileSyncWarning='';
+    return true;
+  }catch(err){
+    profileSyncWarning=`Profile completion could not sync: ${err.message||err}`;
+    return false;
+  }
 }
 function profileIsComplete(field,dateKey){const p=profileActive();if(!p)return false;const day=profileDayNumber(dateKey);return (p[field]||[]).includes(day);}
 function profileStatusHtml(){const p=profileActive();return p?`<span class="profile-badge">Signed in as ${esc(p.Username)}</span>`:`<span class="profile-badge">No active profile</span>`;}
@@ -861,7 +874,7 @@ function quizMediaHtml(q){ const media=quizResolveMedia(q?.media); return media?
 function quizPoolDetails(state){ const counts=Object.entries(state.categoryCounts||{}).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])); return `<details class="card quiz-pool-details"><summary><b>Question Pool When This Day Was Created:</b> ${Number(state.poolSize||0).toLocaleString()} possible questions from ${Number(state.factCount||0).toLocaleString()} database facts across ${Number(state.categoryCount||counts.length)} categories</summary><p class="tiny muted">Each date is frozen after it is first generated on this device. New JSON data expands the generator for future or not-yet-opened dates without replacing a day you already started.</p><div class="quiz-pool-grid">${counts.map(([name,count])=>`<div><b>${esc(name)}</b><span>${Number(count).toLocaleString()}</span></div>`).join('')}</div></details>`; }
 async function renderDailyQuiz(requestedDate){
   const date=dailyNormalizeDateKey(requestedDate), state=await quizLoadState(date), total=state.questions.length, history=quizLoadHistory(), streak=quizStreak(history), isToday=date===quizDateKey();
-  if(state.completed)profileMarkComplete('CompletedQuizzes',state.date);
+  if(state.completed)await profileMarkComplete('CompletedQuizzes',state.date);
   if(!total){ app.innerHTML=`${breadcrumbs([{label:'Daily Quiz'}])}<h1 class="page-title">Daily Quiz</h1>${dailyDateNav('daily-quiz',date)}<div class="card quiz-empty"><h2>Not enough quiz data yet</h2><p class="muted">The viewer could not build enough unambiguous multiple-choice questions from the currently loaded JSON.</p></div>${quizPoolDetails(state)}`; bindDailyDatePicker('daily-quiz'); return; }
   const answered=state.answers.filter(x=>x!==null&&x!==undefined).length, score=quizScore(state), bestForDate=history[state.date]?.score;
   const summary=`<div class="quiz-summary"><div class="quiz-summary-box"><b>${answered}/${total}</b><span>Answered</span></div>${isToday?`<div class="quiz-summary-box"><b>${streak}</b><span>Day streak</span></div>`:''}<div class="quiz-summary-box"><b>${Number(state.poolSize||0).toLocaleString()}</b><span>Question pool</span></div>${bestForDate!==undefined?`<div class="quiz-summary-box"><b>${bestForDate}/${total}</b><span>Best score</span></div>`:''}</div>`;
@@ -879,7 +892,7 @@ async function renderDailyQuiz(requestedDate){
   app.innerHTML=`${breadcrumbs([{label:'Daily Quiz'}])}<div class="quiz-hero"><div><h1 class="page-title">Daily Quiz</h1><p class="subtitle"><span class="quiz-date">${esc(quizDateLabel(state.date))}</span> · One frozen 10-question daily set.</p>${dayLinks}</div>${summary}</div>${nav}<div class="quiz-progress-track" aria-label="Quiz progress"><div class="quiz-progress-fill" style="width:${progress}%"></div></div><div class="card quiz-question-card"><div class="quiz-question-top"><span class="quiz-category">${esc(q.category)}</span><span class="quiz-count">Question ${state.current+1} of ${total}</span></div>${quizMediaHtml(q)}<h2 class="quiz-question">${esc(q.prompt)}</h2><div class="quiz-options">${options}</div>${feedback}<div class="quiz-actions"><button class="quiz-secondary" type="button" id="quiz-reset">Restart This Day's Quiz</button>${hasAnswered?`<button class="primary" type="button" id="quiz-next">${nextLabel}</button>`:'<span></span>'}</div></div>${quizPoolDetails(state)}`;
   document.querySelectorAll('[data-quiz-option]').forEach(btn=>btn.addEventListener('click',()=>{ const index=Number(btn.dataset.quizOption); if(!Number.isInteger(index)||state.answers[state.current]!==null)return; state.answers[state.current]=index; quizSaveState(state); renderDailyQuiz(date); }));
   $('#quiz-reset')?.addEventListener('click',()=>quizResetDate(date));
-  $('#quiz-next')?.addEventListener('click',()=>{ if(state.current>=total-1){ state.completed=true; quizSaveState(state); quizRecordCompletion(state); profileMarkComplete('CompletedQuizzes',state.date); renderDailyQuiz(date); }else{ state.current++; quizSaveState(state); renderDailyQuiz(date); } });
+  $('#quiz-next')?.addEventListener('click',async()=>{ if(state.current>=total-1){ state.completed=true; quizSaveState(state); quizRecordCompletion(state); await profileMarkComplete('CompletedQuizzes',state.date); renderDailyQuiz(date); }else{ state.current++; quizSaveState(state); renderDailyQuiz(date); } });
   bindDailyDatePicker('daily-quiz');
 }
 
@@ -1023,17 +1036,39 @@ function puzzleShuffleRemaining(state){ const rng=quizRandom((Date.now()^quizHas
 async function puzzleSubmit(state){
   const size=state.size;
   if(state.selected.length!==size)return;
-  const selectedKey=puzzleSetKey(state.selected); let hit=-1;
-  state.groups.forEach((g,i)=>{if(!state.solved.includes(i)&&puzzleSetKey(g.members)===selectedKey)hit=i;});
-  if(hit>=0){ state.solved.push(hit); state.selected=[]; state.message=`Connected: ${state.groups[hit].label}`; 
-             if(state.solved.length===size){
-  state.completed=true;
+  const selectedKey=puzzleSetKey(state.selected);
+  let hit=-1;
+  state.groups.forEach((g,i)=>{
+    if(!state.solved.includes(i)&&puzzleSetKey(g.members)===selectedKey)hit=i;
+  });
+  if(hit>=0){
+    state.solved.push(hit);
+    state.selected=[];
+    state.message=`Connected: ${state.groups[hit].label}`;
+    if(state.solved.length===size){
+      state.completed=true;
+      puzzleSaveState(state);
+      await profileMarkComplete(size===4?'Completed44':'Completed55',state.date);
+    }
+    puzzleSaveState(state);
+    renderDailyPuzzle(size,state.date);
+    return;
+  }
+  let nearest=0;
+  state.groups.forEach((g,i)=>{
+    if(state.solved.includes(i))return;
+    const set=new Set(g.members);
+    nearest=Math.max(nearest,state.selected.filter(n=>set.has(n)).length);
+  });
+  state.lives=Math.max(0,state.lives-1);
+  state.mistakes++;
+  state.message=nearest===size-1?`One away! ${size-1} of those belong together.`:'Those do not make one of this day\'s groups.';
+  state.selected=[];
+  if(state.lives<=0)state.failed=true;
   puzzleSaveState(state);
-  await profileMarkComplete(size===4?'Completed44':'Completed55',state.date);
-}} puzzleSaveState(state); renderDailyPuzzle(size,state.date); return; }
-  let nearest=0; state.groups.forEach((g,i)=>{if(state.solved.includes(i))return; const set=new Set(g.members); nearest=Math.max(nearest,state.selected.filter(n=>set.has(n)).length);});
-  state.lives=Math.max(0,state.lives-1); state.mistakes++; state.message=nearest===size-1?`One away! ${size-1} of those belong together.`:'Those do not make one of this day\'s groups.'; state.selected=[]; if(state.lives<=0)state.failed=true; puzzleSaveState(state); renderDailyPuzzle(size,state.date);
+  renderDailyPuzzle(size,state.date);
 }
+
 function puzzleReveal(state){ state.failed=true; state.lives=0; state.selected=[]; state.message='Puzzle revealed.'; puzzleSaveState(state); renderDailyPuzzle(state.size,state.date); }
 function puzzleSolvedHtml(state){
   const showAll=state.completed||state.failed;
@@ -1050,7 +1085,7 @@ function puzzleTileContent(name){
 }
 async function renderDailyPuzzle(size,requestedDate){
   const date=dailyNormalizeDateKey(requestedDate),state=await puzzleLoadState(size,date),title=`Daily ${size}×${size} Connection`;
-  if(state.completed)profileMarkComplete(size===4?'Completed44':'Completed55',state.date);
+  if(state.completed)await profileMarkComplete(size===4?'Completed44':'Completed55',state.date);
   if(!state.groups.length){ app.innerHTML=`${breadcrumbs([{label:title}])}<h1 class="page-title">${title}</h1>${dailyDateNav(`daily-puzzle-${size}`,date)}<div class="card quiz-empty"><h2>Not enough groupable data yet</h2><p>The loaded JSON does not currently contain enough repeated Enitoy relationships to build a ${size}×${size} board automatically. As more data is added, this puzzle will become available on its own.</p></div>`; bindDailyDatePicker(`daily-puzzle-${size}`); return; }
   const solvedSet=new Set(state.groups.filter((_,i)=>state.solved.includes(i)).flatMap(g=>g.members));
   const remaining=state.board.filter(n=>!solvedSet.has(n));
@@ -1061,7 +1096,7 @@ async function renderDailyPuzzle(size,requestedDate){
   const switches=`<div class="puzzle-switches"><a href="#daily-quiz/${date}">Quiz</a><a class="${size===4?'active':''}" href="#daily-puzzle-4/${date}">4×4</a><a class="${size===5?'active':''}" href="#daily-puzzle-5/${date}">5×5</a></div>`;
   app.innerHTML=`${breadcrumbs([{label:title}])}<div class="puzzle-hero"><div><h1 class="page-title">${title}</h1><p class="subtitle"><span class="puzzle-date">${esc(quizDateLabel(state.date))}</span> · Find ${size} hidden groups of ${size} Enitoys. This exact board is frozen once generated on this device.</p>${switches}</div>${summary}</div>${dailyDateNav(`daily-puzzle-${size}`,date)}${puzzleSolvedHtml(state)}${state.completed||state.failed?`<div class="card puzzle-finished"><div class="quiz-category">${esc(status)}</div><h2>${state.completed?'You found every connection!':'This day\'s groups'}</h2><p class="muted">${state.completed?`Solved with ${state.mistakes} mistake${state.mistakes===1?'':'s'}. Your completion is saved on this device.`:'Use the revealed categories as a database study guide, then replay the same archived board if you want another try.'}</p></div>`:''}<div class="puzzle-board p${size}">${tiles}</div><div class="puzzle-message ${state.message.startsWith('Connected')?'good':state.message?'bad':''}">${esc(state.message||'Select '+size+' Enitoys that share one database connection.')}</div>${puzzleControlsHtml(state)}<div class="puzzle-pool-note">Created from ${Number(state.relationsCount||0).toLocaleString()} usable Enitoy relationships available when this date was first opened on this device. New JSON data is eligible for future or not-yet-opened daily boards.${state.relaxed?' The generator used its relaxed fallback for this board because the stricter no-ambiguity search could not find enough groups.':''}</div><details class="card puzzle-explain"><summary>How this teaches the database</summary><p>Possible connections come directly from repeated Enitoy facts: Stitching, Skills, Hidden Skills, Defects, techniques, Drops, growth rates, internal colors, gender ratios, stats, encounter locations/methods, modification families, Assist Calls, temperament locks, and other repeatable fields. When you add data to the JSON, those relationships enter the generator automatically for dates that have not yet been frozen.</p></details>`;
   document.querySelectorAll('[data-puzzle-name]').forEach(btn=>btn.addEventListener('click',()=>{ const n=btn.dataset.puzzleName; if(state.completed||state.failed)return; if(state.selected.includes(n))state.selected=state.selected.filter(x=>x!==n); else if(state.selected.length<size)state.selected.push(n); state.message=''; puzzleSaveState(state); renderDailyPuzzle(size,date); }));
-  $('#puzzle-submit')?.addEventListener('click',()=>puzzleSubmit(state));
+  $('#puzzle-submit')?.addEventListener('click',async()=>{await puzzleSubmit(state);});
   $('#puzzle-clear')?.addEventListener('click',()=>{state.selected=[];state.message='';puzzleSaveState(state);renderDailyPuzzle(size,date);});
   $('#puzzle-shuffle')?.addEventListener('click',()=>puzzleShuffleRemaining(state));
   $('#puzzle-reveal')?.addEventListener('click',()=>puzzleReveal(state));
