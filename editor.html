@@ -18135,37 +18135,32 @@ dialog,
                     return formsEntries.indexOf(storageTarget) >= 0 ? storageTarget : null;
                 }
 
-                function synchronizeFormMovepoolsWithBase(generationName, enitoyName) {
-                    var baseEntry = findMovepoolBaseEntry(generationName, enitoyName);
+                function initializeFormMovepoolFromBaseIfNeeded(formsEntry) {
+                    if (!formsEntry) return;
+
+                    // Once a form has its own stored lists, they are independent and must
+                    // never be overwritten just because they differ from the base form.
+                    var hasLevelUpList = Array.isArray(formsEntry.levelUpTechniques);
+                    var hasScrollList = Array.isArray(formsEntry.scrollLearnedTechniques);
+                    if (hasLevelUpList && hasScrollList) return;
+
+                    var baseEntry = findMovepoolBaseEntry(formsEntry.generationName, formsEntry.enitoyName);
                     if (!baseEntry) return;
 
-                    var baseLevelUp = normalizedMovepoolLevelUpTechniques(baseEntry, baseEntry).map(function (entry) {
-                        return { name: entry.name, level: entry.level };
-                    });
-                    var baseScroll = normalizedMovepoolScrollLearnedTechniques(baseEntry, baseEntry).slice();
-
-                    (Array.isArray(formsEntries) ? formsEntries : []).forEach(function (formsEntry) {
-                        if (!formsEntry) return;
-                        if (formsEntry.generationName !== generationName) return;
-                        if (String(formsEntry.enitoyName || "").trim().toLowerCase() !== String(enitoyName || "").trim().toLowerCase()) return;
-
-                        formsEntry.levelUpTechniques = baseLevelUp.map(function (entry) {
+                    if (!hasLevelUpList) {
+                        formsEntry.levelUpTechniques = normalizedMovepoolLevelUpTechniques(baseEntry, baseEntry).map(function (entry) {
                             return { name: entry.name, level: entry.level };
                         });
-                        formsEntry.scrollLearnedTechniques = baseScroll.slice();
-                    });
+                    }
+
+                    if (!hasScrollList) {
+                        formsEntry.scrollLearnedTechniques = normalizedMovepoolScrollLearnedTechniques(baseEntry, baseEntry).slice();
+                    }
                 }
 
-                function synchronizeAllFormMovepoolsWithBase() {
-                    var seen = {};
+                function initializeAllFormMovepoolsFromBaseIfNeeded() {
                     (Array.isArray(formsEntries) ? formsEntries : []).forEach(function (formsEntry) {
-                        if (!formsEntry) return;
-                        var generationName = String(formsEntry.generationName || "");
-                        var enitoyName = String(formsEntry.enitoyName || "");
-                        var key = generationName.toLowerCase() + "|" + enitoyName.trim().toLowerCase();
-                        if (!generationName || !enitoyName.trim() || seen[key]) return;
-                        seen[key] = true;
-                        synchronizeFormMovepoolsWithBase(generationName, enitoyName);
+                        initializeFormMovepoolFromBaseIfNeeded(formsEntry);
                     });
                 }
 
@@ -18355,9 +18350,9 @@ dialog,
                         });
                     });
 
-                    // Alternate forms always share the base species' learning methods.
-                    // This also repairs older projects where forms had separate move lists.
-                    synchronizeAllFormMovepoolsWithBase();
+                    // Older forms that predate form movepool storage get an initial
+                    // copy of the base movepool. Existing form-specific lists are preserved.
+                    initializeAllFormMovepoolsFromBaseIfNeeded();
 
                     (Array.isArray(formsEntries) ? formsEntries : []).forEach(function (formsEntry) {
                         var effectiveEntry = effectiveFormsEntry(formsEntry);
@@ -18571,10 +18566,6 @@ dialog,
                                 latestStorageTarget,
                                 { name: entry.name, level: entry.level }
                             );
-                            var removalSelection = selectedMovepoolSelectionParts();
-                            if (removalSelection) {
-                                synchronizeFormMovepoolsWithBase(removalSelection[0], removalSelection[1]);
-                            }
                             renderLevelUpTechniques();
                             renderMovepoolTechniqueList();
                             saveState();
@@ -18732,11 +18723,6 @@ dialog,
                         { name: techniqueName, level: level }
                     );
 
-                    var levelUpSelection = selectedMovepoolSelectionParts();
-                    if (levelUpSelection) {
-                        synchronizeFormMovepoolsWithBase(levelUpSelection[0], levelUpSelection[1]);
-                    }
-
                     editingLevelUpTechniqueName = null;
                     if (levelUpTechniqueDialog) levelUpTechniqueDialog.close();
                     renderLevelUpTechniques();
@@ -18838,10 +18824,6 @@ dialog,
                                 latestStorageTarget,
                                 techniqueName
                             );
-                            var removalSelection = selectedMovepoolSelectionParts();
-                            if (removalSelection) {
-                                synchronizeFormMovepoolsWithBase(removalSelection[0], removalSelection[1]);
-                            }
                             renderScrollLearnedTechniques();
                             renderMovepoolTechniqueList();
                             saveState();
@@ -18980,11 +18962,6 @@ dialog,
                         storageTarget,
                         techniqueName
                     );
-
-                    var scrollSelection = selectedMovepoolSelectionParts();
-                    if (scrollSelection) {
-                        synchronizeFormMovepoolsWithBase(scrollSelection[0], scrollSelection[1]);
-                    }
 
                     editingScrollLearnedTechniqueName = null;
                     if (scrollLearnedTechniqueDialog) scrollLearnedTechniqueDialog.close();
