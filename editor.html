@@ -3546,6 +3546,11 @@
                 white-space: nowrap;
             }
 
+            .regional-info-field select {
+                min-width: 120px;
+                align-self: flex-start;
+            }
+
             .regional-info-field textarea {
                 box-sizing: border-box;
                 width: 100%;
@@ -6492,8 +6497,9 @@ dialog,
                         </div>
                         <div class="regional-slot-sheet-row">
                             <label class="regional-info-field">
-                                <span>INFO</span>
-                                <textarea id="regional-slot-sheet-info" placeholder="Type this Enitoy's catalog information here..." aria-label="Enitoy INFO"></textarea>
+                                <span>CATALOG ENTRY</span>
+                                <select id="regional-slot-sheet-info-generation" aria-label="Catalog entry generation"></select>
+                                <textarea id="regional-slot-sheet-info" placeholder="Type this Enitoy's catalog entry for the selected generation here..." aria-label="Enitoy catalog entry"></textarea>
                             </label>
                         </div>
                     </div>
@@ -7198,6 +7204,7 @@ dialog,
                 var battleSimEditingMoves = [];
                 var battleSimSuppressSlotClick = false;
                 var regionalSlotSheetInfo = document.getElementById("regional-slot-sheet-info");
+                var regionalSlotSheetInfoGeneration = document.getElementById("regional-slot-sheet-info-generation");
                 var pendingRegionalAffinityCount = null;
                 var pendingRegionalColor1 = null;
                 var pendingRegionalColor2 = null;
@@ -7257,6 +7264,86 @@ dialog,
                 var regionalDefaultSpriteDataUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9kLDgIYG2UQJL4AAAEgSURBVFjD7VYxEoQgDAyOr6KMnd/REistve/YQcm3uOZy4zEgiXrFzbGdDGaXZCEBqKioqPglzPMQ5nkId8ZUEvLU+jQ91NcFcE99RozikGvdg/ebKDBXzOEma23wfgNj1veac04sRuseuq5LcrU54lwwRAREFIuhmLGQVkJ+hxhrbdiLaKTkyzKCcy4pxpgVjFlB656VjQ8BkpN7v8GyjIdiuCVpOAbKEcVizqDhupjST9+lNN8qIBZC5uPUu4T26gn2N+FSBnIPRQk5b5RAfE1qUYKSCVMl2vMo6UtIpFr3gIgfxHHPKJGzekGK3Jg1+fIdGVLUC+KfUkLIfEf3n1PSVmKY0mxwxkPia/jq84E8cHUyOj1O0axwx1j233gCJ8WqNbgtv/oAAAAASUVORK5CYII=";
                 initializeBattleSimPartyDragDrop();
                 initializeBattleSimLevelEditor();
+
+                function catalogGenerationNameById(generationId) {
+                    var match = regionalGenerations.find(function (generation) { return generation.id === generationId; });
+                    return match ? match.name : (regionalGenerations.length ? regionalGenerations[0].name : "Gen 1");
+                }
+
+                function normalizeCatalogEntries(entry, nativeGenerationName) {
+                    if (!entry || typeof entry !== "object") return [];
+                    var seen = Object.create(null);
+                    var result = [];
+                    if (Array.isArray(entry.catalogEntries)) {
+                        entry.catalogEntries.forEach(function (catalogEntry) {
+                            if (!catalogEntry || typeof catalogEntry !== "object") return;
+                            var generation = typeof catalogEntry.generation === "string" ? catalogEntry.generation.trim() : "";
+                            var text = typeof catalogEntry.entry === "string" ? catalogEntry.entry.trim() : "";
+                            if (!generation || !text || seen[generation]) return;
+                            seen[generation] = true;
+                            result.push({ generation: generation, entry: text });
+                        });
+                    }
+                    if (typeof entry.info === "string" && entry.info.trim() && nativeGenerationName && !seen[nativeGenerationName]) {
+                        result.unshift({ generation: nativeGenerationName, entry: entry.info.trim() });
+                    }
+                    return result;
+                }
+
+                function catalogEntryText(entry, generationName, nativeGenerationName) {
+                    var match = normalizeCatalogEntries(entry, nativeGenerationName).find(function (item) { return item.generation === generationName; });
+                    return match ? match.entry : "";
+                }
+
+                function setCatalogEntryText(entry, generationName, text, nativeGenerationName) {
+                    if (!entry || !generationName) return;
+                    var value = typeof text === "string" ? text.trim() : "";
+                    var entries = normalizeCatalogEntries(entry, nativeGenerationName).filter(function (item) { return item.generation !== generationName; });
+                    if (value) entries.push({ generation: generationName, entry: value });
+                    var generationOrder = regionalGenerations.map(function (generation) { return generation.name; });
+                    entries.sort(function (a, b) {
+                        var ai = generationOrder.indexOf(a.generation), bi = generationOrder.indexOf(b.generation);
+                        if (ai < 0) ai = 9999;
+                        if (bi < 0) bi = 9999;
+                        return ai - bi || a.generation.localeCompare(b.generation, undefined, { numeric: true });
+                    });
+                    if (entries.length) entry.catalogEntries = entries;
+                    else delete entry.catalogEntries;
+                    if (nativeGenerationName) {
+                        var nativeEntry = entries.find(function (item) { return item.generation === nativeGenerationName; });
+                        if (nativeEntry) entry.info = nativeEntry.entry;
+                        else delete entry.info;
+                    }
+                }
+
+                function populateCatalogEntryGenerationSelect(nativeGenerationName, entry) {
+                    if (!regionalSlotSheetInfoGeneration) return;
+                    var nativeIndex = regionalGenerations.findIndex(function (generation) { return generation.name === nativeGenerationName; });
+                    if (nativeIndex < 0) nativeIndex = 0;
+                    regionalSlotSheetInfoGeneration.innerHTML = "";
+                    regionalGenerations.slice(nativeIndex).forEach(function (generation) {
+                        var option = document.createElement("option");
+                        option.value = generation.name;
+                        option.textContent = generation.name;
+                        regionalSlotSheetInfoGeneration.appendChild(option);
+                    });
+                    var existing = normalizeCatalogEntries(entry, nativeGenerationName);
+                    existing.forEach(function (item) {
+                        if ([].some.call(regionalSlotSheetInfoGeneration.options, function (option) { return option.value === item.generation; })) return;
+                        var option = document.createElement("option");
+                        option.value = item.generation;
+                        option.textContent = item.generation;
+                        regionalSlotSheetInfoGeneration.appendChild(option);
+                    });
+                    regionalSlotSheetInfoGeneration.value = nativeGenerationName;
+                    regionalSlotSheetInfo.value = catalogEntryText(entry, nativeGenerationName, nativeGenerationName);
+                }
+
+                function syncCatalogEntryEditorToDraft() {
+                    if (!activeRegionalSlotDraft || !regionalSlotSheetInfoGeneration) return;
+                    var nativeGenerationName = catalogGenerationNameById(activeRegionalSlotGenerationId);
+                    setCatalogEntryText(activeRegionalSlotDraft, regionalSlotSheetInfoGeneration.value, regionalSlotSheetInfo.value, nativeGenerationName);
+                }
 
                 function allTypes() {
                     return materials.concat(affinities);
@@ -7694,6 +7781,8 @@ dialog,
                                         if (entry.name && entry.name.trim()) exportedEntry.name = entry.name.trim();
                                         if (entry.classification && entry.classification.trim()) exportedEntry.classification = entry.classification.trim();
                                         if (typeof entry.info === "string" && entry.info.trim()) exportedEntry.info = entry.info.trim();
+                                        var exportedCatalogEntries = normalizeCatalogEntries(entry, generation.name);
+                                        if (exportedCatalogEntries.length) exportedEntry.catalogEntries = exportedCatalogEntries;
                                         if (typeof entry.internalColor === "string" && regionalInternalColors.indexOf(entry.internalColor) >= 0) exportedEntry.internalColor = entry.internalColor;
                                         if (typeof entry.height === "string" && entry.height.trim()) exportedEntry.height = entry.height.trim();
                                         else if (Number.isFinite(entry.height) && entry.height >= 0) exportedEntry.height = entry.height;
@@ -8635,6 +8724,7 @@ dialog,
                                         if (regionalEnitoy.name !== undefined && (typeof regionalEnitoy.name !== "string" || regionalEnitoy.name.trim().length > 80)) return "A Concept Enitoy has an invalid name.";
                                         if (data.version >= 33 && regionalEnitoy.classification !== undefined && (typeof regionalEnitoy.classification !== "string" || regionalEnitoy.classification.trim().length > 120)) return "A Concept Enitoy has an invalid classification.";
                                         if (data.version >= 61 && regionalEnitoy.info !== undefined && (typeof regionalEnitoy.info !== "string" || !regionalEnitoy.info.trim())) return "A Concept Enitoy has invalid INFO text.";
+                                        if (regionalEnitoy.catalogEntries !== undefined && (!Array.isArray(regionalEnitoy.catalogEntries) || regionalEnitoy.catalogEntries.some(function (catalogEntry) { return !catalogEntry || typeof catalogEntry.generation !== "string" || !catalogEntry.generation.trim() || typeof catalogEntry.entry !== "string" || !catalogEntry.entry.trim(); }))) return "A Concept Enitoy has an invalid Catalog Entry.";
                                         if (data.version >= 58 && regionalEnitoy.internalColor !== undefined && (typeof regionalEnitoy.internalColor !== "string" || ["BLACK", "BLUE", "BROWN", "GREEN", "GREY", "ORANGE", "PINK", "PURPLE", "RED", "WHITE", "YELLOW"].indexOf(regionalEnitoy.internalColor) < 0)) return "A Concept Enitoy has an invalid Internal Color.";
                                         if (data.version >= 35 && regionalEnitoy.height !== undefined) {
                                             var validHeightString = typeof regionalEnitoy.height === "string" && /^\d+'(?:0\d|1[01])"\/\d+\.\d{2}M$/.test(regionalEnitoy.height.trim());
@@ -8837,7 +8927,7 @@ dialog,
                                                 if (typeof regionalNameOrigin.description !== "string" || !regionalNameOrigin.description.trim() || regionalNameOrigin.description.trim().length > 400) return "A Name Origin entry has an invalid description.";
                                             }
                                         }
-                                        if (!((regionalEnitoy.name && regionalEnitoy.name.trim()) || (regionalEnitoy.classification && regionalEnitoy.classification.trim()) || (data.version >= 61 && regionalEnitoy.info !== undefined && regionalEnitoy.info.trim()) || (data.version >= 58 && regionalEnitoy.internalColor !== undefined) || regionalEnitoy.color1 || regionalEnitoy.color2 || regionalEnitoy.color3 || (data.version >= 34 && regionalEnitoy.height !== undefined) || (data.version >= 34 && regionalEnitoy.weight !== undefined) || (data.version >= 40 && regionalEnitoy.imageData) || (data.version >= 84 && regionalEnitoy.misprintImageData) || (data.version >= 43 && regionalEnitoy.genderRatio !== undefined) || (data.version >= 45 && regionalEnitoy.stats !== undefined) || (data.version >= 46 && regionalEnitoy.skill !== undefined) || (data.version >= 46 && regionalEnitoy.hiddenSkill !== undefined) || (data.version >= 46 && regionalEnitoy.misprintDefect !== undefined) || (data.version >= 47 && regionalEnitoy.recruitmentRate !== undefined) || (data.version >= 47 && regionalEnitoy.baseExp !== undefined) || (data.version >= 47 && regionalEnitoy.growthRate !== undefined) || (data.version >= 49 && regionalEnitoy.availableTechniques !== undefined && regionalEnitoy.availableTechniques.length) || (data.version >= 55 && regionalEnitoy.drops !== undefined && regionalEnitoy.drops.length) || (data.version >= 56 && regionalEnitoy.temperamentLock !== undefined && regionalEnitoy.temperamentLock.length) || (data.version >= 57 && regionalEnitoy.assistCalls !== undefined && regionalEnitoy.assistCalls.length) || (data.version >= 59 && regionalEnitoy.modifications !== undefined && regionalEnitoy.modifications.length) || (data.version >= 83 && regionalEnitoy.nameOrigins !== undefined && regionalEnitoy.nameOrigins.length))) return "A Concept Enitoy must contain at least one piece of information.";
+                                        if (!((regionalEnitoy.name && regionalEnitoy.name.trim()) || (regionalEnitoy.classification && regionalEnitoy.classification.trim()) || (data.version >= 61 && regionalEnitoy.info !== undefined && regionalEnitoy.info.trim()) || (Array.isArray(regionalEnitoy.catalogEntries) && regionalEnitoy.catalogEntries.length) || (data.version >= 58 && regionalEnitoy.internalColor !== undefined) || regionalEnitoy.color1 || regionalEnitoy.color2 || regionalEnitoy.color3 || (data.version >= 34 && regionalEnitoy.height !== undefined) || (data.version >= 34 && regionalEnitoy.weight !== undefined) || (data.version >= 40 && regionalEnitoy.imageData) || (data.version >= 84 && regionalEnitoy.misprintImageData) || (data.version >= 43 && regionalEnitoy.genderRatio !== undefined) || (data.version >= 45 && regionalEnitoy.stats !== undefined) || (data.version >= 46 && regionalEnitoy.skill !== undefined) || (data.version >= 46 && regionalEnitoy.hiddenSkill !== undefined) || (data.version >= 46 && regionalEnitoy.misprintDefect !== undefined) || (data.version >= 47 && regionalEnitoy.recruitmentRate !== undefined) || (data.version >= 47 && regionalEnitoy.baseExp !== undefined) || (data.version >= 47 && regionalEnitoy.growthRate !== undefined) || (data.version >= 49 && regionalEnitoy.availableTechniques !== undefined && regionalEnitoy.availableTechniques.length) || (data.version >= 55 && regionalEnitoy.drops !== undefined && regionalEnitoy.drops.length) || (data.version >= 56 && regionalEnitoy.temperamentLock !== undefined && regionalEnitoy.temperamentLock.length) || (data.version >= 57 && regionalEnitoy.assistCalls !== undefined && regionalEnitoy.assistCalls.length) || (data.version >= 59 && regionalEnitoy.modifications !== undefined && regionalEnitoy.modifications.length) || (data.version >= 83 && regionalEnitoy.nameOrigins !== undefined && regionalEnitoy.nameOrigins.length))) return "A Concept Enitoy must contain at least one piece of information.";
                                     } else {
                                         if (data.version >= 15 && regionalEnitoy.kind === "concept" && regionalEnitoy.affinityCount !== 1 && regionalEnitoy.affinityCount !== 2) {
                                             return "A Concept Enitoy has an invalid Affinity count.";
@@ -9350,6 +9440,15 @@ dialog,
                                                 if (typeof entry.name === "string" && entry.name.trim()) partialEntry.name = entry.name.trim();
                                                 if (data.version >= 33 && typeof entry.classification === "string" && entry.classification.trim()) partialEntry.classification = entry.classification.trim();
                                                 if (data.version >= 61 && typeof entry.info === "string" && entry.info.trim()) partialEntry.info = entry.info.trim();
+                                                if (Array.isArray(entry.catalogEntries)) {
+                                                    var importedCatalogEntries = entry.catalogEntries.map(function (catalogEntry) {
+                                                        if (!catalogEntry || typeof catalogEntry !== "object") return null;
+                                                        var generationName = typeof catalogEntry.generation === "string" ? catalogEntry.generation.trim() : "";
+                                                        var catalogText = typeof catalogEntry.entry === "string" ? catalogEntry.entry.trim() : "";
+                                                        return generationName && catalogText ? { generation: generationName, entry: catalogText } : null;
+                                                    }).filter(Boolean);
+                                                    if (importedCatalogEntries.length) partialEntry.catalogEntries = importedCatalogEntries;
+                                                }
                                                 if (data.version >= 58 && typeof entry.internalColor === "string" && ["BLACK", "BLUE", "BROWN", "GREEN", "GREY", "ORANGE", "PINK", "PURPLE", "RED", "WHITE", "YELLOW"].indexOf(entry.internalColor) >= 0) partialEntry.internalColor = entry.internalColor;
                                                 if (data.version >= 35 && typeof entry.height === "string" && entry.height.trim()) partialEntry.height = entry.height.trim();
                                                 else if (data.version >= 34 && typeof entry.height === "number" && Number.isFinite(entry.height) && entry.height >= 0) partialEntry.height = entry.height;
@@ -12701,9 +12800,7 @@ dialog,
 
                     activeRegionalSlotDraft.name = regionalSlotSheetName.value.trim();
                     activeRegionalSlotDraft.classification = regionalSlotSheetClassification.value.trim();
-                    var regionalInfoValue = regionalSlotSheetInfo.value.trim();
-                    if (regionalInfoValue) activeRegionalSlotDraft.info = regionalInfoValue;
-                    else delete activeRegionalSlotDraft.info;
+                    syncCatalogEntryEditorToDraft();
                     if (regionalInternalColors.indexOf(regionalSlotSheetInternalColor.value) >= 0) {
                         activeRegionalSlotDraft.internalColor = regionalSlotSheetInternalColor.value;
                     } else {
@@ -12828,7 +12925,16 @@ dialog,
                     markActiveFormFieldTouched("internalColor");
                 }, false);
                 regionalSlotSheetInfo.addEventListener("input", function () {
-                    markActiveFormFieldTouched("info");
+                    if (!activeRegionalSlotDraft || !regionalSlotSheetInfoGeneration) return;
+                    var nativeGenerationName = catalogGenerationNameById(activeRegionalSlotGenerationId);
+                    setCatalogEntryText(activeRegionalSlotDraft, regionalSlotSheetInfoGeneration.value, regionalSlotSheetInfo.value, nativeGenerationName);
+                    markActiveFormFieldTouched("catalogEntries");
+                    if (regionalSlotSheetInfoGeneration.value === nativeGenerationName) markActiveFormFieldTouched("info");
+                }, false);
+                regionalSlotSheetInfoGeneration.addEventListener("change", function (event) {
+                    if (!activeRegionalSlotDraft) return;
+                    var nativeGenerationName = catalogGenerationNameById(activeRegionalSlotGenerationId);
+                    regionalSlotSheetInfo.value = catalogEntryText(activeRegionalSlotDraft, event.target.value, nativeGenerationName);
                 }, false);
                 regionalSlotSheetHeight.addEventListener("change", function () {
                     applyRegionalSheetMeasurementChange("height", regionalSlotSheetHeight.value);
@@ -15409,6 +15515,7 @@ dialog,
                     var hasName = typeof entry.name === "string" && entry.name.trim() && entry.name.trim() !== "Blank Name";
                     var hasClassification = typeof entry.classification === "string" && entry.classification.trim();
                     var hasInfo = typeof entry.info === "string" && entry.info.trim();
+                    var hasCatalogEntries = Array.isArray(entry.catalogEntries) && entry.catalogEntries.some(function (catalogEntry) { return catalogEntry && typeof catalogEntry.entry === "string" && catalogEntry.entry.trim(); });
                     var hasInternalColor = typeof entry.internalColor === "string" && regionalInternalColors.indexOf(entry.internalColor) >= 0;
                     var hasHeight = (typeof entry.height === "string" && entry.height.trim()) || (Number.isFinite(entry.height) && entry.height >= 0);
                     var hasWeight = (typeof entry.weight === "string" && entry.weight.trim()) || (Number.isFinite(entry.weight) && entry.weight >= 0);
@@ -15430,7 +15537,7 @@ dialog,
                     var hasAssistCalls = Array.isArray(entry.assistCalls) && entry.assistCalls.length > 0;
                     var hasModifications = Array.isArray(entry.modifications) && entry.modifications.length > 0;
                     var hasNameOrigins = Array.isArray(entry.nameOrigins) && entry.nameOrigins.length > 0;
-                    return !!(hasName || hasClassification || hasInfo || hasInternalColor || hasHeight || hasWeight || hasImage || hasMisprintImage || hasGender || hasStats || hasSkill || hasHiddenSkill || hasMisprintDefect || hasRecruitmentRate || hasBaseExp || hasGrowthRate || hasTechniques || hasDrops || hasTemperamentLock || hasAssistCalls || hasModifications || hasNameOrigins || entry.color1 || entry.color2 || entry.color3);
+                    return !!(hasName || hasClassification || hasInfo || hasCatalogEntries || hasInternalColor || hasHeight || hasWeight || hasImage || hasMisprintImage || hasGender || hasStats || hasSkill || hasHiddenSkill || hasMisprintDefect || hasRecruitmentRate || hasBaseExp || hasGrowthRate || hasTechniques || hasDrops || hasTemperamentLock || hasAssistCalls || hasModifications || hasNameOrigins || entry.color1 || entry.color2 || entry.color3);
                 }
 
                 function normalizeRegionalEntryKind(entry) {
@@ -15440,6 +15547,7 @@ dialog,
                         delete entry.name;
                         delete entry.classification;
                         delete entry.info;
+                        delete entry.catalogEntries;
                         delete entry.internalColor;
                         delete entry.height;
                         delete entry.weight;
@@ -15478,6 +15586,12 @@ dialog,
                         if (!entry.info) delete entry.info;
                     } else {
                         delete entry.info;
+                    }
+                    if (Array.isArray(entry.catalogEntries)) {
+                        entry.catalogEntries = normalizeCatalogEntries(entry, null);
+                        if (!entry.catalogEntries.length) delete entry.catalogEntries;
+                    } else {
+                        delete entry.catalogEntries;
                     }
                     if (typeof entry.internalColor !== "string" || regionalInternalColors.indexOf(entry.internalColor) < 0) {
                         delete entry.internalColor;
@@ -15937,7 +16051,7 @@ dialog,
                     pendingRegionalNameOriginButtonSelection = null;
                     regionalSlotSheetName.value = (typeof activeRegionalSlotDraft.name === "string" && activeRegionalSlotDraft.name !== "Blank Name") ? activeRegionalSlotDraft.name : "";
                     regionalSlotSheetClassification.value = typeof activeRegionalSlotDraft.classification === "string" ? activeRegionalSlotDraft.classification : "";
-                    regionalSlotSheetInfo.value = typeof activeRegionalSlotDraft.info === "string" ? activeRegionalSlotDraft.info : "";
+                    populateCatalogEntryGenerationSelect(generationName, activeRegionalSlotDraft);
                     regionalSlotSheetInternalColor.value = (typeof activeRegionalSlotDraft.internalColor === "string" && regionalInternalColors.indexOf(activeRegionalSlotDraft.internalColor) >= 0)
                         ? activeRegionalSlotDraft.internalColor
                         : "";
@@ -15956,6 +16070,7 @@ dialog,
                     regionalSlotSheetName.disabled = false;
                     regionalSlotSheetClassification.disabled = false;
                     regionalSlotSheetInfo.disabled = false;
+                    regionalSlotSheetInfoGeneration.disabled = false;
                     regionalSlotSheetInternalColor.disabled = false;
                     regionalSlotSheetHeight.disabled = false;
                     regionalSlotSheetWeight.disabled = false;
@@ -17200,6 +17315,7 @@ dialog,
                     return [
                         "classification",
                         "info",
+                        "catalogEntries",
                         "internalColor",
                         "height",
                         "weight",
@@ -17389,6 +17505,7 @@ dialog,
                     [
                         "classification",
                         "info",
+                        "catalogEntries",
                         "internalColor",
                         "height",
                         "weight",
@@ -17889,7 +18006,7 @@ dialog,
 
                     regionalSlotSheetName.value = effective.name;
                     regionalSlotSheetClassification.value = typeof effective.classification === "string" ? effective.classification : "";
-                    regionalSlotSheetInfo.value = typeof effective.info === "string" ? effective.info : "";
+                    populateCatalogEntryGenerationSelect(source.generation.name, activeRegionalSlotDraft);
                     regionalSlotSheetInternalColor.value = (typeof effective.internalColor === "string" && regionalInternalColors.indexOf(effective.internalColor) >= 0)
                         ? effective.internalColor
                         : "";
@@ -17910,6 +18027,7 @@ dialog,
                     regionalSlotSheetName.disabled = true;
                     regionalSlotSheetClassification.disabled = false;
                     regionalSlotSheetInfo.disabled = false;
+                    regionalSlotSheetInfoGeneration.disabled = false;
                     regionalSlotSheetInternalColor.disabled = false;
                     regionalSlotSheetHeight.disabled = false;
                     regionalSlotSheetWeight.disabled = false;
