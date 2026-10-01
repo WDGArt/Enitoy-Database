@@ -15547,7 +15547,9 @@ dialog,
                     }
 
                     if (typeof entry.growthRate !== "string" || regionalGrowthRates.indexOf(entry.growthRate) < 0) {
-                        delete entry.growthRate;
+                        // The UI's default is Medium Growth, so persist that default instead
+                        // of leaving the field absent and causing the Viewer to show "-".
+                        entry.growthRate = "Medium Growth";
                     }
 
                     var normalizedTechniques = normalizedRegionalTechniques(entry);
