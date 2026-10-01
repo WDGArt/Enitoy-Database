@@ -15507,7 +15507,9 @@ dialog,
                         entry.misprintImageName = entry.misprintImageName.trim();
                     }
                     if (!Number.isInteger(entry.genderRatio) || entry.genderRatio < 0 || entry.genderRatio > 9) {
-                        delete entry.genderRatio;
+                        // The UI's default is Genderless (index 0), so persist that default
+                        // instead of leaving the field absent and causing the Viewer to show "-".
+                        entry.genderRatio = 0;
                     }
                     if (!Array.isArray(entry.stats) || entry.stats.length !== 6 || !entry.stats.every(function (value) {
                         return Number.isInteger(value) && value >= 0 && value <= 255;
