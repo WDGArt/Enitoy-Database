@@ -133,7 +133,7 @@ button,input,select{font:inherit}
     <input id="file-input" type="file" accept=".json,application/json" hidden>
   </div>
   <nav class="subnav"><div class="subnav-inner">
-    <a href="#enitoys">Enitoys</a><a href="#moves">Techniques</a><a href="#types">Stitching</a><a href="#stitch-calc">Stitch Calc</a><a href="#daily-quiz">Daily Quiz</a><a href="#daily-puzzle-4">4×4 Puzzle</a><a href="#daily-puzzle-5">5×5 Puzzle</a><a href="#profiles">Profiles</a><a href="#skills">Skills</a><a href="#defects">Defects</a><a href="#items">Items</a><a href="#temperaments">Temperaments</a><a href="#locations">Encounters</a><a href="#crafts">Crafts</a>
+    <a href="#enitoys">Enitoys</a><a href="#moves">Techniques</a><a href="#types">Stitching</a><a href="#stitch-calc">Stitch Calc</a><a href="#daily-quiz">Daily Quiz</a><a href="#daily-puzzle-4">4×4 Puzzle</a><a href="#daily-puzzle-5">5×5 Puzzle</a><a href="#profiles">Profiles</a><a href="#skills">Skills</a><a href="#defects">Defects</a><a href="#items">Items</a><a href="#temperaments">Temperaments</a><a href="#locations">Encounters</a><a href="#crafts">Crafts</a><a href="#tamers">Tamers</a>
   </div></nav>
 </header>
 <main id="app" class="wrap"></main>
@@ -379,6 +379,7 @@ function rebuild(){ species=[]; forms=[]; searchable=[]; let offset=0;
   (db.defects||[]).forEach(x=>searchable.push({label:x.name,kind:'Defect',route:`defects/${slug(x.name)}`}));
   (db.items||[]).forEach(x=>searchable.push({label:x.name,kind:'Item',route:`items/${slug(x.name)}`}));
   (db.encounters||[]).forEach(g=>(g.locations||[]).forEach(l=>searchable.push({label:l.name,kind:'Location',route:`location/${slug(g.generation)}/${slug(l.name)}`})));
+  (db.tamers||[]).forEach((t,i)=>{ const label=`${t.tamerClass||''} ${t.name||''}`.trim()||`Tamer ${i+1}`; searchable.push({label,kind:'Tamer',route:'tamers'}); });
   search.disabled=false;
 }
 function openRememberedDb(){
@@ -577,7 +578,7 @@ searchResults.addEventListener('click',e=>{ const hit=e.target.closest('[data-ro
 document.addEventListener('click',e=>{if(!e.target.closest('.global-search'))searchResults.classList.remove('show');});
 window.addEventListener('hashchange',render);
 function render(){ if(!db){ renderLoader(); return; } const raw=(location.hash||'#home').slice(1); const p=raw.split('/').map(decodeURIComponent); window.scrollTo(0,0); switch(p[0]){
-  case '': case 'home': return renderHome(); case 'enitoys':return renderCatalog(); case 'enitoy':return renderSpecies(p[1],p[2]); case 'form':return renderForm(p[1],p[2],p[3]); case 'moves':return renderMoves(); case 'move':return renderMove(p[1]); case 'types':return renderTypes(); case 'type':return renderType(p[1]); case 'stitch-calc':return renderStitchCalc(); case 'daily-quiz':return renderDailyQuiz(p[1]); case 'daily-puzzle-4':return renderDailyPuzzle(4,p[1]); case 'daily-puzzle-5':return renderDailyPuzzle(5,p[1]); case 'profiles':return renderProfiles(); case 'skills':return p[1]?renderNamedListDetail('Skill',db.skills,p[1],'skills'):renderNamedList('Skills',db.skills,'skills'); case 'defects':return p[1]?renderNamedListDetail('Defect',db.defects,p[1],'defects'):renderNamedList('Defects',db.defects,'defects'); case 'items':return p[1]?renderItem(p[1]):renderItems(); case 'temperaments':return renderTemperaments(); case 'locations':return renderLocations(); case 'location':return renderLocation(p[1],p[2]); case 'crafts':return renderCrafts(); default:return renderHome(); } }
+  case '': case 'home': return renderHome(); case 'enitoys':return renderCatalog(); case 'enitoy':return renderSpecies(p[1],p[2]); case 'form':return renderForm(p[1],p[2],p[3]); case 'moves':return renderMoves(); case 'move':return renderMove(p[1]); case 'types':return renderTypes(); case 'type':return renderType(p[1]); case 'stitch-calc':return renderStitchCalc(); case 'daily-quiz':return renderDailyQuiz(p[1]); case 'daily-puzzle-4':return renderDailyPuzzle(4,p[1]); case 'daily-puzzle-5':return renderDailyPuzzle(5,p[1]); case 'profiles':return renderProfiles(); case 'skills':return p[1]?renderNamedListDetail('Skill',db.skills,p[1],'skills'):renderNamedList('Skills',db.skills,'skills'); case 'defects':return p[1]?renderNamedListDetail('Defect',db.defects,p[1],'defects'):renderNamedList('Defects',db.defects,'defects'); case 'items':return p[1]?renderItem(p[1]):renderItems(); case 'temperaments':return renderTemperaments(); case 'locations':return renderLocations(); case 'location':return renderLocation(p[1],p[2]); case 'crafts':return renderCrafts(); case 'tamers':return renderTamers(); default:return renderHome(); } }
 function renderLoader(){ app.innerHTML=`<div id="dropzone" class="dropzone"><h1>Enitoy Database Viewer</h1><p class="muted">This viewer automatically loads Enitoy_Project.json from the wdgart/Enitoy-Database GitHub repository and checks for updates every 10 seconds and refreshes immediately when an open Editor in this browser saves. You can still choose a local JSON as a temporary fallback.</p><p><button class="primary" type="button" id="open-json">Choose JSON file</button></p><div class="tiny muted">You can also drag and drop a JSON anywhere on this page. Local files are only used in this browser; the GitHub database remains read-only from the Viewer.</div></div>`; $('#open-json').onclick=()=>fileInput.click(); }
 function renderHome(){ const gens=db.regionalGenerations||[]; app.innerHTML=`${breadcrumbs([])}<h1 class="page-title">Enitoy Database</h1><p class="subtitle">Read-only encyclopedia generated from <b>${esc(loadedFileName)}</b> · Project version ${fmt(db.version)}</p><p>${profileStatusHtml()} <a href="#profiles" class="chip-link">Profiles</a></p>
 <div class="quick-stats"><div class="quick-stat"><b>${species.length}</b><span>Enitoys entered</span></div><div class="quick-stat"><b>${forms.length}</b><span>Forms</span></div><div class="quick-stat"><b>${(db.moves||[]).length}</b><span>Techniques</span></div><div class="quick-stat"><b>${(db.skills||[]).length}</b><span>Skills</span></div><div class="quick-stat"><b>${(db.items||[]).length}</b><span>Items</span></div></div>
@@ -1149,6 +1150,30 @@ function renderLocation(gen,name){ const g=(db.encounters||[]).find(x=>x.generat
 function renderMethod(gen,m){ if(m.gift)return `<section class="section"><h2 class="section-title">${esc(m.name)}</h2><div class="card"><table class="data-table"><thead><tr><th>Enitoy</th><th>Level</th></tr></thead><tbody><tr><td>${speciesBy(gen,m.gift.enitoy)?routeLink(`enitoy/${slug(gen)}/${slug(m.gift.enitoy)}`,m.gift.enitoy):esc(m.gift.enitoy)}</td><td>${esc(m.gift.level)}</td></tr></tbody></table></div></section>`; let pool=null; Object.keys(m).forEach(k=>{if(k!=='name'&&m[k]&&typeof m[k]==='object')pool=m[k]}); if(!pool)return ''; const table=time=>{const rows=pool[time]||[];return `<div class="card"><h3>${time==='day'?'Day':'Night'}</h3>${rows.length?`<table class="data-table"><thead><tr><th>Enitoy</th><th>Level</th><th>Chance</th></tr></thead><tbody>${rows.map(x=>{const s=speciesBy(gen,x.enitoy)||species.find(q=>q.entry.name===x.enitoy);return `<tr><td>${s?routeLink(`enitoy/${slug(s.generation)}/${slug(s.entry.name)}`,s.entry.name):esc(x.enitoy)}</td><td>${x.minLevel===x.maxLevel?esc(x.minLevel):`${esc(x.minLevel)}–${esc(x.maxLevel)}`}</td><td>${esc(x.percent)}%</td></tr>`}).join('')}</tbody></table>`:'<span class="muted">None</span>'}</div>`}; return `<section class="section"><h2 class="section-title">${esc(m.name)}</h2><div class="grid-2">${table('day')}${table('night')}</div></section>`; }
 function renderCraftLine(c){ const method=c.method==='station'?'Crafting Station':c.method==='holdMove'?'Hold + Move Stitch':c.method||'Craft'; return `<div style="padding:8px 0;border-bottom:1px solid #e8ebee"><b>${esc(method)}</b>: ${(c.ingredients||[]).map(i=>`${esc(i.quantity||1)}× ${routeLink(`items/${slug(i.item)}`,i.item)}`).join(' + ')} → ${esc(c.resultQuantity||1)}× ${routeLink(`items/${slug(c.resultItem)}`,c.resultItem)}</div>`; }
 function renderCrafts(){ const cs=db.crafts||[]; app.innerHTML=`${breadcrumbs([{label:'Crafts'}])}<h1 class="page-title">Crafts</h1><p class="subtitle">${cs.length} recipes.</p><div class="card">${cs.length?cs.map(renderCraftLine).join(''):'<span class="muted">No recipes recorded.</span>'}</div>`; }
+function renderTamers(){
+  const ts=Array.isArray(db.tamers)?db.tamers:[];
+  const memberHtml=(m)=>{
+    if(!m||!m.enitoy)return '';
+    const base=speciesBy(m.generation,m.enitoy)||species.find(s=>s.entry.name===m.enitoy);
+    let entry=base?.entry||null, route=base?`enitoy/${slug(base.generation)}/${slug(base.entry.name)}`:'';
+    if(m.formName){
+      const fr=forms.find(f=>f.form.generation===m.generation&&f.form.enitoy===m.enitoy&&f.form.formName===m.formName);
+      if(fr){entry=fr.entry;route=`form/${slug(fr.form.generation)}/${slug(fr.form.enitoy)}/${slug(fr.form.formName)}`;}
+    }
+    const display=m.nickname?`${m.nickname} (${m.enitoy}${m.formName?` — ${m.formName}`:''})`:`${m.enitoy}${m.formName?` — ${m.formName}`:''}`;
+    const art=entry?.imageData?`<img src="${entry.imageData}" alt="" style="width:54px;height:54px;object-fit:contain">`:'<div style="width:54px;height:54px;display:grid;place-items:center;font-weight:900">?</div>';
+    const name=route?routeLink(route,display):esc(display);
+    return `<div class="card" style="display:flex;align-items:center;gap:12px;padding:10px">${art}<div><div><b>${name}</b></div><div class="tiny muted">Level ${esc(m.level||1)}</div></div></div>`;
+  };
+  const groups=new Map();
+  ts.forEach((t,i)=>{const key=`${t.generation||''}\u0000${t.location||''}`;if(!groups.has(key))groups.set(key,[]);groups.get(key).push({t,i});});
+  app.innerHTML=`${breadcrumbs([{label:'Tamers'}])}<h1 class="page-title">Tamers</h1><p class="subtitle">${ts.length} recorded Tamer${ts.length===1?'':'s'}.</p>${
+    ts.length?[...groups.entries()].map(([key,items])=>{
+      const first=items[0].t, locRoute=`location/${slug(first.generation)}/${slug(first.location)}`;
+      return `<section class="section"><h2 class="section-title">${routeLink(locRoute,first.location)} <span class="tiny muted">· ${esc(first.generation)}</span></h2><div class="grid-2">${items.map(({t})=>`<div class="card"><h3 style="margin-top:0">${esc(`${t.tamerClass||''} ${t.name||''}`.trim())}</h3><p class="tiny muted">${esc(t.location||'Unknown location')}</p>${Array.isArray(t.team)&&t.team.length?`<div style="display:grid;gap:8px">${t.team.map(memberHtml).join('')}</div>`:'<span class="muted">No team recorded.</span>'}</div>`).join('')}</div></section>`;
+    }).join(''):'<div class="card"><span class="muted">No Tamers recorded.</span></div>'
+  }`;
+}
 initMusic();
 void (async()=>{await profileRefreshSession();await startViewer();})();
 })();
