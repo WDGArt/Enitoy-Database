@@ -5579,6 +5579,32 @@ dialog,
     gap:10px;
     align-items:end;
 }
+.tamer-member-battle {
+    display:grid;
+    grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.25fr);
+    gap:10px;
+    align-items:end;
+    margin-top:10px;
+}
+.tamer-member-battle label {
+    display:grid;
+    gap:5px;
+    font-size:11px;
+    font-weight:900;
+    color:var(--enitoy-muted,#6f747b);
+    text-transform:uppercase;
+    letter-spacing:.04em;
+}
+.tamer-member-battle select {
+    width:100%;
+    min-width:0;
+    min-height:38px;
+    border:1px solid var(--enitoy-border,#cfd4da);
+    border-radius:9px;
+    padding:7px 9px;
+    background:#fff;
+    color:inherit;
+}
 .tamer-team-row label,
 .tamer-dialog-grid label {
     min-width:0;
@@ -5678,6 +5704,7 @@ dialog,
     #tamer-dialog { width:calc(100vw - 16px); }
     .tamer-dialog-grid,
     .tamer-member-main,
+    .tamer-member-battle,
     .tamer-member-moves { grid-template-columns:1fr; }
     .tamer-location-field { grid-column:auto; }
 }
@@ -8135,6 +8162,9 @@ dialog,
                                     };
                                     if (member.formName) exportedMember.formName = member.formName;
                                     if (member.nickname) exportedMember.nickname = member.nickname;
+                                    if (member.heldItem) exportedMember.heldItem = member.heldItem;
+                                    exportedMember.useHiddenSkill = !!member.useHiddenSkill;
+                                    exportedMember.misprintStatus = member.misprintStatus || "possible";
                                     if (Array.isArray(member.moves) && member.moves.length) {
                                         exportedMember.moves = member.moves.filter(function (moveName, index, list) {
                                             return typeof moveName === "string" && moveName.trim() &&
@@ -9710,6 +9740,9 @@ dialog,
                                     formName: typeof member.formName === "string" ? member.formName.trim() : "",
                                     nickname: typeof member.nickname === "string" ? member.nickname.trim() : "",
                                     level: Math.max(1, Math.min(100, Number(member.level) || 1)),
+                                    heldItem: typeof member.heldItem === "string" ? member.heldItem.trim() : "",
+                                    useHiddenSkill: member.useHiddenSkill === true,
+                                    misprintStatus: ["locked","possible","guaranteed"].indexOf(member.misprintStatus) >= 0 ? member.misprintStatus : "possible",
                                     moves: Array.isArray(member.moves) ? member.moves.map(function (moveName) {
                                         return typeof moveName === "string" ? moveName.trim() : "";
                                     }).filter(Boolean) : []
@@ -10430,6 +10463,77 @@ dialog,
                     });
                 }
 
+                function tamerEffectiveEntryFromParts(parts) {
+                    if (!Array.isArray(parts) || parts.length < 2) return null;
+                    var generationName = parts[0] || "";
+                    var enitoyName = parts[1] || "";
+                    var formName = parts[2] || "";
+
+                    if (!formName) {
+                        return findMovepoolBaseEntry(generationName, enitoyName);
+                    }
+
+                    var formsEntry = (Array.isArray(formsEntries) ? formsEntries : []).find(function (entry) {
+                        if (!entry) return false;
+                        var source = findFormsSource(entry);
+                        var entryFormName = typeof entry.formName === "string" && entry.formName.trim()
+                            ? entry.formName.trim()
+                            : "Form";
+                        return source &&
+                            source.generation.name === generationName &&
+                            source.entry.name.trim().toLowerCase() === String(enitoyName || "").trim().toLowerCase() &&
+                            entryFormName.toLowerCase() === String(formName || "").trim().toLowerCase();
+                    }) || null;
+
+                    return formsEntry ? effectiveFormsEntry(formsEntry) : null;
+                }
+
+                function populateTamerHeldItemSelect(select, selectedItem) {
+                    if (!select) return;
+                    select.innerHTML = "";
+                    var none = document.createElement("option");
+                    none.value = "";
+                    none.textContent = "None";
+                    select.appendChild(none);
+
+                    (Array.isArray(items) ? items : []).forEach(function (item) {
+                        if (!item || typeof item.name !== "string" || !item.name.trim()) return;
+                        var option = document.createElement("option");
+                        option.value = item.name.trim();
+                        option.textContent = item.name.trim();
+                        if (option.value === selectedItem) option.selected = true;
+                        select.appendChild(option);
+                    });
+                }
+
+                function refreshTamerSkillControl(row, useHiddenSkill) {
+                    if (!row) return;
+                    var parts = tamerSelectionParts(row);
+                    var select = row.querySelector(".tamer-member-skill-mode");
+                    if (!select) return;
+
+                    var entry = parts ? tamerEffectiveEntryFromParts(parts) : null;
+                    var normalSkill = entry && typeof entry.skill === "string" ? entry.skill.trim() : "";
+                    var hiddenSkill = entry && typeof entry.hiddenSkill === "string" ? entry.hiddenSkill.trim() : "";
+
+                    select.innerHTML = "";
+
+                    var normal = document.createElement("option");
+                    normal.value = "normal";
+                    normal.textContent = normalSkill ? "Normal — " + normalSkill : "Normal Skill";
+                    select.appendChild(normal);
+
+                    var hidden = document.createElement("option");
+                    hidden.value = "hidden";
+                    hidden.textContent = hiddenSkill ? "Hidden — " + hiddenSkill : "No Hidden Skill";
+                    hidden.disabled = !hiddenSkill;
+                    select.appendChild(hidden);
+
+                    if (useHiddenSkill && hiddenSkill) select.value = "hidden";
+                    else select.value = "normal";
+                    select.disabled = !parts;
+                }
+
                 function renderTamerTeamEditor(tamer) {
                     if (!tamerTeamEditor) return;
                     var choices = tamerAllEnitoyChoices();
@@ -10488,6 +10592,46 @@ dialog,
                             main.appendChild(nicknameLabel);
                             row.appendChild(main);
 
+                            var battle = document.createElement("div");
+                            battle.className = "tamer-member-battle";
+
+                            var itemLabel = document.createElement("label");
+                            itemLabel.innerHTML = "<span>Held Item</span>";
+                            var itemSelect = document.createElement("select");
+                            itemSelect.className = "tamer-member-held-item";
+                            populateTamerHeldItemSelect(itemSelect, member && member.heldItem ? member.heldItem : "");
+                            itemLabel.appendChild(itemSelect);
+
+                            var skillLabel = document.createElement("label");
+                            skillLabel.innerHTML = "<span>Skill</span>";
+                            var skillSelect = document.createElement("select");
+                            skillSelect.className = "tamer-member-skill-mode";
+                            skillLabel.appendChild(skillSelect);
+
+                            var misprintLabel = document.createElement("label");
+                            misprintLabel.innerHTML = "<span>Misprint</span>";
+                            var misprintSelect = document.createElement("select");
+                            misprintSelect.className = "tamer-member-misprint-status";
+                            [
+                                ["locked", "Locked Out"],
+                                ["possible", "Can Be Misprint"],
+                                ["guaranteed", "Guaranteed Misprint"]
+                            ].forEach(function (record) {
+                                var option = document.createElement("option");
+                                option.value = record[0];
+                                option.textContent = record[1];
+                                misprintSelect.appendChild(option);
+                            });
+                            misprintSelect.value = member && ["locked","possible","guaranteed"].indexOf(member.misprintStatus) >= 0
+                                ? member.misprintStatus
+                                : "possible";
+                            misprintLabel.appendChild(misprintSelect);
+
+                            battle.appendChild(itemLabel);
+                            battle.appendChild(skillLabel);
+                            battle.appendChild(misprintLabel);
+                            row.appendChild(battle);
+
                             var movesTitle = document.createElement("div");
                             movesTitle.className = "tamer-member-moves-title";
                             movesTitle.textContent = "Battle Moves";
@@ -10499,9 +10643,11 @@ dialog,
                             tamerTeamEditor.appendChild(row);
 
                             refreshTamerMoveSelectors(row, member && Array.isArray(member.moves) ? member.moves : []);
+                            refreshTamerSkillControl(row, !!(member && member.useHiddenSkill));
 
                             select.addEventListener("change", function () {
                                 refreshTamerMoveSelectors(row, []);
+                                refreshTamerSkillControl(row, false);
                             });
                             levelInput.addEventListener("input", function () {
                                 refreshTamerMoveSelectors(row);
@@ -10520,6 +10666,9 @@ dialog,
 
                         var levelInput = row.querySelector(".tamer-member-level");
                         var nicknameInput = row.querySelector(".tamer-member-nickname");
+                        var heldItemSelect = row.querySelector(".tamer-member-held-item");
+                        var skillModeSelect = row.querySelector(".tamer-member-skill-mode");
+                        var misprintStatusSelect = row.querySelector(".tamer-member-misprint-status");
                         var level = Math.max(1, Math.min(100, Number(levelInput && levelInput.value) || 1));
                         var legalMoves = tamerEligibleMoves(parts[0] || "", parts[1] || "", parts[2] || "", level);
                         var legalByKey = Object.create(null);
@@ -10545,6 +10694,11 @@ dialog,
                             formName: parts[2] || "",
                             level: level,
                             nickname: nicknameInput ? nicknameInput.value.trim() : "",
+                            heldItem: heldItemSelect ? heldItemSelect.value : "",
+                            useHiddenSkill: !!(skillModeSelect && skillModeSelect.value === "hidden"),
+                            misprintStatus: misprintStatusSelect && ["locked","possible","guaranteed"].indexOf(misprintStatusSelect.value) >= 0
+                                ? misprintStatusSelect.value
+                                : "possible",
                             moves: chosenMoves
                         };
                     }).filter(Boolean);
@@ -10562,7 +10716,17 @@ dialog,
                         var moveText = Array.isArray(member.moves) && member.moves.length
                             ? " · " + member.moves.join(", ")
                             : "";
-                        return '<span class="tamer-team-chip">' + escapeHtml(name + form) + ' · Lv.' + escapeHtml(member.level || 1) + escapeHtml(moveText) + '</span>';
+                        var itemText = member.heldItem ? " · Item: " + member.heldItem : "";
+                        var skillText = member.useHiddenSkill ? " · Hidden Skill" : "";
+                        var misprintText = member.misprintStatus === "locked"
+                            ? " · Misprint: Locked"
+                            : member.misprintStatus === "guaranteed"
+                                ? " · Misprint: Guaranteed"
+                                : " · Misprint: Possible";
+                        return '<span class="tamer-team-chip">' +
+                            escapeHtml(name + form) + ' · Lv.' + escapeHtml(member.level || 1) +
+                            escapeHtml(itemText + skillText + misprintText + moveText) +
+                            '</span>';
                     }).join("") + '</div>';
                 }
 
