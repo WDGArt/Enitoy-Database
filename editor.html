@@ -7284,8 +7284,24 @@ dialog,
                             result.push({ generation: generation, entry: text });
                         });
                     }
-                    if (typeof entry.info === "string" && entry.info.trim() && nativeGenerationName && !seen[nativeGenerationName]) {
-                        result.unshift({ generation: nativeGenerationName, entry: entry.info.trim() });
+
+                    // `info` is the legacy/native-generation catalog entry. It must remain
+                    // authoritative for that generation, especially for alternate Forms created
+                    // before multi-generation catalog entries existed. A Form inherits the base
+                    // Enitoy's `catalogEntries`, but may already have its own overridden `info`.
+                    // If the inherited base entry is allowed to win here, the Form's own native
+                    // entry appears to be overwritten and cannot be edited independently.
+                    if (typeof entry.info === "string" && entry.info.trim() && nativeGenerationName) {
+                        var nativeText = entry.info.trim();
+                        var nativeIndex = result.findIndex(function (item) {
+                            return item.generation === nativeGenerationName;
+                        });
+                        if (nativeIndex >= 0) {
+                            result[nativeIndex] = { generation: nativeGenerationName, entry: nativeText };
+                        } else {
+                            result.unshift({ generation: nativeGenerationName, entry: nativeText });
+                        }
+                        seen[nativeGenerationName] = true;
                     }
                     return result;
                 }
