@@ -596,12 +596,44 @@ app.innerHTML=`${breadcrumbs([{label:'Enitoys',route:'enitoys'},{label:e.name}])
 <div class="hero-grid"><div class="card portrait-card"><div class="portrait">${imageBox(e)}</div>${hasImageData(e.misprintImageData)?'<div class="portrait-toggle"><button id="portrait-variant-toggle" type="button" aria-pressed="false">View Misprint</button></div>':''}<div class="stitches" style="margin-top:14px;justify-content:center">${stitches(e).map(t=>pill(t)).join('')}</div></div>
 <div class="card"><h2>Profile</h2><table class="key-table"><tr><th>Catalog</th><td>${num(base.number)}${formRec?` · Form ${baseForms.indexOf(formRec)+1}`:''}</td></tr><tr><th>Classification</th><td>${fmt(e.classification)}</td></tr><tr><th>Height</th><td>${fmt(e.height)}</td></tr><tr><th>Weight</th><td>${fmt(e.weight)}</td></tr><tr><th>Gender</th><td>${esc(genderText(e.genderRatio))}</td></tr><tr><th>Internal color</th><td>${fmt(e.internalColor)}</td></tr><tr><th>Recruitment rate</th><td>${fmt(e.recruitmentRate)}</td></tr><tr><th>Base EXP</th><td>${fmt(e.baseExp)}</td></tr><tr><th>Growth</th><td>${fmt(e.growthRate)}</td></tr></table></div>
 <div class="hero-side-stack"><div class="card"><h2>Base stats</h2>${statRows(e.stats)}</div>${renderStitchDefenses(e)}</div></div>
-${renderCatalogEntries(e,base.generation)}
+${renderCatalogEntries(formRec ? formCatalogEntrySource(formRec) : e,base.generation)}
 ${renderNameOrigins(e)}
 <section class="section grid-3"><div class="card"><h2>Skills</h2><table class="key-table"><tr><th>Skill</th><td>${e.skill?routeLink(`skills/${slug(e.skill)}`,e.skill):'—'}${skill?`<div class="tiny muted">${esc(skill.effect)}</div>`:''}</td></tr><tr><th>Hidden Skill</th><td>${e.hiddenSkill?routeLink(`skills/${slug(e.hiddenSkill)}`,e.hiddenSkill):'—'}${hidden?`<div class="tiny muted">${esc(hidden.effect)}</div>`:''}</td></tr></table></div><div class="card"><h2>Misprint Defect</h2>${e.misprintDefect?`<b>${routeLink(`defects/${slug(e.misprintDefect)}`,e.misprintDefect)}</b>${defect?`<p class="tiny muted">${esc(defect.effect)}</p>`:''}`:'<span class="muted">None recorded.</span>'}</div><div class="card"><h2>Drops</h2>${renderDrops(e.drops)}</div></section>
 ${renderModifications(base,e,formRec)}${renderTechniques(e)}${renderAssistCalls(e)}${enc.length?renderEncounterSection(enc):''}${renderTemperamentLocks(e)}${baseForms.length&&!formRec?`<section class="section"><h2 class="section-title">Forms</h2><div class="catalog-grid">${baseForms.map(f=>`<a class="catalog-card" href="#form/${slug(f.form.generation)}/${slug(f.form.enitoy)}/${slug(f.form.formName)}"><div class="catalog-thumb">${f.entry.imageData?`<img src="${f.entry.imageData}" alt="">`:'?'}</div><div><div class="catalog-no">${num(base.number)}·F${baseForms.indexOf(f)+1}</div><div class="catalog-name">${esc(f.entry.name)}</div><div class="catalog-types">${stitches(f.entry).map(t=>{const bg=color(t);return `<span class="mini-pill" style="background:${bg};color:${readable(bg)}">${esc(t)}</span>`}).join('')}</div></div></a>`).join('')}</div></section>`:''}`; setupPortraitToggle(e); }
 function renderDrops(drops){ if(!Array.isArray(drops)||!drops.length)return '<span class="muted">None</span>'; return `<div class="inline-links">${drops.map(d=>{const name=typeof d==='string'?d:(d.item||d.name||''); const qty=typeof d==='object'&&(d.quantity||d.qty); return name?`<span class="chip-link">${routeLink(`items/${slug(name)}`,name)}${qty?` ×${esc(qty)}`:''}</span>`:''}).join('')}</div>`; }
-function catalogEntriesFor(e,nativeGeneration){ const seen=new Set(),out=[]; if(Array.isArray(e?.catalogEntries)){e.catalogEntries.forEach(x=>{const generation=String(x?.generation||'').trim(),entry=String(x?.entry||'').trim();if(generation&&entry&&!seen.has(generation)){seen.add(generation);out.push({generation,entry});}});} if(e?.info&&String(e.info).trim()&&nativeGeneration&&!seen.has(nativeGeneration)){out.unshift({generation:nativeGeneration,entry:String(e.info).trim()});seen.add(nativeGeneration);} const order=(db?.regionalGenerations||[]).map(g=>g.name); out.sort((a,b)=>{let ai=order.indexOf(a.generation),bi=order.indexOf(b.generation);if(ai<0)ai=9999;if(bi<0)bi=9999;return ai-bi||a.generation.localeCompare(b.generation,undefined,{numeric:true});}); return out; }
+function formCatalogEntrySource(formRec){
+  if(!formRec||!formRec.form)return {};
+  const form=formRec.form, ov=(form.overrides&&typeof form.overrides==='object')?form.overrides:{};
+  const source={};
+  // Forms must use their own catalog text, never the base species' inherited catalogEntries.
+  // Support both the current overrides storage and any direct/legacy form storage.
+  if(Array.isArray(ov.catalogEntries)) source.catalogEntries=clone(ov.catalogEntries);
+  else if(Array.isArray(form.catalogEntries)) source.catalogEntries=clone(form.catalogEntries);
+  if(typeof ov.info==='string') source.info=ov.info;
+  else if(typeof form.info==='string') source.info=form.info;
+  return source;
+}
+function catalogEntriesFor(e,nativeGeneration){
+  const seen=new Set(),out=[];
+  if(Array.isArray(e?.catalogEntries)){
+    e.catalogEntries.forEach(x=>{
+      const generation=String(x?.generation||'').trim(),entry=String(x?.entry||'').trim();
+      if(generation&&entry&&!seen.has(generation)){seen.add(generation);out.push({generation,entry});}
+    });
+  }
+  // Legacy `info` is authoritative for the native generation. Replace a same-generation
+  // catalogEntries value instead of letting an inherited/stale value win.
+  if(e?.info&&String(e.info).trim()&&nativeGeneration){
+    const nativeEntry=String(e.info).trim();
+    const index=out.findIndex(x=>x.generation===nativeGeneration);
+    if(index>=0) out[index]={generation:nativeGeneration,entry:nativeEntry};
+    else out.unshift({generation:nativeGeneration,entry:nativeEntry});
+    seen.add(nativeGeneration);
+  }
+  const order=(db?.regionalGenerations||[]).map(g=>g.name);
+  out.sort((a,b)=>{let ai=order.indexOf(a.generation),bi=order.indexOf(b.generation);if(ai<0)ai=9999;if(bi<0)bi=9999;return ai-bi||a.generation.localeCompare(b.generation,undefined,{numeric:true});});
+  return out;
+}
 function renderCatalogEntries(e,nativeGeneration){ const entries=catalogEntriesFor(e,nativeGeneration); if(!entries.length)return ''; return `<section class="section"><h2 class="section-title">Catalog entries</h2><div class="card">${entries.map(x=>`<div class="catalog-entry-row"><h3 style="margin:0 0 6px">${esc(x.generation)}</h3><p class="flavor">${esc(x.entry)}</p></div>`).join('<hr style="border:0;border-top:1px solid #e6eaee;margin:16px 0">')}</div></section>`; }
 function renderNameOrigins(e){ const origins=Array.isArray(e?.nameOrigins)?e.nameOrigins.filter(o=>o&&typeof o==='object'&&String(o.part||'').trim()&&String(o.word||'').trim()&&String(o.description||'').trim()):[]; if(!origins.length)return ''; return `<section class="section"><h2 class="section-title">Name origin</h2><div class="card name-origin-list">${origins.map(o=>{const part=String(o.part).trim(),word=String(o.word).trim(),description=String(o.description).trim();const ending=/[.!?]$/.test(description)?description:description+'.';return `<div class="name-origin-row"><div class="name-origin-part">${esc(part)}</div><div class="name-origin-source">Comes from <b>${esc(word)}</b>, meaning ${esc(ending)}</div></div>`}).join('')}</div></section>`; }
 function modMethod(m){ const p=(m.parameter===undefined||m.parameter===null||m.parameter==='')?'':` · ${typeof m.parameter==='object'?esc(JSON.stringify(m.parameter)):esc(m.parameter)}`; return `${esc(m.method||'Modify')}${p}`; }
