@@ -5522,6 +5522,28 @@ dialog,
     .battle-sim-move-list { grid-template-columns: 1fr; }
 }
 
+
+/* Tamers database */
+.tamer-table-wrap { overflow-x:auto; }
+.tamer-table { width:100%; border-collapse:collapse; }
+.tamer-table th, .tamer-table td { padding:10px 12px; border-bottom:1px solid var(--enitoy-border,#d9dde2); text-align:left; vertical-align:middle; }
+.tamer-table th { font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--enitoy-muted,#6f747b); }
+.tamer-empty { padding:24px 12px; text-align:center; color:var(--enitoy-muted,#6f747b); font-weight:700; }
+.tamer-team-summary { display:flex; flex-wrap:wrap; gap:6px; }
+.tamer-team-chip { display:inline-flex; align-items:center; gap:5px; padding:4px 8px; border:1px solid var(--enitoy-border,#d9dde2); border-radius:999px; background:#fff; font-size:11px; font-weight:800; }
+.tamer-dialog-panel { width:min(920px,calc(100vw - 28px)); max-height:min(88vh,900px); overflow:auto; }
+.tamer-team-editor { display:grid; gap:10px; margin-top:12px; }
+.tamer-team-row { display:grid; grid-template-columns:minmax(210px,2fr) 90px minmax(140px,1fr); gap:10px; align-items:end; padding:10px; border:1px solid var(--enitoy-border,#d9dde2); border-radius:12px; background:rgba(255,255,255,.72); }
+.tamer-team-row label { display:grid; gap:5px; font-size:11px; font-weight:900; color:var(--enitoy-muted,#6f747b); text-transform:uppercase; letter-spacing:.04em; }
+.tamer-team-row select, .tamer-team-row input, #tamer-location-select, #tamer-class-input, #tamer-name-input {
+    width:100%; min-height:38px; border:1px solid var(--enitoy-border,#cfd4da); border-radius:9px; padding:7px 9px; background:#fff; color:inherit;
+}
+.tamer-dialog-grid { display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:10px; margin-top:10px; }
+.tamer-team-heading { margin:18px 0 4px; font-size:13px; font-weight:950; letter-spacing:.04em; text-transform:uppercase; }
+@media (max-width:760px){
+    .tamer-dialog-grid,.tamer-team-row{grid-template-columns:1fr;}
+}
+
 </style>
     </head>
     <body id="page-top">
@@ -5544,10 +5566,10 @@ dialog,
             <button type="button" class="section-tab" data-section-target="defect-database" aria-selected="false">Defects List</button>
             <button type="button" class="section-tab" data-section-target="item-database" aria-selected="false">Item List</button>
             <button type="button" class="section-tab" data-section-target="craft-database" aria-selected="false">Crafts List</button>
+            <button type="button" class="section-tab" data-section-target="tamers-database" aria-selected="false">Tamers</button>
             <button type="button" class="section-tab" data-section-target="regional-database" aria-selected="false">Regional</button>
             <button type="button" class="section-tab" data-section-target="forms-database" aria-selected="false">Forms</button>
             <button type="button" class="section-tab" data-section-target="encounters-database" aria-selected="false">Encounters</button>
-            <button type="button" class="section-tab" data-section-target="battle-sim" aria-selected="false">Battle Sim</button>
         </nav>
 
         <section id="type-chart-section" class="page-section">
@@ -5922,6 +5944,33 @@ dialog,
             <p class="skill-save-note">Recipes can use the Crafting Station or an Enitoy holding an Item and using a move of a required Stitching. Every referenced Item must exist in the Item List. Crafts are included when you use Export Project.</p>
         </section>
 
+        <section class="skill-database page-section" id="tamers-database" hidden>
+            <div class="skill-header">
+                <div>
+                    <h2>Tamers</h2>
+                    <p class="skill-intro">Create Tamers at existing encounter locations and build their teams.</p>
+                </div>
+                <div class="move-header-actions">
+                    <button id="add-tamer" class="move-primary-button" type="button">Add Tamer</button>
+                </div>
+            </div>
+            <div class="tamer-table-wrap">
+                <table class="tamer-table">
+                    <thead>
+                        <tr>
+                            <th>Location</th>
+                            <th>Tamer</th>
+                            <th>Team</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tamer-list-body"></tbody>
+                </table>
+            </div>
+            <p id="tamer-empty-note" class="tamer-empty">No Tamers have been created yet.</p>
+            <p class="skill-save-note">Tamers and their teams are included when you use Save Project or Export Project.</p>
+        </section>
+
         <section class="skill-database page-section regional-database" id="regional-database" hidden>
             <div class="skill-header">
                 <div>
@@ -6040,6 +6089,34 @@ dialog,
                     <button id="battle-sim-level-save" class="move-primary-button" type="button">Save</button>
                 </div>
             </div>
+        </dialog>
+
+
+        <dialog id="tamer-dialog" class="forms-picker-dialog">
+            <form id="tamer-form" class="forms-picker-panel tamer-dialog-panel" method="dialog">
+                <h2 id="tamer-dialog-title">Add Tamer</h2>
+                <p class="skill-intro">Choose an existing location, then give the Tamer a class, name, and team.</p>
+                <div class="tamer-dialog-grid">
+                    <label class="forms-picker-field">
+                        <span>Location</span>
+                        <select id="tamer-location-select" required></select>
+                    </label>
+                    <label class="forms-picker-field">
+                        <span>Tamer Class</span>
+                        <input id="tamer-class-input" type="text" maxlength="80" autocomplete="off" spellcheck="false" placeholder="Youngster" required/>
+                    </label>
+                    <label class="forms-picker-field">
+                        <span>Name</span>
+                        <input id="tamer-name-input" type="text" maxlength="80" autocomplete="off" spellcheck="false" placeholder="Jamie" required/>
+                    </label>
+                </div>
+                <div class="tamer-team-heading">Team</div>
+                <div id="tamer-team-editor" class="tamer-team-editor"></div>
+                <div class="move-dialog-buttons">
+                    <button id="tamer-cancel" type="button">Cancel</button>
+                    <button id="tamer-save" class="move-primary-button" type="submit">Save Tamer</button>
+                </div>
+            </form>
         </dialog>
 
         <dialog id="encounter-location-dialog" class="forms-picker-dialog">
@@ -7229,6 +7306,21 @@ dialog,
                 var crafts = [];
                 var nextCraftId = 1;
                 var editingCraftId = null;
+                var tamers = [];
+                var nextTamerId = 1;
+                var editingTamerId = null;
+                var tamerListBody = document.getElementById("tamer-list-body");
+                var tamerEmptyNote = document.getElementById("tamer-empty-note");
+                var addTamerButton = document.getElementById("add-tamer");
+                var tamerDialog = document.getElementById("tamer-dialog");
+                var tamerForm = document.getElementById("tamer-form");
+                var tamerDialogTitle = document.getElementById("tamer-dialog-title");
+                var tamerLocationSelect = document.getElementById("tamer-location-select");
+                var tamerClassInput = document.getElementById("tamer-class-input");
+                var tamerNameInput = document.getElementById("tamer-name-input");
+                var tamerTeamEditor = document.getElementById("tamer-team-editor");
+                var tamerCancelButton = document.getElementById("tamer-cancel");
+
                 var regionalGenerations = [
                     { id: 1, name: "Gen 1", enitoys: [] },
                     { id: 2, name: "Gen 2", enitoys: [] }
@@ -7890,6 +7982,24 @@ dialog,
                                 };
                             });
                         })(),
+                        tamers: tamers.map(function (tamer) {
+                            return {
+                                generation: tamer.generation,
+                                location: tamer.location,
+                                tamerClass: tamer.tamerClass,
+                                name: tamer.name,
+                                team: (tamer.team || []).filter(function (member) { return member && member.enitoy; }).map(function (member) {
+                                    var exportedMember = {
+                                        generation: member.generation,
+                                        enitoy: member.enitoy,
+                                        level: Math.max(1, Math.min(100, Number(member.level) || 1))
+                                    };
+                                    if (member.formName) exportedMember.formName = member.formName;
+                                    if (member.nickname) exportedMember.nickname = member.nickname;
+                                    return exportedMember;
+                                })
+                            };
+                        }),
                         crafts: crafts.map(function (recipe) {
                             var resultItem = items.find(function (item) { return item.id === recipe.resultItemId; });
                             var output = {
@@ -9443,6 +9553,30 @@ dialog,
                             nextCraftId = 1;
                         }
 
+                        nextTamerId = 1;
+                        tamers = Array.isArray(data.tamers) ? data.tamers.map(function (tamer) {
+                            var team = Array.isArray(tamer.team) ? tamer.team.slice(0, 5).map(function (member) {
+                                if (!member || typeof member !== "object") return null;
+                                return {
+                                    generation: typeof member.generation === "string" ? member.generation.trim() : "",
+                                    enitoy: typeof member.enitoy === "string" ? member.enitoy.trim() : "",
+                                    formName: typeof member.formName === "string" ? member.formName.trim() : "",
+                                    nickname: typeof member.nickname === "string" ? member.nickname.trim() : "",
+                                    level: Math.max(1, Math.min(100, Number(member.level) || 1))
+                                };
+                            }).filter(Boolean) : [];
+                            return {
+                                id: nextTamerId++,
+                                generation: typeof tamer.generation === "string" ? tamer.generation.trim() : "",
+                                location: typeof tamer.location === "string" ? tamer.location.trim() : "",
+                                tamerClass: typeof tamer.tamerClass === "string" ? tamer.tamerClass.trim() : "",
+                                name: typeof tamer.name === "string" ? tamer.name.trim() : "",
+                                team: team
+                            };
+                        }).filter(function (tamer) {
+                            return tamer.location && tamer.tamerClass && tamer.name;
+                        }) : [];
+
                         if (data.version >= 13) {
                             nextRegionalGenerationId = 1;
                             regionalGenerations = data.regionalGenerations.map(function (generation) {
@@ -9878,9 +10012,11 @@ dialog,
                         renderDefects();
                         renderItems();
                         renderCrafts();
+                        renderTamers();
                         renderRegionalGenerations();
                         renderForms();
                         renderEncounters();
+                        renderTamers();
                         saveState();
                     };
                     reader.onerror = function () {
@@ -9888,6 +10024,268 @@ dialog,
                     };
                     reader.readAsText(file);
                 }
+
+
+                function tamerAllLocations() {
+                    syncEncounterGenerations();
+                    var result = [];
+                    encounterGenerations.forEach(function (generation) {
+                        normalizedEncounterLocations(generation.locations).forEach(function (location) {
+                            result.push({ generation: generation.name, location: location.name });
+                        });
+                    });
+                    return result;
+                }
+
+                function tamerAllEnitoyChoices() {
+                    var result = [];
+                    regionalGenerations.forEach(function (generation) {
+                        (generation.enitoys || []).forEach(function (entry) {
+                            if (!entry || entry.kind !== "concept" || !entry.name) return;
+                            result.push({
+                                generation: generation.name,
+                                enitoy: entry.name,
+                                formName: "",
+                                label: generation.name + " — " + entry.name
+                            });
+                        });
+                    });
+                    normalizedFormsEntries().forEach(function (form) {
+                        result.push({
+                            generation: form.generationName,
+                            enitoy: form.enitoyName,
+                            formName: form.formName,
+                            label: form.generationName + " — " + form.enitoyName + " (" + form.formName + " Form)"
+                        });
+                    });
+                    return result;
+                }
+
+                function tamerMemberKey(member) {
+                    if (!member || !member.enitoy) return "";
+                    return JSON.stringify([member.generation || "", member.enitoy || "", member.formName || ""]);
+                }
+
+                function populateTamerLocationSelect(selectedGeneration, selectedLocation) {
+                    if (!tamerLocationSelect) return;
+                    var locations = tamerAllLocations();
+                    tamerLocationSelect.innerHTML = "";
+                    if (!locations.length) {
+                        var empty = document.createElement("option");
+                        empty.value = "";
+                        empty.textContent = "No encounter locations exist yet";
+                        tamerLocationSelect.appendChild(empty);
+                        tamerLocationSelect.disabled = true;
+                        return;
+                    }
+                    tamerLocationSelect.disabled = false;
+                    locations.forEach(function (record) {
+                        var option = document.createElement("option");
+                        option.value = JSON.stringify([record.generation, record.location]);
+                        option.textContent = record.generation + " — " + record.location;
+                        if (record.generation === selectedGeneration && record.location === selectedLocation) option.selected = true;
+                        tamerLocationSelect.appendChild(option);
+                    });
+                }
+
+                function tamerTeamMemberAt(tamer, index) {
+                    if (!tamer || !Array.isArray(tamer.team)) return null;
+                    return tamer.team[index] || null;
+                }
+
+                function renderTamerTeamEditor(tamer) {
+                    if (!tamerTeamEditor) return;
+                    var choices = tamerAllEnitoyChoices();
+                    tamerTeamEditor.innerHTML = "";
+                    for (var slot = 0; slot < 5; slot++) {
+                        (function (slotIndex) {
+                            var member = tamerTeamMemberAt(tamer, slotIndex);
+                            var row = document.createElement("div");
+                            row.className = "tamer-team-row";
+                            row.dataset.slot = String(slotIndex);
+
+                            var enitoyLabel = document.createElement("label");
+                            enitoyLabel.innerHTML = "<span>Slot " + (slotIndex + 1) + " Enitoy</span>";
+                            var select = document.createElement("select");
+                            select.className = "tamer-member-select";
+                            var blank = document.createElement("option");
+                            blank.value = "";
+                            blank.textContent = "Empty";
+                            select.appendChild(blank);
+                            choices.forEach(function (choice) {
+                                var option = document.createElement("option");
+                                option.value = JSON.stringify([choice.generation, choice.enitoy, choice.formName]);
+                                option.textContent = choice.label;
+                                if (member && option.value === tamerMemberKey(member)) option.selected = true;
+                                select.appendChild(option);
+                            });
+                            enitoyLabel.appendChild(select);
+
+                            var levelLabel = document.createElement("label");
+                            levelLabel.innerHTML = "<span>Level</span>";
+                            var levelInput = document.createElement("input");
+                            levelInput.className = "tamer-member-level";
+                            levelInput.type = "number";
+                            levelInput.min = "1";
+                            levelInput.max = "100";
+                            levelInput.step = "1";
+                            levelInput.value = member ? String(member.level || 1) : "1";
+                            levelLabel.appendChild(levelInput);
+
+                            var nicknameLabel = document.createElement("label");
+                            nicknameLabel.innerHTML = "<span>Nickname</span>";
+                            var nicknameInput = document.createElement("input");
+                            nicknameInput.className = "tamer-member-nickname";
+                            nicknameInput.type = "text";
+                            nicknameInput.maxLength = 40;
+                            nicknameInput.placeholder = "Optional";
+                            nicknameInput.value = member && member.nickname ? member.nickname : "";
+                            nicknameLabel.appendChild(nicknameInput);
+
+                            row.appendChild(enitoyLabel);
+                            row.appendChild(levelLabel);
+                            row.appendChild(nicknameLabel);
+                            tamerTeamEditor.appendChild(row);
+                        })(slot);
+                    }
+                }
+
+                function readTamerTeamEditor() {
+                    if (!tamerTeamEditor) return [];
+                    return Array.from(tamerTeamEditor.querySelectorAll(".tamer-team-row")).map(function (row) {
+                        var select = row.querySelector(".tamer-member-select");
+                        if (!select || !select.value) return null;
+                        var parts;
+                        try { parts = JSON.parse(select.value); } catch (error) { return null; }
+                        var levelInput = row.querySelector(".tamer-member-level");
+                        var nicknameInput = row.querySelector(".tamer-member-nickname");
+                        return {
+                            generation: parts[0] || "",
+                            enitoy: parts[1] || "",
+                            formName: parts[2] || "",
+                            level: Math.max(1, Math.min(100, Number(levelInput && levelInput.value) || 1)),
+                            nickname: nicknameInput ? nicknameInput.value.trim() : ""
+                        };
+                    }).filter(Boolean);
+                }
+
+                function tamerDisplayName(tamer) {
+                    return (tamer.tamerClass ? tamer.tamerClass + " " : "") + (tamer.name || "");
+                }
+
+                function tamerTeamSummary(tamer) {
+                    if (!tamer || !Array.isArray(tamer.team) || !tamer.team.length) return '<span class="muted">No team entered.</span>';
+                    return '<div class="tamer-team-summary">' + tamer.team.map(function (member) {
+                        var name = member.nickname || member.enitoy;
+                        var form = member.formName ? " (" + member.formName + ")" : "";
+                        return '<span class="tamer-team-chip">' + escapeHtml(name + form) + ' · Lv.' + escapeHtml(member.level || 1) + '</span>';
+                    }).join("") + '</div>';
+                }
+
+                function renderTamers() {
+                    if (!tamerListBody) return;
+                    tamerListBody.innerHTML = "";
+                    tamers.forEach(function (tamer) {
+                        var row = document.createElement("tr");
+                        row.innerHTML =
+                            '<td><strong>' + escapeHtml(tamer.location) + '</strong><div class="tiny muted">' + escapeHtml(tamer.generation) + '</div></td>' +
+                            '<td><strong>' + escapeHtml(tamerDisplayName(tamer)) + '</strong></td>' +
+                            '<td>' + tamerTeamSummary(tamer) + '</td>' +
+                            '<td><div class="move-row-actions">' +
+                            '<button type="button" class="move-secondary-button tamer-edit" data-tamer-id="' + tamer.id + '">Edit</button>' +
+                            '<button type="button" class="move-secondary-button tamer-delete" data-tamer-id="' + tamer.id + '">Delete</button>' +
+                            '</div></td>';
+                        tamerListBody.appendChild(row);
+                    });
+                    if (tamerEmptyNote) tamerEmptyNote.hidden = tamers.length > 0;
+                }
+
+                function openTamerDialog(tamer) {
+                    if (!tamerDialog) return;
+                    editingTamerId = tamer ? tamer.id : null;
+                    if (tamerDialogTitle) tamerDialogTitle.textContent = tamer ? "Edit Tamer" : "Add Tamer";
+                    populateTamerLocationSelect(tamer ? tamer.generation : "", tamer ? tamer.location : "");
+                    if (tamerClassInput) tamerClassInput.value = tamer ? tamer.tamerClass : "";
+                    if (tamerNameInput) tamerNameInput.value = tamer ? tamer.name : "";
+                    renderTamerTeamEditor(tamer || {team:[]});
+                    if (typeof tamerDialog.showModal === "function") tamerDialog.showModal();
+                    else tamerDialog.setAttribute("open", "");
+                }
+
+                function closeTamerDialog() {
+                    editingTamerId = null;
+                    if (!tamerDialog) return;
+                    if (typeof tamerDialog.close === "function") tamerDialog.close();
+                    else tamerDialog.removeAttribute("open");
+                }
+
+                if (addTamerButton) addTamerButton.addEventListener("click", function () {
+                    if (!tamerAllLocations().length) {
+                        alert("Create at least one location in Encounters before adding a Tamer.");
+                        return;
+                    }
+                    openTamerDialog(null);
+                });
+
+                if (tamerCancelButton) tamerCancelButton.addEventListener("click", function () {
+                    closeTamerDialog();
+                });
+
+                if (tamerForm) tamerForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    if (!tamerLocationSelect || !tamerLocationSelect.value) {
+                        alert("Choose a location.");
+                        return;
+                    }
+                    var locationParts;
+                    try { locationParts = JSON.parse(tamerLocationSelect.value); } catch (error) { return; }
+                    var tamerClass = tamerClassInput ? tamerClassInput.value.trim() : "";
+                    var name = tamerNameInput ? tamerNameInput.value.trim() : "";
+                    if (!tamerClass || !name) {
+                        alert("Enter both a Tamer class and a name.");
+                        return;
+                    }
+                    var record = {
+                        id: editingTamerId || nextTamerId++,
+                        generation: locationParts[0] || "",
+                        location: locationParts[1] || "",
+                        tamerClass: tamerClass,
+                        name: name,
+                        team: readTamerTeamEditor()
+                    };
+                    if (editingTamerId) {
+                        var index = tamers.findIndex(function (entry) { return entry.id === editingTamerId; });
+                        if (index >= 0) tamers[index] = record;
+                        else tamers.push(record);
+                    } else {
+                        tamers.push(record);
+                    }
+                    renderTamers();
+                    saveState();
+                    closeTamerDialog();
+                });
+
+                if (tamerListBody) tamerListBody.addEventListener("click", function (event) {
+                    var edit = event.target.closest(".tamer-edit");
+                    var remove = event.target.closest(".tamer-delete");
+                    if (edit) {
+                        var editId = Number(edit.dataset.tamerId);
+                        var record = tamers.find(function (entry) { return entry.id === editId; });
+                        if (record) openTamerDialog(record);
+                        return;
+                    }
+                    if (remove) {
+                        var removeId = Number(remove.dataset.tamerId);
+                        var recordToRemove = tamers.find(function (entry) { return entry.id === removeId; });
+                        if (!recordToRemove) return;
+                        if (!confirm("Delete " + tamerDisplayName(recordToRemove) + "?")) return;
+                        tamers = tamers.filter(function (entry) { return entry.id !== removeId; });
+                        renderTamers();
+                        saveState();
+                    }
+                });
+
+                renderTamers();
 
                 // Colors are derived from the name, so they never need to be saved.
                 // Familiar concepts get intuitive colors; everything else gets a
