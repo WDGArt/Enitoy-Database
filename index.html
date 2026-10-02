@@ -1166,7 +1166,17 @@ function renderTamers(){
     const moveList=Array.isArray(m.moves)&&m.moves.length
       ? `<div class="tiny" style="margin-top:5px"><b>Moves:</b> ${m.moves.map(moveName=>routeLink(`move/${slug(moveName)}`,moveName)).join(' · ')}</div>`
       : `<div class="tiny muted" style="margin-top:5px">No battle moves recorded.</div>`;
-    return `<div class="card" style="display:flex;align-items:center;gap:12px;padding:10px">${art}<div><div><b>${name}</b></div><div class="tiny muted">Level ${esc(m.level||1)}</div>${moveList}</div></div>`;
+    const heldItem=m.heldItem
+      ? `<div class="tiny"><b>Held Item:</b> ${routeLink(`items/${slug(m.heldItem)}`,m.heldItem)}</div>`
+      : `<div class="tiny muted"><b>Held Item:</b> None</div>`;
+    const effectiveEntry=entry||{};
+    const skillName=m.useHiddenSkill?effectiveEntry.hiddenSkill:effectiveEntry.skill;
+    const skillText=skillName
+      ? `<div class="tiny"><b>${m.useHiddenSkill?'Hidden Skill':'Skill'}:</b> ${routeLink(`skills/${slug(skillName)}`,skillName)}</div>`
+      : `<div class="tiny muted"><b>${m.useHiddenSkill?'Hidden Skill':'Skill'}:</b> None recorded</div>`;
+    const misprintLabel=m.misprintStatus==='locked'?'Locked Out':m.misprintStatus==='guaranteed'?'Guaranteed Misprint':'Can Be Misprint';
+    const misprintText=`<div class="tiny"><b>Misprint:</b> ${esc(misprintLabel)}</div>`;
+    return `<div class="card" style="display:flex;align-items:center;gap:12px;padding:10px">${art}<div><div><b>${name}</b></div><div class="tiny muted">Level ${esc(m.level||1)}</div>${heldItem}${skillText}${misprintText}${moveList}</div></div>`;
   };
   const groups=new Map();
   ts.forEach((t,i)=>{const key=`${t.generation||''}\u0000${t.location||''}`;if(!groups.has(key))groups.set(key,[]);groups.get(key).push({t,i});});
