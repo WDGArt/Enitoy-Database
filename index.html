@@ -1061,13 +1061,63 @@ async function puzzleLoadState(size,requestedDate){
     state={version:2,size,date,signature:pack.signature,board:pack.board,groups:pack.groups.map(g=>({id:g.id,family:g.family,label:g.label,members:g.chosenMembers,source:g.source})),solved:[],lives:size,selected:[],mistakes:0,completed:false,failed:false,relationsCount:pack.relationsCount,relaxed:pack.relaxed,message:'',createdAt:Date.now()};
     puzzleSaveState(state);
   }
-  if(!Array.isArray(state.selected))state.selected=[]; if(!Array.isArray(state.solved))state.solved=[];
+  if(!Array.isArray(state.selected))state.selected=[]; if(!Array.isArray(state.solved))state.solved=[]; if(typeof state.hintText!=='string')state.hintText=''; if(!Number.isInteger(state.hintGroup))state.hintGroup=null;
+  // Older saved puzzle states did not record why a puzzle ended. Infer it so
+  // running out of lives counts as completion, while using Reveal does not.
+  if(state.failed&&!state.failureReason){
+    state.failureReason=(Number(state.lives)<=0&&Number(state.mistakes)>=size)?'lives':'reveal';
+    puzzleSaveState(state);
+  }
   return state;
 }
 function puzzleSaveState(state){ dailySaveRecord(puzzleStateKey(state.size,state.date),state); }
-async function puzzleReset(size,date){ const state=await puzzleLoadState(size,date); state.solved=[];state.lives=size;state.selected=[];state.mistakes=0;state.completed=false;state.failed=false;state.message=''; puzzleSaveState(state); renderDailyPuzzle(size,date); }
+async function puzzleReset(size,date){ const state=await puzzleLoadState(size,date); state.solved=[];state.lives=size;state.selected=[];state.mistakes=0;state.completed=false;state.failed=false;state.failureReason='';state.message='';state.hintGroup=null;state.hintText=''; puzzleSaveState(state); renderDailyPuzzle(size,date); }
 function puzzleRemainingNames(state){ const solvedNames=new Set(state.groups.filter((_,i)=>state.solved.includes(i)).flatMap(g=>g.members)); return state.board.filter(n=>!solvedNames.has(n)); }
 function puzzleShuffleRemaining(state){ const rng=quizRandom((Date.now()^quizHash(state.board.join('|')))>>>0),remaining=puzzleRemainingNames(state),shuffled=quizShuffle(remaining,rng),set=new Set(remaining); let i=0; state.board=state.board.map(n=>set.has(n)?shuffled[i++]:n); puzzleSaveState(state); renderDailyPuzzle(state.size,state.date); }
+function puzzleHintText(group){
+  const label=String(group?.label||'').trim();
+  const rules=[
+    [/^Can learn (.+) by Scroll$/i,'$1'],
+    [/^Can learn (.+)$/i,'$1'],
+    [/^Learns (.+) by level\/modification$/i,'$1'],
+    [/^Standard Skill: (.+)$/i,'$1'],
+    [/^Hidden Skill: (.+)$/i,'$1'],
+    [/^Misprint Defect: (.+)$/i,'$1'],
+    [/^Stitching includes (.+)$/i,'$1'],
+    [/^Material Stitch: (.+)$/i,'$1'],
+    [/^Generation: (.+)$/i,'$1'],
+    [/^Growth Rate: (.+)$/i,'$1'],
+    [/^Internal Color: (.+)$/i,'$1'],
+    [/^Gender Ratio: (.+)$/i,'$1'],
+    [/^Classification: (.+)$/i,'$1'],
+    [/^Can drop (.+)$/i,'$1'],
+    [/^Temperament locked: (.+)$/i,'$1'],
+    [/^Can Assist Call (.+)$/i,'$1'],
+    [/^BST: (.+)$/i,'$1'],
+    [/^Recruitment Rate: (.+)$/i,'$1'],
+    [/^Base EXP: (.+)$/i,'$1'],
+    [/^(.+) learned at (.+)$/i,'$1 · Level $2'],
+    [/^(?:Day|Night) encounters at (.+)$/i,'$1'],
+    [/^(.+) encounters at (.+)$/i,'$1 · $2'],
+    [/^Encountered at (.+)$/i,'$1'],
+    [/^Modification family: (.+)$/i,'$1']
+  ];
+  for(const [re,repl] of rules)if(re.test(label))return label.replace(re,repl);
+  const colon=label.indexOf(':');
+  return colon>=0?label.slice(colon+1).trim():label;
+}
+function puzzleGiveHint(state){
+  if(state.completed||state.failed)return;
+  const unsolved=state.groups.map((g,i)=>({g,i})).filter(x=>!state.solved.includes(x.i));
+  if(!unsolved.length)return;
+  let choices=unsolved;
+  if(Number.isInteger(state.hintGroup)&&unsolved.length>1)choices=unsolved.filter(x=>x.i!==state.hintGroup);
+  const picked=choices[Math.floor(Math.random()*choices.length)]||unsolved[0];
+  state.hintGroup=picked.i;
+  state.hintText=puzzleHintText(picked.g);
+  puzzleSaveState(state);
+  renderDailyPuzzle(state.size,state.date);
+}
 async function puzzleSubmit(state){
   const size=state.size;
   if(state.selected.length!==size)return;
@@ -1079,6 +1129,7 @@ async function puzzleSubmit(state){
   if(hit>=0){
     state.solved.push(hit);
     state.selected=[];
+    if(state.hintGroup===hit){state.hintGroup=null;state.hintText='';}
     state.message=`Connected: ${state.groups[hit].label}`;
     if(state.solved.length===size){
       state.completed=true;
@@ -1099,19 +1150,24 @@ async function puzzleSubmit(state){
   state.mistakes++;
   state.message=nearest===size-1?`One away! ${size-1} of those belong together.`:'Those do not make one of this day\'s groups.';
   state.selected=[];
-  if(state.lives<=0)state.failed=true;
+  if(state.lives<=0){
+    state.failed=true;
+    state.failureReason='lives';
+    puzzleSaveState(state);
+    await profileMarkComplete(size===4?'Completed44':'Completed55',state.date);
+  }
   puzzleSaveState(state);
   renderDailyPuzzle(size,state.date);
 }
 
-function puzzleReveal(state){ state.failed=true; state.lives=0; state.selected=[]; state.message='Puzzle revealed.'; puzzleSaveState(state); renderDailyPuzzle(state.size,state.date); }
+function puzzleReveal(state){ state.failed=true; state.failureReason='reveal'; state.lives=0; state.selected=[]; state.message='Puzzle revealed.'; puzzleSaveState(state); renderDailyPuzzle(state.size,state.date); }
 function puzzleSolvedHtml(state){
   const showAll=state.completed||state.failed;
   return state.groups.map((g,i)=>{ if(!state.solved.includes(i)&&!showAll)return ''; return `<div class="puzzle-solved"><b>${esc(g.label)}</b><span>${g.members.map(esc).join(' · ')}</span></div>`; }).join('');
 }
 function puzzleControlsHtml(state){
   if(state.completed||state.failed)return `<div class="puzzle-controls"><button class="quiz-secondary" id="puzzle-reset" type="button">Replay This Day's Same Puzzle</button></div>`;
-  return `<div class="puzzle-controls"><button class="quiz-secondary" id="puzzle-shuffle" type="button">Shuffle</button><button class="quiz-secondary" id="puzzle-clear" type="button">Deselect All</button><button class="primary" id="puzzle-submit" type="button" ${state.selected.length===state.size?'':'disabled'}>Submit ${state.size}</button><button class="quiz-secondary" id="puzzle-reveal" type="button">Reveal</button></div>`;
+  return `<div class="puzzle-controls"><button class="quiz-secondary" id="puzzle-shuffle" type="button">Shuffle</button><button class="quiz-secondary" id="puzzle-clear" type="button">Deselect All</button><button class="primary" id="puzzle-submit" type="button" ${state.selected.length===state.size?'':'disabled'}>Submit ${state.size}</button><button class="quiz-secondary" id="puzzle-hint" type="button">Hint</button><button class="quiz-secondary" id="puzzle-reveal" type="button">Reveal</button></div>${state.hintText?`<div class="puzzle-message good"><b>Hint:</b> ${esc(state.hintText)}</div>`:''}`;
 }
 function puzzleTileContent(name){
   const rec=species.find(s=>s.entry?.name===name),img=rec?.entry?.imageData;
@@ -1120,20 +1176,22 @@ function puzzleTileContent(name){
 }
 async function renderDailyPuzzle(size,requestedDate){
   const date=dailyNormalizeDateKey(requestedDate),state=await puzzleLoadState(size,date),title=`Daily ${size}×${size} Connection`;
-  if(state.completed)await profileMarkComplete(size===4?'Completed44':'Completed55',state.date);
+  const finishedByPlay=state.completed||(state.failed&&state.failureReason==='lives');
+  if(finishedByPlay)await profileMarkComplete(size===4?'Completed44':'Completed55',state.date);
   if(!state.groups.length){ app.innerHTML=`${breadcrumbs([{label:title}])}<h1 class="page-title">${title}</h1>${dailyDateNav(`daily-puzzle-${size}`,date)}<div class="card quiz-empty"><h2>Not enough groupable data yet</h2><p>The loaded JSON does not currently contain enough repeated Enitoy relationships to build a ${size}×${size} board automatically. As more data is added, this puzzle will become available on its own.</p></div>`; bindDailyDatePicker(`daily-puzzle-${size}`); return; }
   const solvedSet=new Set(state.groups.filter((_,i)=>state.solved.includes(i)).flatMap(g=>g.members));
   const remaining=state.board.filter(n=>!solvedSet.has(n));
   const tiles=remaining.map(n=>{const v=puzzleTileContent(n);return `<button type="button" class="puzzle-tile ${v.hasArt?'has-art ':''}${state.selected.includes(n)?'selected':''}" data-puzzle-name="${esc(n)}" aria-label="${esc(n)}" ${(state.completed||state.failed)?'disabled':''}>${v.html}</button>`;}).join('');
   const lives='●'.repeat(state.lives)+'○'.repeat(Math.max(0,size-state.lives));
-  const status=state.completed?'Solved!':state.failed?'Revealed':'In progress';
+  const status=state.completed?'Solved!':state.failed?(state.failureReason==='lives'?'Finished':'Revealed'):'In progress';
   const summary=`<div class="puzzle-summary"><div class="puzzle-summary-box"><b>${state.solved.length}/${size}</b><span>Groups</span></div><div class="puzzle-summary-box"><b class="puzzle-lives">${lives}</b><span>Lives</span></div><div class="puzzle-summary-box"><b>${state.mistakes}</b><span>Mistakes</span></div></div>`;
   const switches=`<div class="puzzle-switches"><a href="#daily-quiz/${date}">Quiz</a><a class="${size===4?'active':''}" href="#daily-puzzle-4/${date}">4×4</a><a class="${size===5?'active':''}" href="#daily-puzzle-5/${date}">5×5</a></div>`;
-  app.innerHTML=`${breadcrumbs([{label:title}])}<div class="puzzle-hero"><div><h1 class="page-title">${title}</h1><p class="subtitle"><span class="puzzle-date">${esc(quizDateLabel(state.date))}</span> · Find ${size} hidden groups of ${size} Enitoys. This exact board is frozen once generated on this device.</p>${switches}</div>${summary}</div>${dailyDateNav(`daily-puzzle-${size}`,date)}${puzzleSolvedHtml(state)}${state.completed||state.failed?`<div class="card puzzle-finished"><div class="quiz-category">${esc(status)}</div><h2>${state.completed?'You found every connection!':'This day\'s groups'}</h2><p class="muted">${state.completed?`Solved with ${state.mistakes} mistake${state.mistakes===1?'':'s'}. Your completion is saved on this device.`:'Use the revealed categories as a database study guide, then replay the same archived board if you want another try.'}</p></div>`:''}<div class="puzzle-board p${size}">${tiles}</div><div class="puzzle-message ${state.message.startsWith('Connected')?'good':state.message?'bad':''}">${esc(state.message||'Select '+size+' Enitoys that share one database connection.')}</div>${puzzleControlsHtml(state)}<div class="puzzle-pool-note">Created from ${Number(state.relationsCount||0).toLocaleString()} usable Enitoy relationships available when this date was first opened on this device. New JSON data is eligible for future or not-yet-opened daily boards.${state.relaxed?' The generator used its relaxed fallback for this board because the stricter no-ambiguity search could not find enough groups.':''}</div><details class="card puzzle-explain"><summary>How this teaches the database</summary><p>Possible connections come directly from repeated Enitoy facts: Stitching, Skills, Hidden Skills, Defects, techniques, Drops, growth rates, internal colors, gender ratios, stats, encounter locations/methods, modification families, Assist Calls, temperament locks, and other repeatable fields. When you add data to the JSON, those relationships enter the generator automatically for dates that have not yet been frozen.</p></details>`;
+  app.innerHTML=`${breadcrumbs([{label:title}])}<div class="puzzle-hero"><div><h1 class="page-title">${title}</h1><p class="subtitle"><span class="puzzle-date">${esc(quizDateLabel(state.date))}</span> · Find ${size} hidden groups of ${size} Enitoys. This exact board is frozen once generated on this device.</p>${switches}</div>${summary}</div>${dailyDateNav(`daily-puzzle-${size}`,date)}${puzzleSolvedHtml(state)}${state.completed||state.failed?`<div class="card puzzle-finished"><div class="quiz-category">${esc(status)}</div><h2>${state.completed?'You found every connection!':'This day\'s groups'}</h2><p class="muted">${state.completed?`Solved with ${state.mistakes} mistake${state.mistakes===1?'':'s'}. Your completion is saved on this device.`:state.failureReason==='lives'?`You used all ${size} lives. This puzzle counts as completed for the day, even if you found no groups.`:'Use the revealed categories as a database study guide, then replay the same archived board if you want another try.'}</p></div>`:''}<div class="puzzle-board p${size}">${tiles}</div><div class="puzzle-message ${state.message.startsWith('Connected')?'good':state.message?'bad':''}">${esc(state.message||'Select '+size+' Enitoys that share one database connection.')}</div>${puzzleControlsHtml(state)}<div class="puzzle-pool-note">Created from ${Number(state.relationsCount||0).toLocaleString()} usable Enitoy relationships available when this date was first opened on this device. New JSON data is eligible for future or not-yet-opened daily boards.${state.relaxed?' The generator used its relaxed fallback for this board because the stricter no-ambiguity search could not find enough groups.':''}</div><details class="card puzzle-explain"><summary>How this teaches the database</summary><p>Possible connections come directly from repeated Enitoy facts: Stitching, Skills, Hidden Skills, Defects, techniques, Drops, growth rates, internal colors, gender ratios, stats, encounter locations/methods, modification families, Assist Calls, temperament locks, and other repeatable fields. When you add data to the JSON, those relationships enter the generator automatically for dates that have not yet been frozen.</p></details>`;
   document.querySelectorAll('[data-puzzle-name]').forEach(btn=>btn.addEventListener('click',()=>{ const n=btn.dataset.puzzleName; if(state.completed||state.failed)return; if(state.selected.includes(n))state.selected=state.selected.filter(x=>x!==n); else if(state.selected.length<size)state.selected.push(n); state.message=''; puzzleSaveState(state); renderDailyPuzzle(size,date); }));
   $('#puzzle-submit')?.addEventListener('click',async()=>{await puzzleSubmit(state);});
   $('#puzzle-clear')?.addEventListener('click',()=>{state.selected=[];state.message='';puzzleSaveState(state);renderDailyPuzzle(size,date);});
   $('#puzzle-shuffle')?.addEventListener('click',()=>puzzleShuffleRemaining(state));
+  $('#puzzle-hint')?.addEventListener('click',()=>puzzleGiveHint(state));
   $('#puzzle-reveal')?.addEventListener('click',()=>puzzleReveal(state));
   $('#puzzle-reset')?.addEventListener('click',()=>puzzleReset(size,date));
   bindDailyDatePicker(`daily-puzzle-${size}`);
