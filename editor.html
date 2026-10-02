@@ -10707,6 +10707,15 @@ dialog,
                     }).filter(Boolean);
                 }
 
+                function tamerEscapeHtml(value) {
+                    return String(value == null ? "" : value)
+                        .replace(/&/g, "&amp;")
+                        .replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;")
+                        .replace(/"/g, "&quot;")
+                        .replace(/'/g, "&#39;");
+                }
+
                 function tamerDisplayName(tamer) {
                     return (tamer.tamerClass ? tamer.tamerClass + " " : "") + (tamer.name || "");
                 }
@@ -10727,8 +10736,8 @@ dialog,
                                 ? " · Misprint: Guaranteed"
                                 : " · Misprint: Possible";
                         return '<span class="tamer-team-chip">' +
-                            escapeHtml(name + form) + ' · Lv.' + escapeHtml(member.level || 1) +
-                            escapeHtml(itemText + skillText + misprintText + moveText) +
+                            tamerEscapeHtml(name + form) + ' · Lv.' + tamerEscapeHtml(member.level || 1) +
+                            tamerEscapeHtml(itemText + skillText + misprintText + moveText) +
                             '</span>';
                     }).join("") + '</div>';
                 }
@@ -10739,8 +10748,8 @@ dialog,
                     tamers.forEach(function (tamer) {
                         var row = document.createElement("tr");
                         row.innerHTML =
-                            '<td><strong>' + escapeHtml(tamer.location) + '</strong><div class="tiny muted">' + escapeHtml(tamer.generation) + '</div></td>' +
-                            '<td><strong>' + escapeHtml(tamerDisplayName(tamer)) + '</strong></td>' +
+                            '<td><strong>' + tamerEscapeHtml(tamer.location) + '</strong><div class="tiny muted">' + tamerEscapeHtml(tamer.generation) + '</div></td>' +
+                            '<td><strong>' + tamerEscapeHtml(tamerDisplayName(tamer)) + '</strong></td>' +
                             '<td>' + tamerTeamSummary(tamer) + '</td>' +
                             '<td><div class="move-row-actions">' +
                             '<button type="button" class="move-secondary-button tamer-edit" data-tamer-id="' + tamer.id + '">Edit</button>' +
