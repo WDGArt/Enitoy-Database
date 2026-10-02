@@ -5567,14 +5567,17 @@ dialog,
 
 .tamer-team-editor { display:grid; gap:10px; margin-top:8px; }
 .tamer-team-row {
-    display:grid;
-    grid-template-columns:minmax(0,2fr) minmax(82px,.45fr) minmax(0,1fr);
-    gap:10px;
-    align-items:end;
+    display:block;
     padding:12px;
     border:1px solid var(--enitoy-border,#d9dde2);
     border-radius:12px;
     background:rgba(255,255,255,.72);
+}
+.tamer-member-main {
+    display:grid;
+    grid-template-columns:minmax(0,2fr) minmax(82px,.45fr) minmax(0,1fr);
+    gap:10px;
+    align-items:end;
 }
 .tamer-team-row label,
 .tamer-dialog-grid label {
@@ -5603,6 +5606,28 @@ dialog,
     background:#fff;
     color:inherit;
 }
+.tamer-member-moves-title {
+    margin:12px 0 6px;
+    font-size:10px;
+    font-weight:950;
+    color:var(--enitoy-muted,#6f747b);
+    text-transform:uppercase;
+    letter-spacing:.05em;
+}
+.tamer-member-moves {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+}
+.tamer-member-moves label { text-transform:none; letter-spacing:0; }
+.tamer-member-moves select:disabled { opacity:.65; cursor:not-allowed; }
+.tamer-move-source {
+    display:block;
+    margin-top:3px;
+    font-size:9px;
+    font-weight:800;
+    color:var(--enitoy-muted,#6f747b);
+}
 #tamer-dialog .move-dialog-buttons {
     position:sticky;
     bottom:-18px;
@@ -5616,7 +5641,8 @@ dialog,
 @media (max-width:720px){
     #tamer-dialog { width:calc(100vw - 16px); }
     .tamer-dialog-grid,
-    .tamer-team-row { grid-template-columns:1fr; }
+    .tamer-member-main,
+    .tamer-member-moves { grid-template-columns:1fr; }
     .tamer-location-field { grid-column:auto; }
 }
 
@@ -6187,7 +6213,7 @@ dialog,
                     </label>
                 </div>
                 <div class="tamer-team-heading">Team</div>
-                <p class="tamer-team-help">Choose an Enitoy in any slot. Once chosen, set its level and optional nickname. Leave unused slots as Empty.</p>
+                <p class="tamer-team-help">Choose an Enitoy in any slot, set its level, then choose up to four legal battle moves. Level-up moves unlock at their listed level; Scroll moves are limited to that Enitoy/form’s own Scroll pool. Leave unused slots as Empty.</p>
                 <div id="tamer-team-editor" class="tamer-team-editor"></div>
                 <div class="move-dialog-buttons">
                     <button id="tamer-cancel" type="button">Cancel</button>
@@ -8073,6 +8099,14 @@ dialog,
                                     };
                                     if (member.formName) exportedMember.formName = member.formName;
                                     if (member.nickname) exportedMember.nickname = member.nickname;
+                                    if (Array.isArray(member.moves) && member.moves.length) {
+                                        exportedMember.moves = member.moves.slice(0, 4).filter(function (moveName, index, list) {
+                                            return typeof moveName === "string" && moveName.trim() &&
+                                                list.findIndex(function (candidate) {
+                                                    return String(candidate || "").trim().toLowerCase() === moveName.trim().toLowerCase();
+                                                }) === index;
+                                        });
+                                    }
                                     return exportedMember;
                                 })
                             };
@@ -9639,7 +9673,10 @@ dialog,
                                     enitoy: typeof member.enitoy === "string" ? member.enitoy.trim() : "",
                                     formName: typeof member.formName === "string" ? member.formName.trim() : "",
                                     nickname: typeof member.nickname === "string" ? member.nickname.trim() : "",
-                                    level: Math.max(1, Math.min(100, Number(member.level) || 1))
+                                    level: Math.max(1, Math.min(100, Number(member.level) || 1)),
+                                    moves: Array.isArray(member.moves) ? member.moves.slice(0, 4).map(function (moveName) {
+                                        return typeof moveName === "string" ? moveName.trim() : "";
+                                    }).filter(Boolean) : []
                                 };
                             }).filter(Boolean) : [];
                             return {
@@ -10170,16 +10207,202 @@ dialog,
                     return tamer.team[index] || null;
                 }
 
+                function findTamerMovepoolTargets(generationName, enitoyName, formName) {
+                    var baseEntry = findMovepoolBaseEntry(generationName, enitoyName);
+                    if (!baseEntry) return null;
+
+                    if (!formName) {
+                        return { storageTarget: baseEntry, effectiveEntry: baseEntry };
+                    }
+
+                    var formsEntry = (Array.isArray(formsEntries) ? formsEntries : []).find(function (entry) {
+                        if (!entry) return false;
+                        var source = findFormsSource(entry);
+                        var entryFormName = typeof entry.formName === "string" && entry.formName.trim()
+                            ? entry.formName.trim()
+                            : "Form";
+                        return source &&
+                            source.generation.name === generationName &&
+                            source.entry.name.trim().toLowerCase() === String(enitoyName || "").trim().toLowerCase() &&
+                            entryFormName.toLowerCase() === String(formName || "").trim().toLowerCase();
+                    }) || null;
+
+                    if (!formsEntry) return null;
+                    initializeFormMovepoolFromBaseIfNeeded(formsEntry);
+                    var effectiveEntry = effectiveFormsEntry(formsEntry);
+                    return effectiveEntry ? { storageTarget: formsEntry, effectiveEntry: effectiveEntry } : null;
+                }
+
+                function tamerEligibleMoves(generationName, enitoyName, formName, level) {
+                    var targets = findTamerMovepoolTargets(generationName, enitoyName, formName);
+                    if (!targets) return [];
+
+                    var currentLevel = Math.max(1, Math.min(100, Number(level) || 1));
+                    var levelEntries = normalizedMovepoolLevelUpTechniques(targets.storageTarget, targets.effectiveEntry);
+                    var scrollEntries = normalizedMovepoolScrollLearnedTechniques(targets.storageTarget, targets.effectiveEntry);
+
+                    // Any move that appears in the level-up pool keeps its level requirement,
+                    // even if it ALSO appears in the Scroll pool. Scroll access only makes a move
+                    // level-independent when that move exists ONLY in the Scroll pool.
+                    var levelRequirementByKey = Object.create(null);
+                    levelEntries.forEach(function (entry) {
+                        if (!entry || typeof entry.name !== "string") return;
+                        var name = entry.name.trim();
+                        if (!name) return;
+                        var key = name.toLowerCase();
+                        var level = Math.max(0, Number(entry.level) || 0);
+                        if (!(key in levelRequirementByKey) || level < levelRequirementByKey[key]) {
+                            levelRequirementByKey[key] = level;
+                        }
+                    });
+
+                    var scrollKeySet = Object.create(null);
+                    scrollEntries.forEach(function (moveName) {
+                        var name = String(moveName || "").trim();
+                        if (name) scrollKeySet[name.toLowerCase()] = true;
+                    });
+
+                    var output = [];
+                    var added = Object.create(null);
+
+                    // Level-up moves: only legal when the Tamer's Enitoy is high enough level.
+                    levelEntries.forEach(function (entry) {
+                        if (!entry || typeof entry.name !== "string") return;
+                        var name = entry.name.trim();
+                        var key = name.toLowerCase();
+                        if (!name || added[key]) return;
+
+                        var requiredLevel = levelRequirementByKey[key];
+                        if (currentLevel < requiredLevel) return;
+
+                        var source = "Level " + requiredLevel;
+                        if (scrollKeySet[key]) source += " / Scroll";
+                        output.push({
+                            name: name,
+                            source: source,
+                            sourceOrder: 0,
+                            level: requiredLevel
+                        });
+                        added[key] = true;
+                    });
+
+                    // Scroll-only moves: always legal, regardless of level.
+                    scrollEntries.forEach(function (moveName) {
+                        var name = String(moveName || "").trim();
+                        var key = name.toLowerCase();
+                        if (!name || added[key]) return;
+
+                        // If this move exists anywhere in the level-up pool, it is NOT scroll-only.
+                        // Therefore its level requirement must be respected and it cannot be added here.
+                        if (key in levelRequirementByKey) return;
+
+                        output.push({
+                            name: name,
+                            source: "Scroll",
+                            sourceOrder: 1,
+                            level: 999
+                        });
+                        added[key] = true;
+                    });
+
+                    output.sort(function (a, b) {
+                        if (a.sourceOrder !== b.sourceOrder) return a.sourceOrder - b.sourceOrder;
+                        if (a.level !== b.level) return a.level - b.level;
+                        return a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
+                    });
+                    return output;
+                }
+
+                function tamerSelectionParts(row) {
+                    if (!row) return null;
+                    var select = row.querySelector(".tamer-member-select");
+                    if (!select || !select.value) return null;
+                    try {
+                        var parts = JSON.parse(select.value);
+                        return Array.isArray(parts) && parts.length >= 2 ? parts : null;
+                    } catch (error) {
+                        return null;
+                    }
+                }
+
+                function tamerSelectedMoveNames(row) {
+                    return Array.from(row.querySelectorAll(".tamer-member-move")).map(function (select) {
+                        return select.value || "";
+                    }).filter(Boolean);
+                }
+
+                function refreshTamerMoveSelectors(row, preferredMoves) {
+                    if (!row) return;
+                    var parts = tamerSelectionParts(row);
+                    var levelInput = row.querySelector(".tamer-member-level");
+                    var currentLevel = Math.max(1, Math.min(100, Number(levelInput && levelInput.value) || 1));
+                    if (levelInput) levelInput.value = String(currentLevel);
+
+                    var moveSelects = Array.from(row.querySelectorAll(".tamer-member-move"));
+                    var wantedMoves = Array.isArray(preferredMoves)
+                        ? preferredMoves.slice(0, 4)
+                        : moveSelects.map(function (select) { return select.value || ""; });
+
+                    var eligible = parts ? tamerEligibleMoves(parts[0] || "", parts[1] || "", parts[2] || "", currentLevel) : [];
+                    var eligibleByKey = Object.create(null);
+                    eligible.forEach(function (record) { eligibleByKey[record.name.toLowerCase()] = record; });
+
+                    // Drop anything that ceased to be legal after a level/species/form change.
+                    wantedMoves = wantedMoves.map(function (name) {
+                        var key = String(name || "").trim().toLowerCase();
+                        return key && eligibleByKey[key] ? eligibleByKey[key].name : "";
+                    });
+
+                    // A battle moveset cannot contain the same move twice.
+                    var seen = Object.create(null);
+                    wantedMoves = wantedMoves.map(function (name) {
+                        var key = String(name || "").trim().toLowerCase();
+                        if (!key || seen[key]) return "";
+                        seen[key] = true;
+                        return name;
+                    });
+
+                    moveSelects.forEach(function (moveSelect, slotIndex) {
+                        var ownValue = wantedMoves[slotIndex] || "";
+                        var usedElsewhere = Object.create(null);
+                        wantedMoves.forEach(function (name, otherIndex) {
+                            if (otherIndex === slotIndex || !name) return;
+                            usedElsewhere[name.toLowerCase()] = true;
+                        });
+
+                        moveSelect.innerHTML = "";
+                        var blank = document.createElement("option");
+                        blank.value = "";
+                        blank.textContent = parts ? "— Empty Move Slot —" : "Choose an Enitoy first";
+                        moveSelect.appendChild(blank);
+
+                        eligible.forEach(function (record) {
+                            if (usedElsewhere[record.name.toLowerCase()] && record.name.toLowerCase() !== ownValue.toLowerCase()) return;
+                            var option = document.createElement("option");
+                            option.value = record.name;
+                            option.textContent = record.name + " — " + record.source;
+                            if (record.name.toLowerCase() === ownValue.toLowerCase()) option.selected = true;
+                            moveSelect.appendChild(option);
+                        });
+
+                        moveSelect.disabled = !parts || eligible.length === 0;
+                    });
+                }
+
                 function renderTamerTeamEditor(tamer) {
                     if (!tamerTeamEditor) return;
                     var choices = tamerAllEnitoyChoices();
                     tamerTeamEditor.innerHTML = "";
+
                     for (var slot = 0; slot < 5; slot++) {
                         (function (slotIndex) {
                             var member = tamerTeamMemberAt(tamer, slotIndex);
                             var row = document.createElement("div");
                             row.className = "tamer-team-row";
                             row.dataset.slot = String(slotIndex);
+
+                            var main = document.createElement("div");
+                            main.className = "tamer-member-main";
 
                             var enitoyLabel = document.createElement("label");
                             enitoyLabel.innerHTML = "<span>Slot " + (slotIndex + 1) + " Enitoy</span>";
@@ -10219,10 +10442,42 @@ dialog,
                             nicknameInput.value = member && member.nickname ? member.nickname : "";
                             nicknameLabel.appendChild(nicknameInput);
 
-                            row.appendChild(enitoyLabel);
-                            row.appendChild(levelLabel);
-                            row.appendChild(nicknameLabel);
+                            main.appendChild(enitoyLabel);
+                            main.appendChild(levelLabel);
+                            main.appendChild(nicknameLabel);
+                            row.appendChild(main);
+
+                            var movesTitle = document.createElement("div");
+                            movesTitle.className = "tamer-member-moves-title";
+                            movesTitle.textContent = "Battle Moves";
+                            row.appendChild(movesTitle);
+
+                            var movesGrid = document.createElement("div");
+                            movesGrid.className = "tamer-member-moves";
+                            for (var moveSlot = 0; moveSlot < 4; moveSlot++) {
+                                var moveLabel = document.createElement("label");
+                                moveLabel.innerHTML = "<span>Move " + (moveSlot + 1) + "</span>";
+                                var moveSelect = document.createElement("select");
+                                moveSelect.className = "tamer-member-move";
+                                moveSelect.dataset.moveSlot = String(moveSlot);
+                                moveLabel.appendChild(moveSelect);
+                                movesGrid.appendChild(moveLabel);
+                            }
+                            row.appendChild(movesGrid);
                             tamerTeamEditor.appendChild(row);
+
+                            refreshTamerMoveSelectors(row, member && Array.isArray(member.moves) ? member.moves : []);
+
+                            select.addEventListener("change", function () {
+                                refreshTamerMoveSelectors(row, []);
+                            });
+                            levelInput.addEventListener("input", function () {
+                                refreshTamerMoveSelectors(row);
+                            });
+                            movesGrid.addEventListener("change", function (event) {
+                                if (!event.target.classList.contains("tamer-member-move")) return;
+                                refreshTamerMoveSelectors(row);
+                            });
                         })(slot);
                     }
                 }
@@ -10234,14 +10489,29 @@ dialog,
                         if (!select || !select.value) return null;
                         var parts;
                         try { parts = JSON.parse(select.value); } catch (error) { return null; }
+
                         var levelInput = row.querySelector(".tamer-member-level");
                         var nicknameInput = row.querySelector(".tamer-member-nickname");
+                        var level = Math.max(1, Math.min(100, Number(levelInput && levelInput.value) || 1));
+                        var legalMoves = tamerEligibleMoves(parts[0] || "", parts[1] || "", parts[2] || "", level);
+                        var legalByKey = Object.create(null);
+                        legalMoves.forEach(function (record) { legalByKey[record.name.toLowerCase()] = record.name; });
+
+                        var seenMoves = Object.create(null);
+                        var chosenMoves = tamerSelectedMoveNames(row).map(function (moveName) {
+                            var key = String(moveName || "").trim().toLowerCase();
+                            if (!key || !legalByKey[key] || seenMoves[key]) return "";
+                            seenMoves[key] = true;
+                            return legalByKey[key];
+                        }).filter(Boolean).slice(0, 4);
+
                         return {
                             generation: parts[0] || "",
                             enitoy: parts[1] || "",
                             formName: parts[2] || "",
-                            level: Math.max(1, Math.min(100, Number(levelInput && levelInput.value) || 1)),
-                            nickname: nicknameInput ? nicknameInput.value.trim() : ""
+                            level: level,
+                            nickname: nicknameInput ? nicknameInput.value.trim() : "",
+                            moves: chosenMoves
                         };
                     }).filter(Boolean);
                 }
@@ -10255,7 +10525,10 @@ dialog,
                     return '<div class="tamer-team-summary">' + tamer.team.map(function (member) {
                         var name = member.nickname || member.enitoy;
                         var form = member.formName ? " (" + member.formName + ")" : "";
-                        return '<span class="tamer-team-chip">' + escapeHtml(name + form) + ' · Lv.' + escapeHtml(member.level || 1) + '</span>';
+                        var moveText = Array.isArray(member.moves) && member.moves.length
+                            ? " · " + member.moves.join(", ")
+                            : "";
+                        return '<span class="tamer-team-chip">' + escapeHtml(name + form) + ' · Lv.' + escapeHtml(member.level || 1) + escapeHtml(moveText) + '</span>';
                     }).join("") + '</div>';
                 }
 
