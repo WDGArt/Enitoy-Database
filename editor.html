@@ -5581,7 +5581,7 @@ dialog,
 }
 .tamer-member-battle {
     display:grid;
-    grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.25fr);
+    grid-template-columns:repeat(4,minmax(0,1fr));
     gap:10px;
     align-items:end;
     margin-top:10px;
@@ -5690,6 +5690,20 @@ dialog,
     font-size:11px;
     font-weight:800;
 }
+
+.tamer-battle-items { margin-top:14px; padding:12px; border:1px solid var(--enitoy-border,#d9dde2); border-radius:12px; background:rgba(255,255,255,.62); }
+.tamer-battle-items-head { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.tamer-battle-items-head .tamer-team-heading { margin:0; }
+.tamer-battle-items-count { font-size:12px; font-weight:900; color:var(--enitoy-muted,#6f747b); }
+.tamer-battle-items-count.over { color:#a32626; }
+.tamer-battle-items-editor { display:grid; gap:8px; margin-top:10px; }
+.tamer-battle-item-row { display:grid; grid-template-columns:minmax(0,1fr) 92px auto; gap:8px; align-items:end; }
+.tamer-battle-item-row label { display:grid; gap:5px; font-size:11px; font-weight:900; color:var(--enitoy-muted,#6f747b); text-transform:uppercase; letter-spacing:.04em; }
+.tamer-battle-item-row select,.tamer-battle-item-row input { width:100%; min-width:0; min-height:38px; border:1px solid var(--enitoy-border,#cfd4da); border-radius:9px; padding:7px 9px; background:#fff; color:inherit; }
+.tamer-battle-item-remove { min-height:38px; }
+@media(max-width:700px){.tamer-member-battle{grid-template-columns:1fr 1fr}.tamer-battle-item-row{grid-template-columns:1fr 80px auto}}
+@media(max-width:480px){.tamer-member-battle{grid-template-columns:1fr}.tamer-battle-item-row{grid-template-columns:1fr}.tamer-battle-item-remove{width:100%}}
+
 #tamer-dialog .move-dialog-buttons {
     position:sticky;
     bottom:-18px;
@@ -6113,7 +6127,7 @@ dialog,
             <div class="skill-header">
                 <div>
                     <h2>Tamers</h2>
-                    <p class="skill-intro">Create Tamers at existing encounter locations and build their teams.</p>
+                    <p class="skill-intro">Create Tamers at existing encounter locations, build their teams, and configure the items they can use in battle.</p>
                 </div>
                 <div class="move-header-actions">
                     <button id="add-tamer" class="move-primary-button" type="button">Add Tamer</button>
@@ -6126,6 +6140,7 @@ dialog,
                             <th>Location</th>
                             <th>Tamer</th>
                             <th>Team</th>
+                            <th>Battle Items</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -6260,7 +6275,7 @@ dialog,
         <dialog id="tamer-dialog" class="forms-picker-dialog">
             <form id="tamer-form" class="forms-picker-panel tamer-dialog-panel" method="dialog">
                 <h2 id="tamer-dialog-title">Add Tamer</h2>
-                <p class="skill-intro">Choose an existing location, then give the Tamer a class, name, and team.</p>
+                <p class="skill-intro">Choose an existing location, then give the Tamer a class, name, team, and optional in-battle item inventory.</p>
                 <div class="tamer-dialog-grid">
                     <label class="forms-picker-field tamer-location-field">
                         <span>Location</span>
@@ -6276,8 +6291,17 @@ dialog,
                     </label>
                 </div>
                 <div class="tamer-team-heading">Team</div>
-                <p class="tamer-team-help">Choose an Enitoy in any slot, set its level, then choose any number of legal battle moves. Level-up moves unlock at their listed level; Scroll moves are limited to that Enitoy/form’s own Scroll pool. Leave unused slots as Empty.</p>
+                <p class="tamer-team-help">Choose an Enitoy in any slot, set its level and gender, then choose any number of legal battle moves. Level-up moves unlock at their listed level; Scroll moves are limited to that Enitoy/form’s own Scroll pool. Leave unused slots as Empty.</p>
                 <div id="tamer-team-editor" class="tamer-team-editor"></div>
+                <div class="tamer-battle-items">
+                    <div class="tamer-battle-items-head">
+                        <div class="tamer-team-heading">In-Battle Items</div>
+                        <span id="tamer-battle-items-count" class="tamer-battle-items-count">0 / 8 items</span>
+                    </div>
+                    <p class="tamer-team-help">Optional. A Tamer can bring 0–8 total items into a battle. Quantities count toward the eight-item limit, so 3 Potions use 3 of the 8 items.</p>
+                    <div id="tamer-battle-items-editor" class="tamer-battle-items-editor"></div>
+                    <button id="tamer-add-battle-item" class="move-secondary-button" type="button">Add Battle Item</button>
+                </div>
                 <div class="move-dialog-buttons">
                     <button id="tamer-cancel" type="button">Cancel</button>
                     <button id="tamer-save" class="move-primary-button" type="submit">Save Tamer</button>
@@ -7485,6 +7509,9 @@ dialog,
                 var tamerClassInput = document.getElementById("tamer-class-input");
                 var tamerNameInput = document.getElementById("tamer-name-input");
                 var tamerTeamEditor = document.getElementById("tamer-team-editor");
+                var tamerBattleItemsEditor = document.getElementById("tamer-battle-items-editor");
+                var tamerBattleItemsCount = document.getElementById("tamer-battle-items-count");
+                var tamerAddBattleItemButton = document.getElementById("tamer-add-battle-item");
                 var tamerCancelButton = document.getElementById("tamer-cancel");
 
                 var regionalGenerations = [
@@ -7993,7 +8020,7 @@ dialog,
 
                     return {
                         format: "EnitoyMaterialAffinityChart",
-                        version: 84,
+                        version: 85,
                         materials: materials.slice(),
                         affinities: affinities.slice(),
                         colors: colors,
@@ -8162,6 +8189,7 @@ dialog,
                                     };
                                     if (member.formName) exportedMember.formName = member.formName;
                                     if (member.nickname) exportedMember.nickname = member.nickname;
+                                    if (member.gender) exportedMember.gender = member.gender;
                                     if (member.heldItem) exportedMember.heldItem = member.heldItem;
                                     exportedMember.useHiddenSkill = !!member.useHiddenSkill;
                                     exportedMember.misprintStatus = member.misprintStatus || "possible";
@@ -8174,6 +8202,14 @@ dialog,
                                         });
                                     }
                                     return exportedMember;
+                                }),
+                                battleItems: (tamer.battleItems || []).filter(function (record) {
+                                    return record && record.item && Number(record.quantity) > 0;
+                                }).map(function (record) {
+                                    return {
+                                        item: record.item,
+                                        quantity: Math.max(1, Math.min(8, Math.floor(Number(record.quantity) || 1)))
+                                    };
                                 })
                             };
                         }),
@@ -9739,6 +9775,7 @@ dialog,
                                     enitoy: typeof member.enitoy === "string" ? member.enitoy.trim() : "",
                                     formName: typeof member.formName === "string" ? member.formName.trim() : "",
                                     nickname: typeof member.nickname === "string" ? member.nickname.trim() : "",
+                                    gender: ["random","male","female","genderless"].indexOf(String(member.gender || "").toLowerCase()) >= 0 ? String(member.gender).toLowerCase() : "",
                                     level: Math.max(1, Math.min(100, Number(member.level) || 1)),
                                     heldItem: typeof member.heldItem === "string" ? member.heldItem.trim() : "",
                                     useHiddenSkill: member.useHiddenSkill === true,
@@ -9754,7 +9791,15 @@ dialog,
                                 location: typeof tamer.location === "string" ? tamer.location.trim() : "",
                                 tamerClass: typeof tamer.tamerClass === "string" ? tamer.tamerClass.trim() : "",
                                 name: typeof tamer.name === "string" ? tamer.name.trim() : "",
-                                team: team
+                                team: team,
+                                battleItems: Array.isArray(tamer.battleItems) ? tamer.battleItems.map(function (record) {
+                                    if (typeof record === "string") return { item: record.trim(), quantity: 1 };
+                                    if (!record || typeof record !== "object") return null;
+                                    return {
+                                        item: typeof record.item === "string" ? record.item.trim() : "",
+                                        quantity: Math.max(1, Math.min(8, Math.floor(Number(record.quantity) || 1)))
+                                    };
+                                }).filter(function (record) { return record && record.item; }) : []
                             };
                         }).filter(function (tamer) {
                             return tamer.location && tamer.tamerClass && tamer.name;
@@ -10537,6 +10582,151 @@ dialog,
                     select.disabled = !parts;
                 }
 
+                function tamerGenderChoicesForParts(parts) {
+                    var entry = tamerEffectiveEntryFromParts(parts);
+                    var ratio = entry && Number.isInteger(entry.genderRatio) ? entry.genderRatio : 0;
+                    if (ratio === 0) return [{ value: "genderless", label: "Genderless" }];
+                    if (ratio === 1) return [{ value: "male", label: "Male" }];
+                    if (ratio === 9) return [{ value: "female", label: "Female" }];
+                    return [
+                        { value: "random", label: "Random" },
+                        { value: "male", label: "Male" },
+                        { value: "female", label: "Female" }
+                    ];
+                }
+
+                function refreshTamerGenderControl(row, selectedGender) {
+                    if (!row) return;
+                    var select = row.querySelector(".tamer-member-gender");
+                    if (!select) return;
+                    var parts = tamerSelectionParts(row);
+                    select.innerHTML = "";
+                    if (!parts) {
+                        var empty = document.createElement("option");
+                        empty.value = "";
+                        empty.textContent = "Choose Enitoy first";
+                        select.appendChild(empty);
+                        select.disabled = true;
+                        return;
+                    }
+                    select.disabled = false;
+                    var choices = tamerGenderChoicesForParts(parts);
+                    choices.forEach(function (choice) {
+                        var option = document.createElement("option");
+                        option.value = choice.value;
+                        option.textContent = choice.label;
+                        select.appendChild(option);
+                    });
+                    var wanted = String(selectedGender || "").toLowerCase();
+                    if (choices.some(function (choice) { return choice.value === wanted; })) select.value = wanted;
+                    else select.value = choices[0].value;
+                }
+
+                function populateTamerBattleItemSelect(select, selectedItem) {
+                    if (!select) return;
+                    select.innerHTML = "";
+                    var blank = document.createElement("option");
+                    blank.value = "";
+                    blank.textContent = "Choose Item";
+                    select.appendChild(blank);
+                    (Array.isArray(items) ? items : []).forEach(function (item) {
+                        if (!item || typeof item.name !== "string" || !item.name.trim()) return;
+                        var option = document.createElement("option");
+                        option.value = item.name.trim();
+                        option.textContent = item.name.trim();
+                        if (option.value === selectedItem) option.selected = true;
+                        select.appendChild(option);
+                    });
+                }
+
+                function tamerBattleItemTotal() {
+                    if (!tamerBattleItemsEditor) return 0;
+                    return Array.from(tamerBattleItemsEditor.querySelectorAll(".tamer-battle-item-row")).reduce(function (total, row) {
+                        var select = row.querySelector(".tamer-battle-item-select");
+                        var qty = row.querySelector(".tamer-battle-item-quantity");
+                        if (!select || !select.value) return total;
+                        return total + Math.max(1, Math.min(8, Math.floor(Number(qty && qty.value) || 1)));
+                    }, 0);
+                }
+
+                function refreshTamerBattleItemCount() {
+                    var total = tamerBattleItemTotal();
+                    if (tamerBattleItemsCount) {
+                        tamerBattleItemsCount.textContent = total + " / 8 items";
+                        tamerBattleItemsCount.classList.toggle("over", total > 8);
+                    }
+                    if (tamerAddBattleItemButton) tamerAddBattleItemButton.disabled = total >= 8;
+                    return total;
+                }
+
+                function addTamerBattleItemRow(record) {
+                    if (!tamerBattleItemsEditor) return;
+                    var row = document.createElement("div");
+                    row.className = "tamer-battle-item-row";
+
+                    var itemLabel = document.createElement("label");
+                    itemLabel.innerHTML = "<span>Item</span>";
+                    var select = document.createElement("select");
+                    select.className = "tamer-battle-item-select";
+                    populateTamerBattleItemSelect(select, record && record.item ? record.item : "");
+                    itemLabel.appendChild(select);
+
+                    var qtyLabel = document.createElement("label");
+                    qtyLabel.innerHTML = "<span>Quantity</span>";
+                    var qty = document.createElement("input");
+                    qty.className = "tamer-battle-item-quantity";
+                    qty.type = "number";
+                    qty.min = "1";
+                    qty.max = "8";
+                    qty.step = "1";
+                    qty.value = String(record && record.quantity ? Math.max(1, Math.min(8, Number(record.quantity) || 1)) : 1);
+                    qtyLabel.appendChild(qty);
+
+                    var remove = document.createElement("button");
+                    remove.type = "button";
+                    remove.className = "move-secondary-button tamer-battle-item-remove";
+                    remove.textContent = "Remove";
+
+                    row.appendChild(itemLabel);
+                    row.appendChild(qtyLabel);
+                    row.appendChild(remove);
+                    tamerBattleItemsEditor.appendChild(row);
+
+                    select.addEventListener("change", refreshTamerBattleItemCount);
+                    qty.addEventListener("input", function () {
+                        var value = Math.max(1, Math.min(8, Math.floor(Number(qty.value) || 1)));
+                        qty.value = String(value);
+                        refreshTamerBattleItemCount();
+                    });
+                    remove.addEventListener("click", function () {
+                        row.remove();
+                        refreshTamerBattleItemCount();
+                    });
+                    refreshTamerBattleItemCount();
+                }
+
+                function renderTamerBattleItems(tamer) {
+                    if (!tamerBattleItemsEditor) return;
+                    tamerBattleItemsEditor.innerHTML = "";
+                    (tamer && Array.isArray(tamer.battleItems) ? tamer.battleItems : []).forEach(function (record) {
+                        addTamerBattleItemRow(record);
+                    });
+                    refreshTamerBattleItemCount();
+                }
+
+                function readTamerBattleItems() {
+                    if (!tamerBattleItemsEditor) return [];
+                    return Array.from(tamerBattleItemsEditor.querySelectorAll(".tamer-battle-item-row")).map(function (row) {
+                        var select = row.querySelector(".tamer-battle-item-select");
+                        var qty = row.querySelector(".tamer-battle-item-quantity");
+                        if (!select || !select.value) return null;
+                        return {
+                            item: select.value,
+                            quantity: Math.max(1, Math.min(8, Math.floor(Number(qty && qty.value) || 1)))
+                        };
+                    }).filter(Boolean);
+                }
+
                 function renderTamerTeamEditor(tamer) {
                     if (!tamerTeamEditor) return;
                     var choices = tamerAllEnitoyChoices();
@@ -10598,6 +10788,12 @@ dialog,
                             var battle = document.createElement("div");
                             battle.className = "tamer-member-battle";
 
+                            var genderLabel = document.createElement("label");
+                            genderLabel.innerHTML = "<span>Gender</span>";
+                            var genderSelect = document.createElement("select");
+                            genderSelect.className = "tamer-member-gender";
+                            genderLabel.appendChild(genderSelect);
+
                             var itemLabel = document.createElement("label");
                             itemLabel.innerHTML = "<span>Held Item</span>";
                             var itemSelect = document.createElement("select");
@@ -10630,6 +10826,7 @@ dialog,
                                 : "possible";
                             misprintLabel.appendChild(misprintSelect);
 
+                            battle.appendChild(genderLabel);
                             battle.appendChild(itemLabel);
                             battle.appendChild(skillLabel);
                             battle.appendChild(misprintLabel);
@@ -10647,10 +10844,12 @@ dialog,
 
                             refreshTamerMoveSelectors(row, member && Array.isArray(member.moves) ? member.moves : []);
                             refreshTamerSkillControl(row, !!(member && member.useHiddenSkill));
+                            refreshTamerGenderControl(row, member && member.gender ? member.gender : "");
 
                             select.addEventListener("change", function () {
                                 refreshTamerMoveSelectors(row, []);
                                 refreshTamerSkillControl(row, false);
+                                refreshTamerGenderControl(row, "");
                             });
                             levelInput.addEventListener("input", function () {
                                 refreshTamerMoveSelectors(row);
@@ -10669,6 +10868,7 @@ dialog,
 
                         var levelInput = row.querySelector(".tamer-member-level");
                         var nicknameInput = row.querySelector(".tamer-member-nickname");
+                        var genderSelect = row.querySelector(".tamer-member-gender");
                         var heldItemSelect = row.querySelector(".tamer-member-held-item");
                         var skillModeSelect = row.querySelector(".tamer-member-skill-mode");
                         var misprintStatusSelect = row.querySelector(".tamer-member-misprint-status");
@@ -10697,6 +10897,7 @@ dialog,
                             formName: parts[2] || "",
                             level: level,
                             nickname: nicknameInput ? nicknameInput.value.trim() : "",
+                            gender: genderSelect ? genderSelect.value : "",
                             heldItem: heldItemSelect ? heldItemSelect.value : "",
                             useHiddenSkill: !!(skillModeSelect && skillModeSelect.value === "hidden"),
                             misprintStatus: misprintStatusSelect && ["locked","possible","guaranteed"].indexOf(misprintStatusSelect.value) >= 0
@@ -10728,6 +10929,9 @@ dialog,
                         var moveText = Array.isArray(member.moves) && member.moves.length
                             ? " · " + member.moves.join(", ")
                             : "";
+                        var genderText = member.gender && member.gender !== "random"
+                            ? " · " + member.gender.charAt(0).toUpperCase() + member.gender.slice(1)
+                            : member.gender === "random" ? " · Gender: Random" : "";
                         var itemText = member.heldItem ? " · Item: " + member.heldItem : "";
                         var skillText = member.useHiddenSkill ? " · + Hidden Skill" : "";
                         var misprintText = member.misprintStatus === "locked"
@@ -10737,7 +10941,7 @@ dialog,
                                 : " · Misprint: Possible";
                         return '<span class="tamer-team-chip">' +
                             tamerEscapeHtml(name + form) + ' · Lv.' + tamerEscapeHtml(member.level || 1) +
-                            tamerEscapeHtml(itemText + skillText + misprintText + moveText) +
+                            tamerEscapeHtml(genderText + itemText + skillText + misprintText + moveText) +
                             '</span>';
                     }).join("") + '</div>';
                 }
@@ -10751,6 +10955,7 @@ dialog,
                             '<td><strong>' + tamerEscapeHtml(tamer.location) + '</strong><div class="tiny muted">' + tamerEscapeHtml(tamer.generation) + '</div></td>' +
                             '<td><strong>' + tamerEscapeHtml(tamerDisplayName(tamer)) + '</strong></td>' +
                             '<td>' + tamerTeamSummary(tamer) + '</td>' +
+                            '<td>' + (Array.isArray(tamer.battleItems) && tamer.battleItems.length ? tamer.battleItems.map(function (record) { return tamerEscapeHtml(record.item + ' ×' + record.quantity); }).join('<br>') : '<span class="muted">None</span>') + '</td>' +
                             '<td><div class="move-row-actions">' +
                             '<button type="button" class="move-secondary-button tamer-edit" data-tamer-id="' + tamer.id + '">Edit</button>' +
                             '<button type="button" class="move-secondary-button tamer-delete" data-tamer-id="' + tamer.id + '">Delete</button>' +
@@ -10768,6 +10973,7 @@ dialog,
                     if (tamerClassInput) tamerClassInput.value = tamer ? tamer.tamerClass : "";
                     if (tamerNameInput) tamerNameInput.value = tamer ? tamer.name : "";
                     renderTamerTeamEditor(tamer || {team:[]});
+                    renderTamerBattleItems(tamer || {battleItems:[]});
                     if (typeof tamerDialog.showModal === "function") tamerDialog.showModal();
                     else tamerDialog.setAttribute("open", "");
                 }
@@ -10785,6 +10991,11 @@ dialog,
                         return;
                     }
                     openTamerDialog(null);
+                });
+
+                if (tamerAddBattleItemButton) tamerAddBattleItemButton.addEventListener("click", function () {
+                    if (refreshTamerBattleItemCount() >= 8) return;
+                    addTamerBattleItemRow({ item: "", quantity: 1 });
                 });
 
                 if (tamerCancelButton) tamerCancelButton.addEventListener("click", function () {
@@ -10806,6 +11017,12 @@ dialog,
                         return;
                     }
                     var team = readTamerTeamEditor();
+                    var battleItems = readTamerBattleItems();
+                    var battleItemTotal = battleItems.reduce(function (sum, record) { return sum + (Number(record.quantity) || 0); }, 0);
+                    if (battleItemTotal > 8) {
+                        alert("A Tamer can have at most 8 total in-battle items. Reduce the quantities before saving.");
+                        return;
+                    }
                     var missingMoveRow = tamerTeamEditor && tamerTeamEditor.querySelector('.tamer-team-row[data-missing-moves="true"]');
                     if (missingMoveRow) {
                         alert("Every Enitoy on a Tamer team must know at least one legal battle move.");
@@ -10818,7 +11035,8 @@ dialog,
                         location: locationParts[1] || "",
                         tamerClass: tamerClass,
                         name: name,
-                        team: team
+                        team: team,
+                        battleItems: battleItems
                     };
                     if (editingTamerId) {
                         var index = tamers.findIndex(function (entry) { return entry.id === editingTamerId; });
