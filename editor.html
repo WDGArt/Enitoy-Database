@@ -10506,7 +10506,7 @@ dialog,
                     });
                 }
 
-                function refreshTamerSkillControl(row, useHiddenSkill) {
+                function refreshTamerSkillControl(row, hasHiddenSkill) {
                     if (!row) return;
                     var parts = tamerSelectionParts(row);
                     var select = row.querySelector(".tamer-member-skill-mode");
@@ -10518,19 +10518,22 @@ dialog,
 
                     select.innerHTML = "";
 
-                    var normal = document.createElement("option");
-                    normal.value = "normal";
-                    normal.textContent = normalSkill ? "Normal — " + normalSkill : "Normal Skill";
-                    select.appendChild(normal);
+                    var noHidden = document.createElement("option");
+                    noHidden.value = "standard";
+                    noHidden.textContent = normalSkill
+                        ? "Standard Skill Only — " + normalSkill
+                        : "Standard Skill Only";
+                    select.appendChild(noHidden);
 
-                    var hidden = document.createElement("option");
-                    hidden.value = "hidden";
-                    hidden.textContent = hiddenSkill ? "Hidden — " + hiddenSkill : "No Hidden Skill";
-                    hidden.disabled = !hiddenSkill;
-                    select.appendChild(hidden);
+                    var withHidden = document.createElement("option");
+                    withHidden.value = "hidden";
+                    withHidden.textContent = hiddenSkill
+                        ? "Standard + Hidden — " + normalSkill + " + " + hiddenSkill
+                        : "No Hidden Skill Available";
+                    withHidden.disabled = !hiddenSkill;
+                    select.appendChild(withHidden);
 
-                    if (useHiddenSkill && hiddenSkill) select.value = "hidden";
-                    else select.value = "normal";
+                    select.value = hasHiddenSkill && hiddenSkill ? "hidden" : "standard";
                     select.disabled = !parts;
                 }
 
@@ -10603,7 +10606,7 @@ dialog,
                             itemLabel.appendChild(itemSelect);
 
                             var skillLabel = document.createElement("label");
-                            skillLabel.innerHTML = "<span>Skill</span>";
+                            skillLabel.innerHTML = "<span>Hidden Skill</span>";
                             var skillSelect = document.createElement("select");
                             skillSelect.className = "tamer-member-skill-mode";
                             skillLabel.appendChild(skillSelect);
@@ -10717,7 +10720,7 @@ dialog,
                             ? " · " + member.moves.join(", ")
                             : "";
                         var itemText = member.heldItem ? " · Item: " + member.heldItem : "";
-                        var skillText = member.useHiddenSkill ? " · Hidden Skill" : "";
+                        var skillText = member.useHiddenSkill ? " · + Hidden Skill" : "";
                         var misprintText = member.misprintStatus === "locked"
                             ? " · Misprint: Locked"
                             : member.misprintStatus === "guaranteed"
