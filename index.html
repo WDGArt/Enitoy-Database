@@ -1164,7 +1164,7 @@ function renderTamers(){
     const art=entry?.imageData?`<img src="${entry.imageData}" alt="" style="width:54px;height:54px;object-fit:contain">`:'<div style="width:54px;height:54px;display:grid;place-items:center;font-weight:900">?</div>';
     const name=route?routeLink(route,display):esc(display);
     const moveList=Array.isArray(m.moves)&&m.moves.length
-      ? `<div class="tiny" style="margin-top:5px"><b>Moves:</b> ${m.moves.slice(0,4).map(moveName=>routeLink(`move/${slug(moveName)}`,moveName)).join(' · ')}</div>`
+      ? `<div class="tiny" style="margin-top:5px"><b>Moves:</b> ${m.moves.map(moveName=>routeLink(`move/${slug(moveName)}`,moveName)).join(' · ')}</div>`
       : `<div class="tiny muted" style="margin-top:5px">No battle moves recorded.</div>`;
     return `<div class="card" style="display:flex;align-items:center;gap:12px;padding:10px">${art}<div><div><b>${name}</b></div><div class="tiny muted">Level ${esc(m.level||1)}</div>${moveList}</div></div>`;
   };
