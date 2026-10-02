@@ -5531,17 +5531,93 @@ dialog,
 .tamer-empty { padding:24px 12px; text-align:center; color:var(--enitoy-muted,#6f747b); font-weight:700; }
 .tamer-team-summary { display:flex; flex-wrap:wrap; gap:6px; }
 .tamer-team-chip { display:inline-flex; align-items:center; gap:5px; padding:4px 8px; border:1px solid var(--enitoy-border,#d9dde2); border-radius:999px; background:#fff; font-size:11px; font-weight:800; }
-.tamer-dialog-panel { width:min(920px,calc(100vw - 28px)); max-height:min(88vh,900px); overflow:auto; }
-.tamer-team-editor { display:grid; gap:10px; margin-top:12px; }
-.tamer-team-row { display:grid; grid-template-columns:minmax(210px,2fr) 90px minmax(140px,1fr); gap:10px; align-items:end; padding:10px; border:1px solid var(--enitoy-border,#d9dde2); border-radius:12px; background:rgba(255,255,255,.72); }
-.tamer-team-row label { display:grid; gap:5px; font-size:11px; font-weight:900; color:var(--enitoy-muted,#6f747b); text-transform:uppercase; letter-spacing:.04em; }
-.tamer-team-row select, .tamer-team-row input, #tamer-location-select, #tamer-class-input, #tamer-name-input {
-    width:100%; min-height:38px; border:1px solid var(--enitoy-border,#cfd4da); border-radius:9px; padding:7px 9px; background:#fff; color:inherit;
+
+#tamer-dialog {
+    width:min(960px, calc(100vw - 32px));
+    max-width:none;
+    max-height:92vh;
+    padding:0;
+    overflow:hidden;
+    box-sizing:border-box;
 }
-.tamer-dialog-grid { display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:10px; margin-top:10px; }
-.tamer-team-heading { margin:18px 0 4px; font-size:13px; font-weight:950; letter-spacing:.04em; text-transform:uppercase; }
-@media (max-width:760px){
-    .tamer-dialog-grid,.tamer-team-row{grid-template-columns:1fr;}
+#tamer-dialog::backdrop { background:rgba(20,18,32,.48); }
+
+.tamer-dialog-panel {
+    width:100%;
+    max-width:none;
+    max-height:92vh;
+    margin:0;
+    padding:18px;
+    box-sizing:border-box;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+.tamer-dialog-panel * { box-sizing:border-box; }
+
+.tamer-dialog-grid {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:10px;
+    margin-top:12px;
+}
+.tamer-location-field { grid-column:1 / -1; }
+
+.tamer-team-heading { margin:20px 0 6px; font-size:13px; font-weight:950; letter-spacing:.04em; text-transform:uppercase; }
+.tamer-team-help { margin:0 0 10px; color:var(--enitoy-muted,#6f747b); font-size:12px; }
+
+.tamer-team-editor { display:grid; gap:10px; margin-top:8px; }
+.tamer-team-row {
+    display:grid;
+    grid-template-columns:minmax(0,2fr) minmax(82px,.45fr) minmax(0,1fr);
+    gap:10px;
+    align-items:end;
+    padding:12px;
+    border:1px solid var(--enitoy-border,#d9dde2);
+    border-radius:12px;
+    background:rgba(255,255,255,.72);
+}
+.tamer-team-row label,
+.tamer-dialog-grid label {
+    min-width:0;
+}
+.tamer-team-row label {
+    display:grid;
+    gap:5px;
+    font-size:11px;
+    font-weight:900;
+    color:var(--enitoy-muted,#6f747b);
+    text-transform:uppercase;
+    letter-spacing:.04em;
+}
+.tamer-team-row select,
+.tamer-team-row input,
+#tamer-location-select,
+#tamer-class-input,
+#tamer-name-input {
+    width:100%;
+    min-width:0;
+    min-height:38px;
+    border:1px solid var(--enitoy-border,#cfd4da);
+    border-radius:9px;
+    padding:7px 9px;
+    background:#fff;
+    color:inherit;
+}
+#tamer-dialog .move-dialog-buttons {
+    position:sticky;
+    bottom:-18px;
+    z-index:2;
+    margin:18px -18px -18px;
+    padding:12px 18px;
+    background:rgba(255,255,255,.97);
+    border-top:1px solid var(--enitoy-border,#d9dde2);
+}
+
+@media (max-width:720px){
+    #tamer-dialog { width:calc(100vw - 16px); }
+    .tamer-dialog-grid,
+    .tamer-team-row { grid-template-columns:1fr; }
+    .tamer-location-field { grid-column:auto; }
 }
 
 </style>
@@ -6097,7 +6173,7 @@ dialog,
                 <h2 id="tamer-dialog-title">Add Tamer</h2>
                 <p class="skill-intro">Choose an existing location, then give the Tamer a class, name, and team.</p>
                 <div class="tamer-dialog-grid">
-                    <label class="forms-picker-field">
+                    <label class="forms-picker-field tamer-location-field">
                         <span>Location</span>
                         <select id="tamer-location-select" required></select>
                     </label>
@@ -6111,6 +6187,7 @@ dialog,
                     </label>
                 </div>
                 <div class="tamer-team-heading">Team</div>
+                <p class="tamer-team-help">Choose an Enitoy in any slot. Once chosen, set its level and optional nickname. Leave unused slots as Empty.</p>
                 <div id="tamer-team-editor" class="tamer-team-editor"></div>
                 <div class="move-dialog-buttons">
                     <button id="tamer-cancel" type="button">Cancel</button>
