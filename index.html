@@ -1224,6 +1224,9 @@ function renderTamers(){
     const moveList=Array.isArray(m.moves)&&m.moves.length
       ? `<div class="tiny" style="margin-top:5px"><b>Moves:</b> ${m.moves.map(moveName=>routeLink(`move/${slug(moveName)}`,moveName)).join(' · ')}</div>`
       : `<div class="tiny muted" style="margin-top:5px">No battle moves recorded.</div>`;
+    const genderValue=String(m.gender||'').trim();
+    const genderLabel=!genderValue?'Not set':genderValue.toLowerCase()==='random'?'Random':genderValue.charAt(0).toUpperCase()+genderValue.slice(1);
+    const genderText=`<div class="tiny${genderValue?'':' muted'}"><b>Gender:</b> ${esc(genderLabel)}</div>`;
     const heldItem=m.heldItem
       ? `<div class="tiny"><b>Held Item:</b> ${routeLink(`items/${slug(m.heldItem)}`,m.heldItem)}</div>`
       : `<div class="tiny muted"><b>Held Item:</b> None</div>`;
@@ -1234,14 +1237,20 @@ function renderTamers(){
       : `<div class="tiny muted"><b>${m.useHiddenSkill?'Hidden Skill':'Skill'}:</b> None recorded</div>`;
     const misprintLabel=m.misprintStatus==='locked'?'Locked Out':m.misprintStatus==='guaranteed'?'Guaranteed Misprint':'Can Be Misprint';
     const misprintText=`<div class="tiny"><b>Misprint:</b> ${esc(misprintLabel)}</div>`;
-    return `<div class="card" style="display:flex;align-items:center;gap:12px;padding:10px">${art}<div><div><b>${name}</b></div><div class="tiny muted">Level ${esc(m.level||1)}</div>${heldItem}${skillText}${misprintText}${moveList}</div></div>`;
+    return `<div class="card" style="display:flex;align-items:center;gap:12px;padding:10px">${art}<div><div><b>${name}</b></div><div class="tiny muted">Level ${esc(m.level||1)}</div>${genderText}${heldItem}${skillText}${misprintText}${moveList}</div></div>`;
+  };
+  const battleItemsHtml=(t)=>{
+    const items=Array.isArray(t.battleItems)?t.battleItems.filter(x=>x&&x.item&&Number(x.quantity)>0):[];
+    if(!items.length)return `<div class="tiny muted" style="margin:8px 0 10px"><b>Battle Items:</b> None</div>`;
+    const total=items.reduce((sum,x)=>sum+Math.max(1,Math.floor(Number(x.quantity)||1)),0);
+    return `<div style="margin:8px 0 12px;padding:9px 10px;border:1px solid var(--line);border-radius:7px;background:#f8fafb"><div class="tiny"><b>Battle Items (${total}/8):</b></div><div class="inline-links" style="margin-top:5px">${items.map(x=>{const qty=Math.max(1,Math.floor(Number(x.quantity)||1));return `<span class="chip-link">${routeLink(`items/${slug(x.item)}`,x.item)} ×${qty}</span>`;}).join('')}</div></div>`;
   };
   const groups=new Map();
   ts.forEach((t,i)=>{const key=`${t.generation||''}\u0000${t.location||''}`;if(!groups.has(key))groups.set(key,[]);groups.get(key).push({t,i});});
   app.innerHTML=`${breadcrumbs([{label:'Tamers'}])}<h1 class="page-title">Tamers</h1><p class="subtitle">${ts.length} recorded Tamer${ts.length===1?'':'s'}.</p>${
     ts.length?[...groups.entries()].map(([key,items])=>{
       const first=items[0].t, locRoute=`location/${slug(first.generation)}/${slug(first.location)}`;
-      return `<section class="section"><h2 class="section-title">${routeLink(locRoute,first.location)} <span class="tiny muted">· ${esc(first.generation)}</span></h2><div class="grid-2">${items.map(({t})=>`<div class="card"><h3 style="margin-top:0">${esc(`${t.tamerClass||''} ${t.name||''}`.trim())}</h3><p class="tiny muted">${esc(t.location||'Unknown location')}</p>${Array.isArray(t.team)&&t.team.length?`<div style="display:grid;gap:8px">${t.team.map(memberHtml).join('')}</div>`:'<span class="muted">No team recorded.</span>'}</div>`).join('')}</div></section>`;
+      return `<section class="section"><h2 class="section-title">${routeLink(locRoute,first.location)} <span class="tiny muted">· ${esc(first.generation)}</span></h2><div class="grid-2">${items.map(({t})=>`<div class="card"><h3 style="margin-top:0">${esc(`${t.tamerClass||''} ${t.name||''}`.trim())}</h3><p class="tiny muted">${esc(t.location||'Unknown location')}</p>${battleItemsHtml(t)}${Array.isArray(t.team)&&t.team.length?`<div style="display:grid;gap:8px">${t.team.map(memberHtml).join('')}</div>`:'<span class="muted">No team recorded.</span>'}</div>`).join('')}</div></section>`;
     }).join(''):'<div class="card"><span class="muted">No Tamers recorded.</span></div>'
   }`;
 }
