@@ -3760,7 +3760,7 @@
 
             .regional-modification-add-row {
                 display: grid;
-                grid-template-columns: minmax(120px, 1.15fr) minmax(155px, 1.35fr) minmax(135px, 1.2fr) auto;
+                grid-template-columns: minmax(120px, .9fr) minmax(150px, 1.15fr) minmax(145px, 1.05fr) minmax(130px, 1fr) auto;
                 gap: 8px;
                 align-items: stretch;
                 padding: 10px 16px;
@@ -3815,7 +3815,7 @@
             .regional-modification-table-header,
             .regional-modification-entry {
                 display: grid;
-                grid-template-columns: minmax(130px, 1.1fr) minmax(160px, 1.35fr) minmax(130px, 1.15fr) 34px;
+                grid-template-columns: minmax(120px, .95fr) minmax(140px, 1.15fr) minmax(150px, 1.2fr) minmax(120px, 1fr) 34px;
                 gap: 8px;
                 align-items: center;
             }
@@ -6834,9 +6834,10 @@ dialog,
             <div class="regional-modification-panel">
                 <div class="regional-modification-header">
                     <h3>Modifications</h3>
-                    <p>Choose the Enitoy this species can modify into, then choose the method and its parameter. Multiple modification paths are allowed.</p>
+                    <p>Choose which form the modification starts from, the Enitoy or form it modifies into, then the method and its parameter. Multiple modification paths are allowed.</p>
                 </div>
                 <div class="regional-modification-add-row">
+                    <select id="regional-modification-source-form" aria-label="Modification source form"></select>
                     <select id="regional-modification-target" aria-label="Modification target Enitoy"></select>
                     <select id="regional-modification-method" aria-label="Modification method"></select>
                     <div id="regional-modification-parameter-host" class="regional-modification-parameter-host"></div>
@@ -7400,6 +7401,7 @@ dialog,
                 var regionalModificationSummary = document.getElementById("regional-modification-summary");
                 var regionalModificationEditButton = document.getElementById("regional-modification-edit");
                 var regionalModificationDialog = document.getElementById("regional-modification-dialog");
+                var regionalModificationSourceFormSelect = document.getElementById("regional-modification-source-form");
                 var regionalModificationTargetSelect = document.getElementById("regional-modification-target");
                 var regionalModificationMethodSelect = document.getElementById("regional-modification-method");
                 var regionalModificationParameterHost = document.getElementById("regional-modification-parameter-host");
@@ -8020,7 +8022,7 @@ dialog,
 
                     return {
                         format: "EnitoyMaterialAffinityChart",
-                        version: 85,
+                        version: 86,
                         materials: materials.slice(),
                         affinities: affinities.slice(),
                         colors: colors,
@@ -8846,7 +8848,7 @@ dialog,
                 }
 
                 function validateImportedChart(data) {
-                    if (!data || data.format !== "EnitoyMaterialAffinityChart" || (data.version !== 1 && data.version !== 2 && data.version !== 3 && data.version !== 4 && data.version !== 5 && data.version !== 6 && data.version !== 7 && data.version !== 8 && data.version !== 9 && data.version !== 10 && data.version !== 11 && data.version !== 12 && data.version !== 13 && data.version !== 14 && data.version !== 15 && data.version !== 16 && data.version !== 17 && data.version !== 18 && data.version !== 19 && data.version !== 20 && data.version !== 21 && data.version !== 22 && data.version !== 23 && data.version !== 24 && data.version !== 25 && data.version !== 26 && data.version !== 27 && data.version !== 28 && data.version !== 29 && data.version !== 30 && data.version !== 31 && data.version !== 32 && data.version !== 33 && data.version !== 34 && data.version !== 35 && data.version !== 36 && data.version !== 37 && data.version !== 38 && data.version !== 39 && data.version !== 40 && data.version !== 41 && data.version !== 42 && data.version !== 43 && data.version !== 44 && data.version !== 45 && data.version !== 46 && data.version !== 47 && data.version !== 48 && data.version !== 49 && data.version !== 50 && data.version !== 51 && data.version !== 52 && data.version !== 53 && data.version !== 54 && data.version !== 55 && data.version !== 56 && data.version !== 57 && data.version !== 58 && data.version !== 59 && data.version !== 60 && data.version !== 61 && data.version !== 62 && data.version !== 63 && data.version !== 64 && data.version !== 65 && data.version !== 66 && data.version !== 67 && data.version !== 68 && data.version !== 69 && data.version !== 70 && data.version !== 71 && data.version !== 72 && data.version !== 73 && data.version !== 74 && data.version !== 75 && data.version !== 76 && data.version !== 77 && data.version !== 78 && data.version !== 79 && data.version !== 80 && data.version !== 81 && data.version !== 82 && data.version !== 83 && data.version !== 84 && data.version !== 85)) {
+                    if (!data || data.format !== "EnitoyMaterialAffinityChart" || (data.version !== 1 && data.version !== 2 && data.version !== 3 && data.version !== 4 && data.version !== 5 && data.version !== 6 && data.version !== 7 && data.version !== 8 && data.version !== 9 && data.version !== 10 && data.version !== 11 && data.version !== 12 && data.version !== 13 && data.version !== 14 && data.version !== 15 && data.version !== 16 && data.version !== 17 && data.version !== 18 && data.version !== 19 && data.version !== 20 && data.version !== 21 && data.version !== 22 && data.version !== 23 && data.version !== 24 && data.version !== 25 && data.version !== 26 && data.version !== 27 && data.version !== 28 && data.version !== 29 && data.version !== 30 && data.version !== 31 && data.version !== 32 && data.version !== 33 && data.version !== 34 && data.version !== 35 && data.version !== 36 && data.version !== 37 && data.version !== 38 && data.version !== 39 && data.version !== 40 && data.version !== 41 && data.version !== 42 && data.version !== 43 && data.version !== 44 && data.version !== 45 && data.version !== 46 && data.version !== 47 && data.version !== 48 && data.version !== 49 && data.version !== 50 && data.version !== 51 && data.version !== 52 && data.version !== 53 && data.version !== 54 && data.version !== 55 && data.version !== 56 && data.version !== 57 && data.version !== 58 && data.version !== 59 && data.version !== 60 && data.version !== 61 && data.version !== 62 && data.version !== 63 && data.version !== 64 && data.version !== 65 && data.version !== 66 && data.version !== 67 && data.version !== 68 && data.version !== 69 && data.version !== 70 && data.version !== 71 && data.version !== 72 && data.version !== 73 && data.version !== 74 && data.version !== 75 && data.version !== 76 && data.version !== 77 && data.version !== 78 && data.version !== 79 && data.version !== 80 && data.version !== 81 && data.version !== 82 && data.version !== 83 && data.version !== 84 && data.version !== 85 && data.version !== 86)) {
                         return "This is not a project made by this HTML.";
                     }
                     if (!Array.isArray(data.materials) || data.materials.length < 1 ||
@@ -9211,6 +9213,22 @@ dialog,
                                                 });
                                                 if (!regionalModificationTargetExists) return "A Modification target is not a named Enitoy in its selected Regional generation.";
 
+                                                var regionalModificationSourceFormKey = "";
+                                                if (data.version >= 86 && regionalModification.sourceForm !== undefined) {
+                                                    if (typeof regionalModification.sourceForm !== "string" || !regionalModification.sourceForm.trim() || regionalModification.sourceForm.trim().length > 80) {
+                                                        return "A Modification entry has an invalid source form.";
+                                                    }
+                                                    regionalModificationSourceFormKey = regionalModification.sourceForm.trim().toLowerCase();
+                                                    var regionalModificationSourceFormExists = Array.isArray(data.forms) && data.forms.some(function (formsEntry) {
+                                                        return formsEntry && typeof formsEntry.generation === "string" && typeof formsEntry.enitoy === "string" &&
+                                                            typeof formsEntry.formName === "string" &&
+                                                            formsEntry.generation.trim().toLowerCase() === generation.name.trim().toLowerCase() &&
+                                                            formsEntry.enitoy.trim().toLowerCase() === regionalEnitoy.name.trim().toLowerCase() &&
+                                                            formsEntry.formName.trim().toLowerCase() === regionalModificationSourceFormKey;
+                                                    });
+                                                    if (!regionalModificationSourceFormExists) return "A Modification source form does not exist in the Forms list.";
+                                                }
+
                                                 var regionalModificationTargetFormKey = "";
                                                 if (data.version >= 81 && regionalModification.targetForm !== undefined) {
                                                     if (typeof regionalModification.targetForm !== "string" || !regionalModification.targetForm.trim() || regionalModification.targetForm.trim().length > 80) {
@@ -9239,7 +9257,8 @@ dialog,
                                                     if (regionalModificationDefinition.parameterType === "stitching" && !data.materials.concat(data.affinities).some(function (stitchingName) { return stitchingName.toLowerCase() === regionalModificationParameterKey; })) return "A Stitching-based Modification parameter is not present in the Type Chart.";
                                                 }
 
-                                                var regionalModificationKey = regionalModificationTargetGeneration.name.trim().toLowerCase() + "|" +
+                                                var regionalModificationKey = regionalModificationSourceFormKey + "|" +
+                                                    regionalModificationTargetGeneration.name.trim().toLowerCase() + "|" +
                                                     regionalModificationTargetKey + "|" + regionalModificationTargetFormKey + "|" +
                                                     regionalModification.method.toLowerCase() + "|" + String(regionalModificationParameter).toLowerCase();
                                                 if (regionalModificationKeys[regionalModificationKey]) return "A Concept Enitoy contains the same Modification path more than once.";
@@ -9986,6 +10005,18 @@ dialog,
                                                             return candidate && candidate.kind === "concept" && typeof candidate.name === "string" && candidate.name.trim().toLowerCase() === modification.target.trim().toLowerCase();
                                                         });
                                                         if (!targetEntry) return;
+                                                        var importedSourceForm = "";
+                                                        if (data.version >= 86 && typeof modification.sourceForm === "string" && modification.sourceForm.trim()) {
+                                                            var rawSourceForm = data.forms.find(function (formsEntry) {
+                                                                return formsEntry && typeof formsEntry.generation === "string" && typeof formsEntry.enitoy === "string" &&
+                                                                    typeof formsEntry.formName === "string" &&
+                                                                    formsEntry.generation.trim().toLowerCase() === generation.name.toLowerCase() &&
+                                                                    formsEntry.enitoy.trim().toLowerCase() === entry.name.trim().toLowerCase() &&
+                                                                    formsEntry.formName.trim().toLowerCase() === modification.sourceForm.trim().toLowerCase();
+                                                            });
+                                                            if (!rawSourceForm) return;
+                                                            importedSourceForm = rawSourceForm.formName.trim();
+                                                        }
                                                         var importedTargetForm = "";
                                                         if (data.version >= 81 && typeof modification.targetForm === "string" && modification.targetForm.trim()) {
                                                             var rawTargetForm = data.forms.find(function (formsEntry) {
@@ -10000,7 +10031,7 @@ dialog,
                                                         }
                                                         var importedParameter = canonicalRegionalModificationParameter(modification.method, modification.parameter);
                                                         if (importedParameter === null) return;
-                                                        var importedModificationKey = targetGeneration.name.toLowerCase() + "|" +
+                                                        var importedModificationKey = importedSourceForm.toLowerCase() + "|" + targetGeneration.name.toLowerCase() + "|" +
                                                             targetEntry.name.trim().toLowerCase() + "|" + importedTargetForm.toLowerCase() + "|" +
                                                             modification.method.toLowerCase() + "|" + String(importedParameter).toLowerCase();
                                                         if (importedModificationSeen[importedModificationKey]) return;
@@ -10011,10 +10042,13 @@ dialog,
                                                             method: modification.method,
                                                             parameter: importedParameter
                                                         };
+                                                        if (importedSourceForm) importedModification.sourceForm = importedSourceForm;
                                                         if (importedTargetForm) importedModification.targetForm = importedTargetForm;
                                                         importedModifications.push(importedModification);
                                                     });
                                                     importedModifications.sort(function (a, b) {
+                                                        var sourceFormCompare = String(a.sourceForm || "").localeCompare(String(b.sourceForm || ""), undefined, { sensitivity: "base" });
+                                                        if (sourceFormCompare) return sourceFormCompare;
                                                         var generationCompare = a.targetGeneration.localeCompare(b.targetGeneration, undefined, { sensitivity: "base", numeric: true });
                                                         if (generationCompare) return generationCompare;
                                                         var targetCompare = a.target.localeCompare(b.target, undefined, { sensitivity: "base" });
@@ -12817,6 +12851,8 @@ dialog,
                     });
 
                     output.sort(function (a, b) {
+                        var sourceFormCompare = String(a.sourceForm || "").localeCompare(String(b.sourceForm || ""), undefined, { sensitivity: "base" });
+                        if (sourceFormCompare) return sourceFormCompare;
                         var generationCompare = a.targetGeneration.localeCompare(b.targetGeneration, undefined, { sensitivity: "base", numeric: true });
                         if (generationCompare) return generationCompare;
                         return a.target.localeCompare(b.target, undefined, { sensitivity: "base" });
@@ -13134,6 +13170,19 @@ dialog,
                         var parameter = canonicalRegionalModificationParameter(modification.method, modification.parameter);
                         if (parameter === null) return;
 
+                        var sourceForm = "";
+                        if (typeof modification.sourceForm === "string" && modification.sourceForm.trim()) {
+                            var wantedSourceForm = modification.sourceForm.trim().toLowerCase();
+                            var ownerName = String(entry.name || "").trim().toLowerCase();
+                            var matchingSourceForm = normalizedFormsEntries().find(function (formsEntry) {
+                                return formsEntry && formsEntry.generationName === ownerGenerationName &&
+                                    String(formsEntry.enitoyName || "").trim().toLowerCase() === ownerName &&
+                                    String(formsEntry.formName || "").trim().toLowerCase() === wantedSourceForm;
+                            });
+                            if (!matchingSourceForm) return;
+                            sourceForm = matchingSourceForm.formName;
+                        }
+
                         var canonical = canonicalRegionalTarget(
                             modification.target,
                             modification.targetGeneration,
@@ -13142,7 +13191,8 @@ dialog,
                         );
                         if (!canonical) return;
 
-                        var key = regionalModificationReferenceKey(canonical.target, canonical.generationName, canonical.targetForm) + "|" +
+                        var key = String(sourceForm || "").toLowerCase() + "|" +
+                            regionalModificationReferenceKey(canonical.target, canonical.generationName, canonical.targetForm) + "|" +
                             modification.method.toLowerCase() + "|" + String(parameter).toLowerCase();
                         if (seen[key]) return;
                         seen[key] = true;
@@ -13152,6 +13202,7 @@ dialog,
                             method: modification.method,
                             parameter: parameter
                         };
+                        if (sourceForm) normalizedModification.sourceForm = sourceForm;
                         if (canonical.targetForm) normalizedModification.targetForm = canonical.targetForm;
                         output.push(normalizedModification);
                     });
@@ -13181,7 +13232,8 @@ dialog,
                     var ownerGenerationName = regionalOwnerGenerationName(activeRegionalSlotDraft);
                     regionalModificationSummary.textContent = modifications.length
                         ? modifications.map(function (modification) {
-                            return regionalModificationTargetDisplay(
+                            var sourceLabel = modification.sourceForm ? formDisplayName({ formName: modification.sourceForm }, activeRegionalSlotDraft.name) : "Base Form";
+                            return sourceLabel + " → " + regionalModificationTargetDisplay(
                                 modification.target,
                                 modification.targetGeneration,
                                 modification.targetForm,
@@ -13189,6 +13241,31 @@ dialog,
                             ) + " — " + modification.method + ": " + modification.parameter;
                         }).join("; ")
                         : "None";
+                }
+
+                function renderRegionalModificationSourceFormSelect() {
+                    regionalModificationSourceFormSelect.innerHTML = "";
+                    if (!activeRegionalSlotDraft) {
+                        regionalModificationSourceFormSelect.disabled = true;
+                        return;
+                    }
+                    var baseOption = document.createElement("option");
+                    baseOption.value = "";
+                    baseOption.textContent = "Base Form";
+                    regionalModificationSourceFormSelect.appendChild(baseOption);
+
+                    var ownerGenerationName = regionalOwnerGenerationName(activeRegionalSlotDraft);
+                    var ownerName = String(activeRegionalSlotDraft.name || "").trim().toLowerCase();
+                    normalizedFormsEntries().filter(function (formsEntry) {
+                        return formsEntry.generationName === ownerGenerationName &&
+                            String(formsEntry.enitoyName || "").trim().toLowerCase() === ownerName;
+                    }).forEach(function (formsEntry) {
+                        var option = document.createElement("option");
+                        option.value = formsEntry.formName;
+                        option.textContent = formDisplayName(formsEntry, activeRegionalSlotDraft.name);
+                        regionalModificationSourceFormSelect.appendChild(option);
+                    });
+                    regionalModificationSourceFormSelect.disabled = false;
                 }
 
                 function renderRegionalModificationTargetSelect() {
@@ -13373,7 +13450,7 @@ dialog,
 
                     var header = document.createElement("div");
                     header.className = "regional-modification-table-header";
-                    ["Modifies Into", "Method", "Parameter", ""].forEach(function (labelText) {
+                    ["Applies From", "Modifies Into", "Method", "Parameter", ""].forEach(function (labelText) {
                         var label = document.createElement("div");
                         label.textContent = labelText;
                         header.appendChild(label);
@@ -13385,6 +13462,12 @@ dialog,
                         row.className = "regional-modification-entry";
 
                         var ownerGenerationName = regionalOwnerGenerationName(activeRegionalSlotDraft);
+                        var source = document.createElement("div");
+                        source.textContent = modification.sourceForm
+                            ? formDisplayName({ formName: modification.sourceForm }, activeRegionalSlotDraft.name)
+                            : "Base Form";
+                        row.appendChild(source);
+
                         var target = document.createElement("div");
                         target.className = "regional-modification-entry-target";
                         target.textContent = regionalModificationTargetDisplay(
@@ -13417,10 +13500,12 @@ dialog,
                         remove.addEventListener("click", function () {
                             if (!activeRegionalSlotDraft) return;
                             markActiveFormFieldTouched("modifications");
-                            var key = regionalModificationReferenceKey(modification.target, modification.targetGeneration, modification.targetForm) + "|" +
+                            var key = String(modification.sourceForm || "").toLowerCase() + "|" +
+                                regionalModificationReferenceKey(modification.target, modification.targetGeneration, modification.targetForm) + "|" +
                                 modification.method.toLowerCase() + "|" + String(modification.parameter).toLowerCase();
                             activeRegionalSlotDraft.modifications = normalizedRegionalModifications(activeRegionalSlotDraft).filter(function (existing) {
-                                var existingKey = regionalModificationReferenceKey(existing.target, existing.targetGeneration, existing.targetForm) + "|" +
+                                var existingKey = String(existing.sourceForm || "").toLowerCase() + "|" +
+                                    regionalModificationReferenceKey(existing.target, existing.targetGeneration, existing.targetForm) + "|" +
                                     existing.method.toLowerCase() + "|" + String(existing.parameter).toLowerCase();
                                 return existingKey !== key;
                             });
@@ -13435,6 +13520,7 @@ dialog,
                 }
 
                 function renderRegionalModificationDialog() {
+                    renderRegionalModificationSourceFormSelect();
                     renderRegionalModificationTargetSelect();
                     renderRegionalModificationMethodSelect();
                     renderRegionalModificationParameterControl();
@@ -13488,10 +13574,14 @@ dialog,
                         var modificationGeneration = typeof modification.targetGeneration === "string" && modification.targetGeneration.trim()
                             ? modification.targetGeneration.trim()
                             : ownerGenerationName;
-                        return !(String(modificationGeneration || "").toLowerCase() === wantedGeneration &&
+                        var targetsDeletedForm = String(modificationGeneration || "").toLowerCase() === wantedGeneration &&
                             modification.target.trim().toLowerCase() === wantedEnitoy &&
                             typeof modification.targetForm === "string" &&
-                            modification.targetForm.trim().toLowerCase() === wantedForm);
+                            modification.targetForm.trim().toLowerCase() === wantedForm;
+                        var sourcedFromDeletedForm = String(ownerGenerationName || "").toLowerCase() === wantedGeneration &&
+                            typeof modification.sourceForm === "string" &&
+                            modification.sourceForm.trim().toLowerCase() === wantedForm;
+                        return !(targetsDeletedForm || sourcedFromDeletedForm);
                     }
 
                     regionalGenerations.forEach(function (ownerGeneration) {
@@ -13810,8 +13900,10 @@ dialog,
                         }
                     }
 
-                    function visit(entry) {
-                        var modifications = normalizedRegionalModifications(entry);
+                    function visit(entry, currentFormName) {
+                        var modifications = normalizedRegionalModifications(entry).filter(function (modification) {
+                            return String(modification.sourceForm || "").toLowerCase() === String(currentFormName || "").toLowerCase();
+                        });
                         modifications.forEach(function (modification) {
                             var targetKey = regionalModificationReferenceKey(
                                 modification.target,
@@ -13830,18 +13922,18 @@ dialog,
                                 if (!targetFormEntry) return;
                                 addRegionalTechniqueDirectlyToForm(targetFormEntry, techniqueName);
                                 var effectiveTargetForm = effectiveFormsEntry(targetFormEntry);
-                                if (effectiveTargetForm) visit(effectiveTargetForm);
+                                if (effectiveTargetForm) visit(effectiveTargetForm, modification.targetForm);
                                 return;
                             }
 
                             var targetEntry = findRegionalConceptEntryByReference(modification.target, modification.targetGeneration);
                             if (!targetEntry) return;
                             addRegionalTechniqueDirectly(targetEntry, techniqueName);
-                            visit(targetEntry);
+                            visit(targetEntry, "");
                         });
                     }
 
-                    visit(sourceEntry);
+                    visit(sourceEntry, sourceFormEntry ? sourceFormEntry.formName : "");
                 }
 
                 function synchronizeAllRegionalTechniqueInheritance() {
@@ -14641,6 +14733,9 @@ dialog,
                     if (!activeRegionalSlotDraft || regionalModificationTargetSelect.disabled) return;
                     var selectedOption = regionalModificationTargetSelect.selectedOptions[0];
                     if (!selectedOption) return;
+                    var sourceForm = regionalModificationSourceFormSelect && !regionalModificationSourceFormSelect.disabled
+                        ? String(regionalModificationSourceFormSelect.value || "").trim()
+                        : "";
                     var target = selectedOption.dataset.target || "";
                     var targetGeneration = selectedOption.dataset.generation || "";
                     var targetForm = selectedOption.dataset.form || "";
@@ -14650,7 +14745,8 @@ dialog,
 
                     var modifications = normalizedRegionalModifications(activeRegionalSlotDraft);
                     var duplicate = modifications.some(function (existing) {
-                        return regionalModificationReferenceKey(existing.target, existing.targetGeneration, existing.targetForm) ===
+                        return String(existing.sourceForm || "").toLowerCase() === sourceForm.toLowerCase() &&
+                            regionalModificationReferenceKey(existing.target, existing.targetGeneration, existing.targetForm) ===
                                 regionalModificationReferenceKey(target, targetGeneration, targetForm) &&
                             existing.method === method &&
                             String(existing.parameter).toLowerCase() === String(parameter).toLowerCase();
@@ -14667,6 +14763,7 @@ dialog,
                         method: method,
                         parameter: parameter
                     };
+                    if (sourceForm) newModification.sourceForm = sourceForm;
                     if (targetForm) newModification.targetForm = targetForm;
                     modifications.push(newModification);
                     activeRegionalSlotDraft.modifications = modifications;
