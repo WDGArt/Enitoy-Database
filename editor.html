@@ -19584,57 +19584,50 @@ dialog,
 
                 function forEachMovepoolModificationDescendant(sourceEntry, sourceStorageTarget, callback) {
                     if (!sourceEntry || typeof callback !== "function") return;
-
                     var sourceFormEntry = movepoolFormStorageTarget(sourceStorageTarget);
                     var visited = {};
-                    if (sourceFormEntry) {
-                        visited[regionalModificationReferenceKey(
-                            sourceFormEntry.enitoyName,
-                            sourceFormEntry.generationName,
-                            sourceFormEntry.formName
-                        )] = true;
-                    } else {
-                        var sourceGenerationName = regionalOwnerGenerationName(sourceEntry);
-                        if (sourceGenerationName && typeof sourceEntry.name === "string" && sourceEntry.name.trim()) {
-                            visited[regionalModificationReferenceKey(sourceEntry.name.trim(), sourceGenerationName, "")] = true;
+                    function visit(entry, currentForm, currentStorage) {
+                        var ownerEntry = currentForm
+                            ? findMovepoolBaseEntry(currentForm.generationName, currentForm.enitoyName)
+                            : entry;
+                        var routes = normalizedRegionalModifications(ownerEntry).filter(function (modification) {
+                            return String(modification.sourceForm || "").toLowerCase() ===
+                                String(currentForm ? currentForm.formName : "").toLowerCase();
+                        });
+                        // Form-specific paths can also live in the form's overrides.
+                        if (currentForm && entry !== ownerEntry) {
+                            normalizedRegionalModifications(entry).forEach(function (modification) {
+                                if (!modification.sourceForm || String(modification.sourceForm).toLowerCase() ===
+                                    String(currentForm.formName).toLowerCase()) routes.push(modification);
+                            });
                         }
-                    }
-
-                    function visit(entry) {
-                        normalizedRegionalModifications(entry).forEach(function (modification) {
+                        routes.forEach(function (modification) {
                             var targetKey = regionalModificationReferenceKey(
-                                modification.target,
-                                modification.targetGeneration,
-                                modification.targetForm
-                            );
+                                modification.target, modification.targetGeneration, modification.targetForm);
                             if (visited[targetKey]) return;
                             visited[targetKey] = true;
-
                             if (modification.targetForm) {
                                 var targetFormEntry = findRegionalFormEntryByReference(
-                                    modification.target,
-                                    modification.targetGeneration,
-                                    modification.targetForm
-                                );
+                                    modification.target, modification.targetGeneration, modification.targetForm);
                                 if (!targetFormEntry) return;
-                                var effectiveTargetForm = effectiveFormsEntry(targetFormEntry);
-                                if (!effectiveTargetForm) return;
-                                callback(targetFormEntry, effectiveTargetForm);
-                                visit(effectiveTargetForm);
-                                return;
+                                var targetEffective = effectiveFormsEntry(targetFormEntry);
+                                if (!targetEffective) return;
+                                callback(targetFormEntry, targetEffective);
+                                visit(targetEffective, targetFormEntry.formName, targetFormEntry);
+                            } else {
+                                var targetEntry = findRegionalConceptEntryByReference(
+                                    modification.target, modification.targetGeneration);
+                                if (!targetEntry) return;
+                                callback(targetEntry, targetEntry);
+                                visit(targetEntry, "", targetEntry);
                             }
-
-                            var targetEntry = findRegionalConceptEntryByReference(
-                                modification.target,
-                                modification.targetGeneration
-                            );
-                            if (!targetEntry) return;
-                            callback(targetEntry, targetEntry);
-                            visit(targetEntry);
                         });
                     }
-
-                    visit(sourceEntry);
+                    var startKey = sourceFormEntry
+                        ? regionalModificationReferenceKey(sourceFormEntry.enitoyName, sourceFormEntry.generationName, sourceFormEntry.formName)
+                        : regionalModificationReferenceKey(sourceEntry.name, regionalOwnerGenerationName(sourceEntry), "");
+                    visited[startKey] = true;
+                    visit(sourceEntry, sourceFormEntry ? sourceFormEntry.formName : "", sourceStorageTarget);
                 }
 
                 function addMovepoolLevelUpTechniqueDirectly(storageTarget, effectiveEntry, levelUpEntry) {
@@ -19685,13 +19678,19 @@ dialog,
 
                 function propagateMovepoolLevelUpTechniqueThroughModifications(sourceEntry, sourceStorageTarget, levelUpEntry) {
                     forEachMovepoolModificationDescendant(sourceEntry, sourceStorageTarget, function (targetStorage, targetEffective) {
-                        addMovepoolLevelUpTechniqueDirectly(targetStorage, targetEffective, levelUpEntry);
+                        if (movepoolFormStorageTarget(targetStorage)) addRegionalTechniqueDirectlyToForm(targetStorage, levelUpEntry.name);
+                        else addRegionalTechniqueDirectly(targetStorage, levelUpEntry.name);
+                        var refreshed = movepoolFormStorageTarget(targetStorage) ? effectiveFormsEntry(targetStorage) : targetStorage;
+                        addMovepoolLevelUpTechniqueDirectly(targetStorage, refreshed, levelUpEntry);
                     });
                 }
 
                 function propagateMovepoolScrollLearnedTechniqueThroughModifications(sourceEntry, sourceStorageTarget, techniqueName) {
                     forEachMovepoolModificationDescendant(sourceEntry, sourceStorageTarget, function (targetStorage, targetEffective) {
-                        addMovepoolScrollLearnedTechniqueDirectly(targetStorage, targetEffective, techniqueName);
+                        if (movepoolFormStorageTarget(targetStorage)) addRegionalTechniqueDirectlyToForm(targetStorage, techniqueName);
+                        else addRegionalTechniqueDirectly(targetStorage, techniqueName);
+                        var refreshed = movepoolFormStorageTarget(targetStorage) ? effectiveFormsEntry(targetStorage) : targetStorage;
+                        addMovepoolScrollLearnedTechniqueDirectly(targetStorage, refreshed, techniqueName);
                     });
                 }
 
