@@ -652,7 +652,26 @@ function modSpriteNode(s,formName){
 function renderModifications(base,e,formRec){
   const sourceForm=formRec?.form?.formName||'';
   const sourceEntry=base?.entry||e||{};
-  const out=(sourceEntry.modifications||[]).filter(m=>String(m?.sourceForm||'')===sourceForm).slice().sort((a,b)=>{
+  // Modifications can be saved on the base Enitoy with a sourceForm marker,
+  // or in a form's own overrides/direct record. Only show outgoing routes
+  // for the currently selected form, without inheriting base-only routes.
+  const baseRoutes=Array.isArray(sourceEntry.modifications)?sourceEntry.modifications:[];
+  const formData=formRec?.form;
+  const ownRoutes=formData && Array.isArray(formData.overrides?.modifications)
+    ? formData.overrides.modifications
+    : formData && Array.isArray(formData.modifications)
+      ? formData.modifications : null;
+  const matchingBase=baseRoutes.filter(m=>m && String(m.sourceForm||'')===sourceForm);
+  const matchingOwn=sourceForm && ownRoutes
+    ? ownRoutes.filter(m=>m && (!m.sourceForm || String(m.sourceForm)===sourceForm)) : [];
+  const routeKey=m=>JSON.stringify([m.targetGeneration||'',m.target||'',m.targetForm||'',m.method||'',m.parameter??null]);
+  const seenRoutes=new Set();
+  const out=[...matchingOwn,...matchingBase].filter(m=>{
+    const key=routeKey(m);
+    if(seenRoutes.has(key))return false;
+    seenRoutes.add(key);
+    return true;
+  }).sort((a,b)=>{
     const ta=speciesBy(a.targetGeneration,a.target),tb=speciesBy(b.targetGeneration,b.target);
     const na=ta?.number??Number.MAX_SAFE_INTEGER,nb=tb?.number??Number.MAX_SAFE_INTEGER;
     return na-nb||String(a.target||'').localeCompare(String(b.target||''))||String(a.targetForm||'').localeCompare(String(b.targetForm||''));
