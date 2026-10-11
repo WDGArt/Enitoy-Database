@@ -17074,6 +17074,9 @@
       "locations": [
         {
           "name": "Cottonwick Town",
+          "connectedLocations": [
+            "Path 01"
+          ],
           "methods": [
             {
               "name": "Gift",
@@ -17086,6 +17089,10 @@
         },
         {
           "name": "Path 01",
+          "connectedLocations": [
+            "Cottonwick Town",
+            "Path 02"
+          ],
           "methods": [
             {
               "name": "Grass",
@@ -17172,6 +17179,10 @@
         },
         {
           "name": "Path 02",
+          "connectedLocations": [
+            "Path 01",
+            "Hushwood Forest"
+          ],
           "methods": [
             {
               "name": "Grass",
@@ -17417,6 +17428,10 @@
         },
         {
           "name": "Hushwood Forest",
+          "connectedLocations": [
+            "Path 02",
+            "Goldenstead City"
+          ],
           "methods": [
             {
               "name": "Grass",
@@ -17608,6 +17623,10 @@
         },
         {
           "name": "Goldenstead City",
+          "connectedLocations": [
+            "Hushwood Forest",
+            "Path 03"
+          ],
           "methods": [
             {
               "name": "Streets",
@@ -17688,6 +17707,10 @@
         },
         {
           "name": "Path 03",
+          "connectedLocations": [
+            "Goldenstead City",
+            "Hissing Caverns"
+          ],
           "methods": [
             {
               "name": "Sand",
@@ -17780,6 +17803,10 @@
         },
         {
           "name": "Hissing Caverns",
+          "connectedLocations": [
+            "Path 03",
+            "South East Soldust Sands"
+          ],
           "methods": [
             {
               "name": "Ground",
@@ -17866,6 +17893,10 @@
         },
         {
           "name": "South East Soldust Sands",
+          "connectedLocations": [
+            "Hissing Caverns",
+            "South West Soldust Sands"
+          ],
           "methods": [
             {
               "name": "Sand",
@@ -17952,6 +17983,10 @@
         },
         {
           "name": "South West Soldust Sands",
+          "connectedLocations": [
+            "South East Soldust Sands",
+            "Abandoned Sky Moon Factory Entryway"
+          ],
           "methods": [
             {
               "name": "Sand",
@@ -18050,6 +18085,10 @@
         },
         {
           "name": "Abandoned Sky Moon Factory Entryway",
+          "connectedLocations": [
+            "South West Soldust Sands",
+            "Abandoned Sky Moon Factory F1"
+          ],
           "methods": [
             {
               "name": "Ground",
@@ -18130,6 +18169,10 @@
         },
         {
           "name": "Abandoned Sky Moon Factory F1",
+          "connectedLocations": [
+            "Abandoned Sky Moon Factory Entryway",
+            "Abandoned Sky Moon Factory B1"
+          ],
           "methods": [
             {
               "name": "Ground",
@@ -18204,6 +18247,11 @@
         },
         {
           "name": "Abandoned Sky Moon Factory B1",
+          "connectedLocations": [
+            "Abandoned Sky Moon Factory F1",
+            "Abandoned Sky Moon Factory Den",
+            "Abandoned Sky Moon Factory F2"
+          ],
           "methods": [
             {
               "name": "Ground",
@@ -18302,6 +18350,9 @@
         },
         {
           "name": "Abandoned Sky Moon Factory Den",
+          "connectedLocations": [
+            "Abandoned Sky Moon Factory B1"
+          ],
           "methods": [
             {
               "name": "Sand",
@@ -18376,6 +18427,12 @@
         },
         {
           "name": "Abandoned Sky Moon Factory F2",
+          "connectedLocations": [
+            "Abandoned Sky Moon Factory Entryway",
+            "Abandoned Sky Moon Factory F1",
+            "Abandoned Sky Moon Factory B1",
+            "Abandoned Sky Moon Factory Roof"
+          ],
           "methods": [
             {
               "name": "Ground",
@@ -18444,6 +18501,10 @@
         },
         {
           "name": "Abandoned Sky Moon Factory Roof",
+          "connectedLocations": [
+            "Abandoned Sky Moon Factory Office",
+            "Abandoned Sky Moon Factory Entryway"
+          ],
           "methods": [
             {
               "name": "Ground",
@@ -18494,6 +18555,11 @@
         },
         {
           "name": "Abandoned Sky Moon Factory Office",
+          "connectedLocations": [
+            "Abandoned Sky Moon Factory Roof",
+            "Abandoned Sky Moon Factory F1",
+            "Abandoned Sky Moon Factory B1"
+          ],
           "methods": [
             {
               "name": "Ground",
