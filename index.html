@@ -122,6 +122,19 @@ button,input,select{font:inherit}
 .encounter-method-target{scroll-margin-top:86px}
 .encounter-method-target:target{outline:2px solid #9ab8ce;outline-offset:5px}
 @media(max-width:650px){.encounter-table{font-size:12px}.encounter-icon{width:32px;height:32px}}
+
+/* Enitoy page quick navigation and return-to-top control */
+.enitoy-jump-nav{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:12px 14px;margin:0 0 18px;background:#fff;border:1px solid var(--line);border-radius:7px}
+.enitoy-jump-title{font-size:12px;font-weight:800;color:#63717f;margin-right:4px}
+.enitoy-jump-link{font:inherit;font-size:12px;font-weight:700;line-height:1.2;color:#315e83;background:#f2f6fa;border:1px solid #d7e3ed;border-radius:20px;padding:7px 11px;cursor:pointer}
+.enitoy-jump-link:hover,.enitoy-jump-link:focus-visible{background:#e2eef8;border-color:#8eb0cf;outline-offset:2px}
+.enitoy-jump-target{scroll-margin-top:85px}
+.enitoy-back-top{position:fixed;right:19px;bottom:19px;z-index:80;width:42px;height:42px;border-radius:50%;border:1px solid #52718b;background:var(--nav);color:#fff;box-shadow:0 3px 12px #17293a33;display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:800;cursor:pointer;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(7px);transition:opacity .16s ease,transform .16s ease,visibility .16s}
+.enitoy-back-top.is-visible{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
+.enitoy-back-top:hover{background:#274e70}
+.enitoy-back-top:focus-visible{outline:3px solid #8db9dd;outline-offset:3px}
+@media(max-width:650px){.enitoy-jump-nav{gap:7px;padding:10px}.enitoy-jump-title{flex-basis:100%}.enitoy-back-top{right:13px;bottom:13px;width:39px;height:39px}}
+@media(prefers-reduced-motion:reduce){.enitoy-back-top{transition:none}}
 </style>
 </head>
 <body>
@@ -612,7 +625,67 @@ app.innerHTML=`${breadcrumbs([{label:'Enitoys',route:'enitoys'},{label:e.name}])
 ${renderCatalogEntries(formRec ? formCatalogEntrySource(formRec) : e,base.generation)}
 ${renderNameOrigins(e)}
 <section class="section grid-3"><div class="card"><h2>Skills</h2><table class="key-table"><tr><th>Skill</th><td>${e.skill?routeLink(`skills/${slug(e.skill)}`,e.skill):'—'}${skill?`<div class="tiny muted">${esc(skill.effect)}</div>`:''}</td></tr><tr><th>Hidden Skill</th><td>${e.hiddenSkill?routeLink(`skills/${slug(e.hiddenSkill)}`,e.hiddenSkill):'—'}${hidden?`<div class="tiny muted">${esc(hidden.effect)}</div>`:''}</td></tr></table></div><div class="card"><h2>Misprint Defect</h2>${e.misprintDefect?`<b>${routeLink(`defects/${slug(e.misprintDefect)}`,e.misprintDefect)}</b>${defect?`<p class="tiny muted">${esc(defect.effect)}</p>`:''}`:'<span class="muted">None recorded.</span>'}</div><div class="card"><h2>Drops</h2>${renderDrops(e.drops)}</div></section>
-${renderModifications(base,e,formRec)}${renderTechniques(e)}${renderAssistCalls(e)}${enc.length?renderEncounterSection(enc):''}${renderTemperamentLocks(e)}${baseForms.length&&!formRec?`<section class="section"><h2 class="section-title">Forms</h2><div class="catalog-grid">${baseForms.map(f=>`<a class="catalog-card" href="#form/${slug(f.form.generation)}/${slug(f.form.enitoy)}/${slug(f.form.formName)}"><div class="catalog-thumb">${f.entry.imageData?`<img src="${f.entry.imageData}" alt="">`:'?'}</div><div><div class="catalog-no">${num(base.number)}·F${baseForms.indexOf(f)+1}</div><div class="catalog-name">${esc(f.entry.name)}</div><div class="catalog-types">${stitches(f.entry).map(t=>{const bg=color(t);return `<span class="mini-pill" style="background:${bg};color:${readable(bg)}">${esc(t)}</span>`}).join('')}</div></div></a>`).join('')}</div></section>`:''}`; setupPortraitToggle(e); }
+${renderModifications(base,e,formRec)}${renderTechniques(e)}${renderAssistCalls(e)}${enc.length?renderEncounterSection(enc):''}${renderTemperamentLocks(e)}${baseForms.length&&!formRec?`<section class="section"><h2 class="section-title">Forms</h2><div class="catalog-grid">${baseForms.map(f=>`<a class="catalog-card" href="#form/${slug(f.form.generation)}/${slug(f.form.enitoy)}/${slug(f.form.formName)}"><div class="catalog-thumb">${f.entry.imageData?`<img src="${f.entry.imageData}" alt="">`:'?'}</div><div><div class="catalog-no">${num(base.number)}·F${baseForms.indexOf(f)+1}</div><div class="catalog-name">${esc(f.entry.name)}</div><div class="catalog-types">${stitches(f.entry).map(t=>{const bg=color(t);return `<span class="mini-pill" style="background:${bg};color:${readable(bg)}">${esc(t)}</span>`}).join('')}</div></div></a>`).join('')}</div></section>`:''}`; setupPortraitToggle(e); setupEnitoySectionNavigation(); }
+
+function setupEnitoySectionNavigation(){
+  // Only individual Enitoy and form pages get this navigation.
+  const hero=app.querySelector('.hero-grid');
+  if(!hero)return;
+  hero.id='enitoy-section-overview';
+  hero.classList.add('enitoy-jump-target');
+  const sections=[{id:hero.id,label:'Overview'}];
+  app.querySelectorAll('section.section').forEach((section,index)=>{
+    const title=section.querySelector(':scope > .section-title');
+    const skillsCard=section.querySelector(':scope > .card > h2');
+    const label=title?title.textContent.trim():skillsCard&&skillsCard.textContent.trim()==='Skills'?'Skills, Defect & Drops':'';
+    if(!label)return;
+    const id='enitoy-section-'+(index+1);
+    section.id=id;
+    section.classList.add('enitoy-jump-target');
+    sections.push({id,label});
+  });
+  const nav=document.createElement('nav');
+  nav.className='enitoy-jump-nav';
+  nav.setAttribute('aria-label','Jump to Enitoy section');
+  const heading=document.createElement('span');
+  heading.className='enitoy-jump-title';
+  heading.textContent='Jump to:';
+  nav.appendChild(heading);
+  sections.forEach(({id,label})=>{
+    const button=document.createElement('button');
+    button.type='button';
+    button.className='enitoy-jump-link';
+    button.textContent=label;
+    button.addEventListener('click',()=>{
+      const target=document.getElementById(id);
+      if(target)target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+    });
+    nav.appendChild(button);
+  });
+  const subtitle=app.querySelector(':scope > .subtitle');
+  if(subtitle)subtitle.insertAdjacentElement('afterend',nav);
+  updateEnitoyBackToTop();
+}
+function updateEnitoyBackToTop(){
+  let button=document.getElementById('enitoy-back-to-top');
+  if(!button){
+    button=document.createElement('button');
+    button.id='enitoy-back-to-top';
+    button.type='button';
+    button.className='enitoy-back-top';
+    button.innerHTML='&#8593;';
+    button.setAttribute('aria-label','Back to top of Enitoy page');
+    button.title='Back to top';
+    button.addEventListener('click',()=>window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}));
+    document.body.appendChild(button);
+  }
+  const active=!!app.querySelector('.enitoy-jump-nav');
+  button.classList.toggle('is-visible',active&&window.scrollY>250);
+  button.tabIndex=active&&window.scrollY>250?0:-1;
+}
+window.addEventListener('scroll',updateEnitoyBackToTop,{passive:true});
+window.addEventListener('hashchange',()=>requestAnimationFrame(updateEnitoyBackToTop));
+
 function renderDrops(drops){ if(!Array.isArray(drops)||!drops.length)return '<span class="muted">None</span>'; return `<div class="inline-links">${drops.map(d=>{const name=typeof d==='string'?d:(d.item||d.name||''); const qty=typeof d==='object'&&(d.quantity||d.qty); return name?`<span class="chip-link">${routeLink(`items/${slug(name)}`,name)}${qty?` ×${esc(qty)}`:''}</span>`:''}).join('')}</div>`; }
 function formCatalogEntrySource(formRec){
   if(!formRec||!formRec.form)return {};
