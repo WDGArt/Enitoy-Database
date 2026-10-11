@@ -624,7 +624,7 @@ function renderSpecies(gen,name){ const rec=speciesBy(gen,name); if(!rec){app.in
 function renderForm(gen,baseName,formName){ const rec=forms.find(x=>x.form.generation===gen&&x.form.enitoy===baseName&&x.form.formName===formName); if(!rec){app.innerHTML=empty('Form not found.');return;} renderSpeciesPage(rec.entry,rec.base,{formRec:rec,baseRec:rec.base}); }
 
 function renderSpeciesPager(base){ const i=species.findIndex(s=>s===base || (s.generation===base.generation&&s.entry.name===base.entry.name)); const prev=i>0?species[i-1]:null, next=i>=0&&i<species.length-1?species[i+1]:null; const link=(rec,side)=>{ if(!rec)return `<span class="species-pager-disabled species-pager-${side}" aria-hidden="true"><span class="species-pager-arrow">${side==='prev'?'←':'→'}</span></span>`; const route=`enitoy/${slug(rec.generation)}/${slug(rec.entry.name)}`; const arrow=`<span class="species-pager-arrow">${side==='prev'?'←':'→'}</span>`; const label=`<span class="species-pager-label">${num(rec.number)} ${esc(rec.entry.name)}</span>`; return `<a class="species-pager-link species-pager-${side}" href="#${route}" title="${side==='prev'?'Previous':'Next'} Enitoy: ${esc(rec.entry.name)}">${side==='prev'?arrow+label:label+arrow}</a>`; }; return `<nav class="species-pager" aria-label="Enitoy catalog navigation">${link(prev,'prev')}<div class="species-pager-center">Catalog navigation</div>${link(next,'next')}</nav>`; }
-function renderSpeciesPage(e,numberRec,ctx){ const base=ctx.baseRec; const formRec=ctx.formRec; const baseForms=forms.filter(f=>f.base.entry.name===base.entry.name&&f.base.generation===base.generation); const allTabs=[{label:base.entry.name,route:`enitoy/${slug(base.generation)}/${slug(base.entry.name)}`,active:!formRec},...baseForms.map(f=>({label:f.entry.name,route:`form/${slug(f.form.generation)}/${slug(f.form.enitoy)}/${slug(f.form.formName)}`,active:formRec===f}))]; const skill=lookup(db.skills,e.skill), hidden=lookup(db.skills,e.hiddenSkill), defect=lookup(db.defects,e.misprintDefect); const enc=findEncounters(base.entry.name);
+function renderSpeciesPage(e,numberRec,ctx){ const base=ctx.baseRec; const formRec=ctx.formRec; const baseForms=forms.filter(f=>f.base.entry.name===base.entry.name&&f.base.generation===base.generation); const allTabs=[{label:base.entry.name,route:`enitoy/${slug(base.generation)}/${slug(base.entry.name)}`,active:!formRec},...baseForms.map(f=>({label:f.entry.name,route:`form/${slug(f.form.generation)}/${slug(f.form.enitoy)}/${slug(f.form.formName)}`,active:formRec===f}))]; const skill=lookup(db.skills,e.skill), hidden=lookup(db.skills,e.hiddenSkill), defect=lookup(db.defects,e.misprintDefect); const enc=findEncounters(base.entry.name,formRec?formRec.form.formName:"");
 app.innerHTML=`${breadcrumbs([{label:'Enitoys',route:'enitoys'},{label:e.name}])}${renderSpeciesPager(base)}<div class="form-tabs">${allTabs.map(t=>`<a class="${t.active?'active':''}" href="#${t.route}">${esc(t.label)}</a>`).join('')}</div><h1 class="page-title">${formRec?`${num(base.number)}·F${baseForms.indexOf(formRec)+1}`:num(base.number)} ${esc(e.name)}</h1><p class="subtitle">${e.classification?`${esc(e.classification)} Enitoy`:'Enitoy'} · ${esc(base.generation)}</p>
 <div class="hero-grid"><div class="card portrait-card"><div class="portrait">${imageBox(e)}</div>${hasImageData(e.misprintImageData)?'<div class="portrait-toggle"><button id="portrait-variant-toggle" type="button" aria-pressed="false">View Misprint</button></div>':''}<div class="stitches" style="margin-top:14px;justify-content:center">${stitches(e).map(t=>pill(t)).join('')}</div></div>
 <div class="card"><h2>Profile</h2><table class="key-table"><tr><th>Catalog</th><td>${num(base.number)}${formRec?` · Form ${baseForms.indexOf(formRec)+1}`:''}</td></tr><tr><th>Classification</th><td>${fmt(e.classification)}</td></tr><tr><th>Height</th><td>${fmt(e.height)}</td></tr><tr><th>Weight</th><td>${fmt(e.weight)}</td></tr><tr><th>Gender</th><td>${esc(genderText(e.genderRatio))}</td></tr><tr><th>Internal color</th><td>${fmt(e.internalColor)}</td></tr><tr><th>Recruitment rate</th><td>${fmt(e.recruitmentRate)}</td></tr><tr><th>Base EXP</th><td>${fmt(e.baseExp)}</td></tr><tr><th>Growth</th><td>${fmt(e.growthRate)}</td></tr></table></div>
@@ -777,18 +777,19 @@ function renderModifications(base,e,formRec){
 function renderTechniques(e){ const level=Array.isArray(e.levelUpTechniques)?e.levelUpTechniques:[]; const scroll=Array.isArray(e.scrollLearnedTechniques)?e.scrollLearnedTechniques:[]; if(!level.length&&!scroll.length)return `<section class="section"><h2 class="section-title">Techniques</h2>${empty('No level-up or Scroll techniques are recorded for this Enitoy.')}</section>`; return `<section class="section"><h2 class="section-title">Techniques</h2><div class="grid-2"><div class="card"><h3>Level Up Techniques</h3>${level.length?`<table class="data-table"><thead><tr><th>Lv.</th><th>Technique</th><th>Stitching</th></tr></thead><tbody>${level.slice().sort((a,b)=>(a.level??999)-(b.level??999)||moveNo(a.name)-moveNo(b.name)).map(x=>{const m=lookup(db.moves,x.name);return `<tr><td>${Number(x.level)===0?'<span class="badge">Mod Move</span>':esc(x.level)}</td><td>${routeLink(`move/${slug(x.name)}`,x.name)}</td><td>${m?pill(m.stitching,true):'—'}</td></tr>`}).join('')}</tbody></table>`:'<span class="muted">None recorded.</span>'}</div><div class="card"><h3>Scroll Learned Techniques</h3>${scroll.length?`<table class="data-table"><thead><tr><th>#</th><th>Technique</th><th>Stitching</th></tr></thead><tbody>${scroll.map(n=>{const name=typeof n==='string'?n:n.name; const m=lookup(db.moves,name);return `<tr><td>${moveNo(name)||'—'}</td><td>${routeLink(`move/${slug(name)}`,name)}</td><td>${m?pill(m.stitching,true):'—'}</td></tr>`}).join('')}</tbody></table>`:'<span class="muted">None recorded.</span>'}</div></div></section>`; }
 function renderAssistCalls(e){ const a=e.assistCalls||[]; if(!a.length)return ''; return `<section class="section"><h2 class="section-title">Assist Calls</h2><div class="card"><table class="data-table"><thead><tr><th>Enitoy</th><th>Day</th><th>Night</th></tr></thead><tbody>${a.map(x=>{const t=speciesBy(x.targetGeneration,x.target);return `<tr><td>${t?routeLink(`enitoy/${slug(t.generation)}/${slug(t.entry.name)}`,t.entry.name):esc(x.target)}</td><td>${esc(x.day??0)}%</td><td>${esc(x.night??0)}%</td></tr>`}).join('')}</tbody></table></div></section>`; }
 function renderTemperamentLocks(e){ const a=e.temperamentLock||[]; if(!a.length)return ''; return `<section class="section"><h2 class="section-title">Temperament restrictions</h2><div class="card"><div class="inline-links">${a.map(x=>`<span class="chip-link">${esc(x)}</span>`).join('')}</div></div></section>`; }
-function findEncounters(name){
+function findEncounters(name,formName=''){
   const out=[];
+  const matches=row=>row?.enitoy===name&&(row.formName||'')===formName;
   (db.encounters||[]).forEach(g=>(g.locations||[]).forEach(l=>(l.methods||[]).forEach((m,methodIndex)=>{
-    if(m.gift?.enitoy===name){
+    if(matches(m.gift)){
       out.push({generation:g.generation,location:l.name,method:m.name,methodIndex,giftLevel:m.gift.level,day:null,night:null});
     }
     Object.keys(m).forEach(k=>{
       if(k==='gift'||k==='name')return;
       const pool=m[k];
       if(!pool||typeof pool!=='object'||Array.isArray(pool))return;
-      const day=(Array.isArray(pool.day)?pool.day:[]).filter(x=>x?.enitoy===name);
-      const night=(Array.isArray(pool.night)?pool.night:[]).filter(x=>x?.enitoy===name);
+      const day=(Array.isArray(pool.day)?pool.day:[]).filter(matches);
+      const night=(Array.isArray(pool.night)?pool.night:[]).filter(matches);
       for(let i=0;i<Math.max(day.length,night.length);i++){
         out.push({generation:g.generation,location:l.name,method:m.name,methodIndex,day:day[i]||null,night:night[i]||null});
       }
@@ -1419,13 +1420,22 @@ function setupLocationMethodNavigation(locationEntry){
   }
   updateEnitoyBackToTop();
 }
-function encounterArt(gen,name){
-  const s=speciesBy(gen,name)||species.find(q=>q.entry.name===name);
-  const art=s?.entry?.imageData;
-  return art?`<img class="encounter-icon" src="${esc(art)}" alt="${esc(name)} icon" loading="lazy">`:'<span class="encounter-icon encounter-no-icon" aria-label="No image available">?</span>';
+function encounterFormRecord(gen,name,formName){
+  if(!formName)return null;
+  return forms.find(f=>f.form.enitoy===name&&f.form.formName===formName&&f.form.generation===gen)
+    || forms.find(f=>f.form.enitoy===name&&f.form.formName===formName);
 }
-function encounterName(gen,name){
+function encounterArt(gen,name,formName=''){
+  const f=encounterFormRecord(gen,name,formName);
   const s=speciesBy(gen,name)||species.find(q=>q.entry.name===name);
+  const art=f?.entry?.imageData||s?.entry?.imageData;
+  return art?`<img class="encounter-icon" src="${esc(art)}" alt="${esc(formName?formName+' '+name:name)} icon" loading="lazy">`:'<span class="encounter-icon encounter-no-icon" aria-label="No image available">?</span>';
+}
+function encounterName(gen,name,formName=''){
+  const f=encounterFormRecord(gen,name,formName);
+  if(f)return routeLink(`form/${slug(f.form.generation)}/${slug(f.form.enitoy)}/${slug(f.form.formName)}`,`${formName} ${name}`);
+  const s=speciesBy(gen,name)||species.find(q=>q.entry.name===name);
+  if(formName)return s?`${esc(formName)} ${routeLink(`enitoy/${slug(s.generation)}/${slug(s.entry.name)}`,name)}`:esc(`${formName} ${name}`);
   return s?routeLink(`enitoy/${slug(s.generation)}/${slug(s.entry.name)}`,s.entry.name):esc(name);
 }
 function encounterValue(value,suffix=''){
@@ -1435,7 +1445,7 @@ function renderMethod(gen,m,index){
   const id=`encounter-method-${index}`;
   if(m.gift){
     const name=m.gift.enitoy;
-    return `<section id="${id}" class="section encounter-method-target"><h2 class="section-title">${esc(m.name)}</h2><div class="card encounter-table-wrap"><table class="data-table encounter-table"><thead><tr><th>Enitoy</th><th>Level</th></tr></thead><tbody><tr><td><div class="encounter-species">${encounterArt(gen,name)}<span>${encounterName(gen,name)}</span></div></td><td>${encounterValue(m.gift.level)}</td></tr></tbody></table></div></section>`;
+    return `<section id="${id}" class="section encounter-method-target"><h2 class="section-title">${esc(m.name)}</h2><div class="card encounter-table-wrap"><table class="data-table encounter-table"><thead><tr><th>Enitoy</th><th>Level</th></tr></thead><tbody><tr><td><div class="encounter-species">${encounterArt(gen,name,m.gift.formName)}<span>${encounterName(gen,name,m.gift.formName)}</span></div></td><td>${encounterValue(m.gift.level)}</td></tr></tbody></table></div></section>`;
   }
   let pool=null;
   Object.keys(m).forEach(k=>{if(k!=='name'&&m[k]&&typeof m[k]==='object')pool=m[k]});
@@ -1449,15 +1459,16 @@ function renderMethod(gen,m,index){
     const counts=new Map();
     for(const row of rows){
       if(!row||!row.enitoy)continue;
-      const n=counts.get(row.enitoy)||0;counts.set(row.enitoy,n+1);
-      const key=JSON.stringify([row.enitoy,n]);
+      const speciesKey=JSON.stringify([row.enitoy,row.formName||""]);
+      const n=counts.get(speciesKey)||0;counts.set(speciesKey,n+1);
+      const key=JSON.stringify([row.enitoy,row.formName||"",n]);
       let entry=byName.get(key);
-      if(!entry){entry={name:row.enitoy,day:null,night:null};byName.set(key,entry);entries.push(entry);}
+      if(!entry){entry={name:row.enitoy,formName:row.formName||"",day:null,night:null};byName.set(key,entry);entries.push(entry);}
       entry[time]=row;
     }
   }
   const cells=row=>`<td>${row?encounterValue(row.minLevel):'—'}</td><td>${row?encounterValue(row.maxLevel):'—'}</td><td>${row?encounterValue(row.percent,'%'):'—'}</td>`;
-  return `<section id="${id}" class="section encounter-method-target"><h2 class="section-title">${esc(m.name)}</h2><div class="card encounter-table-wrap">${entries.length?`<table class="data-table encounter-table"><thead><tr><th rowspan="2">Enitoy</th><th colspan="3" class="encounter-time-group">Day</th><th colspan="3" class="encounter-time-group">Night</th></tr><tr><th>Min Lv.</th><th>Max Lv.</th><th>Chance</th><th>Min Lv.</th><th>Max Lv.</th><th>Chance</th></tr></thead><tbody>${entries.map(e=>`<tr><td><div class="encounter-species">${encounterArt(gen,e.name)}<span>${encounterName(gen,e.name)}</span></div></td>${cells(e.day)}${cells(e.night)}</tr>`).join('')}</tbody></table>`:'<span class="muted">No encounters recorded.</span>'}</div></section>`;
+  return `<section id="${id}" class="section encounter-method-target"><h2 class="section-title">${esc(m.name)}</h2><div class="card encounter-table-wrap">${entries.length?`<table class="data-table encounter-table"><thead><tr><th rowspan="2">Enitoy</th><th colspan="3" class="encounter-time-group">Day</th><th colspan="3" class="encounter-time-group">Night</th></tr><tr><th>Min Lv.</th><th>Max Lv.</th><th>Chance</th><th>Min Lv.</th><th>Max Lv.</th><th>Chance</th></tr></thead><tbody>${entries.map(e=>`<tr><td><div class="encounter-species">${encounterArt(gen,e.name,e.formName)}<span>${encounterName(gen,e.name,e.formName)}</span></div></td>${cells(e.day)}${cells(e.night)}</tr>`).join('')}</tbody></table>`:'<span class="muted">No encounters recorded.</span>'}</div></section>`;
 }
 function renderCraftLine(c){ const method=c.method==='station'?'Crafting Station':c.method==='holdMove'?'Hold + Move Stitch':c.method||'Craft'; return `<div style="padding:8px 0;border-bottom:1px solid #e8ebee"><b>${esc(method)}</b>: ${(c.ingredients||[]).map(i=>`${esc(i.quantity||1)}× ${routeLink(`items/${slug(i.item)}`,i.item)}`).join(' + ')} → ${esc(c.resultQuantity||1)}× ${routeLink(`items/${slug(c.resultItem)}`,c.resultItem)}</div>`; }
 function renderCrafts(){ const cs=db.crafts||[]; app.innerHTML=`${breadcrumbs([{label:'Crafts'}])}<h1 class="page-title">Crafts</h1><p class="subtitle">${cs.length} recipes.</p><div class="card">${cs.length?cs.map(renderCraftLine).join(''):'<span class="muted">No recipes recorded.</span>'}</div>`; }
