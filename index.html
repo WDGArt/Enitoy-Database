@@ -681,12 +681,12 @@ function updateEnitoyBackToTop(){
     button.type='button';
     button.className='enitoy-back-top';
     button.innerHTML='&#8593;';
-    button.setAttribute('aria-label','Back to top of Enitoy page');
+    button.setAttribute('aria-label','Back to top of page');
     button.title='Back to top';
     button.addEventListener('click',()=>window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}));
     document.body.appendChild(button);
   }
-  const active=!!app.querySelector('.enitoy-jump-nav');
+  const active=!!app.querySelector('.enitoy-jump-nav') || (location.hash||'').startsWith('#location/');
   button.classList.toggle('is-visible',active&&window.scrollY>250);
   button.tabIndex=active&&window.scrollY>250?0:-1;
 }
@@ -1379,6 +1379,7 @@ function renderLocation(gen,name,methodIndex){
   const g=(db.encounters||[]).find(x=>x.generation===gen), l=g?.locations?.find(x=>x.name===name);
   if(!l){app.innerHTML=empty('Location not found.');return;}
   app.innerHTML=`${breadcrumbs([{label:'Encounters',route:'locations'},{label:name}])}<h1 class="page-title">${esc(name)}</h1><p class="subtitle">${esc(gen)}</p>${renderLocationConnections(g,l)}${(l.methods||[]).map((m,i)=>renderMethod(gen,m,i)).join('')}`;
+  setupLocationMethodNavigation(l);
   if(methodIndex!==undefined&&methodIndex!==null&&String(methodIndex).trim()!==''){
     const idx=Number(methodIndex);
     if(Number.isInteger(idx)&&idx>=0&&idx<(l.methods||[]).length){
@@ -1388,6 +1389,35 @@ function renderLocation(gen,name,methodIndex){
       });
     }
   }
+}
+function setupLocationMethodNavigation(locationEntry){
+  const methods=Array.isArray(locationEntry.methods)?locationEntry.methods:[];
+  if(methods.length){
+    const nav=document.createElement('nav');
+    nav.className='enitoy-jump-nav location-method-jump-nav';
+    nav.setAttribute('aria-label','Jump to encounter method');
+    const heading=document.createElement('span');
+    heading.className='enitoy-jump-title';
+    heading.textContent='Jump to method:';
+    nav.appendChild(heading);
+    methods.forEach((method,index)=>{
+      const button=document.createElement('button');
+      button.type='button';
+      button.className='enitoy-jump-link';
+      button.textContent=method.name||`Method ${index+1}`;
+      button.addEventListener('click',()=>{
+        const target=document.getElementById(`encounter-method-${index}`);
+        if(target)target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+      });
+      nav.appendChild(button);
+    });
+    // The method shortcuts belong at the top, beneath connected-location links.
+    const connections=app.querySelector('.location-connections');
+    const subtitle=app.querySelector(':scope > .subtitle');
+    if(connections)connections.insertAdjacentElement('afterend',nav);
+    else if(subtitle)subtitle.insertAdjacentElement('afterend',nav);
+  }
+  updateEnitoyBackToTop();
 }
 function encounterArt(gen,name){
   const s=speciesBy(gen,name)||species.find(q=>q.entry.name===name);
