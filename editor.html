@@ -5723,6 +5723,8 @@ dialog,
     .tamer-location-field { grid-column:auto; }
 }
 
+  .encounter-form-field[hidden] { display:none !important; }
+  .encounter-form-field select { max-width:100%; }
 </style>
     <style id="encounter-location-connections-style">
 .encounter-connections-editor{margin:12px 14px 18px;padding:13px 16px;border:1px solid #cfc8de;border-radius:10px;background:#f8f6fc;color:#332e42}
@@ -8153,6 +8155,7 @@ dialog,
                                                     Number.isInteger(method.gift.level)) {
                                                     exportedMethod.gift = {
                                                         enitoy: method.gift.enitoy.trim(),
+                                                        formName: method.gift.formName || "",
                                                         level: Math.max(1, Math.min(100, method.gift.level))
                                                     };
                                                 }
@@ -8163,6 +8166,7 @@ dialog,
                                                         day: normalizedGrassPoolRows(grassPools.day).map(function (row) {
                                                             return {
                                                                 enitoy: row.enitoy,
+                                                                formName: row.formName || "",
                                                                 minLevel: row.minLevel,
                                                                 maxLevel: row.maxLevel,
                                                                 percent: row.percent
@@ -8171,6 +8175,7 @@ dialog,
                                                         night: normalizedGrassPoolRows(grassPools.night).map(function (row) {
                                                             return {
                                                                 enitoy: row.enitoy,
+                                                                formName: row.formName || "",
                                                                 minLevel: row.minLevel,
                                                                 maxLevel: row.maxLevel,
                                                                 percent: row.percent
@@ -17529,6 +17534,7 @@ dialog,
 
                     return {
                         enitoy: typeof row.enitoy === "string" ? row.enitoy.trim() : "",
+                        formName: typeof row.formName === "string" ? row.formName.trim() : "",
                         minLevel: nullableInteger(row.minLevel, 1, 100),
                         maxLevel: nullableInteger(row.maxLevel, 1, 100),
                         percent: nullableInteger(row.percent, 0, 100)
@@ -17538,6 +17544,7 @@ dialog,
                 function blankGrassPoolRow() {
                     return {
                         enitoy: "",
+                        formName: "",
                         minLevel: null,
                         maxLevel: null,
                         percent: null
@@ -17550,8 +17557,8 @@ dialog,
                         var bPercent = Number.isInteger(b.percent) ? b.percent : -1;
                         if (aPercent !== bPercent) return bPercent - aPercent;
 
-                        var aName = a.enitoy || "";
-                        var bName = b.enitoy || "";
+                        var aName = (a.enitoy || "") + " " + (a.formName || "");
+                        var bName = (b.enitoy || "") + " " + (b.formName || "");
                         if (!aName && bName) return 1;
                         if (aName && !bName) return -1;
                         return aName.localeCompare(bName, undefined, { sensitivity: "base" });
@@ -17580,12 +17587,14 @@ dialog,
                             row = row && typeof row === "object" ? row : {};
                             legacyDay.push({
                                 enitoy: typeof row.enitoy === "string" ? row.enitoy.trim() : "",
+                                formName: typeof row.formName === "string" ? row.formName.trim() : "",
                                 minLevel: Number.isInteger(row.dayMin) ? row.dayMin : null,
                                 maxLevel: Number.isInteger(row.dayMax) ? row.dayMax : null,
                                 percent: Number.isInteger(row.dayPercent) ? row.dayPercent : null
                             });
                             legacyNight.push({
                                 enitoy: typeof row.enitoy === "string" ? row.enitoy.trim() : "",
+                                formName: typeof row.formName === "string" ? row.formName.trim() : "",
                                 minLevel: Number.isInteger(row.nightMin) ? row.nightMin : null,
                                 maxLevel: Number.isInteger(row.nightMax) ? row.nightMax : null,
                                 percent: Number.isInteger(row.nightPercent) ? row.nightPercent : null
@@ -17662,6 +17671,7 @@ dialog,
                             if (giftEnitoy) {
                                 normalizedMethod.gift = {
                                     enitoy: giftEnitoy,
+                                    formName: typeof entry.gift.formName === "string" ? entry.gift.formName.trim() : "",
                                     level: giftLevel
                                 };
                             }
@@ -17724,7 +17734,53 @@ dialog,
                     return candidates;
                 }
 
-                function setEncounterGiftData(locationName, methodIndex, enitoyName, level) {
+                function encounterAvailableForms(enitoyName) {
+                    if (!enitoyName) return [];
+                    var seen = {};
+                    return formsEntries.filter(function (form) {
+                        return form && typeof form.enitoyName === "string" &&
+                            form.enitoyName.toLowerCase() === enitoyName.toLowerCase() &&
+                            form.generationName === activeEncounterGenerationName &&
+                            typeof form.formName === "string" && form.formName.trim();
+                    }).map(function (form) { return form.formName.trim(); }).filter(function (name) {
+                        var key = name.toLowerCase();
+                        if (seen[key]) return false;
+                        seen[key] = true;
+                        return true;
+                    });
+                }
+
+                function createEncounterFormField(enitoySelect, currentFormName, onChange) {
+                    var field = document.createElement("label");
+                    field.className = "encounter-grass-field encounter-form-field";
+                    var caption = document.createElement("span");
+                    caption.textContent = "Form";
+                    field.appendChild(caption);
+                    var select = document.createElement("select");
+                    select.setAttribute("aria-label", "Encounter Enitoy form");
+                    function refresh(formName) {
+                        var available = encounterAvailableForms(enitoySelect.value);
+                        field.hidden = !available.length;
+                        select.innerHTML = "";
+                        var baseOption = document.createElement("option");
+                        baseOption.value = "";
+                        baseOption.textContent = "Base Form";
+                        select.appendChild(baseOption);
+                        available.forEach(function (name) {
+                            var option = document.createElement("option");
+                            option.value = name;
+                            option.textContent = name;
+                            select.appendChild(option);
+                        });
+                        select.value = available.indexOf(formName) !== -1 ? formName : "";
+                    }
+                    refresh(currentFormName || "");
+                    select.addEventListener("change", function () { onChange(select.value); }, false);
+                    field.appendChild(select);
+                    return {field:field,select:select,refresh:refresh};
+                }
+
+                function setEncounterGiftData(locationName, methodIndex, enitoyName, level, formName) {
                     var location = findActiveEncounterLocation(locationName);
                     if (!location) return;
 
@@ -17742,6 +17798,7 @@ dialog,
                     } else {
                         method.gift = {
                             enitoy: cleanEnitoy,
+                            formName: typeof formName === "string" ? formName.trim() : (method.gift && method.gift.enitoy === cleanEnitoy ? method.gift.formName || "" : ""),
                             level: cleanLevel
                         };
                     }
@@ -17755,11 +17812,11 @@ dialog,
 
                     rows.forEach(function (row, index) {
                         if (index === rowIndex || !row.enitoy) return;
-                        usedNames[row.enitoy.toLowerCase()] = true;
+                        usedNames[(row.enitoy + "|" + (row.formName || "")).toLowerCase()] = true;
                     });
 
                     return allCandidates.filter(function (candidate) {
-                        return !usedNames[candidate.name.toLowerCase()];
+                        return true; // Individual forms can share the same base species in one pool.
                     });
                 }
 
@@ -17889,13 +17946,18 @@ dialog,
 
                             enitoySelect.addEventListener("change", function () {
                                 updateGrassEncounterRow(location.name, methodIndex, poolName, rowIndex, {
-                                    enitoy: enitoySelect.value
+                                    enitoy: enitoySelect.value, formName: ""
                                 });
                                 renderEncounters();
                             }, false);
 
                             enitoyField.appendChild(enitoySelect);
                             rowElement.appendChild(enitoyField);
+                            var formControl = createEncounterFormField(enitoySelect, row.formName, function (formName) {
+                                updateGrassEncounterRow(location.name, methodIndex, poolName, rowIndex, {formName: formName});
+                                renderEncounters();
+                            });
+                            rowElement.appendChild(formControl.field);
 
                             var levelField = document.createElement("label");
                             levelField.className = "encounter-grass-field";
@@ -18296,6 +18358,10 @@ dialog,
 
                                     enitoyField.appendChild(enitoySelect);
                                     giftRow.appendChild(enitoyField);
+                                    var giftFormControl = createEncounterFormField(enitoySelect, method.gift && method.gift.formName, function (formName) {
+                                        setEncounterGiftData(location.name, methodIndex, enitoySelect.value, currentGiftLevel(), formName);
+                                    });
+                                    giftRow.appendChild(giftFormControl.field);
 
                                     var levelField = document.createElement("label");
                                     levelField.className = "encounter-gift-field";
@@ -18355,17 +18421,18 @@ dialog,
 
                                     function commitGift() {
                                         var level = currentGiftLevel();
-                                        setEncounterGiftData(location.name, methodIndex, enitoySelect.value, level);
+                                        setEncounterGiftData(location.name, methodIndex, enitoySelect.value, level, giftFormControl.select.value);
                                     }
 
                                     function stepGiftLevel(delta) {
                                         var level = currentGiftLevel();
                                         level = Math.max(1, Math.min(100, level + delta));
                                         levelInput.value = String(level);
-                                        setEncounterGiftData(location.name, methodIndex, enitoySelect.value, level);
+                                        setEncounterGiftData(location.name, methodIndex, enitoySelect.value, level, giftFormControl.select.value);
                                     }
 
                                     enitoySelect.addEventListener("change", function () {
+                                        giftFormControl.refresh("");
                                         commitGift();
                                     }, false);
 
