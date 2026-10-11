@@ -5724,7 +5724,15 @@ dialog,
 }
 
 </style>
-    </head>
+    <style id="encounter-location-connections-style">
+.encounter-connections-editor{margin:12px 14px 18px;padding:13px 16px;border:1px solid #cfc8de;border-radius:10px;background:#f8f6fc;color:#332e42}
+.encounter-connections-editor summary{cursor:pointer;font-weight:700;color:#55418c}
+.encounter-connections-editor p{margin:9px 0;color:#605b6e;font-size:.9rem}
+.encounter-connection-choices{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:12px}
+.encounter-connection-choices label{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid #ded9e6;border-radius:7px;background:white;cursor:pointer}
+.encounter-connection-choices input{accent-color:#6454a4}
+</style>
+</head>
     <body id="page-top">
         <header class="app-brandbar" aria-label="Enitoy Database Editor">
             <span class="app-brand-mark" aria-hidden="true"></span>
@@ -8137,6 +8145,7 @@ dialog,
                                     locations: normalizedEncounterLocations(encounterGeneration.locations).map(function (location) {
                                         return {
                                             name: location.name,
+                                            connectedLocations: location.connectedLocations || [],
                                             methods: normalizedEncounterMethods(location.methods).map(function (method) {
                                                 var exportedMethod = { name: method.name };
                                                 if (method.name.toLowerCase() === "gift" && method.gift &&
@@ -10202,6 +10211,7 @@ dialog,
                                         ? normalizedEncounterLocations(importedGeneration.locations.map(function (location) {
                                             return {
                                                 name: location.name.trim(),
+                                                connectedLocations: Array.isArray(location.connectedLocations) ? location.connectedLocations : [],
                                                 methods: data.version >= 72 && Array.isArray(location.methods)
                                                     ? location.methods.map(function (method) {
                                                         var importedMethod = {
@@ -17681,6 +17691,11 @@ dialog,
                         seen[key] = true;
                         output.push({
                             name: name,
+                            connectedLocations: Array.isArray(entry.connectedLocations)
+                                ? Array.from(new Set(entry.connectedLocations.filter(function (target) {
+                                    return typeof target === "string" && target.trim() && target.trim().toLowerCase() !== key;
+                                }).map(function (target) { return target.trim(); })))
+                                : [],
                             methods: normalizedEncounterMethods(entry.methods)
                         });
                     });
@@ -18144,6 +18159,40 @@ dialog,
                         var body = document.createElement("div");
                         body.className = "encounter-location-body";
 
+                        // Editable, directional connections to other locations in this generation.
+                        var connectionDetails = document.createElement("details");
+                        connectionDetails.className = "encounter-connections-editor";
+                        var connectionSummary = document.createElement("summary");
+                        connectionSummary.textContent = "Connected Locations (" + (location.connectedLocations || []).length + ")";
+                        connectionDetails.appendChild(connectionSummary);
+                        var connectionHelp = document.createElement("p");
+                        connectionHelp.textContent = "Choose locations you can travel to directly from " + location.name + ". Connections are one-way unless also selected at the destination.";
+                        connectionDetails.appendChild(connectionHelp);
+                        var connectionChoices = document.createElement("div");
+                        connectionChoices.className = "encounter-connection-choices";
+                        activeEncounterGeneration.locations.forEach(function (destination) {
+                            if (destination.name.toLowerCase() === location.name.toLowerCase()) return;
+                            var optionLabel = document.createElement("label");
+                            var option = document.createElement("input");
+                            option.type = "checkbox";
+                            option.checked = (location.connectedLocations || []).some(function (item) {
+                                return item.toLowerCase() === destination.name.toLowerCase();
+                            });
+                            option.addEventListener("change", function () {
+                                var items = location.connectedLocations || [];
+                                location.connectedLocations = option.checked
+                                    ? items.concat([destination.name]).filter(function (item, index, all) { return all.indexOf(item) === index; })
+                                    : items.filter(function (item) { return item.toLowerCase() !== destination.name.toLowerCase(); });
+                                connectionSummary.textContent = "Connected Locations (" + location.connectedLocations.length + ")";
+                            }, false);
+                            optionLabel.appendChild(option);
+                            optionLabel.appendChild(document.createTextNode(destination.name));
+                            connectionChoices.appendChild(optionLabel);
+                        });
+                        if (!connectionChoices.childElementCount) connectionChoices.textContent = "Add another location to create a connection.";
+                        connectionDetails.appendChild(connectionChoices);
+                        body.appendChild(connectionDetails);
+
                         var methodList = document.createElement("div");
                         methodList.className = "encounter-method-list";
 
@@ -18562,6 +18611,11 @@ dialog,
                         if (existingLocation) {
                             var oldName = existingLocation.name;
                             existingLocation.name = name;
+                            activeEncounterGeneration.locations.forEach(function (otherLocation) {
+                                otherLocation.connectedLocations = (otherLocation.connectedLocations || []).map(function (target) {
+                                    return target.toLowerCase() === oldName.toLowerCase() ? name : target;
+                                });
+                            });
 
                             if (activeEncounterMethodLocationName &&
                                 activeEncounterMethodLocationName.toLowerCase() === oldName.toLowerCase()) {
@@ -18591,6 +18645,11 @@ dialog,
                     if (index < 0) return;
 
                     activeEncounterGeneration.locations.splice(index, 1);
+                    activeEncounterGeneration.locations.forEach(function (otherLocation) {
+                        otherLocation.connectedLocations = (otherLocation.connectedLocations || []).filter(function (target) {
+                            return target.toLowerCase() !== locationName.toLowerCase();
+                        });
+                    });
 
                     if (activeEncounterMethodLocationName &&
                         activeEncounterMethodLocationName.toLowerCase() === locationName.toLowerCase()) {
