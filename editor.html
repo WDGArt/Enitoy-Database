@@ -9571,10 +9571,12 @@ dialog,
                                                     var grassEnitoyName = typeof grassRow.enitoy === "string" ? grassRow.enitoy.trim() : "";
                                                     if (grassEnitoyName) {
                                                         var grassSpeciesKey = grassEnitoyName.toLowerCase();
-                                                        if (seenGrassSpecies[grassSpeciesKey]) {
-                                                            return "A Grass " + grassPoolName + " encounter pool contains the same Enitoy more than once.";
+                                                        var grassFormKey = typeof grassRow.formName === "string" ? grassRow.formName.trim().toLowerCase() : "";
+                                                        var grassEncounterKey = JSON.stringify([grassSpeciesKey, grassFormKey]);
+                                                        if (seenGrassSpecies[grassEncounterKey]) {
+                                                            return "A Grass " + grassPoolName + " encounter pool contains the same Enitoy form more than once.";
                                                         }
-                                                        seenGrassSpecies[grassSpeciesKey] = true;
+                                                        seenGrassSpecies[grassEncounterKey] = true;
 
                                                         var grassEnitoyExists = grassRegionalGeneration &&
                                                             Array.isArray(grassRegionalGeneration.enitoys) &&
@@ -9633,10 +9635,12 @@ dialog,
                                                 var legacyGrassEnitoyName = typeof legacyGrassRow.enitoy === "string" ? legacyGrassRow.enitoy.trim() : "";
                                                 if (legacyGrassEnitoyName) {
                                                     var legacyGrassSpeciesKey = legacyGrassEnitoyName.toLowerCase();
-                                                    if (legacySeenGrassSpecies[legacyGrassSpeciesKey]) {
-                                                        return "A Grass encounter method contains the same Enitoy more than once.";
+                                                    var legacyGrassFormKey = typeof legacyGrassRow.formName === "string" ? legacyGrassRow.formName.trim().toLowerCase() : "";
+                                                    var legacyGrassEncounterKey = JSON.stringify([legacyGrassSpeciesKey, legacyGrassFormKey]);
+                                                    if (legacySeenGrassSpecies[legacyGrassEncounterKey]) {
+                                                        return "A Grass encounter method contains the same Enitoy form more than once.";
                                                     }
-                                                    legacySeenGrassSpecies[legacyGrassSpeciesKey] = true;
+                                                    legacySeenGrassSpecies[legacyGrassEncounterKey] = true;
 
                                                     var legacyGrassEnitoyExists = legacyGrassRegionalGeneration &&
                                                         Array.isArray(legacyGrassRegionalGeneration.enitoys) &&
