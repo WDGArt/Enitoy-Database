@@ -136,6 +136,13 @@ button,input,select{font:inherit}
 @media(max-width:650px){.enitoy-jump-nav{gap:7px;padding:10px}.enitoy-jump-title{flex-basis:100%}.enitoy-back-top{right:13px;bottom:13px;width:39px;height:39px}}
 @media(prefers-reduced-motion:reduce){.enitoy-back-top{transition:none}}
 </style>
+<style id="connected-location-viewer-style">
+.location-connections{margin:18px 0 24px;padding:17px 20px}
+.location-connections h2{margin:0 0 11px;font-size:1rem}
+.location-connection-links{display:flex;flex-wrap:wrap;gap:9px}
+.location-connection-links a{display:inline-flex;align-items:center;border:1px solid #bdb4d9;background:#f4f0ff;color:#48378c;border-radius:999px;padding:7px 13px;text-decoration:none;font-weight:650}
+.location-connection-links a:hover,.location-connection-links a:focus-visible{background:#e5dcff;text-decoration:underline}
+</style>
 </head>
 <body>
 <header class="site-header">
@@ -1357,10 +1364,21 @@ function encounterMethodRoute(gen,locationName,methodIndex){
 function renderLocations(){
   app.innerHTML=`${breadcrumbs([{label:'Encounters'}])}<h1 class="page-title">Encounter Locations</h1><p class="subtitle">Wild, fishing, gift, street, sand, and other encounter data from the project.</p>${(db.encounters||[]).map(g=>`<section class="section"><h2 class="section-title">${esc(g.generation)}</h2><div class="grid-3">${(g.locations||[]).map(l=>`<div class="card"><h3>${routeLink(`location/${slug(g.generation)}/${slug(l.name)}`,l.name)}</h3><p class="muted">${(l.methods||[]).map((m,i)=>routeLink(encounterMethodRoute(g.generation,l.name,i),m.name)).join(' · ')||'No methods'}</p></div>`).join('')}</div></section>`).join('')}`;
 }
+function renderLocationConnections(g,location){
+  const names=Array.isArray(location.connectedLocations)?location.connectedLocations:[];
+  const seen=new Set();
+  const links=names.map(name=>{
+    const target=(g.locations||[]).find(item=>item.name.toLowerCase()===String(name).toLowerCase());
+    if(!target||target.name===location.name||seen.has(target.name))return '';
+    seen.add(target.name);
+    return routeLink(`location/${slug(g.generation)}/${slug(target.name)}`,target.name);
+  }).filter(Boolean);
+  return `<section class="location-connections card"><h2>Connected Locations</h2>${links.length?`<div class="location-connection-links">${links.join('')}</div>`:'<p class="muted">No connected locations recorded.</p>'}</section>`;
+}
 function renderLocation(gen,name,methodIndex){
   const g=(db.encounters||[]).find(x=>x.generation===gen), l=g?.locations?.find(x=>x.name===name);
   if(!l){app.innerHTML=empty('Location not found.');return;}
-  app.innerHTML=`${breadcrumbs([{label:'Encounters',route:'locations'},{label:name}])}<h1 class="page-title">${esc(name)}</h1><p class="subtitle">${esc(gen)}</p>${(l.methods||[]).map((m,i)=>renderMethod(gen,m,i)).join('')}`;
+  app.innerHTML=`${breadcrumbs([{label:'Encounters',route:'locations'},{label:name}])}<h1 class="page-title">${esc(name)}</h1><p class="subtitle">${esc(gen)}</p>${renderLocationConnections(g,l)}${(l.methods||[]).map((m,i)=>renderMethod(gen,m,i)).join('')}`;
   if(methodIndex!==undefined&&methodIndex!==null&&String(methodIndex).trim()!==''){
     const idx=Number(methodIndex);
     if(Number.isInteger(idx)&&idx>=0&&idx<(l.methods||[]).length){
