@@ -1390,6 +1390,10 @@
     {
       "name": "Meteorology",
       "effect": "This Enitoy changes forms based on the weather active during battle."
+    },
+    {
+      "name": "Tough Body",
+      "effect": "When hit by a technique that would drop it to 0 for the first time, it survives on 1 HP instead."
     }
   ],
   "defects": [
@@ -11690,7 +11694,7 @@
           "color2": "Ordinary",
           "color3": "Aero",
           "name": "Meterupa",
-          "classification": "teru teru bozu",
+          "classification": "Teru Teru Bozu",
           "info": "Meterupa are living dolls made from thin sheets of paper. They are often seen hanging from trees and eaves, gently swaying with the wind. Their bodies are extremely sensitive to changes in the atmosphere, and will transform to match the weather around them.",
           "catalogEntries": [
             {
@@ -13565,16 +13569,173 @@
           ]
         },
         {
-          "kind": "blank"
+          "kind": "concept",
+          "affinityCount": 1,
+          "color1": "Ancient",
+          "color2": "Cryo",
+          "name": "Gelus",
+          "classification": "Cave Cub",
+          "internalColor": "BROWN",
+          "height": "2'00\"/0.61M",
+          "weight": "32.6Lbs/14.79KG",
+          "genderRatio": 5,
+          "stats": [
+            85,
+            78,
+            85,
+            45,
+            75,
+            41
+          ],
+          "skill": "Tough Body",
+          "hiddenSkill": "Cushioned Body",
+          "misprintDefect": "Loose Debris",
+          "recruitmentRate": 45,
+          "baseExp": 115,
+          "growthRate": "Medium Growth",
+          "modifications": [
+            {
+              "target": "Urstocene",
+              "targetGeneration": "Gen 1",
+              "method": "Level",
+              "parameter": 34
+            }
+          ],
+          "nameOrigins": [
+            {
+              "part": "Gelu",
+              "word": "gelu",
+              "description": "Latin for ice/frost"
+            },
+            {
+              "part": "lus",
+              "word": "ursulus",
+              "description": "Latin for little bear/bear cub"
+            }
+          ]
         },
         {
-          "kind": "blank"
+          "kind": "concept",
+          "affinityCount": 2,
+          "color1": "Ancient",
+          "color2": "Cryo",
+          "color3": "Terra",
+          "name": "Urstocene",
+          "classification": "Cave Bear",
+          "internalColor": "BROWN",
+          "height": "5'08\"/1.73M",
+          "weight": "1102.3Lbs/499.99KG",
+          "genderRatio": 5,
+          "stats": [
+            110,
+            120,
+            110,
+            45,
+            85,
+            37
+          ],
+          "skill": "Tough Body",
+          "hiddenSkill": "Cushioned Body",
+          "misprintDefect": "Loose Debris",
+          "recruitmentRate": 45,
+          "baseExp": 175,
+          "growthRate": "Medium Growth",
+          "nameOrigins": [
+            {
+              "part": "Urs",
+              "word": "Ursa",
+              "description": "Latin for bear"
+            },
+            {
+              "part": "stocene",
+              "word": "Pleistocene",
+              "description": "the geological epoch that lasted from about 2.58 million to 11,700 years ago"
+            }
+          ]
         },
         {
-          "kind": "blank"
+          "kind": "concept",
+          "affinityCount": 1,
+          "color1": "Ancient",
+          "color2": "Spectral",
+          "name": "Ninaron",
+          "classification": "Wisp Scale",
+          "internalColor": "GREEN",
+          "height": "5'00\"/1.52M",
+          "weight": "66.1Lbs/30.00KG",
+          "genderRatio": 5,
+          "stats": [
+            65,
+            85,
+            55,
+            80,
+            54,
+            70
+          ],
+          "skill": "Tough Body",
+          "hiddenSkill": "Premonition",
+          "misprintDefect": "Loose Debris",
+          "recruitmentRate": 45,
+          "baseExp": 115,
+          "growthRate": "Medium Growth",
+          "modifications": [
+            {
+              "target": "Vivanish",
+              "targetGeneration": "Gen 1",
+              "method": "Level",
+              "parameter": 34
+            }
+          ],
+          "nameOrigins": [
+            {
+              "part": "Nina",
+              "word": "Nina/Nino",
+              "description": "Spanish for girl/boy"
+            },
+            {
+              "part": "Aron",
+              "word": "Vivaron",
+              "description": "extinct genus of large, carnivorous Rauisuchid archosaur named after Vivaron, a legendary 30-foot-long monstrous rattlesnake"
+            }
+          ]
         },
         {
-          "kind": "blank"
+          "kind": "concept",
+          "affinityCount": 1,
+          "color1": "Ancient",
+          "color2": "Spectral",
+          "name": "Vivanish",
+          "classification": "Vanishing Scale",
+          "internalColor": "GREEN",
+          "height": "18'09\"/5.72M",
+          "weight": "440.9Lbs/200.00KG",
+          "genderRatio": 5,
+          "stats": [
+            75,
+            115,
+            65,
+            105,
+            62,
+            85
+          ],
+          "skill": "Tough Body",
+          "hiddenSkill": "Premonition",
+          "misprintDefect": "Loose Debris",
+          "recruitmentRate": 45,
+          "baseExp": 175,
+          "growthRate": "Medium Growth",
+          "nameOrigins": [
+            {
+              "part": "Viva",
+              "word": "Vivaron",
+              "description": "extinct genus of large, carnivorous Rauisuchid archosaur named after Vivaron, a legendary 30-foot-long monstrous rattlesnake"
+            },
+            {
+              "part": "vanish",
+              "word": "vanish",
+              "description": "to disappear quickly, suddenly, or mysteriously from sight, or to stop existing completely"
+            }
+          ]
         },
         {
           "kind": "blank"
@@ -18003,7 +18164,8 @@
           "name": "South East Soldust Sands",
           "connectedLocations": [
             "Hissing Caverns",
-            "South West Soldust Sands"
+            "South West Soldust Sands",
+            "North East Soldust Sands"
           ],
           "methods": [
             {
@@ -18892,6 +19054,121 @@
                     "formName": "Puzzle",
                     "minLevel": 33,
                     "maxLevel": 37,
+                    "percent": 5
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "North East Soldust Sands",
+          "connectedLocations": [
+            "South East Soldust Sands"
+          ],
+          "methods": [
+            {
+              "name": "Sand",
+              "grass": {
+                "day": [
+                  {
+                    "enitoy": "Cactuty",
+                    "formName": "",
+                    "minLevel": 20,
+                    "maxLevel": 24,
+                    "percent": 25
+                  },
+                  {
+                    "enitoy": "Rattling",
+                    "formName": "",
+                    "minLevel": 21,
+                    "maxLevel": 25,
+                    "percent": 20
+                  },
+                  {
+                    "enitoy": "Sandash",
+                    "formName": "",
+                    "minLevel": 22,
+                    "maxLevel": 26,
+                    "percent": 15
+                  },
+                  {
+                    "enitoy": "Scorpinch",
+                    "formName": "",
+                    "minLevel": 20,
+                    "maxLevel": 24,
+                    "percent": 15
+                  },
+                  {
+                    "enitoy": "Meterupa",
+                    "formName": "",
+                    "minLevel": 22,
+                    "maxLevel": 26,
+                    "percent": 10
+                  },
+                  {
+                    "enitoy": "Princub",
+                    "formName": "",
+                    "minLevel": 21,
+                    "maxLevel": 25,
+                    "percent": 10
+                  },
+                  {
+                    "enitoy": "Gummini",
+                    "formName": "",
+                    "minLevel": 22,
+                    "maxLevel": 26,
+                    "percent": 5
+                  }
+                ],
+                "night": [
+                  {
+                    "enitoy": "Cactuty",
+                    "formName": "",
+                    "minLevel": 21,
+                    "maxLevel": 25,
+                    "percent": 25
+                  },
+                  {
+                    "enitoy": "Rattling",
+                    "formName": "",
+                    "minLevel": 22,
+                    "maxLevel": 26,
+                    "percent": 20
+                  },
+                  {
+                    "enitoy": "Buzzareap",
+                    "formName": "",
+                    "minLevel": 23,
+                    "maxLevel": 27,
+                    "percent": 15
+                  },
+                  {
+                    "enitoy": "Scorpinch",
+                    "formName": "",
+                    "minLevel": 21,
+                    "maxLevel": 25,
+                    "percent": 15
+                  },
+                  {
+                    "enitoy": "Meterupa",
+                    "formName": "",
+                    "minLevel": 23,
+                    "maxLevel": 27,
+                    "percent": 10
+                  },
+                  {
+                    "enitoy": "Princub",
+                    "formName": "",
+                    "minLevel": 22,
+                    "maxLevel": 26,
+                    "percent": 10
+                  },
+                  {
+                    "enitoy": "Gummini",
+                    "formName": "",
+                    "minLevel": 23,
+                    "maxLevel": 27,
                     "percent": 5
                   }
                 ]
