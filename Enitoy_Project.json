@@ -13593,6 +13593,74 @@
           "recruitmentRate": 45,
           "baseExp": 115,
           "growthRate": "Medium Growth",
+          "availableTechniques": [
+            "Belch",
+            "Brace",
+            "Burst",
+            "Calm Down",
+            "Disarm",
+            "Focus",
+            "Leg Stretch",
+            "Psych Up",
+            "Pump Up",
+            "Rocky Footing",
+            "Sandstorm",
+            "Shadow Claw",
+            "Slash",
+            "Startle",
+            "Tackle"
+          ],
+          "levelUpTechniques": [
+            {
+              "name": "Brace",
+              "level": 1
+            },
+            {
+              "name": "Tackle",
+              "level": 1
+            },
+            {
+              "name": "Burst",
+              "level": 7
+            },
+            {
+              "name": "Startle",
+              "level": 9
+            },
+            {
+              "name": "Calm Down",
+              "level": 10
+            },
+            {
+              "name": "Focus",
+              "level": 13
+            },
+            {
+              "name": "Pump Up",
+              "level": 16
+            },
+            {
+              "name": "Slash",
+              "level": 19
+            }
+          ],
+          "scrollLearnedTechniques": [
+            "Rocky Footing",
+            "Leg Stretch",
+            "Calm Down",
+            "Psych Up",
+            "Pump Up",
+            "Brace",
+            "Burst",
+            "Disarm",
+            "Focus",
+            "Slash",
+            "Tackle",
+            "Shadow Claw",
+            "Startle",
+            "Sandstorm",
+            "Belch"
+          ],
           "modifications": [
             {
               "target": "Urstocene",
@@ -13640,6 +13708,82 @@
           "recruitmentRate": 45,
           "baseExp": 175,
           "growthRate": "Medium Growth",
+          "availableTechniques": [
+            "Belch",
+            "Brace",
+            "Burst",
+            "Calm Down",
+            "Disarm",
+            "Focus",
+            "Leg Stretch",
+            "Psych Up",
+            "Pump Up",
+            "Rocky Footing",
+            "Sandstorm",
+            "Shadow Claw",
+            "Slash",
+            "Startle",
+            "Tackle"
+          ],
+          "levelUpTechniques": [
+            {
+              "name": "Brace",
+              "level": 1
+            },
+            {
+              "name": "Tackle",
+              "level": 1
+            },
+            {
+              "name": "Burst",
+              "level": 7
+            },
+            {
+              "name": "Startle",
+              "level": 9
+            },
+            {
+              "name": "Calm Down",
+              "level": 10
+            },
+            {
+              "name": "Focus",
+              "level": 13
+            },
+            {
+              "name": "Pump Up",
+              "level": 16
+            },
+            {
+              "name": "Slash",
+              "level": 19
+            },
+            {
+              "name": "Rocky Footing",
+              "level": 38
+            },
+            {
+              "name": "Sandstorm",
+              "level": 40
+            }
+          ],
+          "scrollLearnedTechniques": [
+            "Rocky Footing",
+            "Leg Stretch",
+            "Calm Down",
+            "Psych Up",
+            "Pump Up",
+            "Brace",
+            "Burst",
+            "Disarm",
+            "Focus",
+            "Slash",
+            "Tackle",
+            "Shadow Claw",
+            "Startle",
+            "Sandstorm",
+            "Belch"
+          ],
           "nameOrigins": [
             {
               "part": "Urs",
@@ -13678,6 +13822,96 @@
           "recruitmentRate": 45,
           "baseExp": 115,
           "growthRate": "Medium Growth",
+          "availableTechniques": [
+            "Brace",
+            "Burst",
+            "Calm Down",
+            "Disarm",
+            "Focus",
+            "Leg Stretch",
+            "Psych Up",
+            "Pump Up",
+            "Rocky Footing",
+            "Sandstorm",
+            "Shadow Claw",
+            "Slash",
+            "Spatial Warp",
+            "Startle",
+            "Tackle",
+            "Trick-or-Treat"
+          ],
+          "levelUpTechniques": [
+            {
+              "name": "Brace",
+              "level": 1
+            },
+            {
+              "name": "Startle",
+              "level": 1
+            },
+            {
+              "name": "Tackle",
+              "level": 1
+            },
+            {
+              "name": "Burst",
+              "level": 5
+            },
+            {
+              "name": "Calm Down",
+              "level": 8
+            },
+            {
+              "name": "Disarm",
+              "level": 12
+            },
+            {
+              "name": "Focus",
+              "level": 15
+            },
+            {
+              "name": "Slash",
+              "level": 16
+            },
+            {
+              "name": "Leg Stretch",
+              "level": 18
+            },
+            {
+              "name": "Psych Up",
+              "level": 21
+            },
+            {
+              "name": "Pump Up",
+              "level": 24
+            },
+            {
+              "name": "Shadow Claw",
+              "level": 27
+            },
+            {
+              "name": "Trick-or-Treat",
+              "level": 30
+            }
+          ],
+          "scrollLearnedTechniques": [
+            "Rocky Footing",
+            "Leg Stretch",
+            "Calm Down",
+            "Psych Up",
+            "Pump Up",
+            "Spatial Warp",
+            "Brace",
+            "Burst",
+            "Disarm",
+            "Focus",
+            "Slash",
+            "Tackle",
+            "Shadow Claw",
+            "Startle",
+            "Trick-or-Treat",
+            "Sandstorm"
+          ],
           "modifications": [
             {
               "target": "Vivanish",
@@ -13724,6 +13958,96 @@
           "recruitmentRate": 45,
           "baseExp": 175,
           "growthRate": "Medium Growth",
+          "availableTechniques": [
+            "Brace",
+            "Burst",
+            "Calm Down",
+            "Disarm",
+            "Focus",
+            "Leg Stretch",
+            "Psych Up",
+            "Pump Up",
+            "Rocky Footing",
+            "Sandstorm",
+            "Shadow Claw",
+            "Slash",
+            "Spatial Warp",
+            "Startle",
+            "Tackle",
+            "Trick-or-Treat"
+          ],
+          "levelUpTechniques": [
+            {
+              "name": "Brace",
+              "level": 1
+            },
+            {
+              "name": "Startle",
+              "level": 1
+            },
+            {
+              "name": "Tackle",
+              "level": 1
+            },
+            {
+              "name": "Burst",
+              "level": 5
+            },
+            {
+              "name": "Calm Down",
+              "level": 8
+            },
+            {
+              "name": "Disarm",
+              "level": 12
+            },
+            {
+              "name": "Focus",
+              "level": 15
+            },
+            {
+              "name": "Slash",
+              "level": 16
+            },
+            {
+              "name": "Leg Stretch",
+              "level": 18
+            },
+            {
+              "name": "Psych Up",
+              "level": 21
+            },
+            {
+              "name": "Pump Up",
+              "level": 24
+            },
+            {
+              "name": "Shadow Claw",
+              "level": 27
+            },
+            {
+              "name": "Trick-or-Treat",
+              "level": 30
+            }
+          ],
+          "scrollLearnedTechniques": [
+            "Rocky Footing",
+            "Leg Stretch",
+            "Calm Down",
+            "Psych Up",
+            "Pump Up",
+            "Spatial Warp",
+            "Brace",
+            "Burst",
+            "Disarm",
+            "Focus",
+            "Slash",
+            "Tackle",
+            "Shadow Claw",
+            "Startle",
+            "Trick-or-Treat",
+            "Sandstorm"
+          ],
           "nameOrigins": [
             {
               "part": "Viva",
