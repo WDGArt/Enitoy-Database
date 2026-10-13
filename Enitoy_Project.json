@@ -13831,6 +13831,129 @@
         },
         {
           "kind": "concept",
+          "affinityCount": 2,
+          "color1": "Ancient",
+          "color2": "Toxic",
+          "color3": "Arthro",
+          "name": "Sparstrange",
+          "classification": "Spiny Worm",
+          "info": "Sparstrange is a prehistoric Enitoy whose unusual body is covered in rows of long, poisonous spines. These spines provide excellent protection against predators, making it dangerous to attack directly. Fossils of Sparstrange have puzzled researchers for generations, as early reconstructions mistakenly placed its spines beneath its body and its legs along its back.",
+          "catalogEntries": [
+            {
+              "generation": "Gen 1",
+              "entry": "Sparstrange is a prehistoric Enitoy whose unusual body is covered in rows of long, poisonous spines. These spines provide excellent protection against predators, making it dangerous to attack directly. Fossils of Sparstrange have puzzled researchers for generations, as early reconstructions mistakenly placed its spines beneath its body and its legs along its back."
+            },
+            {
+              "generation": "Gen 2",
+              "entry": "Despite its intimidating appearance, Sparstrange is a remarkably slow and peaceful Enitoy that prefers avoiding confrontation. When threatened, it lowers its body and presents its sharp spines toward the attacker. Researchers studying revived specimens have discovered that its spines contain a potent toxin, suggesting they served as both a defensive weapon and a warning to prehistoric predators."
+            }
+          ],
+          "internalColor": "ORANGE",
+          "height": "1'08\"/0.51M",
+          "weight": "17.6Lbs/7.98KG",
+          "genderRatio": 5,
+          "stats": [
+            80,
+            65,
+            145,
+            95,
+            110,
+            30
+          ],
+          "skill": "Tough Body",
+          "hiddenSkill": "Prickily",
+          "misprintDefect": "Loose Debris",
+          "recruitmentRate": 45,
+          "baseExp": 180,
+          "growthRate": "Medium Growth",
+          "availableTechniques": [
+            "Belch",
+            "Brace",
+            "Burst",
+            "Calm Down",
+            "Disarm",
+            "Focus",
+            "Leg Stretch",
+            "Psych Up",
+            "Pump Up",
+            "Rocky Footing",
+            "Spike Trap",
+            "Splash",
+            "Startle",
+            "Tackle",
+            "Water Burst"
+          ],
+          "levelUpTechniques": [
+            {
+              "name": "Brace",
+              "level": 1
+            },
+            {
+              "name": "Tackle",
+              "level": 1
+            },
+            {
+              "name": "Burst",
+              "level": 6
+            },
+            {
+              "name": "Calm Down",
+              "level": 10
+            },
+            {
+              "name": "Focus",
+              "level": 14
+            },
+            {
+              "name": "Psych Up",
+              "level": 18
+            },
+            {
+              "name": "Startle",
+              "level": 22
+            },
+            {
+              "name": "Spike Trap",
+              "level": 26
+            }
+          ],
+          "scrollLearnedTechniques": [
+            "Rocky Footing",
+            "Splash",
+            "Water Burst",
+            "Leg Stretch",
+            "Calm Down",
+            "Psych Up",
+            "Pump Up",
+            "Spike Trap",
+            "Brace",
+            "Burst",
+            "Disarm",
+            "Focus",
+            "Tackle",
+            "Startle",
+            "Belch"
+          ],
+          "temperamentLock": [
+            "Cerebral",
+            "Composed",
+            "Toughtful"
+          ],
+          "nameOrigins": [
+            {
+              "part": "Spars",
+              "word": "Hallucigenia sparsa",
+              "description": "An extinct, worm-like marine animal that lived during the Middle Cambrian period, about 508 million years ago"
+            },
+            {
+              "part": "strange",
+              "word": "strange",
+              "description": "unusual, unexpected, unfamiliar,  or difficult to understand"
+            }
+          ]
+        },
+        {
+          "kind": "concept",
           "affinityCount": 1,
           "color1": "Ancient",
           "color2": "Spectral",
@@ -14124,9 +14247,6 @@
               "description": "to disappear quickly, suddenly, or mysteriously from sight, or to stop existing completely"
             }
           ]
-        },
-        {
-          "kind": "blank"
         },
         {
           "kind": "blank"
