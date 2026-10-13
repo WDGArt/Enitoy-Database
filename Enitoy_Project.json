@@ -13575,6 +13575,17 @@
           "color2": "Cryo",
           "name": "Gelus",
           "classification": "Cave Cub",
+          "info": "Gelus are believed to have lived during an ancient ice age, when enormous glaciers covered much of the land. Their thick brown fur protects them from freezing temperatures, while their oversized paws allow them to dig through snow in search of food. Despite their small size, they possess remarkable strength and can withstand surprisingly powerful attacks.",
+          "catalogEntries": [
+            {
+              "generation": "Gen 1",
+              "entry": "Gelus are believed to have lived during an ancient ice age, when enormous glaciers covered much of the land. Their thick brown fur protects them from freezing temperatures, while their oversized paws allow them to dig through snow in search of food. Despite their small size, they possess remarkable strength and can withstand surprisingly powerful attacks."
+            },
+            {
+              "generation": "Gen 2",
+              "entry": "Although Gelus have been extinct for thousands of years, revived specimens display a playful curiosity toward the modern world. They instinctively seek out cold places to sleep and have been known to accidentally freeze their surroundings while dreaming. Researchers believe this behavior helped their ancestors survive the harsh winters of prehistoric times."
+            }
+          ],
           "internalColor": "BROWN",
           "height": "2'00\"/0.61M",
           "weight": "32.6Lbs/14.79KG",
@@ -13661,6 +13672,11 @@
             "Sandstorm",
             "Belch"
           ],
+          "temperamentLock": [
+            "Cerebral",
+            "Patient",
+            "Serene"
+          ],
           "modifications": [
             {
               "target": "Urstocene",
@@ -13690,6 +13706,17 @@
           "color3": "Terra",
           "name": "Urstocene",
           "classification": "Cave Bear",
+          "info": "Urstocene are enormous prehistoric bears whose powerful forelimbs can tear through frozen earth and solid rock. Their thick fur and immense bodies allow them to endure temperatures that would be unbearable to most Enitoy. Fossil evidence suggests they once sheltered in vast cave systems, where their tremendous strength allowed them to carve out dens beneath the frozen ground.",
+          "catalogEntries": [
+            {
+              "generation": "Gen 1",
+              "entry": "Urstocene are enormous prehistoric bears whose powerful forelimbs can tear through frozen earth and solid rock. Their thick fur and immense bodies allow them to endure temperatures that would be unbearable to most Enitoy. Fossil evidence suggests they once sheltered in vast cave systems, where their tremendous strength allowed them to carve out dens beneath the frozen ground."
+            },
+            {
+              "generation": "Gen 2",
+              "entry": "Despite their intimidating appearance, Urstocene are generally peaceful unless threatened. They spend much of their time digging through soil and stone in search of food, occasionally uncovering fossils belonging to other prehistoric Enitoy. Their powerful claws can create underground chambers large enough to shelter several smaller Enitoy from dangerous weather."
+            }
+          ],
           "internalColor": "BROWN",
           "height": "5'08\"/1.73M",
           "weight": "1102.3Lbs/499.99KG",
@@ -13784,6 +13811,11 @@
             "Sandstorm",
             "Belch"
           ],
+          "temperamentLock": [
+            "Cerebral",
+            "Patient",
+            "Serene"
+          ],
           "nameOrigins": [
             {
               "part": "Urs",
@@ -13804,6 +13836,17 @@
           "color2": "Spectral",
           "name": "Ninaron",
           "classification": "Wisp Scale",
+          "info": "Ninaron's green body is covered in unusual white scales that closely resemble exposed bones. Although these markings give it a skeletal appearance, its body remains entirely solid. When frightened, faint wisps of spectral energy escape from between its scales, briefly making it appear much larger than it actually is. This display is believed to discourage potential predators.",
+          "catalogEntries": [
+            {
+              "generation": "Gen 1",
+              "entry": "Ninaron's green body is covered in unusual white scales that closely resemble exposed bones. Although these markings give it a skeletal appearance, its body remains entirely solid. When frightened, faint wisps of spectral energy escape from between its scales, briefly making it appear much larger than it actually is. This display is believed to discourage potential predators."
+            },
+            {
+              "generation": "Gen 2",
+              "entry": "Ninaron were once fierce little predators that hunted across prehistoric landscapes. Their bone-like scales are surprisingly durable, and researchers believe they served as protection during territorial disputes. Since being revived, some Ninaron have developed a habit of hiding in dark corners and startling anyone who approaches, seemingly finding amusement in the resulting reactions."
+            }
+          ],
           "internalColor": "GREEN",
           "height": "5'00\"/1.52M",
           "weight": "66.1Lbs/30.00KG",
@@ -13912,6 +13955,11 @@
             "Trick-or-Treat",
             "Sandstorm"
           ],
+          "temperamentLock": [
+            "Brutish",
+            "Hardened",
+            "Lively"
+          ],
           "modifications": [
             {
               "target": "Vivanish",
@@ -13940,6 +13988,17 @@
           "color2": "Spectral",
           "name": "Vivanish",
           "classification": "Vanishing Scale",
+          "info": "Vivanish possesses a complete physical skeleton surrounded by an enormous shell of spectral energy that takes the shape of its missing flesh. This ghostly covering allows it to move and hunt much like its prehistoric ancestors. When threatened, portions of its spectral body fade away, revealing the terrifying skeleton beneath and frightening away potential attackers.",
+          "catalogEntries": [
+            {
+              "generation": "Gen 1",
+              "entry": "Vivanish possesses a complete physical skeleton surrounded by an enormous shell of spectral energy that takes the shape of its missing flesh. This ghostly covering allows it to move and hunt much like its prehistoric ancestors. When threatened, portions of its spectral body fade away, revealing the terrifying skeleton beneath and frightening away potential attackers."
+            },
+            {
+              "generation": "Gen 2",
+              "entry": "The spectral energy surrounding Vivanish's skeleton is believed to be responsible for its unusually low weight despite its immense size. Researchers have observed individuals passing through narrow spaces by temporarily dispersing portions of their ghostly bodies. Although their skeletal frames remain solid, the surrounding energy can expand or contract, giving Vivanish an unsettling, almost shapeless appearance."
+            }
+          ],
           "internalColor": "GREEN",
           "height": "18'09\"/5.72M",
           "weight": "440.9Lbs/200.00KG",
@@ -14047,6 +14106,11 @@
             "Startle",
             "Trick-or-Treat",
             "Sandstorm"
+          ],
+          "temperamentLock": [
+            "Brutish",
+            "Hardened",
+            "Lively"
           ],
           "nameOrigins": [
             {
