@@ -9508,6 +9508,10 @@
         "internalColor": "BROWN",
         "height": "5'08\"/1.73M",
         "weight": "31.7Lbs/14.38KG",
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/68-Cobrattle.png?v=1792022353096",
+        "imageName": "68-Cobrattle.png",
+        "misprintImageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/68-Cobrattle.png?v=1792022353096",
+        "misprintImageName": "68-Cobrattle.png",
         "genderRatio": 5,
         "stats": [
           75,

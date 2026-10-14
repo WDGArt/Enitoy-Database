@@ -3,7 +3,7 @@
   "version": 1,
   "projectFormat": "EnitoyMaterialAffinityChart",
   "projectVersion": 86,
-  "savedAt": "2026-10-14T23:26:05.089Z",
+  "savedAt": "2026-10-14T23:59:13.096Z",
   "files": {
     "materials": "Enitoy_Data/materials.json",
     "affinities": "Enitoy_Data/affinities.json",
