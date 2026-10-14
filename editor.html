@@ -8310,7 +8310,7 @@ dialog,
                 var githubBranch = "main";
                 var githubJsonPath = "Enitoy_Project.json";
                 var githubLegacyWrongCasePath = "Enitoy_Project.JSON";
-                var githubSyncBuild = "save-error-diagnostics-v4";
+                var githubSyncBuild = "large-json-git-api-fallback-v5";
                 var githubTokenSessionKey = "EnitoyDatabaseEditor.GitHubToken.v1";
                 var githubViewerSyncChannelName = "EnitoyDatabase.LiveSync.v1";
                 var githubViewerSyncStorageKey = "EnitoyDatabase.LiveSyncSignal.v1";
@@ -8485,6 +8485,68 @@ dialog,
                     }, "Uploading Enitoy_Project.json", 45000);
                 }
 
+                // The Contents PUT endpoint can reject large, valid JSON with HTTP 422.
+                // The lower-level Git Data API can publish a blob via a new tree/commit.
+                // We NEVER force-push, and we stop if the project file has changed.
+                async function githubGitApiRequest(path, token, method, payload, stage, timeoutMs) {
+                    var url = "https://api.github.com/repos/" + encodeURIComponent(githubOwner) + "/" + encodeURIComponent(githubRepo) + path;
+                    var options = { method: method, headers: githubWriteHeaders(token), cache: "no-store" };
+                    if (payload !== undefined) {
+                        options.headers = Object.assign({ "Content-Type": "application/json" }, options.headers);
+                        options.body = JSON.stringify(payload);
+                    }
+                    var response = await githubFetchWithTimeout(url, options, stage, timeoutMs || 30000);
+                    if (!response.ok) {
+                        throw new Error(stage + " failed: " + await githubReadErrorResponse(response));
+                    }
+                    return response.json();
+                }
+
+                async function githubLargeProjectSave(token, jsonText, expectedFileSha, saveControl) {
+                    var branchRef = "/git/ref/heads/" + encodeURIComponent(githubBranch);
+                    var ref = await githubGitApiRequest(branchRef, token, "GET", undefined, "Reading the branch head", 30000);
+                    var headSha = ref && ref.object && ref.object.sha;
+                    if (!headSha) throw new Error("GitHub did not return the current branch head; save canceled.");
+
+                    var commit = await githubGitApiRequest("/git/commits/" + headSha, token, "GET", undefined, "Reading the current commit", 30000);
+                    if (!commit.tree || !commit.tree.sha) throw new Error("GitHub did not return the current tree; save canceled.");
+
+                    // Verify again against the exact tree being used, not just a cached
+                    // Contents API response. Never silently overwrite another user's changes.
+                    var treeData = await githubGitApiRequest("/git/trees/" + commit.tree.sha, token, "GET", undefined, "Verifying the project version", 30000);
+                    var currentProject = (treeData.tree || []).find(function (entry) { return entry.path === githubJsonPath && entry.type === "blob"; });
+                    if (!currentProject || currentProject.sha !== expectedFileSha) {
+                        throw new Error("Enitoy_Project.json changed on GitHub before upload. Save stopped to protect newer work. Export Project first, then refresh and resolve the changes.");
+                    }
+
+                    if (saveControl) saveControl.textContent = "Uploading large JSON...";
+                    var blob = await githubGitApiRequest("/git/blobs", token, "POST", {
+                        content: utf8ToBase64(jsonText), encoding: "base64"
+                    }, "Uploading the large project blob", 120000);
+                    if (!blob || !blob.sha) throw new Error("GitHub did not acknowledge the uploaded blob; save canceled.");
+
+                    if (saveControl) saveControl.textContent = "Creating project commit...";
+                    var newTree = await githubGitApiRequest("/git/trees", token, "POST", {
+                        base_tree: commit.tree.sha,
+                        tree: [{ path: githubJsonPath, mode: "100644", type: "blob", sha: blob.sha }]
+                    }, "Creating the project tree", 30000);
+                    if (!newTree || !newTree.sha) throw new Error("GitHub did not return the updated tree; save canceled.");
+
+                    var newCommit = await githubGitApiRequest("/git/commits", token, "POST", {
+                        message: "Update Enitoy database from editor (large project)",
+                        tree: newTree.sha, parents: [headSha]
+                    }, "Creating the project commit", 30000);
+                    if (!newCommit || !newCommit.sha) throw new Error("GitHub did not return the new commit; save canceled.");
+
+                    // force:false means a concurrent branch update won't be overwritten.
+                    if (saveControl) saveControl.textContent = "Publishing project...";
+                    await githubGitApiRequest("/git/refs/heads/" + encodeURIComponent(githubBranch), token, "PATCH", {
+                        sha: newCommit.sha, force: false
+                    }, "Publishing the project commit", 30000);
+                    githubCurrentFileSha = blob.sha;
+                    return { commit: { sha: newCommit.sha }, content: { sha: blob.sha } };
+                }
+
                 async function saveProjectToGitHub() {
                     if (githubSaveInProgress) return false;
                     var token = getGitHubToken();
@@ -8521,10 +8583,20 @@ dialog,
                                 saveResponse = await putProjectJsonToGitHub(apiUrl, token, jsonText, githubCurrentFileSha);
                             }
                         }
-                        if (!saveResponse.ok) {
+                        var savedResult;
+                        if (!saveResponse.ok && saveResponse.status === 422) {
+                            // Inspect GitHub's precise message. Only use the large-project
+                            // fallback for size errors, not unrelated 422 validation errors.
+                            var rejectedBody = await saveResponse.clone().text();
+                            if (/file is too large|too large to be processed|exceeds.*size|blob.*too large/i.test(rejectedBody)) {
+                                if (saveControl) saveControl.textContent = "Switching upload method...";
+                                savedResult = await githubLargeProjectSave(token, jsonText, githubCurrentFileSha, saveControl);
+                            }
+                        }
+                        if (!savedResult && !saveResponse.ok) {
                             throw new Error("GitHub save failed: " + await githubReadErrorResponse(saveResponse));
                         }
-                        var savedResult = await saveResponse.json();
+                        if (!savedResult) savedResult = await saveResponse.json();
                         if (!savedResult || !savedResult.commit || !savedResult.commit.sha) {
                             throw new Error("GitHub returned an unexpected success response. Check the repository before attempting another save.");
                         }
