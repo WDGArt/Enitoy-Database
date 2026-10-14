@@ -8136,9 +8136,9 @@ dialog,
                                         else if (Number.isFinite(entry.height) && entry.height >= 0) exportedEntry.height = entry.height;
                                         if (typeof entry.weight === "string" && entry.weight.trim()) exportedEntry.weight = entry.weight.trim();
                                         else if (Number.isFinite(entry.weight) && entry.weight >= 0) exportedEntry.weight = entry.weight;
-                                        if (typeof entry.imageData === "string" && /^data:image\//i.test(entry.imageData)) exportedEntry.imageData = entry.imageData;
+                                        if (typeof entry.imageData === "string" && /^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(entry.imageData)) exportedEntry.imageData = entry.imageData;
                                         if (typeof entry.imageName === "string" && entry.imageName.trim()) exportedEntry.imageName = entry.imageName.trim();
-                                        if (typeof entry.misprintImageData === "string" && /^data:image\//i.test(entry.misprintImageData)) exportedEntry.misprintImageData = entry.misprintImageData;
+                                        if (typeof entry.misprintImageData === "string" && /^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(entry.misprintImageData)) exportedEntry.misprintImageData = entry.misprintImageData;
                                         if (typeof entry.misprintImageName === "string" && entry.misprintImageName.trim()) exportedEntry.misprintImageName = entry.misprintImageName.trim();
                                         if (Number.isInteger(entry.genderRatio) && entry.genderRatio >= 0 && entry.genderRatio <= 9) exportedEntry.genderRatio = entry.genderRatio;
                                         if (Array.isArray(entry.stats) && entry.stats.length === 6 && entry.stats.every(function (value) { return Number.isInteger(value) && value >= 0 && value <= 255; })) exportedEntry.stats = entry.stats.slice();
@@ -8304,6 +8304,35 @@ dialog,
                     var json = JSON.stringify(chartProjectData(), null, 2);
                     downloadBlob(new Blob([json], { type: "application/json" }), "Enitoy_Project.json");
                 }
+
+
+const ENITOY_MODULAR_PATH = "Enitoy_Data/manifest.json";
+const ENITOY_MODULAR_PREFIX = "Enitoy_Data/";
+const ENITOY_MODULAR_KEYS = ["materials","affinities","colors","matrix","moves","temperaments","skills","defects","items","regionalGenerations","forms","encounters","tamers","crafts"];
+const ENITOY_ASSET_PREFIX = "https://wdgart.github.io/Enitoy-Database/assets/";
+function enitoyModularUrl(path, ref){
+    return "https://raw.githubusercontent.com/wdgart/Enitoy-Database/"+encodeURIComponent(ref || "main")+"/"+path;
+}
+async function enitoyLoadModular(ref, knownRevision){
+    const stamp = "?v="+Date.now();
+    const response = await fetch(enitoyModularUrl(ENITOY_MODULAR_PATH,ref)+stamp,{cache:"no-store"});
+    if(response.status===404) return null;
+    if(!response.ok) throw new Error("Cannot read modular database manifest (HTTP "+response.status+").");
+    const manifest=await response.json();
+    if(manifest.format!=="EnitoySplitProject" || !manifest.files) throw new Error("Invalid modular database manifest.");
+    if(knownRevision && manifest.savedAt===knownRevision) return {__unchanged:true};
+    const project={format:manifest.projectFormat||"EnitoyMaterialAffinityChart",version:manifest.projectVersion||86};
+    const entries=Object.entries(manifest.files);
+    await Promise.all(entries.map(async ([key,path])=>{
+        if(!ENITOY_MODULAR_KEYS.includes(key) || typeof path!=="string" || !path.startsWith(ENITOY_MODULAR_PREFIX)) throw new Error("Invalid modular section "+key);
+        const resp=await fetch(enitoyModularUrl(path,ref)+stamp,{cache:"no-store"});
+        if(!resp.ok) throw new Error("Could not load "+key+" (HTTP "+resp.status+")");
+        project[key]=await resp.json();
+    }));
+    for(const key of ENITOY_MODULAR_KEYS){if(!(key in project)) throw new Error("Missing modular section: "+key);}
+    Object.defineProperty(project,"__modularRevision",{value:manifest.savedAt||"initial",enumerable:false});
+    return project;
+}
 
                 var githubOwner = "wdgart";
                 var githubRepo = "Enitoy-Database";
@@ -8547,75 +8576,115 @@ dialog,
                     return { commit: { sha: newCommit.sha }, content: { sha: blob.sha } };
                 }
 
-                async function saveProjectToGitHub() {
-                    if (githubSaveInProgress) return false;
-                    var token = getGitHubToken();
-                    if (!token) return false;
-                    var saveControl = document.getElementById("save-internal-project");
-                    var originalText = saveControl ? saveControl.textContent : "Save Project";
-                    githubSaveInProgress = true;
-                    if (saveControl) {
-                        saveControl.textContent = "Preparing...";
-                        saveControl.setAttribute("aria-disabled", "true");
+
+                // Modular save: images are binary blobs in /assets; each Editor section
+                // is a separate JSON. One atomic Git commit publishes all changes.
+                async function enitoyPrepareModular(project, onProgress) {
+                    var copy = JSON.parse(JSON.stringify(project));
+                    var uploads = new Map();
+                    var items = [];
+                    function walk(node){
+                        if(!node || typeof node!=="object") return;
+                        for(var [key,value] of Object.entries(node)){
+                            if((key==="imageData"||key==="misprintImageData") && typeof value==="string" && /^data:image\/[^;]+;base64,/i.test(value)) items.push([node,key,value]);
+                            else if(value && typeof value==="object") walk(value);
+                        }
                     }
-                    try {
-                        var apiUrl = githubContentsApiUrl();
-                        var projectData = chartProjectData();
-                        var validationError = validateImportedChart(projectData);
-                        if (validationError) throw new Error("The current project cannot be saved: " + validationError);
-                        var jsonText = JSON.stringify(projectData, null, 2);
-                        JSON.parse(jsonText);
-
-                        // Always get a fresh SHA rather than trusting an in-memory SHA that
-                        // might have changed in another browser tab or GitHub commit.
-                        if (saveControl) saveControl.textContent = "Checking GitHub...";
-                        await readCurrentGitHubFileSha(apiUrl);
-
-                        if (saveControl) saveControl.textContent = "Uploading...";
-                        var saveResponse = await putProjectJsonToGitHub(apiUrl, token, jsonText, githubCurrentFileSha);
-                        if (saveResponse.status === 409 || saveResponse.status === 422) {
-                            // Only retry if the SHA really changed; 422 is also used for
-                            // validation failures and blind retries will never repair them.
-                            var priorSha = githubCurrentFileSha;
-                            await readCurrentGitHubFileSha(apiUrl);
-                            if (priorSha !== githubCurrentFileSha) {
-                                if (saveControl) saveControl.textContent = "Retrying conflict...";
-                                saveResponse = await putProjectJsonToGitHub(apiUrl, token, jsonText, githubCurrentFileSha);
-                            }
+                    walk(copy);
+                    for(var i=0;i<items.length;i++){
+                        var [holder,key,value]=items[i];
+                        var delimiter=value.indexOf(',');
+                        var mime=value.slice(5,delimiter).split(';')[0].toLowerCase();
+                        var suffix=mime==="image/png"?"png":mime==="image/jpeg"?"jpg":mime==="image/webp"?"webp":null;
+                        if(!suffix) throw new Error("Unsupported image type: "+mime);
+                        var encoded=value.slice(delimiter+1);
+                        // Hash bytes, not the name: identical images are uploaded once.
+                        var raw=atob(encoded);
+                        var bytes=new Uint8Array(raw.length);
+                        for(var b=0;b<raw.length;b++)bytes[b]=raw.charCodeAt(b);
+                        var hash=Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",bytes))).map(x=>x.toString(16).padStart(2,"0")).join("");
+                        var path="assets/"+hash+"."+suffix;
+                        uploads.set(path,encoded);
+                        holder[key]=ENITOY_ASSET_PREFIX+hash+"."+suffix;
+                        if(onProgress && i%10===0)onProgress("Preparing images "+(i+1)+"/"+items.length+"...");
+                    }
+                    var manifest={format:"EnitoySplitProject",version:1,projectFormat:copy.format,projectVersion:copy.version,savedAt:new Date().toISOString(),files:{}};
+                    var sections=[];
+                    for(var key of ENITOY_MODULAR_KEYS){
+                        var path=ENITOY_MODULAR_PREFIX+key+".json";
+                        manifest.files[key]=path;
+                        sections.push({path:path,content:JSON.stringify(copy[key],null,2)+"\n"});
+                    }
+                    sections.push({path:ENITOY_MODULAR_PATH,content:JSON.stringify(manifest,null,2)+"\n"});
+                    return {sections,uploads,project:copy};
+                }
+                async function enitoyCommitModular(token,bundle,button){
+                    const branchRef="/git/ref/heads/"+encodeURIComponent(githubBranch);
+                    const ref=await githubGitApiRequest(branchRef,token,"GET",undefined,"Reading branch head",30000);
+                    const parent=ref?.object?.sha;
+                    if(!parent)throw new Error("GitHub did not return a branch head.");
+                    const commit=await githubGitApiRequest("/git/commits/"+parent,token,"GET",undefined,"Reading Git commit",30000);
+                    if(!commit?.tree?.sha)throw new Error("Cannot find current Git tree.");
+                    // Blob SHA lookup also avoids reuploading assets from previous saves.
+                    const previous=await githubGitApiRequest("/git/trees/"+commit.tree.sha+"?recursive=1",token,"GET",undefined,"Checking repository files",45000);
+                    if(previous.truncated)throw new Error("The GitHub file listing was truncated. Save aborted to prevent conflicts.");
+                    const known=new Set((previous.tree||[]).filter(x=>x.type==="blob").map(x=>x.path));
+                    // Do not let another save overwrite changed data. Only the parent
+                    // commit we read can be fast-forwarded (force:false below).
+                    const pending=Array.from(bundle.uploads.entries()).filter(([path])=>!known.has(path));
+                    const created=[];
+                    let cursor=0;
+                    async function worker(){
+                        while(cursor<pending.length){
+                            const index=cursor++;
+                            const [path,base64]=pending[index];
+                            if(button)button.textContent="Uploading images "+(index+1)+"/"+pending.length;
+                            const blob=await githubGitApiRequest("/git/blobs",token,"POST",{content:base64,encoding:"base64"},"Uploading image "+path,60000);
+                            if(!blob?.sha)throw new Error("GitHub did not confirm upload of "+path);
+                            created.push({path,mode:"100644",type:"blob",sha:blob.sha});
                         }
-                        var savedResult;
-                        if (!saveResponse.ok && saveResponse.status === 422) {
-                            // Inspect GitHub's precise message. Only use the large-project
-                            // fallback for size errors, not unrelated 422 validation errors.
-                            var rejectedBody = await saveResponse.clone().text();
-                            if (/file is too large|too large to be processed|exceeds.*size|blob.*too large/i.test(rejectedBody)) {
-                                if (saveControl) saveControl.textContent = "Switching upload method...";
-                                savedResult = await githubLargeProjectSave(token, jsonText, githubCurrentFileSha, saveControl);
-                            }
-                        }
-                        if (!savedResult && !saveResponse.ok) {
-                            throw new Error("GitHub save failed: " + await githubReadErrorResponse(saveResponse));
-                        }
-                        if (!savedResult) savedResult = await saveResponse.json();
-                        if (!savedResult || !savedResult.commit || !savedResult.commit.sha) {
-                            throw new Error("GitHub returned an unexpected success response. Check the repository before attempting another save.");
-                        }
-                        var savedCommitSha = savedResult.commit.sha;
-                        githubCurrentFileSha = savedResult.content && savedResult.content.sha || "";
-                        notifyOpenViewersOfGitHubSave(savedCommitSha, jsonText);
-                        console.info("GitHub save completed:", githubJsonPath, "commit:", savedCommitSha);
-                        if (saveControl) saveControl.textContent = "Saved successfully!";
+                    }
+                    await Promise.all(Array.from({length:Math.min(4,pending.length)},()=>worker()));
+                    if(button)button.textContent="Preparing section files...";
+                    // JSON is inlined in the tree request: no 14 separate PUT requests.
+                    const entries=created.concat(bundle.sections.map(entry=>({path:entry.path,mode:"100644",type:"blob",content:entry.content})));
+                    const newTree=await githubGitApiRequest("/git/trees",token,"POST",{base_tree:commit.tree.sha,tree:entries},"Publishing database sections",60000);
+                    if(!newTree?.sha)throw new Error("GitHub did not create the updated database tree.");
+                    if(button)button.textContent="Creating commit...";
+                    const newCommit=await githubGitApiRequest("/git/commits",token,"POST",{message:"Update modular Enitoy database and artwork",tree:newTree.sha,parents:[parent]},"Creating database commit",30000);
+                    if(!newCommit?.sha)throw new Error("GitHub did not create a commit.");
+                    if(button)button.textContent="Publishing commit...";
+                    await githubGitApiRequest("/git/refs/heads/"+encodeURIComponent(githubBranch),token,"PATCH",{sha:newCommit.sha,force:false},"Publishing database commit",30000);
+                    return newCommit.sha;
+                }
+                async function saveProjectToGitHub(){
+                    if(githubSaveInProgress)return false;
+                    const token=getGitHubToken();if(!token)return false;
+                    const button=document.getElementById("save-internal-project");
+                    const oldText=button?.textContent||"Save Project";
+                    githubSaveInProgress=true;
+                    if(button){button.textContent="Preparing modular save...";button.setAttribute("aria-disabled","true");}
+                    try{
+                        const data=chartProjectData();
+                        const invalid=validateImportedChart(data);
+                        if(invalid)throw new Error("Cannot save project: "+invalid);
+                        const bundle=await enitoyPrepareModular(data,text=>{if(button)button.textContent=text;});
+                        const commitSha=await enitoyCommitModular(token,bundle,button);
+                        // Replace embedded artwork with URLs in editor memory. This is
+                        // crucial: subsequent saves must never reupload the 94 old sprites.
+                        importChartFile(new Blob([JSON.stringify(bundle.project)],{type:"application/json"}));
+                        notifyOpenViewersOfGitHubSave(commitSha,"");
+                        if(button)button.textContent="Saved modular project!";
+                        console.info("Enitoy modular project published at",commitSha);
                         return true;
-                    } catch (error) {
-                        console.error("Could not save the Enitoy project to GitHub.", error);
-                        alert("The project could not be saved to GitHub.\n\n" + error.message + "\n\nYour token has NOT been deleted. Use Export Project to protect the latest edits if necessary.");
+                    }catch(error){
+                        console.error("Modular project save failed",error);
+                        alert("The modular project could not be saved. Your token was not removed.\n\n"+error.message+"\n\nExport Project if you need a local backup.");
+                        if(button)button.textContent=oldText;
                         return false;
-                    } finally {
-                        githubSaveInProgress = false;
-                        if (saveControl) {
-                            saveControl.removeAttribute("aria-disabled");
-                            window.setTimeout(function () { saveControl.textContent = originalText; }, 1600);
-                        }
+                    }finally{
+                        githubSaveInProgress=false;
+                        if(button)button.removeAttribute("aria-disabled");
                     }
                 }
 
@@ -8644,25 +8713,26 @@ dialog,
                     return { data: data, text: normalized };
                 }
 
-                async function loadGitHubProjectOnStartup() {
-                    if (!/\.github\.io$/i.test(window.location.hostname)) return;
-                    var rawUrl = "https://raw.githubusercontent.com/" + githubOwner + "/" + githubRepo + "/" + githubBranch + "/" + githubJsonPath;
-                    try {
-                        var response = await fetch(rawUrl + "?t=" + Date.now(), { cache: "no-store", headers: { "Accept": "application/json,text/plain,*/*" } });
-                        if (!response.ok) throw new Error("GitHub returned " + response.status + ".");
-                        var responseText = await response.text();
-                        var parsed = parseGitHubProjectJson(responseText);
-                        importChartFile(new Blob([parsed.text], { type: "application/json" }));
-                    } catch (error) {
-                        console.warn("Could not automatically load the shared Enitoy GitHub project.", error);
-                        alert(
-                            "The GitHub Enitoy_Project.json is not usable yet.\n\n" +
-                            error.message +
-                            "\n\nThe Editor will remain open. If the project currently shown here is the project you want to publish, click Save Project once. Save Project will overwrite Enitoy_Project.json with fresh valid project JSON."
-                        );
+
+                async function loadGitHubProjectOnStartup(){
+                    if(!/\.github\.io$/i.test(window.location.hostname))return;
+                    try{
+                        let obj=await enitoyLoadModular(githubBranch);
+                        if(!obj){
+                            const url= "https://raw.githubusercontent.com/"+githubOwner+"/"+githubRepo+"/"+githubBranch+"/"+githubJsonPath+"?v="+Date.now();
+                            const response=await fetch(url,{cache:"no-store"});
+                            if(!response.ok)throw new Error("Legacy project HTTP "+response.status);
+                            const parsed=parseGitHubProjectJson(await response.text());
+                            obj=parsed.data;
+                        }
+                        const error=validateImportedChart(obj);
+                        if(error)throw new Error(error);
+                        importChartFile(new Blob([JSON.stringify(obj)],{type:"application/json"}));
+                    }catch(error){
+                        console.error("Enitoy load error",error);
+                        alert("Could not load the Enitoy project from GitHub. The Editor is open, but DO NOT SAVE over missing data.\n\n"+error.message);
                     }
                 }
-
 
                 var internalProjectIndexKey = "EnitoyDatabaseEditor.InternalProjects.Index.v1";
                 var internalProjectDataPrefix = "EnitoyDatabaseEditor.InternalProjects.Data.v1.";
@@ -9209,9 +9279,9 @@ dialog,
                                             var validLegacyWeight = typeof regionalEnitoy.weight === "number" && Number.isFinite(regionalEnitoy.weight) && regionalEnitoy.weight >= 0;
                                             if (!validWeightString && !validLegacyWeight) return "A Concept Enitoy has an invalid weight. Use 0.0Lbs/0.00KG.";
                                         } else if (data.version >= 34 && regionalEnitoy.weight !== undefined && (typeof regionalEnitoy.weight !== "number" || !Number.isFinite(regionalEnitoy.weight) || regionalEnitoy.weight < 0)) return "A Concept Enitoy has an invalid weight.";
-                                        if (data.version >= 40 && regionalEnitoy.imageData !== undefined && (typeof regionalEnitoy.imageData !== "string" || !/^data:image\/[a-z0-9.+-]+;base64,/i.test(regionalEnitoy.imageData))) return "A Concept Enitoy has invalid custom image data.";
+                                        if (data.version >= 40 && regionalEnitoy.imageData !== undefined && (typeof regionalEnitoy.imageData !== "string" || !/^(?:data:image\/[a-z0-9.+-]+;base64,|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(regionalEnitoy.imageData))) return "A Concept Enitoy has invalid custom image data.";
                                         if (data.version >= 40 && regionalEnitoy.imageName !== undefined && (typeof regionalEnitoy.imageName !== "string" || regionalEnitoy.imageName.trim().length > 255)) return "A Concept Enitoy has an invalid custom image name.";
-                                        if (data.version >= 84 && regionalEnitoy.misprintImageData !== undefined && (typeof regionalEnitoy.misprintImageData !== "string" || !/^data:image\/[a-z0-9.+-]+;base64,/i.test(regionalEnitoy.misprintImageData))) return "A Concept Enitoy has invalid Misprint image data.";
+                                        if (data.version >= 84 && regionalEnitoy.misprintImageData !== undefined && (typeof regionalEnitoy.misprintImageData !== "string" || !/^(?:data:image\/[a-z0-9.+-]+;base64,|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(regionalEnitoy.misprintImageData))) return "A Concept Enitoy has invalid Misprint image data.";
                                         if (data.version >= 84 && regionalEnitoy.misprintImageName !== undefined && (typeof regionalEnitoy.misprintImageName !== "string" || regionalEnitoy.misprintImageName.trim().length > 255)) return "A Concept Enitoy has an invalid Misprint image name.";
                                         if (data.version >= 43 && regionalEnitoy.genderRatio !== undefined && (!Number.isInteger(regionalEnitoy.genderRatio) || regionalEnitoy.genderRatio < 0 || regionalEnitoy.genderRatio > 9)) return "A Concept Enitoy has an invalid gender ratio.";
                                         if (data.version >= 45 && regionalEnitoy.stats !== undefined && (!Array.isArray(regionalEnitoy.stats) || regionalEnitoy.stats.length !== 6 || !regionalEnitoy.stats.every(function (value) { return Number.isInteger(value) && value >= 0 && value <= 255; }))) return "A Concept Enitoy has invalid stats. Each of the six stats must be a whole number from 0 to 255.";
@@ -9987,9 +10057,9 @@ dialog,
                                                 else if (data.version >= 34 && typeof entry.height === "number" && Number.isFinite(entry.height) && entry.height >= 0) partialEntry.height = entry.height;
                                                 if (data.version >= 35 && typeof entry.weight === "string" && entry.weight.trim()) partialEntry.weight = entry.weight.trim();
                                                 else if (data.version >= 34 && typeof entry.weight === "number" && Number.isFinite(entry.weight) && entry.weight >= 0) partialEntry.weight = entry.weight;
-                                                if (data.version >= 40 && typeof entry.imageData === "string" && /^data:image\//i.test(entry.imageData)) partialEntry.imageData = entry.imageData;
+                                                if (data.version >= 40 && typeof entry.imageData === "string" && /^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(entry.imageData)) partialEntry.imageData = entry.imageData;
                                                 if (data.version >= 40 && typeof entry.imageName === "string" && entry.imageName.trim()) partialEntry.imageName = entry.imageName.trim();
-                                                if (data.version >= 84 && typeof entry.misprintImageData === "string" && /^data:image\//i.test(entry.misprintImageData)) partialEntry.misprintImageData = entry.misprintImageData;
+                                                if (data.version >= 84 && typeof entry.misprintImageData === "string" && /^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(entry.misprintImageData)) partialEntry.misprintImageData = entry.misprintImageData;
                                                 if (data.version >= 84 && typeof entry.misprintImageName === "string" && entry.misprintImageName.trim()) partialEntry.misprintImageName = entry.misprintImageName.trim();
                                                 if (data.version >= 43 && Number.isInteger(entry.genderRatio) && entry.genderRatio >= 0 && entry.genderRatio <= 9) partialEntry.genderRatio = entry.genderRatio;
                                                 if (data.version >= 45 && Array.isArray(entry.stats) && entry.stats.length === 6 && entry.stats.every(function (value) { return Number.isInteger(value) && value >= 0 && value <= 255; })) partialEntry.stats = entry.stats.slice();
@@ -16969,8 +17039,8 @@ dialog,
                     var hasInternalColor = typeof entry.internalColor === "string" && regionalInternalColors.indexOf(entry.internalColor) >= 0;
                     var hasHeight = (typeof entry.height === "string" && entry.height.trim()) || (Number.isFinite(entry.height) && entry.height >= 0);
                     var hasWeight = (typeof entry.weight === "string" && entry.weight.trim()) || (Number.isFinite(entry.weight) && entry.weight >= 0);
-                    var hasImage = typeof entry.imageData === "string" && /^data:image\//i.test(entry.imageData);
-                    var hasMisprintImage = typeof entry.misprintImageData === "string" && /^data:image\//i.test(entry.misprintImageData);
+                    var hasImage = typeof entry.imageData === "string" && /^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(entry.imageData);
+                    var hasMisprintImage = typeof entry.misprintImageData === "string" && /^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(entry.misprintImageData);
                     var hasGender = Number.isInteger(entry.genderRatio) && entry.genderRatio >= 0 && entry.genderRatio <= 9;
                     var hasStats = Array.isArray(entry.stats) && entry.stats.length === 6 && entry.stats.every(function (value) {
                         return Number.isInteger(value) && value >= 0 && value <= 255;
@@ -17054,7 +17124,7 @@ dialog,
                         entry.weight = entry.weight.trim();
                         if (!entry.weight) delete entry.weight;
                     } else if (!Number.isFinite(entry.weight) || entry.weight < 0) delete entry.weight;
-                    if (typeof entry.imageData !== "string" || !/^data:image\//i.test(entry.imageData)) {
+                    if (typeof entry.imageData !== "string" || !/^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(entry.imageData)) {
                         delete entry.imageData;
                         delete entry.imageName;
                     } else if (typeof entry.imageName !== "string" || !entry.imageName.trim()) {
@@ -17062,7 +17132,7 @@ dialog,
                     } else {
                         entry.imageName = entry.imageName.trim();
                     }
-                    if (typeof entry.misprintImageData !== "string" || !/^data:image\//i.test(entry.misprintImageData)) {
+                    if (typeof entry.misprintImageData !== "string" || !/^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(entry.misprintImageData)) {
                         delete entry.misprintImageData;
                         delete entry.misprintImageName;
                     } else if (typeof entry.misprintImageName !== "string" || !entry.misprintImageName.trim()) {
@@ -17232,7 +17302,7 @@ dialog,
                     var slotImage = document.createElement("img");
                     var currentImageData = isMisprint ? entry.misprintImageData : entry.imageData;
                     var currentImageName = isMisprint ? entry.misprintImageName : entry.imageName;
-                    var hasCustomImage = typeof currentImageData === "string" && /^data:image\//i.test(currentImageData);
+                    var hasCustomImage = typeof currentImageData === "string" && /^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(currentImageData);
                     slotImage.src = hasCustomImage ? currentImageData : regionalDefaultSpriteDataUrl;
                     slotImage.alt = "";
                     slotImage.title = hasCustomImage
@@ -19098,7 +19168,7 @@ dialog,
                     if (touched.has("image")) {
                         if (overrides.image && typeof overrides.image === "object" &&
                             typeof overrides.image.imageData === "string" &&
-                            /^data:image\//i.test(overrides.image.imageData)) {
+                            /^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(overrides.image.imageData)) {
                             effective.imageData = overrides.image.imageData;
                             if (typeof overrides.image.imageName === "string" && overrides.image.imageName.trim()) {
                                 effective.imageName = overrides.image.imageName.trim();
@@ -19114,7 +19184,7 @@ dialog,
                     if (touched.has("misprintImage")) {
                         if (overrides.misprintImage && typeof overrides.misprintImage === "object" &&
                             typeof overrides.misprintImage.imageData === "string" &&
-                            /^data:image\//i.test(overrides.misprintImage.imageData)) {
+                            /^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(overrides.misprintImage.imageData)) {
                             effective.misprintImageData = overrides.misprintImage.imageData;
                             if (typeof overrides.misprintImage.imageName === "string" && overrides.misprintImage.imageName.trim()) {
                                 effective.misprintImageName = overrides.misprintImage.imageName.trim();
@@ -19170,7 +19240,7 @@ dialog,
 
                         if (fieldName === "image") {
                             if (typeof activeRegionalSlotDraft.imageData === "string" &&
-                                /^data:image\//i.test(activeRegionalSlotDraft.imageData)) {
+                                /^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(activeRegionalSlotDraft.imageData)) {
                                 overrides.image = {
                                     imageData: activeRegionalSlotDraft.imageData,
                                     imageName: typeof activeRegionalSlotDraft.imageName === "string"
@@ -19185,7 +19255,7 @@ dialog,
 
                         if (fieldName === "misprintImage") {
                             if (typeof activeRegionalSlotDraft.misprintImageData === "string" &&
-                                /^data:image\//i.test(activeRegionalSlotDraft.misprintImageData)) {
+                                /^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(activeRegionalSlotDraft.misprintImageData)) {
                                 overrides.misprintImage = {
                                     imageData: activeRegionalSlotDraft.misprintImageData,
                                     imageName: typeof activeRegionalSlotDraft.misprintImageName === "string"
@@ -19253,7 +19323,7 @@ dialog,
                     slotSprite.setAttribute("aria-hidden", "true");
 
                     var slotImage = document.createElement("img");
-                    slotImage.src = (entry && typeof entry.imageData === "string" && /^data:image\//i.test(entry.imageData))
+                    slotImage.src = (entry && typeof entry.imageData === "string" && /^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(entry.imageData))
                         ? entry.imageData
                         : regionalDefaultSpriteDataUrl;
                     slotImage.alt = "";
@@ -21750,7 +21820,7 @@ dialog,
                             slotSprite.className = "regional-slot-sprite";
                             slotSprite.setAttribute("aria-hidden", "true");
                             var slotImage = document.createElement("img");
-                            slotImage.src = (typeof entry.imageData === "string" && /^data:image\//i.test(entry.imageData)) ? entry.imageData : regionalDefaultSpriteDataUrl;
+                            slotImage.src = (typeof entry.imageData === "string" && /^(?:data:image\/|https:\/\/wdgart\.github\.io\/Enitoy-Database\/assets\/)/i.test(entry.imageData)) ? entry.imageData : regionalDefaultSpriteDataUrl;
                             slotImage.alt = "";
                             slotImage.title = (entry.imageName ? entry.imageName + " — click in the edit menu to change image" : "000MS3.png — click in the edit menu to change image");
                             slotSprite.appendChild(slotImage);
