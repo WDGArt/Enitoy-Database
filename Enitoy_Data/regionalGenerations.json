@@ -11860,9 +11860,17 @@
         "scrollLearnedTechniques": [
           "Rocky Footing",
           "Leg Stretch",
+          "Calm Down",
           "Psych Up",
+          "Pump Up",
+          "Brace",
+          "Burst",
           "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
           "Shadow Claw",
+          "Startle",
           "Sandstorm",
           "Belch"
         ],
@@ -11991,9 +11999,17 @@
         "scrollLearnedTechniques": [
           "Rocky Footing",
           "Leg Stretch",
+          "Calm Down",
           "Psych Up",
+          "Pump Up",
+          "Brace",
+          "Burst",
           "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
           "Shadow Claw",
+          "Startle",
           "Sandstorm",
           "Belch"
         ],
@@ -12062,6 +12078,7 @@
           }
         ],
         "scrollLearnedTechniques": [
+          "Brace",
           "Belch"
         ],
         "temperamentLock": [
@@ -12192,7 +12209,20 @@
         ],
         "scrollLearnedTechniques": [
           "Rocky Footing",
+          "Leg Stretch",
+          "Calm Down",
+          "Psych Up",
+          "Pump Up",
           "Spatial Warp",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat",
           "Sandstorm"
         ],
         "temperamentLock": [
@@ -12331,7 +12361,20 @@
         ],
         "scrollLearnedTechniques": [
           "Rocky Footing",
+          "Leg Stretch",
+          "Calm Down",
+          "Psych Up",
+          "Pump Up",
           "Spatial Warp",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat",
           "Sandstorm"
         ],
         "temperamentLock": [
@@ -13497,6 +13540,1133 @@
     "enitoys": [
       {
         "kind": "concept",
+        "affinityCount": 1,
+        "color1": "Rubber",
+        "color2": "Ordinary",
+        "name": "Gumonk",
+        "classification": "Rubber Monkey",
+        "info": "Gumonk are mischievous Enitoy that delight in playing tricks on their Tamers and other Enitoy. Their stretchy rubber bodies allow them to swing from branches and bounce harmlessly off obstacles. Although their constant antics can be troublesome, they form strong bonds with Tamers who patiently earn their trust.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 2",
+            "entry": "Gumonk are mischievous Enitoy that delight in playing tricks on their Tamers and other Enitoy. Their stretchy rubber bodies allow them to swing from branches and bounce harmlessly off obstacles. Although their constant antics can be troublesome, they form strong bonds with Tamers who patiently earn their trust."
+          }
+        ],
+        "internalColor": "BROWN",
+        "height": "1'04\"/0.41M",
+        "weight": "12.3Lbs/5.58KG",
+        "genderRatio": 5,
+        "stats": [
+          55,
+          60,
+          48,
+          47,
+          47,
+          55
+        ],
+        "skill": "Trickster",
+        "hiddenSkill": "Anger Prone",
+        "misprintDefect": "Sleepless",
+        "recruitmentRate": 45,
+        "baseExp": 64,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Deep Clean",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Sing",
+          "Slash",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Trick-or-Treat"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Focus",
+            "level": 10
+          },
+          {
+            "name": "Disarm",
+            "level": 13
+          },
+          {
+            "name": "Cosplay",
+            "level": 16
+          },
+          {
+            "name": "Slash",
+            "level": 19
+          },
+          {
+            "name": "Pump Up",
+            "level": 22
+          },
+          {
+            "name": "Trick-or-Treat",
+            "level": 25
+          },
+          {
+            "name": "Method Act",
+            "level": 28
+          },
+          {
+            "name": "Burst",
+            "level": 31
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Sing",
+          "Deep Clean",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Startle",
+          "Trick-or-Treat",
+          "Belch"
+        ],
+        "modifications": [
+          {
+            "target": "Novapor",
+            "targetGeneration": "Gen 2",
+            "method": "Give Item",
+            "parameter": "Dropletstone"
+          },
+          {
+            "target": "Novesta",
+            "targetGeneration": "Gen 2",
+            "method": "Give Item",
+            "parameter": "Flamestone"
+          },
+          {
+            "target": "Novine",
+            "targetGeneration": "Gen 2",
+            "method": "Give Item",
+            "parameter": "Petalstone"
+          }
+        ],
+        "nameOrigins": [
+          {
+            "part": "Gum",
+            "word": "gum",
+            "description": "A stretchable substance, compared with the elasticity of rubber."
+          },
+          {
+            "part": "onk",
+            "word": "monkey",
+            "description": "The primate that inspires Gumonk."
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 1,
+        "color1": "Rubber",
+        "color2": "Nature",
+        "name": "Novine",
+        "classification": "Rhythm Apprentice",
+        "info": "Novine practice drumming on hollow logs, using their increasingly powerful arms to produce rhythmic beats that echo throughout the forest. They often become so absorbed in their performances that they fail to notice nearby Enitoy gathering to listen. The vines growing around their bodies are occasionally used to adjust the pitch of their makeshift drums.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 2",
+            "entry": "Novine practice drumming on hollow logs, using their increasingly powerful arms to produce rhythmic beats that echo throughout the forest. They often become so absorbed in their performances that they fail to notice nearby Enitoy gathering to listen. The vines growing around their bodies are occasionally used to adjust the pitch of their makeshift drums."
+          }
+        ],
+        "internalColor": "BROWN",
+        "height": "2'10\"/0.86M",
+        "weight": "43.2Lbs/19.60KG",
+        "genderRatio": 5,
+        "stats": [
+          80,
+          85,
+          75,
+          55,
+          73,
+          60
+        ],
+        "skill": "Rhythmic",
+        "hiddenSkill": "Anger Prone",
+        "misprintDefect": "Sleepless",
+        "recruitmentRate": 45,
+        "baseExp": 142,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Deep Clean",
+          "Disarm",
+          "Focus",
+          "Heart Song",
+          "Leg Stretch",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Root Whip",
+          "Sing",
+          "Slash",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Thorny Vines",
+          "Trick-or-Treat",
+          "Wood Double"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Focus",
+            "level": 10
+          },
+          {
+            "name": "Disarm",
+            "level": 13
+          },
+          {
+            "name": "Cosplay",
+            "level": 16
+          },
+          {
+            "name": "Heart Song",
+            "level": 18
+          },
+          {
+            "name": "Slash",
+            "level": 19
+          },
+          {
+            "name": "Root Whip",
+            "level": 21
+          },
+          {
+            "name": "Pump Up",
+            "level": 22
+          },
+          {
+            "name": "Trick-or-Treat",
+            "level": 25
+          },
+          {
+            "name": "Thorny Vines",
+            "level": 27
+          },
+          {
+            "name": "Method Act",
+            "level": 28
+          },
+          {
+            "name": "Burst",
+            "level": 31
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Heart Song",
+          "Sing",
+          "Deep Clean",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Root Whip",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Thorny Vines",
+          "Wood Double",
+          "Startle",
+          "Trick-or-Treat",
+          "Belch"
+        ],
+        "modifications": [
+          {
+            "target": "Majunglla",
+            "targetGeneration": "Gen 2",
+            "method": "Level Max Happiness",
+            "parameter": 34
+          }
+        ],
+        "nameOrigins": [
+          {
+            "part": "Nov",
+            "word": "novice",
+            "description": "A beginner learning a new profession."
+          },
+          {
+            "part": "ine",
+            "word": "vine",
+            "description": "A flexible climbing plant linked to its Nature branch."
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Resin",
+        "color2": "Nature",
+        "color3": "Audio",
+        "name": "Majunglla",
+        "classification": "Jungle Drummer",
+        "info": "Majunglla are accomplished percussionists whose thunderous drumming can be heard from deep within dense forests. By striking hollow trees with their powerful hands, they create complex rhythms capable of communicating over great distances. Despite their intimidating gorilla-like appearance, they are remarkably patient when teaching younger Enitoy how to keep a steady beat.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 2",
+            "entry": "Majunglla are accomplished percussionists whose thunderous drumming can be heard from deep within dense forests. By striking hollow trees with their powerful hands, they create complex rhythms capable of communicating over great distances. Despite their intimidating gorilla-like appearance, they are remarkably patient when teaching younger Enitoy how to keep a steady beat."
+          }
+        ],
+        "internalColor": "BROWN",
+        "height": "4'10\"/1.47M",
+        "weight": "308.6Lbs/139.98KG",
+        "genderRatio": 5,
+        "stats": [
+          105,
+          110,
+          100,
+          65,
+          94,
+          60
+        ],
+        "skill": "Rhythmic",
+        "hiddenSkill": "Anger Prone",
+        "misprintDefect": "Sleepless",
+        "recruitmentRate": 45,
+        "baseExp": 265,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Deep Clean",
+          "Disarm",
+          "Focus",
+          "Heart Song",
+          "Leg Stretch",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Resin Shards",
+          "Rocky Footing",
+          "Root Whip",
+          "Sing",
+          "Slash",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Thorny Vines",
+          "Trick-or-Treat",
+          "Wood Double"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Focus",
+            "level": 10
+          },
+          {
+            "name": "Disarm",
+            "level": 13
+          },
+          {
+            "name": "Cosplay",
+            "level": 16
+          },
+          {
+            "name": "Heart Song",
+            "level": 18
+          },
+          {
+            "name": "Slash",
+            "level": 19
+          },
+          {
+            "name": "Root Whip",
+            "level": 21
+          },
+          {
+            "name": "Pump Up",
+            "level": 22
+          },
+          {
+            "name": "Trick-or-Treat",
+            "level": 25
+          },
+          {
+            "name": "Thorny Vines",
+            "level": 27
+          },
+          {
+            "name": "Method Act",
+            "level": 28
+          },
+          {
+            "name": "Burst",
+            "level": 31
+          },
+          {
+            "name": "Resin Shards",
+            "level": 38
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Heart Song",
+          "Sing",
+          "Rocky Footing",
+          "Deep Clean",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Root Whip",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Thorny Vines",
+          "Wood Double",
+          "Resin Shards",
+          "Startle",
+          "Trick-or-Treat",
+          "Belch"
+        ],
+        "nameOrigins": [
+          {
+            "part": "Maj",
+            "word": "major",
+            "description": "A drum major or musical leader, representing mastery of rhythm."
+          },
+          {
+            "part": "jungl",
+            "word": "jungle",
+            "description": "A dense tropical forest, tied to its Nature affinity and gorilla inspiration."
+          },
+          {
+            "part": "lla",
+            "word": "gorilla",
+            "description": "The full-grown primate inspiration."
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 1,
+        "color1": "Rubber",
+        "color2": "Pyro",
+        "name": "Novesta",
+        "classification": "Martial Apprentice",
+        "info": "Novesta devote much of their time to practicing punches, kicks, and defensive stances. Their flexible rubber limbs allow them to perform unusual movements that often catch opponents off guard. When their determination grows particularly intense, the heat radiating from their bodies becomes noticeable even from several feet away.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 2",
+            "entry": "Novesta devote much of their time to practicing punches, kicks, and defensive stances. Their flexible rubber limbs allow them to perform unusual movements that often catch opponents off guard. When their determination grows particularly intense, the heat radiating from their bodies becomes noticeable even from several feet away."
+          }
+        ],
+        "internalColor": "BROWN",
+        "height": "2'09\"/0.84M",
+        "weight": "45.8Lbs/20.77KG",
+        "genderRatio": 5,
+        "stats": [
+          70,
+          100,
+          60,
+          45,
+          58,
+          95
+        ],
+        "skill": "Fighting Spirit",
+        "hiddenSkill": "Anger Prone",
+        "misprintDefect": "Sleepless",
+        "recruitmentRate": 45,
+        "baseExp": 142,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Deep Clean",
+          "Disarm",
+          "Focus",
+          "Heat Puff",
+          "Leg Stretch",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Rocky Footing",
+          "Shadow Claw",
+          "Sing",
+          "Slash",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Trick-or-Treat"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Focus",
+            "level": 10
+          },
+          {
+            "name": "Disarm",
+            "level": 13
+          },
+          {
+            "name": "Cosplay",
+            "level": 16
+          },
+          {
+            "name": "Heat Puff",
+            "level": 18
+          },
+          {
+            "name": "Slash",
+            "level": 19
+          },
+          {
+            "name": "Pump Up",
+            "level": 22
+          },
+          {
+            "name": "Trick-or-Treat",
+            "level": 25
+          },
+          {
+            "name": "Shadow Claw",
+            "level": 27
+          },
+          {
+            "name": "Method Act",
+            "level": 28
+          },
+          {
+            "name": "Burst",
+            "level": 31
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Sing",
+          "Rocky Footing",
+          "Deep Clean",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Heat Puff",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat",
+          "Belch"
+        ],
+        "modifications": [
+          {
+            "target": "Sensolaboon",
+            "targetGeneration": "Gen 2",
+            "method": "Level Max Happiness",
+            "parameter": 34
+          }
+        ],
+        "nameOrigins": [
+          {
+            "part": "Nov",
+            "word": "novice",
+            "description": "A beginner learning a new profession."
+          },
+          {
+            "part": "esta",
+            "word": "Vesta",
+            "description": "Roman goddess of the hearth and its sacred fire."
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Resin",
+        "color2": "Pyro",
+        "color3": "Kinetic",
+        "name": "Sensolaboon",
+        "classification": "Solar Warrior",
+        "info": "Sensolaboon are disciplined martial artists that perfect their fighting techniques through years of rigorous training. Their hardened resin bodies withstand powerful blows, while the heat they generate strengthens their strikes. Rather than attacking recklessly, they carefully study their opponents and wait for the perfect opportunity to deliver a decisive counterattack.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 2",
+            "entry": "Sensolaboon are disciplined martial artists that perfect their fighting techniques through years of rigorous training. Their hardened resin bodies withstand powerful blows, while the heat they generate strengthens their strikes. Rather than attacking recklessly, they carefully study their opponents and wait for the perfect opportunity to deliver a decisive counterattack."
+          }
+        ],
+        "internalColor": "BROWN",
+        "height": "4'04\"/1.32M",
+        "weight": "91.7Lbs/41.59KG",
+        "genderRatio": 5,
+        "stats": [
+          85,
+          135,
+          75,
+          55,
+          69,
+          115
+        ],
+        "skill": "Fighting Spirit",
+        "hiddenSkill": "Anger Prone",
+        "misprintDefect": "Sleepless",
+        "recruitmentRate": 45,
+        "baseExp": 265,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Deep Clean",
+          "Disarm",
+          "Focus",
+          "Heat Puff",
+          "Leg Stretch",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Resin Shards",
+          "Rocky Footing",
+          "Shadow Claw",
+          "Sing",
+          "Slash",
+          "Spike Trap",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Trick-or-Treat"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Focus",
+            "level": 10
+          },
+          {
+            "name": "Disarm",
+            "level": 13
+          },
+          {
+            "name": "Cosplay",
+            "level": 16
+          },
+          {
+            "name": "Heat Puff",
+            "level": 18
+          },
+          {
+            "name": "Slash",
+            "level": 19
+          },
+          {
+            "name": "Pump Up",
+            "level": 22
+          },
+          {
+            "name": "Trick-or-Treat",
+            "level": 25
+          },
+          {
+            "name": "Shadow Claw",
+            "level": 27
+          },
+          {
+            "name": "Method Act",
+            "level": 28
+          },
+          {
+            "name": "Burst",
+            "level": 31
+          },
+          {
+            "name": "Resin Shards",
+            "level": 38
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Sing",
+          "Rocky Footing",
+          "Deep Clean",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Spike Trap",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Heat Puff",
+          "Resin Shards",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat",
+          "Belch"
+        ],
+        "nameOrigins": [
+          {
+            "part": "Sens",
+            "word": "sensei",
+            "description": "Japanese term for a teacher or master of martial arts."
+          },
+          {
+            "part": "ol",
+            "word": "solar",
+            "description": "Relating to the Sun, symbolizing its Pyro affinity."
+          },
+          {
+            "part": "aboon",
+            "word": "baboon",
+            "description": "The primate behind its martial-arts appearance."
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 1,
+        "color1": "Rubber",
+        "color2": "Hydro",
+        "name": "Novapor",
+        "classification": "Fishing Apprentice",
+        "info": "Novapor spend hours beside rivers and ponds practicing their fishing techniques. Although their early attempts often end with them falling into the water, their buoyant rubber bodies keep them afloat. They are especially proud when they catch their first fish, frequently showing it to their Tamers before reluctantly releasing it.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 2",
+            "entry": "Novapor spend hours beside rivers and ponds practicing their fishing techniques. Although their early attempts often end with them falling into the water, their buoyant rubber bodies keep them afloat. They are especially proud when they catch their first fish, frequently showing it to their Tamers before reluctantly releasing it."
+          }
+        ],
+        "internalColor": "BROWN",
+        "height": "2'05\"/0.74M",
+        "weight": "33.6Lbs/15.24KG",
+        "genderRatio": 5,
+        "stats": [
+          75,
+          65,
+          70,
+          85,
+          70,
+          63
+        ],
+        "skill": "Winter Coat",
+        "hiddenSkill": "Anger Prone",
+        "misprintDefect": "Sleepless",
+        "recruitmentRate": 45,
+        "baseExp": 142,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Deep Clean",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Rain Call",
+          "Rocky Footing",
+          "Sing",
+          "Slash",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Trick-or-Treat",
+          "Water Burst"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Focus",
+            "level": 10
+          },
+          {
+            "name": "Disarm",
+            "level": 13
+          },
+          {
+            "name": "Cosplay",
+            "level": 16
+          },
+          {
+            "name": "Water Burst",
+            "level": 18
+          },
+          {
+            "name": "Slash",
+            "level": 19
+          },
+          {
+            "name": "Pump Up",
+            "level": 22
+          },
+          {
+            "name": "Trick-or-Treat",
+            "level": 25
+          },
+          {
+            "name": "Rain Call",
+            "level": 27
+          },
+          {
+            "name": "Method Act",
+            "level": 28
+          },
+          {
+            "name": "Burst",
+            "level": 31
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Sing",
+          "Rocky Footing",
+          "Deep Clean",
+          "Rain Call",
+          "Splash",
+          "Water Burst",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Startle",
+          "Trick-or-Treat",
+          "Belch"
+        ],
+        "modifications": [
+          {
+            "target": "Pisunaque",
+            "targetGeneration": "Gen 2",
+            "method": "Level Max Happiness",
+            "parameter": 34
+          }
+        ],
+        "nameOrigins": [
+          {
+            "part": "Nov",
+            "word": "novice",
+            "description": "A beginner learning a new profession."
+          },
+          {
+            "part": "apor",
+            "word": "vapor",
+            "description": "A gaseous state of water, reflecting its Hydro branch."
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Resin",
+        "color2": "Hydro",
+        "color3": "Cryo",
+        "name": "Pisunaque",
+        "classification": "Ice Angler",
+        "info": "Pisunaque are expert fishers capable of catching prey beneath thick layers of ice. They patiently observe subtle movements below frozen surfaces before creating small openings with precisely controlled Cryo techniques. Their dense coats protect them from bitter temperatures, allowing them to remain perfectly still for hours while waiting for the ideal catch.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 2",
+            "entry": "Pisunaque are expert fishers capable of catching prey beneath thick layers of ice. They patiently observe subtle movements below frozen surfaces before creating small openings with precisely controlled Cryo techniques. Their dense coats protect them from bitter temperatures, allowing them to remain perfectly still for hours while waiting for the ideal catch."
+          }
+        ],
+        "internalColor": "BROWN",
+        "height": "3'08\"/1.12M",
+        "weight": "48.2Lbs/21.86KG",
+        "genderRatio": 5,
+        "stats": [
+          95,
+          75,
+          90,
+          115,
+          90,
+          69
+        ],
+        "skill": "Winter Coat",
+        "hiddenSkill": "Anger Prone",
+        "misprintDefect": "Sleepless",
+        "recruitmentRate": 45,
+        "baseExp": 265,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Deep Clean",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Rain Call",
+          "Resin Shards",
+          "Rocky Footing",
+          "Sing",
+          "Slash",
+          "Spike Trap",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Trick-or-Treat",
+          "Water Burst"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Focus",
+            "level": 10
+          },
+          {
+            "name": "Disarm",
+            "level": 13
+          },
+          {
+            "name": "Cosplay",
+            "level": 16
+          },
+          {
+            "name": "Water Burst",
+            "level": 18
+          },
+          {
+            "name": "Slash",
+            "level": 19
+          },
+          {
+            "name": "Pump Up",
+            "level": 22
+          },
+          {
+            "name": "Trick-or-Treat",
+            "level": 25
+          },
+          {
+            "name": "Rain Call",
+            "level": 27
+          },
+          {
+            "name": "Method Act",
+            "level": 28
+          },
+          {
+            "name": "Burst",
+            "level": 31
+          },
+          {
+            "name": "Resin Shards",
+            "level": 38
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Sing",
+          "Rocky Footing",
+          "Deep Clean",
+          "Rain Call",
+          "Splash",
+          "Water Burst",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Spike Trap",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Resin Shards",
+          "Startle",
+          "Trick-or-Treat",
+          "Belch"
+        ],
+        "nameOrigins": [
+          {
+            "part": "Pis",
+            "word": "piscator",
+            "description": "Latin for a fisher or angler."
+          },
+          {
+            "part": "una",
+            "word": "tsunami",
+            "description": "A Japanese word for a large sea wave, connected to its Hydro affinity."
+          },
+          {
+            "part": "que",
+            "word": "macaque",
+            "description": "The Japanese macaque, also called a snow monkey."
+          }
+        ]
+      },
+      {
+        "kind": "concept",
         "affinityCount": 2,
         "color1": "Rubber",
         "color2": "Hydro",
@@ -14165,1032 +15335,6 @@
             "part": "c0n50l3",
             "word": "console",
             "description": "An electronic system designed to connect to a television or display to play video games"
-          }
-        ]
-      },
-      {
-        "kind": "concept",
-        "affinityCount": 1,
-        "color1": "Rubber",
-        "color2": "Ordinary",
-        "name": "Gumonk",
-        "classification": "Rubber Monkey",
-        "info": "Gumonk are mischievous Enitoy that delight in playing tricks on their Tamers and other Enitoy. Their stretchy rubber bodies allow them to swing from branches and bounce harmlessly off obstacles. Although their constant antics can be troublesome, they form strong bonds with Tamers who patiently earn their trust.",
-        "catalogEntries": [
-          {
-            "generation": "Gen 2",
-            "entry": "Gumonk are mischievous Enitoy that delight in playing tricks on their Tamers and other Enitoy. Their stretchy rubber bodies allow them to swing from branches and bounce harmlessly off obstacles. Although their constant antics can be troublesome, they form strong bonds with Tamers who patiently earn their trust."
-          }
-        ],
-        "internalColor": "BROWN",
-        "height": "1'04\"/0.41M",
-        "weight": "12.3Lbs/5.58KG",
-        "genderRatio": 5,
-        "stats": [
-          55,
-          60,
-          48,
-          47,
-          47,
-          55
-        ],
-        "skill": "Trickster",
-        "hiddenSkill": "Anger Prone",
-        "misprintDefect": "Sleepless",
-        "recruitmentRate": 45,
-        "baseExp": 64,
-        "growthRate": "Medium Growth",
-        "availableTechniques": [
-          "Belch",
-          "Brace",
-          "Burst",
-          "Calm Down",
-          "Cosplay",
-          "Deep Clean",
-          "Disarm",
-          "Focus",
-          "Leg Stretch",
-          "Method Act",
-          "Psych Up",
-          "Pump Up",
-          "Sing",
-          "Slash",
-          "Splash",
-          "Startle",
-          "Tackle",
-          "Trick-or-Treat"
-        ],
-        "levelUpTechniques": [
-          {
-            "name": "Startle",
-            "level": 1
-          },
-          {
-            "name": "Tackle",
-            "level": 1
-          },
-          {
-            "name": "Leg Stretch",
-            "level": 4
-          },
-          {
-            "name": "Belch",
-            "level": 7
-          },
-          {
-            "name": "Focus",
-            "level": 10
-          },
-          {
-            "name": "Disarm",
-            "level": 13
-          },
-          {
-            "name": "Cosplay",
-            "level": 16
-          },
-          {
-            "name": "Slash",
-            "level": 19
-          },
-          {
-            "name": "Pump Up",
-            "level": 22
-          },
-          {
-            "name": "Trick-or-Treat",
-            "level": 25
-          },
-          {
-            "name": "Method Act",
-            "level": 28
-          },
-          {
-            "name": "Burst",
-            "level": 31
-          }
-        ],
-        "scrollLearnedTechniques": [
-          "Sing",
-          "Deep Clean",
-          "Splash",
-          "Calm Down",
-          "Psych Up",
-          "Brace"
-        ],
-        "modifications": [
-          {
-            "target": "Novapor",
-            "targetGeneration": "Gen 2",
-            "method": "Give Item",
-            "parameter": "Dropletstone"
-          },
-          {
-            "target": "Novesta",
-            "targetGeneration": "Gen 2",
-            "method": "Give Item",
-            "parameter": "Flamestone"
-          },
-          {
-            "target": "Novine",
-            "targetGeneration": "Gen 2",
-            "method": "Give Item",
-            "parameter": "Petalstone"
-          }
-        ],
-        "nameOrigins": [
-          {
-            "part": "Gum",
-            "word": "gum",
-            "description": "A stretchable substance, compared with the elasticity of rubber."
-          },
-          {
-            "part": "onk",
-            "word": "monkey",
-            "description": "The primate that inspires Gumonk."
-          }
-        ]
-      },
-      {
-        "kind": "concept",
-        "affinityCount": 1,
-        "color1": "Rubber",
-        "color2": "Nature",
-        "name": "Novine",
-        "classification": "Rhythm Apprentice",
-        "info": "Novine practice drumming on hollow logs, using their increasingly powerful arms to produce rhythmic beats that echo throughout the forest. They often become so absorbed in their performances that they fail to notice nearby Enitoy gathering to listen. The vines growing around their bodies are occasionally used to adjust the pitch of their makeshift drums.",
-        "catalogEntries": [
-          {
-            "generation": "Gen 2",
-            "entry": "Novine practice drumming on hollow logs, using their increasingly powerful arms to produce rhythmic beats that echo throughout the forest. They often become so absorbed in their performances that they fail to notice nearby Enitoy gathering to listen. The vines growing around their bodies are occasionally used to adjust the pitch of their makeshift drums."
-          }
-        ],
-        "internalColor": "BROWN",
-        "height": "2'10\"/0.86M",
-        "weight": "43.2Lbs/19.60KG",
-        "genderRatio": 5,
-        "stats": [
-          80,
-          85,
-          75,
-          55,
-          73,
-          60
-        ],
-        "skill": "Rhythmic",
-        "hiddenSkill": "Anger Prone",
-        "misprintDefect": "Sleepless",
-        "recruitmentRate": 45,
-        "baseExp": 142,
-        "growthRate": "Medium Growth",
-        "availableTechniques": [
-          "Belch",
-          "Brace",
-          "Burst",
-          "Calm Down",
-          "Cosplay",
-          "Deep Clean",
-          "Disarm",
-          "Focus",
-          "Heart Song",
-          "Leg Stretch",
-          "Method Act",
-          "Psych Up",
-          "Pump Up",
-          "Root Whip",
-          "Sing",
-          "Slash",
-          "Splash",
-          "Startle",
-          "Tackle",
-          "Thorny Vines",
-          "Trick-or-Treat",
-          "Wood Double"
-        ],
-        "levelUpTechniques": [
-          {
-            "name": "Startle",
-            "level": 1
-          },
-          {
-            "name": "Tackle",
-            "level": 1
-          },
-          {
-            "name": "Leg Stretch",
-            "level": 4
-          },
-          {
-            "name": "Belch",
-            "level": 7
-          },
-          {
-            "name": "Focus",
-            "level": 10
-          },
-          {
-            "name": "Disarm",
-            "level": 13
-          },
-          {
-            "name": "Cosplay",
-            "level": 16
-          },
-          {
-            "name": "Heart Song",
-            "level": 18
-          },
-          {
-            "name": "Slash",
-            "level": 19
-          },
-          {
-            "name": "Root Whip",
-            "level": 21
-          },
-          {
-            "name": "Pump Up",
-            "level": 22
-          },
-          {
-            "name": "Trick-or-Treat",
-            "level": 25
-          },
-          {
-            "name": "Thorny Vines",
-            "level": 27
-          },
-          {
-            "name": "Method Act",
-            "level": 28
-          },
-          {
-            "name": "Burst",
-            "level": 31
-          }
-        ],
-        "scrollLearnedTechniques": [
-          "Sing",
-          "Deep Clean",
-          "Splash",
-          "Calm Down",
-          "Psych Up",
-          "Brace",
-          "Wood Double"
-        ],
-        "modifications": [
-          {
-            "target": "Majunglla",
-            "targetGeneration": "Gen 2",
-            "method": "Level Max Happiness",
-            "parameter": 34
-          }
-        ],
-        "nameOrigins": [
-          {
-            "part": "Nov",
-            "word": "novice",
-            "description": "A beginner learning a new profession."
-          },
-          {
-            "part": "ine",
-            "word": "vine",
-            "description": "A flexible climbing plant linked to its Nature branch."
-          }
-        ]
-      },
-      {
-        "kind": "concept",
-        "affinityCount": 2,
-        "color1": "Resin",
-        "color2": "Nature",
-        "color3": "Audio",
-        "name": "Majunglla",
-        "classification": "Jungle Drummer",
-        "info": "Majunglla are accomplished percussionists whose thunderous drumming can be heard from deep within dense forests. By striking hollow trees with their powerful hands, they create complex rhythms capable of communicating over great distances. Despite their intimidating gorilla-like appearance, they are remarkably patient when teaching younger Enitoy how to keep a steady beat.",
-        "catalogEntries": [
-          {
-            "generation": "Gen 2",
-            "entry": "Majunglla are accomplished percussionists whose thunderous drumming can be heard from deep within dense forests. By striking hollow trees with their powerful hands, they create complex rhythms capable of communicating over great distances. Despite their intimidating gorilla-like appearance, they are remarkably patient when teaching younger Enitoy how to keep a steady beat."
-          }
-        ],
-        "internalColor": "BROWN",
-        "height": "4'10\"/1.47M",
-        "weight": "308.6Lbs/139.98KG",
-        "genderRatio": 5,
-        "stats": [
-          105,
-          110,
-          100,
-          65,
-          94,
-          60
-        ],
-        "skill": "Rhythmic",
-        "hiddenSkill": "Anger Prone",
-        "misprintDefect": "Sleepless",
-        "recruitmentRate": 45,
-        "baseExp": 265,
-        "growthRate": "Medium Growth",
-        "availableTechniques": [
-          "Belch",
-          "Brace",
-          "Burst",
-          "Calm Down",
-          "Cosplay",
-          "Deep Clean",
-          "Disarm",
-          "Focus",
-          "Heart Song",
-          "Leg Stretch",
-          "Method Act",
-          "Psych Up",
-          "Pump Up",
-          "Resin Shards",
-          "Rocky Footing",
-          "Root Whip",
-          "Sing",
-          "Slash",
-          "Splash",
-          "Startle",
-          "Tackle",
-          "Thorny Vines",
-          "Trick-or-Treat",
-          "Wood Double"
-        ],
-        "levelUpTechniques": [
-          {
-            "name": "Startle",
-            "level": 1
-          },
-          {
-            "name": "Tackle",
-            "level": 1
-          },
-          {
-            "name": "Leg Stretch",
-            "level": 4
-          },
-          {
-            "name": "Belch",
-            "level": 7
-          },
-          {
-            "name": "Focus",
-            "level": 10
-          },
-          {
-            "name": "Disarm",
-            "level": 13
-          },
-          {
-            "name": "Cosplay",
-            "level": 16
-          },
-          {
-            "name": "Heart Song",
-            "level": 18
-          },
-          {
-            "name": "Slash",
-            "level": 19
-          },
-          {
-            "name": "Root Whip",
-            "level": 21
-          },
-          {
-            "name": "Pump Up",
-            "level": 22
-          },
-          {
-            "name": "Trick-or-Treat",
-            "level": 25
-          },
-          {
-            "name": "Thorny Vines",
-            "level": 27
-          },
-          {
-            "name": "Method Act",
-            "level": 28
-          },
-          {
-            "name": "Burst",
-            "level": 31
-          },
-          {
-            "name": "Resin Shards",
-            "level": 38
-          }
-        ],
-        "scrollLearnedTechniques": [
-          "Sing",
-          "Rocky Footing",
-          "Deep Clean",
-          "Splash",
-          "Calm Down",
-          "Psych Up",
-          "Brace",
-          "Wood Double"
-        ],
-        "nameOrigins": [
-          {
-            "part": "Maj",
-            "word": "major",
-            "description": "A drum major or musical leader, representing mastery of rhythm."
-          },
-          {
-            "part": "jungl",
-            "word": "jungle",
-            "description": "A dense tropical forest, tied to its Nature affinity and gorilla inspiration."
-          },
-          {
-            "part": "lla",
-            "word": "gorilla",
-            "description": "The full-grown primate inspiration."
-          }
-        ]
-      },
-      {
-        "kind": "concept",
-        "affinityCount": 1,
-        "color1": "Rubber",
-        "color2": "Pyro",
-        "name": "Novesta",
-        "classification": "Martial Apprentice",
-        "info": "Novesta devote much of their time to practicing punches, kicks, and defensive stances. Their flexible rubber limbs allow them to perform unusual movements that often catch opponents off guard. When their determination grows particularly intense, the heat radiating from their bodies becomes noticeable even from several feet away.",
-        "catalogEntries": [
-          {
-            "generation": "Gen 2",
-            "entry": "Novesta devote much of their time to practicing punches, kicks, and defensive stances. Their flexible rubber limbs allow them to perform unusual movements that often catch opponents off guard. When their determination grows particularly intense, the heat radiating from their bodies becomes noticeable even from several feet away."
-          }
-        ],
-        "internalColor": "BROWN",
-        "height": "2'09\"/0.84M",
-        "weight": "45.8Lbs/20.77KG",
-        "genderRatio": 5,
-        "stats": [
-          70,
-          100,
-          60,
-          45,
-          58,
-          95
-        ],
-        "skill": "Fighting Spirit",
-        "hiddenSkill": "Anger Prone",
-        "misprintDefect": "Sleepless",
-        "recruitmentRate": 45,
-        "baseExp": 142,
-        "growthRate": "Medium Growth",
-        "availableTechniques": [
-          "Belch",
-          "Brace",
-          "Burst",
-          "Calm Down",
-          "Cosplay",
-          "Deep Clean",
-          "Disarm",
-          "Focus",
-          "Heat Puff",
-          "Leg Stretch",
-          "Method Act",
-          "Psych Up",
-          "Pump Up",
-          "Rocky Footing",
-          "Shadow Claw",
-          "Sing",
-          "Slash",
-          "Splash",
-          "Startle",
-          "Tackle",
-          "Trick-or-Treat"
-        ],
-        "levelUpTechniques": [
-          {
-            "name": "Startle",
-            "level": 1
-          },
-          {
-            "name": "Tackle",
-            "level": 1
-          },
-          {
-            "name": "Leg Stretch",
-            "level": 4
-          },
-          {
-            "name": "Belch",
-            "level": 7
-          },
-          {
-            "name": "Focus",
-            "level": 10
-          },
-          {
-            "name": "Disarm",
-            "level": 13
-          },
-          {
-            "name": "Cosplay",
-            "level": 16
-          },
-          {
-            "name": "Heat Puff",
-            "level": 18
-          },
-          {
-            "name": "Slash",
-            "level": 19
-          },
-          {
-            "name": "Pump Up",
-            "level": 22
-          },
-          {
-            "name": "Trick-or-Treat",
-            "level": 25
-          },
-          {
-            "name": "Shadow Claw",
-            "level": 27
-          },
-          {
-            "name": "Method Act",
-            "level": 28
-          },
-          {
-            "name": "Burst",
-            "level": 31
-          }
-        ],
-        "scrollLearnedTechniques": [
-          "Sing",
-          "Rocky Footing",
-          "Deep Clean",
-          "Splash",
-          "Calm Down",
-          "Psych Up",
-          "Brace"
-        ],
-        "modifications": [
-          {
-            "target": "Sensolaboon",
-            "targetGeneration": "Gen 2",
-            "method": "Level Max Happiness",
-            "parameter": 34
-          }
-        ],
-        "nameOrigins": [
-          {
-            "part": "Nov",
-            "word": "novice",
-            "description": "A beginner learning a new profession."
-          },
-          {
-            "part": "esta",
-            "word": "Vesta",
-            "description": "Roman goddess of the hearth and its sacred fire."
-          }
-        ]
-      },
-      {
-        "kind": "concept",
-        "affinityCount": 2,
-        "color1": "Resin",
-        "color2": "Pyro",
-        "color3": "Kinetic",
-        "name": "Sensolaboon",
-        "classification": "Solar Warrior",
-        "info": "Sensolaboon are disciplined martial artists that perfect their fighting techniques through years of rigorous training. Their hardened resin bodies withstand powerful blows, while the heat they generate strengthens their strikes. Rather than attacking recklessly, they carefully study their opponents and wait for the perfect opportunity to deliver a decisive counterattack.",
-        "catalogEntries": [
-          {
-            "generation": "Gen 2",
-            "entry": "Sensolaboon are disciplined martial artists that perfect their fighting techniques through years of rigorous training. Their hardened resin bodies withstand powerful blows, while the heat they generate strengthens their strikes. Rather than attacking recklessly, they carefully study their opponents and wait for the perfect opportunity to deliver a decisive counterattack."
-          }
-        ],
-        "internalColor": "BROWN",
-        "height": "4'04\"/1.32M",
-        "weight": "91.7Lbs/41.59KG",
-        "genderRatio": 5,
-        "stats": [
-          85,
-          135,
-          75,
-          55,
-          69,
-          115
-        ],
-        "skill": "Fighting Spirit",
-        "hiddenSkill": "Anger Prone",
-        "misprintDefect": "Sleepless",
-        "recruitmentRate": 45,
-        "baseExp": 265,
-        "growthRate": "Medium Growth",
-        "availableTechniques": [
-          "Belch",
-          "Brace",
-          "Burst",
-          "Calm Down",
-          "Cosplay",
-          "Deep Clean",
-          "Disarm",
-          "Focus",
-          "Heat Puff",
-          "Leg Stretch",
-          "Method Act",
-          "Psych Up",
-          "Pump Up",
-          "Resin Shards",
-          "Rocky Footing",
-          "Shadow Claw",
-          "Sing",
-          "Slash",
-          "Spike Trap",
-          "Splash",
-          "Startle",
-          "Tackle",
-          "Trick-or-Treat"
-        ],
-        "levelUpTechniques": [
-          {
-            "name": "Startle",
-            "level": 1
-          },
-          {
-            "name": "Tackle",
-            "level": 1
-          },
-          {
-            "name": "Leg Stretch",
-            "level": 4
-          },
-          {
-            "name": "Belch",
-            "level": 7
-          },
-          {
-            "name": "Focus",
-            "level": 10
-          },
-          {
-            "name": "Disarm",
-            "level": 13
-          },
-          {
-            "name": "Cosplay",
-            "level": 16
-          },
-          {
-            "name": "Heat Puff",
-            "level": 18
-          },
-          {
-            "name": "Slash",
-            "level": 19
-          },
-          {
-            "name": "Pump Up",
-            "level": 22
-          },
-          {
-            "name": "Trick-or-Treat",
-            "level": 25
-          },
-          {
-            "name": "Shadow Claw",
-            "level": 27
-          },
-          {
-            "name": "Method Act",
-            "level": 28
-          },
-          {
-            "name": "Burst",
-            "level": 31
-          },
-          {
-            "name": "Resin Shards",
-            "level": 38
-          }
-        ],
-        "scrollLearnedTechniques": [
-          "Sing",
-          "Rocky Footing",
-          "Deep Clean",
-          "Splash",
-          "Calm Down",
-          "Psych Up",
-          "Spike Trap",
-          "Brace"
-        ],
-        "nameOrigins": [
-          {
-            "part": "Sens",
-            "word": "sensei",
-            "description": "Japanese term for a teacher or master of martial arts."
-          },
-          {
-            "part": "ol",
-            "word": "solar",
-            "description": "Relating to the Sun, symbolizing its Pyro affinity."
-          },
-          {
-            "part": "aboon",
-            "word": "baboon",
-            "description": "The primate behind its martial-arts appearance."
-          }
-        ]
-      },
-      {
-        "kind": "concept",
-        "affinityCount": 1,
-        "color1": "Rubber",
-        "color2": "Hydro",
-        "name": "Novapor",
-        "classification": "Fishing Apprentice",
-        "info": "Novapor spend hours beside rivers and ponds practicing their fishing techniques. Although their early attempts often end with them falling into the water, their buoyant rubber bodies keep them afloat. They are especially proud when they catch their first fish, frequently showing it to their Tamers before reluctantly releasing it.",
-        "catalogEntries": [
-          {
-            "generation": "Gen 2",
-            "entry": "Novapor spend hours beside rivers and ponds practicing their fishing techniques. Although their early attempts often end with them falling into the water, their buoyant rubber bodies keep them afloat. They are especially proud when they catch their first fish, frequently showing it to their Tamers before reluctantly releasing it."
-          }
-        ],
-        "internalColor": "BROWN",
-        "height": "2'05\"/0.74M",
-        "weight": "33.6Lbs/15.24KG",
-        "genderRatio": 5,
-        "stats": [
-          75,
-          65,
-          70,
-          85,
-          70,
-          63
-        ],
-        "skill": "Winter Coat",
-        "hiddenSkill": "Anger Prone",
-        "misprintDefect": "Sleepless",
-        "recruitmentRate": 45,
-        "baseExp": 142,
-        "growthRate": "Medium Growth",
-        "availableTechniques": [
-          "Belch",
-          "Brace",
-          "Burst",
-          "Calm Down",
-          "Cosplay",
-          "Deep Clean",
-          "Disarm",
-          "Focus",
-          "Leg Stretch",
-          "Method Act",
-          "Psych Up",
-          "Pump Up",
-          "Rain Call",
-          "Rocky Footing",
-          "Sing",
-          "Slash",
-          "Splash",
-          "Startle",
-          "Tackle",
-          "Trick-or-Treat",
-          "Water Burst"
-        ],
-        "levelUpTechniques": [
-          {
-            "name": "Startle",
-            "level": 1
-          },
-          {
-            "name": "Tackle",
-            "level": 1
-          },
-          {
-            "name": "Leg Stretch",
-            "level": 4
-          },
-          {
-            "name": "Belch",
-            "level": 7
-          },
-          {
-            "name": "Focus",
-            "level": 10
-          },
-          {
-            "name": "Disarm",
-            "level": 13
-          },
-          {
-            "name": "Cosplay",
-            "level": 16
-          },
-          {
-            "name": "Water Burst",
-            "level": 18
-          },
-          {
-            "name": "Slash",
-            "level": 19
-          },
-          {
-            "name": "Pump Up",
-            "level": 22
-          },
-          {
-            "name": "Trick-or-Treat",
-            "level": 25
-          },
-          {
-            "name": "Rain Call",
-            "level": 27
-          },
-          {
-            "name": "Method Act",
-            "level": 28
-          },
-          {
-            "name": "Burst",
-            "level": 31
-          }
-        ],
-        "scrollLearnedTechniques": [
-          "Sing",
-          "Rocky Footing",
-          "Deep Clean",
-          "Splash",
-          "Calm Down",
-          "Psych Up",
-          "Brace"
-        ],
-        "modifications": [
-          {
-            "target": "Pisunaque",
-            "targetGeneration": "Gen 2",
-            "method": "Level Max Happiness",
-            "parameter": 34
-          }
-        ],
-        "nameOrigins": [
-          {
-            "part": "Nov",
-            "word": "novice",
-            "description": "A beginner learning a new profession."
-          },
-          {
-            "part": "apor",
-            "word": "vapor",
-            "description": "A gaseous state of water, reflecting its Hydro branch."
-          }
-        ]
-      },
-      {
-        "kind": "concept",
-        "affinityCount": 2,
-        "color1": "Resin",
-        "color2": "Hydro",
-        "color3": "Cryo",
-        "name": "Pisunaque",
-        "classification": "Ice Angler",
-        "info": "Pisunaque are expert fishers capable of catching prey beneath thick layers of ice. They patiently observe subtle movements below frozen surfaces before creating small openings with precisely controlled Cryo techniques. Their dense coats protect them from bitter temperatures, allowing them to remain perfectly still for hours while waiting for the ideal catch.",
-        "catalogEntries": [
-          {
-            "generation": "Gen 2",
-            "entry": "Pisunaque are expert fishers capable of catching prey beneath thick layers of ice. They patiently observe subtle movements below frozen surfaces before creating small openings with precisely controlled Cryo techniques. Their dense coats protect them from bitter temperatures, allowing them to remain perfectly still for hours while waiting for the ideal catch."
-          }
-        ],
-        "internalColor": "BROWN",
-        "height": "3'08\"/1.12M",
-        "weight": "48.2Lbs/21.86KG",
-        "genderRatio": 5,
-        "stats": [
-          95,
-          75,
-          90,
-          115,
-          90,
-          69
-        ],
-        "skill": "Winter Coat",
-        "hiddenSkill": "Anger Prone",
-        "misprintDefect": "Sleepless",
-        "recruitmentRate": 45,
-        "baseExp": 265,
-        "growthRate": "Medium Growth",
-        "availableTechniques": [
-          "Belch",
-          "Brace",
-          "Burst",
-          "Calm Down",
-          "Cosplay",
-          "Deep Clean",
-          "Disarm",
-          "Focus",
-          "Leg Stretch",
-          "Method Act",
-          "Psych Up",
-          "Pump Up",
-          "Rain Call",
-          "Resin Shards",
-          "Rocky Footing",
-          "Sing",
-          "Slash",
-          "Spike Trap",
-          "Splash",
-          "Startle",
-          "Tackle",
-          "Trick-or-Treat",
-          "Water Burst"
-        ],
-        "levelUpTechniques": [
-          {
-            "name": "Startle",
-            "level": 1
-          },
-          {
-            "name": "Tackle",
-            "level": 1
-          },
-          {
-            "name": "Leg Stretch",
-            "level": 4
-          },
-          {
-            "name": "Belch",
-            "level": 7
-          },
-          {
-            "name": "Focus",
-            "level": 10
-          },
-          {
-            "name": "Disarm",
-            "level": 13
-          },
-          {
-            "name": "Cosplay",
-            "level": 16
-          },
-          {
-            "name": "Water Burst",
-            "level": 18
-          },
-          {
-            "name": "Slash",
-            "level": 19
-          },
-          {
-            "name": "Pump Up",
-            "level": 22
-          },
-          {
-            "name": "Trick-or-Treat",
-            "level": 25
-          },
-          {
-            "name": "Rain Call",
-            "level": 27
-          },
-          {
-            "name": "Method Act",
-            "level": 28
-          },
-          {
-            "name": "Burst",
-            "level": 31
-          },
-          {
-            "name": "Resin Shards",
-            "level": 38
-          }
-        ],
-        "scrollLearnedTechniques": [
-          "Sing",
-          "Rocky Footing",
-          "Deep Clean",
-          "Splash",
-          "Calm Down",
-          "Psych Up",
-          "Spike Trap",
-          "Brace"
-        ],
-        "nameOrigins": [
-          {
-            "part": "Pis",
-            "word": "piscator",
-            "description": "Latin for a fisher or angler."
-          },
-          {
-            "part": "una",
-            "word": "tsunami",
-            "description": "A Japanese word for a large sea wave, connected to its Hydro affinity."
-          },
-          {
-            "part": "que",
-            "word": "macaque",
-            "description": "The Japanese macaque, also called a snow monkey."
           }
         ]
       }
