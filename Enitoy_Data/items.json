@@ -1,0 +1,338 @@
+[
+  {
+    "name": "Recruitment Tag",
+    "pluralName": "Recruitment Tag",
+    "buyPrice": 200,
+    "sellPrice": 175,
+    "pocket": 3,
+    "description": "A spell tag that is used to convince an Enitoy to join your journey."
+  },
+  {
+    "name": "Grand Tag",
+    "pluralName": "Grand tags",
+    "buyPrice": 300,
+    "sellPrice": 250,
+    "pocket": 3,
+    "description": "A stronger spell tag that is used to recruit an Enitoy."
+  },
+  {
+    "name": "Bundle of Reeds",
+    "pluralName": "Bundles of Reeds",
+    "buyPrice": 50,
+    "sellPrice": 25,
+    "pocket": 5,
+    "description": "A collection of reeds which can be crafted into sheets of paper."
+  },
+  {
+    "name": "Sheet of Paper",
+    "pluralName": "Sheets of Paper",
+    "buyPrice": 100,
+    "sellPrice": 75,
+    "pocket": 5,
+    "description": "A sheet of paper used to make Recruitment Tags."
+  },
+  {
+    "name": "Ink Bottle",
+    "pluralName": "Ink Bottles",
+    "buyPrice": 100,
+    "sellPrice": 75,
+    "pocket": 5,
+    "description": "A bottle of ink used to make Recruitment Tags."
+  },
+  {
+    "name": "Empty Bottle",
+    "pluralName": "Empty Bottles",
+    "buyPrice": 75,
+    "sellPrice": 50,
+    "pocket": 5,
+    "description": "An empty bottle which could be used to store liquids or certain items."
+  },
+  {
+    "name": "Small Gem",
+    "pluralName": "Small Gems",
+    "buyPrice": "-",
+    "sellPrice": 200,
+    "pocket": 5,
+    "description": "A gem that is imbued with an ancient magic."
+  },
+  {
+    "name": "Blank CD",
+    "pluralName": "Blank CDs",
+    "buyPrice": 1000,
+    "sellPrice": 750,
+    "pocket": 5,
+    "description": "A blank compact Disc that can store stitching energy."
+  },
+  {
+    "name": "Aero CD",
+    "pluralName": "Aero CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Aero energy."
+  },
+  {
+    "name": "Lux CD",
+    "pluralName": "Lux CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Lux energy."
+  },
+  {
+    "name": "Spectral CD",
+    "pluralName": "Spectral CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Spectral energy."
+  },
+  {
+    "name": "Toxic CD",
+    "pluralName": "Toxic CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Toxic energy."
+  },
+  {
+    "name": "Cryo CD",
+    "pluralName": "Cryo CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Cryo energy."
+  },
+  {
+    "name": "Terra CD",
+    "pluralName": "Terra CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Terra energy."
+  },
+  {
+    "name": "Nature CD",
+    "pluralName": "Nature CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Nature energy."
+  },
+  {
+    "name": "Ordinary CD",
+    "pluralName": "Ordinary CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Ordinary energy."
+  },
+  {
+    "name": "Audio CD",
+    "pluralName": "Audio CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Audio energy."
+  },
+  {
+    "name": "Nox CD",
+    "pluralName": "Nox CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Nox energy."
+  },
+  {
+    "name": "Electro CD",
+    "pluralName": "Electro CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Electro energy."
+  },
+  {
+    "name": "Pyro CD",
+    "pluralName": "Pyro CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Pyro energy."
+  },
+  {
+    "name": "Hydro CD",
+    "pluralName": "Hydro CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Hydro energy."
+  },
+  {
+    "name": "Mental CD",
+    "pluralName": "Mental CDs",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A compact disc that was used to store Mental energy."
+  },
+  {
+    "name": "Petalstone",
+    "pluralName": "Petalstones",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A stone imbued with Plant energy."
+  },
+  {
+    "name": "Flamestone",
+    "pluralName": "Flamestones",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A stone imbued with Pyro energy."
+  },
+  {
+    "name": "Dropletstone",
+    "pluralName": "Dropletstones",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A stone imbued with Hydro energy."
+  },
+  {
+    "name": "Heartstone",
+    "pluralName": "Heartstones",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A stone imbued with positive energy."
+  },
+  {
+    "name": "Staticstone",
+    "pluralName": "Staticstones",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A stone imbued with Electro energy."
+  },
+  {
+    "name": "Frigidstone",
+    "pluralName": "Frigidstones",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A stone imbued with Cold energy."
+  },
+  {
+    "name": "Wooden Mask",
+    "pluralName": "Wooden Masks",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A mask made of tree bark that modifies certain Eniotys."
+  },
+  {
+    "name": "Metal Mask",
+    "pluralName": "Metal Masks",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A mask made of metal that modifies certain Enitoys."
+  },
+  {
+    "name": "Terracotta Mask",
+    "pluralName": "Terracotta Masks",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A mask made of terracotta that modifies certain Enitoys."
+  },
+  {
+    "name": "Ancientstone",
+    "pluralName": "Ancientstones",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A stone imbued with Ancient energy."
+  },
+  {
+    "name": "Potion",
+    "pluralName": "Potions",
+    "buyPrice": 200,
+    "sellPrice": 150,
+    "pocket": 2,
+    "description": "Medicine that when given to an Enitoy heals up to 20 HP."
+  },
+  {
+    "name": "Great Potion",
+    "pluralName": "Great Potions",
+    "buyPrice": 300,
+    "sellPrice": 250,
+    "pocket": 2,
+    "description": "Medicine that when given to an Enitoy heals up to 50 HP."
+  },
+  {
+    "name": "Cyanberry",
+    "pluralName": "Cyanberries",
+    "buyPrice": 200,
+    "sellPrice": 150,
+    "pocket": 4,
+    "description": "A berry to be held by an Enitoy that it eats at 50% health or less, when this berry is eaten it restores 20% of the Enitoy's max HP."
+  },
+  {
+    "name": "Asheberry",
+    "pluralName": "Asheberries",
+    "buyPrice": 200,
+    "sellPrice": 150,
+    "pocket": 4,
+    "description": "A berry to be held by an Enitoy that is eaten when burned, cures the burn."
+  },
+  {
+    "name": "Survival Cartridge",
+    "pluralName": "Survival Cartridges",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A cartridge to be held by a certain Enitoy that contains a survival sandbox game."
+  },
+  {
+    "name": "Cooking Cartridge",
+    "pluralName": "Cooking Cartridges",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A cartridge to be held by a certain Enitoy that contains a cooking game."
+  },
+  {
+    "name": "Pirate Cartridge",
+    "pluralName": "Pirate Cartridges",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A cartridge to be held by a certain Enitoy that contains a game about being a pirate."
+  },
+  {
+    "name": "Fighting Cartridge",
+    "pluralName": "Fighting Cartridges",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A cartridge to be held by a certain Enitoy that contains a two-player fighting game."
+  },
+  {
+    "name": "Stealth Cartridge",
+    "pluralName": "Stealth Cartridges",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A cartridge to be held by a certain Enitoy that contains a stealth survival game."
+  },
+  {
+    "name": "Puzzle Cartridge",
+    "pluralName": "Puzzle Cartridges",
+    "buyPrice": 2000,
+    "sellPrice": 1750,
+    "pocket": 1,
+    "description": "A cartridge to be held by a certain Enitoy that contains a puzzle game."
+  }
+]

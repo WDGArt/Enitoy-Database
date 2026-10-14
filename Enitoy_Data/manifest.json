@@ -1,0 +1,23 @@
+{
+  "format": "EnitoySplitProject",
+  "version": 1,
+  "projectFormat": "EnitoyMaterialAffinityChart",
+  "projectVersion": 86,
+  "savedAt": "2026-10-14T22:34:41.759Z",
+  "files": {
+    "materials": "Enitoy_Data/materials.json",
+    "affinities": "Enitoy_Data/affinities.json",
+    "colors": "Enitoy_Data/colors.json",
+    "matrix": "Enitoy_Data/matrix.json",
+    "moves": "Enitoy_Data/moves.json",
+    "temperaments": "Enitoy_Data/temperaments.json",
+    "skills": "Enitoy_Data/skills.json",
+    "defects": "Enitoy_Data/defects.json",
+    "items": "Enitoy_Data/items.json",
+    "regionalGenerations": "Enitoy_Data/regionalGenerations.json",
+    "forms": "Enitoy_Data/forms.json",
+    "encounters": "Enitoy_Data/encounters.json",
+    "tamers": "Enitoy_Data/tamers.json",
+    "crafts": "Enitoy_Data/crafts.json"
+  }
+}

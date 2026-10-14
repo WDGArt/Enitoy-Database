@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Dimmed Glow",
+    "effect": "Lux techniques used by this Enitoy deal 20% less damage, but have a 20% chance to raise evasion by 1 stage."
+  },
+  {
+    "name": "Faulty Filter",
+    "effect": "Toxic techniques used by this Enitoy have a 20% boost but have a 20% chance to randomly poison this Enitoy, the opponent, or both."
+  },
+  {
+    "name": "Faulty Wire",
+    "effect": "When This Enitoy attempts to use a physical technique, there is a 20% chance that it is unable to act and the technique fails. When this Enitoy is hit by a technique that makes contact, the attacker loses 5% of its MAX HP and has a 30% chance to become paralyzed."
+  },
+  {
+    "name": "Loose Debris",
+    "effect": "When this Enitoy is hit by a contact technique, an entry hazard is setup on both sides of the field."
+  },
+  {
+    "name": "Loose Feathers",
+    "effect": "When this Enitoy uses a contact technique or has a contact technique used against it, loose feathers coat the opponent, lowering the opponent's speed by 1 stage."
+  },
+  {
+    "name": "Poor Camouflage",
+    "effect": "When this Enitoy enters battle, its evasion is lowered by 1 stage and Plant techniques used by this Enitoy have a 20% boost."
+  },
+  {
+    "name": "Over-Absorbent",
+    "effect": "Hydro Techniques used by this Enitoy deal 20% less damage. When this Enitoy uses or hit by a Hydro technique, this Enitoy has both its defense and special defense raised by 1 stage and its speed lowered by 1 stage."
+  },
+  {
+    "name": "Overcharged",
+    "effect": "Electro techniques use by this Enitoy have a 20% boost but deal 5% recoil to this Enitoy."
+  },
+  {
+    "name": "Overstuffed",
+    "effect": "When this Enitoy enters battle, its defense is raised by 1stage and its speed is lowered by 1 stage. Whenever this Enitoy eats a berry, this Enitoy's speed is lowered by 1 stage and its defense if raised by 1 stage."
+  },
+  {
+    "name": "Runny Paint",
+    "effect": "When this Enitoy uses a technique, before the technique is used this Enitoy coats itself in paint which changes it stitching to match the technique they are about to use."
+  },
+  {
+    "name": "Sleepless",
+    "effect": "This Enitoy is unable to be put to sleep."
+  },
+  {
+    "name": "Slippery",
+    "effect": "When this Enitoy enters battle they have their speed raised by 1 stage and their accuracy lowered by 1 stage. When this Enitoy uses or is hit by a Hydro technique their speed is raised by 1 stage and their accuracy is lowered by 1 stage."
+  },
+  {
+    "name": "Split Seam",
+    "effect": "When this Enitoy is hit by a physical technique, there is a 20% chance its defense will be lowered by 1 stage and its speed will be raised by 1 stage."
+  },
+  {
+    "name": "Squeaky Speaker",
+    "effect": "When this Enitoy uses an Audio technique, there is a 20% chance to randomly confuse this Enitoy, the opponent, or both for 2 to 5 turns."
+  },
+  {
+    "name": "Wobbly Balance",
+    "effect": "When this Enitoy enters battle its speed stat is rasied by 1 stage, but all physical techniques used by it are 20% less accurate with a 10% boost."
+  }
+]

@@ -1,0 +1,1670 @@
+[
+  {
+    "generation": "Gen 1",
+    "enitoy": "Skinetic",
+    "formName": "Guardian",
+    "touched": [
+      "color1",
+      "height",
+      "weight",
+      "stat0",
+      "stat1",
+      "stat2",
+      "stat3",
+      "stat4",
+      "stat5",
+      "recruitmentRate",
+      "baseExp",
+      "misprintDefect",
+      "info",
+      "availableTechniques",
+      "catalogEntries"
+    ],
+    "overrides": {
+      "color1": "Ancient",
+      "height": "5'02\"/1.57M",
+      "weight": "174.0Lbs/78.93KG",
+      "stat0": 90,
+      "stat1": 155,
+      "stat2": 115,
+      "stat3": 45,
+      "stat4": 100,
+      "stat5": 45,
+      "recruitmentRate": 95,
+      "baseExp": 115,
+      "misprintDefect": "Loose Debris",
+      "info": "When this Skinetic was flooded with cosmic infinity energy, the overpowering energy petrified the shed skin that its boxing gloves were made out of turning into its now-large stone gauntlets. Average Skinetic can punch their way through a boulder with a single punch while this single Skinetic can do the same to a mountain. Being flooded with that much energy is painful to Skinetic causing it to be constantly ready for an attack with four of its own.",
+      "availableTechniques": [
+        "Belch",
+        "Brace",
+        "Burst",
+        "Disarm",
+        "Focus",
+        "Pump Up",
+        "Rocky Footing",
+        "Sandstorm",
+        "Tackle"
+      ],
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "When this Skinetic was flooded with cosmic infinity energy, the overpowering energy petrified the shed skin that its boxing gloves were made out of turning into its now-large stone gauntlets. Average Skinetic can punch their way through a boulder with a single punch while this single Skinetic can do the same to a mountain. Being flooded with that much energy is painful to Skinetic causing it to be constantly ready for an attack with four of its own."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "When cosmic infinity energy transformed it, the skin wrapped around its fists hardened into massive gauntlets. The tremendous power coursing through its body keeps it constantly tense, ready to answer any perceived threat with overwhelming force."
+        }
+      ]
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Brace",
+        "level": 1
+      },
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Disarm",
+        "level": 5
+      },
+      {
+        "name": "Focus",
+        "level": 6
+      },
+      {
+        "name": "Pump Up",
+        "level": 8
+      },
+      {
+        "name": "Burst",
+        "level": 10
+      },
+      {
+        "name": "Rocky Footing",
+        "level": 40
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Rocky Footing",
+      "Pump Up",
+      "Brace",
+      "Burst",
+      "Disarm",
+      "Focus",
+      "Tackle",
+      "Sandstorm",
+      "Belch"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Meterupa",
+    "formName": "Sunny",
+    "touched": [
+      "color2",
+      "internalColor",
+      "stat0",
+      "stat1",
+      "stat2",
+      "stat3",
+      "stat4",
+      "stat5",
+      "info",
+      "image",
+      "misprintImage",
+      "catalogEntries"
+    ],
+    "overrides": {
+      "color2": "Pyro",
+      "internalColor": "RED",
+      "stat0": 75,
+      "stat1": 75,
+      "stat2": 70,
+      "stat3": 115,
+      "stat4": 80,
+      "stat5": 105,
+      "info": "When Meterupa bask in strong sunlight, the paper making up their bodies becomes warm and crisp. In this form, they are far more energetic than usual and will ride hot air currents high into the sky. The heat they give off is strong enough to dry soaked cloth in moments.",
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/71-1-Meterupa.png?v=1792017281759",
+        "imageName": "71-1-Meterupa.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/71-1-Meterupa.png?v=1792017281759",
+        "imageName": "71-1-Meterupa.png"
+      },
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "When Meterupa bask in strong sunlight, the paper making up their bodies becomes warm and crisp. In this form, they are far more energetic than usual and will ride hot air currents high into the sky. The heat they give off is strong enough to dry soaked cloth in moments."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "It basks in sunlight until its paper body becomes pleasantly warm. When one remains in the same place for hours, even stubborn clouds seem reluctant to drift overhead."
+        }
+      ]
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Focus",
+        "level": 1
+      },
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 5
+      },
+      {
+        "name": "Splash",
+        "level": 9
+      },
+      {
+        "name": "Sing",
+        "level": 13
+      },
+      {
+        "name": "Brace",
+        "level": 17
+      },
+      {
+        "name": "Rain Call",
+        "level": 21
+      },
+      {
+        "name": "Water Burst",
+        "level": 25
+      },
+      {
+        "name": "Calm Down",
+        "level": 29
+      },
+      {
+        "name": "Weather Burst",
+        "level": 30
+      },
+      {
+        "name": "Heat Puff",
+        "level": 33
+      },
+      {
+        "name": "Sandstorm",
+        "level": 37
+      },
+      {
+        "name": "Burst",
+        "level": 41
+      },
+      {
+        "name": "Trick-or-Treat",
+        "level": 45
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Rain Call",
+      "Splash",
+      "Water Burst",
+      "Leg Stretch",
+      "Calm Down",
+      "Root Whip",
+      "Brace",
+      "Burst",
+      "Focus",
+      "Slash",
+      "Tackle",
+      "Weather Burst",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat",
+      "Sandstorm"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Meterupa",
+    "formName": "Rainy",
+    "touched": [
+      "color2",
+      "stat0",
+      "stat1",
+      "stat2",
+      "stat3",
+      "stat4",
+      "stat5",
+      "info",
+      "internalColor",
+      "image",
+      "misprintImage",
+      "catalogEntries"
+    ],
+    "overrides": {
+      "color2": "Hydro",
+      "stat0": 90,
+      "stat1": 65,
+      "stat2": 85,
+      "stat3": 100,
+      "stat4": 105,
+      "stat5": 75,
+      "info": "When rain begins to fall, Meterupa's paper body absorbs moisture without tearing or losing its shape. In this form, they become calm and heavy, drifting low to the ground on cool air currents. Water collected within their folds can be released in sudden bursts.",
+      "internalColor": "BLUE",
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/71-2-Meterupa.png?v=1792017281759",
+        "imageName": "71-2-Meterupa.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/71-2-Meterupa.png?v=1792017281759",
+        "imageName": "71-2-Meterupa.png"
+      },
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "When rain begins to fall, Meterupa's paper body absorbs moisture without tearing or losing its shape. In this form, they become calm and heavy, drifting low to the ground on cool air currents. Water collected within their folds can be released in sudden bursts."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "Moisture gathers across its body as rain approaches. Farmers once watched its expression carefully, believing a particularly gloomy Rainy Meterupa foretold days of steady rainfall."
+        }
+      ]
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Focus",
+        "level": 1
+      },
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 5
+      },
+      {
+        "name": "Splash",
+        "level": 9
+      },
+      {
+        "name": "Sing",
+        "level": 13
+      },
+      {
+        "name": "Brace",
+        "level": 17
+      },
+      {
+        "name": "Rain Call",
+        "level": 21
+      },
+      {
+        "name": "Water Burst",
+        "level": 25
+      },
+      {
+        "name": "Calm Down",
+        "level": 29
+      },
+      {
+        "name": "Weather Burst",
+        "level": 30
+      },
+      {
+        "name": "Heat Puff",
+        "level": 33
+      },
+      {
+        "name": "Sandstorm",
+        "level": 37
+      },
+      {
+        "name": "Burst",
+        "level": 41
+      },
+      {
+        "name": "Trick-or-Treat",
+        "level": 45
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Rain Call",
+      "Splash",
+      "Water Burst",
+      "Leg Stretch",
+      "Calm Down",
+      "Root Whip",
+      "Brace",
+      "Burst",
+      "Focus",
+      "Slash",
+      "Tackle",
+      "Weather Burst",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat",
+      "Sandstorm"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Meterupa",
+    "formName": "Sandstorm",
+    "touched": [
+      "internalColor",
+      "color2",
+      "stat0",
+      "stat1",
+      "stat2",
+      "stat3",
+      "stat4",
+      "stat5",
+      "info",
+      "image",
+      "misprintImage",
+      "catalogEntries"
+    ],
+    "overrides": {
+      "internalColor": "BROWN",
+      "color2": "Terra",
+      "stat0": 90,
+      "stat1": 85,
+      "stat2": 115,
+      "stat3": 70,
+      "stat4": 90,
+      "stat5": 65,
+      "info": "When Meterupa are caught in a sandstorm, grains of sand become trapped between the folds of their paper bodies, making them heavier and tougher. In this form, they stay close to the ground and use powerful gusts to fling sand at anything that approaches. Even fierce winds have difficulty tearing their reinforced bodies.",
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/71-3-Meterupa.png?v=1792017281759",
+        "imageName": "71-3-Meterupa.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/71-3-Meterupa.png?v=1792017281759",
+        "imageName": "71-3-Meterupa.png"
+      },
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "When Meterupa are caught in a sandstorm, grains of sand become trapped between the folds of their paper bodies, making them heavier and tougher. In this form, they stay close to the ground and use powerful gusts to fling sand at anything that approaches. Even fierce winds have difficulty tearing their reinforced bodies."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "Grains of sand constantly swirl around it without tearing its paper body. Travelers caught in desert storms have followed one after noticing it instinctively drifts toward areas sheltered from the wind."
+        }
+      ]
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Focus",
+        "level": 1
+      },
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 5
+      },
+      {
+        "name": "Splash",
+        "level": 9
+      },
+      {
+        "name": "Sing",
+        "level": 13
+      },
+      {
+        "name": "Brace",
+        "level": 17
+      },
+      {
+        "name": "Rain Call",
+        "level": 21
+      },
+      {
+        "name": "Water Burst",
+        "level": 25
+      },
+      {
+        "name": "Calm Down",
+        "level": 29
+      },
+      {
+        "name": "Weather Burst",
+        "level": 30
+      },
+      {
+        "name": "Heat Puff",
+        "level": 33
+      },
+      {
+        "name": "Sandstorm",
+        "level": 37
+      },
+      {
+        "name": "Burst",
+        "level": 41
+      },
+      {
+        "name": "Trick-or-Treat",
+        "level": 45
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Rain Call",
+      "Splash",
+      "Water Burst",
+      "Leg Stretch",
+      "Calm Down",
+      "Root Whip",
+      "Brace",
+      "Burst",
+      "Focus",
+      "Slash",
+      "Tackle",
+      "Weather Burst",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat",
+      "Sandstorm"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Meterupa",
+    "formName": "Snowy",
+    "touched": [
+      "color2",
+      "stat0",
+      "stat1",
+      "stat2",
+      "stat3",
+      "stat4",
+      "stat5",
+      "info",
+      "image",
+      "misprintImage",
+      "internalColor",
+      "catalogEntries"
+    ],
+    "overrides": {
+      "color2": "Cryo",
+      "stat0": 90,
+      "stat1": 70,
+      "stat2": 90,
+      "stat3": 95,
+      "stat4": 120,
+      "stat5": 55,
+      "info": "When Meterupa are exposed to snowy weather, frost forms across the surface of their paper bodies and makes them stiff and cold. In this form, they move slowly through the air while gathering snow within their folds. They are often found hanging motionless from mountain trees, where they can easily be mistaken for clumps of fresh snow.",
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/71-4-Meterupa.png?v=1792017281759",
+        "imageName": "71-4-Meterupa.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/71-4-Meterupa.png?v=1792017281759",
+        "imageName": "71-4-Meterupa.png"
+      },
+      "internalColor": "BLUE",
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "When Meterupa are exposed to snowy weather, frost forms across the surface of their paper bodies and makes them stiff and cold. In this form, they move slowly through the air while gathering snow within their folds. They are often found hanging motionless from mountain trees, where they can easily be mistaken for clumps of fresh snow."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "Frost gathers along its edges without making the paper brittle. It often hangs motionless during snowfall, becoming so thoroughly covered that it resembles an ordinary decoration."
+        }
+      ]
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Focus",
+        "level": 1
+      },
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 5
+      },
+      {
+        "name": "Splash",
+        "level": 9
+      },
+      {
+        "name": "Sing",
+        "level": 13
+      },
+      {
+        "name": "Brace",
+        "level": 17
+      },
+      {
+        "name": "Rain Call",
+        "level": 21
+      },
+      {
+        "name": "Water Burst",
+        "level": 25
+      },
+      {
+        "name": "Calm Down",
+        "level": 29
+      },
+      {
+        "name": "Weather Burst",
+        "level": 30
+      },
+      {
+        "name": "Heat Puff",
+        "level": 33
+      },
+      {
+        "name": "Sandstorm",
+        "level": 37
+      },
+      {
+        "name": "Burst",
+        "level": 41
+      },
+      {
+        "name": "Trick-or-Treat",
+        "level": 45
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Rain Call",
+      "Splash",
+      "Water Burst",
+      "Leg Stretch",
+      "Calm Down",
+      "Root Whip",
+      "Brace",
+      "Burst",
+      "Focus",
+      "Slash",
+      "Tackle",
+      "Weather Burst",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat",
+      "Sandstorm"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Meterupa",
+    "formName": "Windy",
+    "touched": [
+      "color2",
+      "color3",
+      "internalColor",
+      "stat0",
+      "stat1",
+      "stat2",
+      "stat3",
+      "stat4",
+      "stat5",
+      "info",
+      "image",
+      "misprintImage",
+      "catalogEntries"
+    ],
+    "overrides": {
+      "color2": "Aero",
+      "color3": null,
+      "internalColor": "BLUE",
+      "stat0": 75,
+      "stat1": 70,
+      "stat2": 75,
+      "stat3": 90,
+      "stat4": 85,
+      "stat5": 125,
+      "info": "When Meterupa are caught in powerful winds, their paper bodies become lighter and more flexible. In this form, they can ride even violent air currents without being blown out of control, darting through the sky with surprising speed. Groups of them are sometimes seen spiraling together inside strong gusts.",
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/71-5-Meterupa.png?v=1792017281759",
+        "imageName": "71-5-Meterupa.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/71-5-Meterupa.png?v=1792017281759",
+        "imageName": "71-5-Meterupa.png"
+      },
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "When Meterupa are caught in powerful winds, their paper bodies become lighter and more flexible. In this form, they can ride even violent air currents without being blown out of control, darting through the sky with surprising speed. Groups of them are sometimes seen spiraling together inside strong gusts."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "Powerful gusts keep it almost constantly airborne. Despite being tossed unpredictably through the sky, it somehow avoids trees, buildings, and other obstacles with remarkable accuracy."
+        }
+      ]
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Focus",
+        "level": 1
+      },
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 5
+      },
+      {
+        "name": "Splash",
+        "level": 9
+      },
+      {
+        "name": "Sing",
+        "level": 13
+      },
+      {
+        "name": "Brace",
+        "level": 17
+      },
+      {
+        "name": "Rain Call",
+        "level": 21
+      },
+      {
+        "name": "Water Burst",
+        "level": 25
+      },
+      {
+        "name": "Calm Down",
+        "level": 29
+      },
+      {
+        "name": "Weather Burst",
+        "level": 30
+      },
+      {
+        "name": "Heat Puff",
+        "level": 33
+      },
+      {
+        "name": "Sandstorm",
+        "level": 37
+      },
+      {
+        "name": "Burst",
+        "level": 41
+      },
+      {
+        "name": "Trick-or-Treat",
+        "level": 45
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Rain Call",
+      "Splash",
+      "Water Burst",
+      "Leg Stretch",
+      "Calm Down",
+      "Root Whip",
+      "Brace",
+      "Burst",
+      "Focus",
+      "Slash",
+      "Tackle",
+      "Weather Burst",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat",
+      "Sandstorm"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Meterupa",
+    "formName": "Thunder",
+    "touched": [
+      "color2",
+      "internalColor",
+      "stat0",
+      "stat2",
+      "stat3",
+      "stat4",
+      "stat5",
+      "info",
+      "misprintImage",
+      "image",
+      "catalogEntries"
+    ],
+    "overrides": {
+      "color2": "Electro",
+      "internalColor": "YELLOW",
+      "stat0": 75,
+      "stat2": 70,
+      "stat3": 110,
+      "stat4": 70,
+      "stat5": 115,
+      "info": "When thunderstorms form nearby, Meterupa absorb the electrical charge building throughout the atmosphere and change into this form. Electricity crackles across their paper bodies without damaging them. Thunder Meterupa dart through turbulent air and are sometimes briefly illuminated whenever lightning flashes nearby.",
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/71-6-Meterupa.png?v=1792017281759",
+        "imageName": "71-6-Meterupa.png"
+      },
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/71-6-Meterupa.png?v=1792017281759",
+        "imageName": "71-6-Meterupa.png"
+      },
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "When thunderstorms form nearby, Meterupa absorb the electrical charge building throughout the atmosphere and change into this form. Electricity crackles across their paper bodies without damaging them. Thunder Meterupa dart through turbulent air and are sometimes briefly illuminated whenever lightning flashes nearby."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "Electrical charge collects throughout its body as thunderstorms develop. Just before lightning strikes nearby, its entire body briefly flashes with a faint glow."
+        }
+      ]
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Focus",
+        "level": 1
+      },
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 5
+      },
+      {
+        "name": "Splash",
+        "level": 9
+      },
+      {
+        "name": "Sing",
+        "level": 13
+      },
+      {
+        "name": "Brace",
+        "level": 17
+      },
+      {
+        "name": "Rain Call",
+        "level": 21
+      },
+      {
+        "name": "Water Burst",
+        "level": 25
+      },
+      {
+        "name": "Calm Down",
+        "level": 29
+      },
+      {
+        "name": "Weather Burst",
+        "level": 30
+      },
+      {
+        "name": "Heat Puff",
+        "level": 33
+      },
+      {
+        "name": "Sandstorm",
+        "level": 37
+      },
+      {
+        "name": "Burst",
+        "level": 41
+      },
+      {
+        "name": "Trick-or-Treat",
+        "level": 45
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Rain Call",
+      "Splash",
+      "Water Burst",
+      "Leg Stretch",
+      "Calm Down",
+      "Root Whip",
+      "Brace",
+      "Burst",
+      "Focus",
+      "Slash",
+      "Tackle",
+      "Weather Burst",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat",
+      "Sandstorm"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Meterupa",
+    "formName": "Foggy",
+    "touched": [
+      "internalColor",
+      "color2",
+      "stat1",
+      "stat2",
+      "stat3",
+      "stat4",
+      "stat5",
+      "info",
+      "image",
+      "misprintImage",
+      "catalogEntries"
+    ],
+    "overrides": {
+      "internalColor": "GREY",
+      "color2": "Spectral",
+      "stat1": 65,
+      "stat2": 75,
+      "stat3": 100,
+      "stat4": 100,
+      "stat5": 100,
+      "info": "When thick fog rolls in, Meterupa absorb the surrounding moisture and become faint and difficult to see. In this form, their paper bodies seem almost translucent as they silently drift through the mist. Travelers sometimes mistake Foggy Meterupa for wandering spirits when they catch brief glimpses of them between the trees.",
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/71-7-Meterupa.png?v=1792017281759",
+        "imageName": "71-7-Meterupa.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/71-7-Meterupa.png?v=1792017281759",
+        "imageName": "71-7-Meterupa.png"
+      },
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "When thick fog rolls in, Meterupa absorb the surrounding moisture and become faint and difficult to see. In this form, their paper bodies seem almost translucent as they silently drift through the mist. Travelers sometimes mistake Foggy Meterupa for wandering spirits when they catch brief glimpses of them between the trees."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "A thin mist continually surrounds it and thickens when it becomes frightened. Groups of Foggy Meterupa can blanket an area so thoroughly that travelers may unknowingly walk past the same landmark several times."
+        }
+      ]
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Focus",
+        "level": 1
+      },
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 5
+      },
+      {
+        "name": "Splash",
+        "level": 9
+      },
+      {
+        "name": "Sing",
+        "level": 13
+      },
+      {
+        "name": "Brace",
+        "level": 17
+      },
+      {
+        "name": "Rain Call",
+        "level": 21
+      },
+      {
+        "name": "Water Burst",
+        "level": 25
+      },
+      {
+        "name": "Calm Down",
+        "level": 29
+      },
+      {
+        "name": "Weather Burst",
+        "level": 30
+      },
+      {
+        "name": "Heat Puff",
+        "level": 33
+      },
+      {
+        "name": "Sandstorm",
+        "level": 37
+      },
+      {
+        "name": "Burst",
+        "level": 41
+      },
+      {
+        "name": "Trick-or-Treat",
+        "level": 45
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Rain Call",
+      "Splash",
+      "Water Burst",
+      "Leg Stretch",
+      "Calm Down",
+      "Root Whip",
+      "Brace",
+      "Burst",
+      "Focus",
+      "Slash",
+      "Tackle",
+      "Weather Burst",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat",
+      "Sandstorm"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Bytro",
+    "formName": "Survival",
+    "touched": [
+      "color3",
+      "internalColor",
+      "image",
+      "misprintImage",
+      "modifications",
+      "catalogEntries",
+      "info"
+    ],
+    "overrides": {
+      "color3": "Nature",
+      "internalColor": "GREY",
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/74-1-Bytro.png?v=1792017281759",
+        "imageName": "74-1-Bytro.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/74-1-Bytro.png?v=1792017281759",
+        "imageName": "74-1-Bytro.png"
+      },
+      "modifications": [
+        {
+          "target": "Ruggrade",
+          "targetGeneration": "Gen 1",
+          "method": "Give Item",
+          "parameter": "Staticstone"
+        }
+      ],
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "Its Survival Cartridge causes its surrounding energy to mimic the tools and equipment of a wilderness explorer. It instinctively gathers anything it believes might be useful, even when the objects serve no practical purpose."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "Survival Bytro uses its energy to imitate the tools it encounters in its cartridge's virtual wilderness. Some have been observed repeatedly collecting and arranging materials, seemingly following crafting instructions that only they can see."
+        }
+      ],
+      "info": "Its Survival Cartridge causes its surrounding energy to mimic the tools and equipment of a wilderness explorer. It instinctively gathers anything it believes might be useful, even when the objects serve no practical purpose."
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 2
+      },
+      {
+        "name": "Brace",
+        "level": 4
+      },
+      {
+        "name": "Focus",
+        "level": 6
+      },
+      {
+        "name": "Burst",
+        "level": 8
+      },
+      {
+        "name": "Calm Down",
+        "level": 12
+      },
+      {
+        "name": "Psych Up",
+        "level": 16
+      },
+      {
+        "name": "Sing",
+        "level": 20
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Deep Clean",
+      "Calm Down",
+      "Cosplay",
+      "Method Act",
+      "Psych Up",
+      "Spatial Warp",
+      "Brace",
+      "Burst",
+      "Disarm",
+      "Focus",
+      "Tackle",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Bytro",
+    "formName": "Cooking",
+    "touched": [
+      "color3",
+      "image",
+      "misprintImage",
+      "modifications",
+      "catalogEntries",
+      "info"
+    ],
+    "overrides": {
+      "color3": "Pyro",
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/74-2-Bytro.png?v=1792017281759",
+        "imageName": "74-2-Bytro.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/74-2-Bytro.png?v=1792017281759",
+        "imageName": "74-2-Bytro.png"
+      },
+      "modifications": [
+        {
+          "target": "Nougrade",
+          "targetGeneration": "Gen 1",
+          "method": "Give Item",
+          "parameter": "Staticstone"
+        }
+      ],
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "Its Cooking Cartridge gives its energy the appearance of kitchen utensils. It eagerly imitates experienced chefs, although it sometimes mistakes ordinary household objects for ingredients."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "Cooking Bytro enthusiastically recreates recipes from the game stored in its cartridge. The utensils formed by its energy cannot always interact with physical ingredients, but that rarely discourages it from trying."
+        }
+      ],
+      "info": "Its Cooking Cartridge gives its energy the appearance of kitchen utensils. It eagerly imitates experienced chefs, although it sometimes mistakes ordinary household objects for ingredients."
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 2
+      },
+      {
+        "name": "Brace",
+        "level": 4
+      },
+      {
+        "name": "Focus",
+        "level": 6
+      },
+      {
+        "name": "Burst",
+        "level": 8
+      },
+      {
+        "name": "Calm Down",
+        "level": 12
+      },
+      {
+        "name": "Psych Up",
+        "level": 16
+      },
+      {
+        "name": "Sing",
+        "level": 20
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Deep Clean",
+      "Calm Down",
+      "Cosplay",
+      "Method Act",
+      "Psych Up",
+      "Spatial Warp",
+      "Brace",
+      "Burst",
+      "Disarm",
+      "Focus",
+      "Tackle",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Bytro",
+    "formName": "Pirate",
+    "touched": [
+      "color3",
+      "image",
+      "misprintImage",
+      "modifications",
+      "catalogEntries",
+      "info"
+    ],
+    "overrides": {
+      "color3": "Hydro",
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/74-3-Bytro.png?v=1792017281759",
+        "imageName": "74-3-Bytro.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/74-3-Bytro.png?v=1792017281759",
+        "imageName": "74-3-Bytro.png"
+      },
+      "modifications": [
+        {
+          "target": "Smuggrade",
+          "targetGeneration": "Gen 1",
+          "method": "Give Item",
+          "parameter": "Staticstone"
+        }
+      ],
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "Its Pirate Cartridge causes its energy to take on the appearance of a swashbuckling adventurer. It eagerly searches for treasure, although its definition of treasure includes bottle caps, buttons, and other shiny objects."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "Pirate Bytro is particularly attracted to maps, coins, and anything resembling buried treasure. It has been observed marking imaginary treasure locations and returning to them repeatedly, even after discovering nothing."
+        }
+      ],
+      "info": "Its Pirate Cartridge causes its energy to take on the appearance of a swashbuckling adventurer. It eagerly searches for treasure, although its definition of treasure includes bottle caps, buttons, and other shiny objects."
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 2
+      },
+      {
+        "name": "Brace",
+        "level": 4
+      },
+      {
+        "name": "Focus",
+        "level": 6
+      },
+      {
+        "name": "Burst",
+        "level": 8
+      },
+      {
+        "name": "Calm Down",
+        "level": 12
+      },
+      {
+        "name": "Psych Up",
+        "level": 16
+      },
+      {
+        "name": "Sing",
+        "level": 20
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Deep Clean",
+      "Calm Down",
+      "Cosplay",
+      "Method Act",
+      "Psych Up",
+      "Spatial Warp",
+      "Brace",
+      "Burst",
+      "Disarm",
+      "Focus",
+      "Tackle",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Bytro",
+    "formName": "Fighting",
+    "touched": [
+      "color3",
+      "modifications",
+      "catalogEntries",
+      "info"
+    ],
+    "overrides": {
+      "color3": "Kinetic",
+      "modifications": [
+        {
+          "target": "Juggrade",
+          "targetGeneration": "Gen 1",
+          "method": "Give Item",
+          "parameter": "Staticstone"
+        }
+      ],
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "Its Fighting Cartridge causes its energy to form oversized fists and a combat-ready stance. It constantly practices combinations of attacks, occasionally challenging its own reflection to a fight."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "Fighting Bytro copies the movements of characters from its cartridge's fighting game. When excited, it performs increasingly complicated combinations, occasionally becoming so absorbed in practice that it fails to notice its surroundings."
+        }
+      ],
+      "info": "Its Fighting Cartridge causes its energy to form oversized fists and a combat-ready stance. It constantly practices combinations of attacks, occasionally challenging its own reflection to a fight."
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 2
+      },
+      {
+        "name": "Brace",
+        "level": 4
+      },
+      {
+        "name": "Focus",
+        "level": 6
+      },
+      {
+        "name": "Burst",
+        "level": 8
+      },
+      {
+        "name": "Calm Down",
+        "level": 12
+      },
+      {
+        "name": "Psych Up",
+        "level": 16
+      },
+      {
+        "name": "Sing",
+        "level": 20
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Deep Clean",
+      "Calm Down",
+      "Cosplay",
+      "Method Act",
+      "Psych Up",
+      "Spatial Warp",
+      "Brace",
+      "Burst",
+      "Disarm",
+      "Focus",
+      "Tackle",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Bytro",
+    "formName": "Stealth",
+    "touched": [
+      "color3",
+      "modifications",
+      "catalogEntries",
+      "info"
+    ],
+    "overrides": {
+      "color3": "Nox",
+      "modifications": [
+        {
+          "target": "Disgrade",
+          "targetGeneration": "Gen 1",
+          "method": "Give Item",
+          "parameter": "Staticstone"
+        }
+      ],
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "Its Stealth Cartridge causes its energy to become dim and difficult to distinguish in darkness. It enjoys sneaking up on unsuspecting people, although the glow of its console screen sometimes gives away its position."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "Stealth Bytro treats ordinary activities as elaborate infiltration missions. It frequently hides behind furniture and other obstacles, remaining motionless until it believes no one is watching."
+        }
+      ],
+      "info": "Its Stealth Cartridge causes its energy to become dim and difficult to distinguish in darkness. It enjoys sneaking up on unsuspecting people, although the glow of its console screen sometimes gives away its position."
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 2
+      },
+      {
+        "name": "Brace",
+        "level": 4
+      },
+      {
+        "name": "Focus",
+        "level": 6
+      },
+      {
+        "name": "Burst",
+        "level": 8
+      },
+      {
+        "name": "Calm Down",
+        "level": 12
+      },
+      {
+        "name": "Psych Up",
+        "level": 16
+      },
+      {
+        "name": "Sing",
+        "level": 20
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Deep Clean",
+      "Calm Down",
+      "Cosplay",
+      "Method Act",
+      "Psych Up",
+      "Spatial Warp",
+      "Brace",
+      "Burst",
+      "Disarm",
+      "Focus",
+      "Tackle",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Bytro",
+    "formName": "Puzzle",
+    "touched": [
+      "color3",
+      "modifications",
+      "catalogEntries",
+      "info"
+    ],
+    "overrides": {
+      "color3": "Mental",
+      "modifications": [
+        {
+          "target": "Lograde",
+          "targetGeneration": "Gen 1",
+          "method": "Give Item",
+          "parameter": "Staticstone"
+        }
+      ],
+      "catalogEntries": [
+        {
+          "generation": "Gen 1",
+          "entry": "Its Puzzle Cartridge makes its energy form constantly shifting geometric patterns. It becomes fascinated by complicated arrangements and will spend hours attempting to solve even the simplest mechanical puzzle."
+        },
+        {
+          "generation": "Gen 2",
+          "entry": "Puzzle Bytro is drawn to anything involving patterns, sequences, or hidden mechanisms. When presented with an unsolved problem, its energy begins forming symbols and shapes that appear to represent possible solutions."
+        }
+      ],
+      "info": "Its Puzzle Cartridge makes its energy form constantly shifting geometric patterns. It becomes fascinated by complicated arrangements and will spend hours attempting to solve even the simplest mechanical puzzle."
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 2
+      },
+      {
+        "name": "Brace",
+        "level": 4
+      },
+      {
+        "name": "Focus",
+        "level": 6
+      },
+      {
+        "name": "Burst",
+        "level": 8
+      },
+      {
+        "name": "Calm Down",
+        "level": 12
+      },
+      {
+        "name": "Psych Up",
+        "level": 16
+      },
+      {
+        "name": "Sing",
+        "level": 20
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Deep Clean",
+      "Calm Down",
+      "Cosplay",
+      "Method Act",
+      "Psych Up",
+      "Spatial Warp",
+      "Brace",
+      "Burst",
+      "Disarm",
+      "Focus",
+      "Tackle",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Bytro",
+    "formName": "Crawler",
+    "touched": [
+      "color3",
+      "modifications",
+      "catalogEntries",
+      "info"
+    ],
+    "overrides": {
+      "color3": "Terra",
+      "modifications": [
+        {
+          "target": "Dungrade",
+          "targetGeneration": "Gen 2",
+          "method": "Give Item",
+          "parameter": "Staticstone"
+        }
+      ],
+      "catalogEntries": [
+        {
+          "generation": "Gen 2",
+          "entry": "Its Crawler Cartridge causes its energy to resemble the equipment of an underground adventurer. It is fascinated by caves and narrow passages, treating every unexplored tunnel as the entrance to a mysterious dungeon."
+        }
+      ],
+      "info": null
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 2
+      },
+      {
+        "name": "Brace",
+        "level": 4
+      },
+      {
+        "name": "Focus",
+        "level": 6
+      },
+      {
+        "name": "Burst",
+        "level": 8
+      },
+      {
+        "name": "Calm Down",
+        "level": 12
+      },
+      {
+        "name": "Psych Up",
+        "level": 16
+      },
+      {
+        "name": "Sing",
+        "level": 20
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Deep Clean",
+      "Calm Down",
+      "Cosplay",
+      "Method Act",
+      "Psych Up",
+      "Spatial Warp",
+      "Brace",
+      "Burst",
+      "Disarm",
+      "Focus",
+      "Tackle",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat"
+    ]
+  },
+  {
+    "generation": "Gen 1",
+    "enitoy": "Bytro",
+    "formName": "Glitchy",
+    "touched": [
+      "color3",
+      "modifications",
+      "catalogEntries",
+      "info"
+    ],
+    "overrides": {
+      "color3": "Arthro",
+      "modifications": [
+        {
+          "target": "Bu66r4d3",
+          "targetGeneration": "Gen 2",
+          "method": "Give Item",
+          "parameter": "Staticstone"
+        }
+      ],
+      "catalogEntries": [
+        {
+          "generation": "Gen 2",
+          "entry": "Its poorly programmed Glitchy Cartridge causes its surrounding energy to fragment into unstable, flickering shapes. These distortions sometimes resemble missing pieces of its body, and its movements occasionally appear to skip several moments forward."
+        }
+      ],
+      "info": null
+    },
+    "levelUpTechniques": [
+      {
+        "name": "Tackle",
+        "level": 1
+      },
+      {
+        "name": "Startle",
+        "level": 2
+      },
+      {
+        "name": "Brace",
+        "level": 4
+      },
+      {
+        "name": "Focus",
+        "level": 6
+      },
+      {
+        "name": "Burst",
+        "level": 8
+      },
+      {
+        "name": "Calm Down",
+        "level": 12
+      },
+      {
+        "name": "Psych Up",
+        "level": 16
+      },
+      {
+        "name": "Sing",
+        "level": 20
+      }
+    ],
+    "scrollLearnedTechniques": [
+      "Sing",
+      "Deep Clean",
+      "Calm Down",
+      "Cosplay",
+      "Method Act",
+      "Psych Up",
+      "Spatial Warp",
+      "Brace",
+      "Burst",
+      "Disarm",
+      "Focus",
+      "Tackle",
+      "Heat Puff",
+      "Startle",
+      "Trick-or-Treat"
+    ]
+  }
+]

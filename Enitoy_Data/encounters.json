@@ -1,0 +1,1838 @@
+[
+  {
+    "generation": "Gen 1",
+    "locations": [
+      {
+        "name": "Cottonwick Town",
+        "connectedLocations": [
+          "Path 01"
+        ],
+        "methods": [
+          {
+            "name": "Gift",
+            "gift": {
+              "enitoy": "Robond",
+              "formName": "",
+              "level": 5
+            }
+          }
+        ]
+      },
+      {
+        "name": "Path 01",
+        "connectedLocations": [
+          "Cottonwick Town",
+          "Path 02"
+        ],
+        "methods": [
+          {
+            "name": "Grass",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Mework",
+                  "formName": "",
+                  "minLevel": 3,
+                  "maxLevel": 5,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Chicadet",
+                  "formName": "",
+                  "minLevel": 3,
+                  "maxLevel": 5,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Riduni",
+                  "formName": "",
+                  "minLevel": 2,
+                  "maxLevel": 4,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Domustel",
+                  "formName": "",
+                  "minLevel": 3,
+                  "maxLevel": 6,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Ogrio",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 5,
+                  "percent": 5
+                },
+                {
+                  "enitoy": "Ogryo",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 5,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Mework",
+                  "formName": "",
+                  "minLevel": 3,
+                  "maxLevel": 5,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Hootton",
+                  "formName": "",
+                  "minLevel": 3,
+                  "maxLevel": 5,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Duscara",
+                  "formName": "",
+                  "minLevel": 2,
+                  "maxLevel": 4,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Domustel",
+                  "formName": "",
+                  "minLevel": 3,
+                  "maxLevel": 6,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Ogrio",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 5,
+                  "percent": 5
+                },
+                {
+                  "enitoy": "Ogryo",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 5,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Path 02",
+        "connectedLocations": [
+          "Path 01",
+          "Hushwood Forest"
+        ],
+        "methods": [
+          {
+            "name": "Grass",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Lapaws",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Mework",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Chicadet",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Riduni",
+                  "formName": "",
+                  "minLevel": 3,
+                  "maxLevel": 5,
+                  "percent": 15
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Lapaws",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Mework",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Hootton",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Duscara",
+                  "formName": "",
+                  "minLevel": 3,
+                  "maxLevel": 3,
+                  "percent": 15
+                }
+              ]
+            }
+          },
+          {
+            "name": "Water Edge Grass",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Kappabe",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Lapaws",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Mework",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Chicadet",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Kalamarky",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 15
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Kappabe",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Lapaws",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Mework",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Hootton",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Kalamarky",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 15
+                }
+              ]
+            }
+          },
+          {
+            "name": "Water Surface",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Kappabe",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 35
+                },
+                {
+                  "enitoy": "Kalamarky",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Tadpoi",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Odover",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 15
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Kappabe",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 35
+                },
+                {
+                  "enitoy": "Kalamarky",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Tadpoi",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Odover",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 15
+                }
+              ]
+            }
+          },
+          {
+            "name": "Water Fishing",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Kappabe",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Kalamarky",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Tadpoi",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Axolittle",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 20
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Kappabe",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Kalamarky",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Tadpoi",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Axolittle",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 20
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Hushwood Forest",
+        "connectedLocations": [
+          "Path 02",
+          "Goldenstead City"
+        ],
+        "methods": [
+          {
+            "name": "Grass",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Mossker",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Chicadet",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Lapaws",
+                  "formName": "",
+                  "minLevel": 6,
+                  "maxLevel": 8,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Riduni",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 20
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Hootton",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Lapaws",
+                  "formName": "",
+                  "minLevel": 6,
+                  "maxLevel": 8,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Mossker",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Duscara",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Barkodamask",
+                  "formName": "",
+                  "minLevel": 6,
+                  "maxLevel": 8,
+                  "percent": 5
+                }
+              ]
+            }
+          },
+          {
+            "name": "Shaking Tree",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Chicadet",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 45
+                },
+                {
+                  "enitoy": "Mossker",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 35
+                },
+                {
+                  "enitoy": "Egernutty",
+                  "formName": "",
+                  "minLevel": 6,
+                  "maxLevel": 8,
+                  "percent": 20
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Hootton",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 45
+                },
+                {
+                  "enitoy": "Mossker",
+                  "formName": "",
+                  "minLevel": 4,
+                  "maxLevel": 6,
+                  "percent": 35
+                },
+                {
+                  "enitoy": "Flitmaus",
+                  "formName": "",
+                  "minLevel": 6,
+                  "maxLevel": 8,
+                  "percent": 20
+                }
+              ]
+            }
+          },
+          {
+            "name": "Water Surface",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Kappabe",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 60
+                },
+                {
+                  "enitoy": "Kalamarky",
+                  "formName": "",
+                  "minLevel": 6,
+                  "maxLevel": 8,
+                  "percent": 40
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Kappabe",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 60
+                },
+                {
+                  "enitoy": "Kalamarky",
+                  "formName": "",
+                  "minLevel": 6,
+                  "maxLevel": 8,
+                  "percent": 40
+                }
+              ]
+            }
+          },
+          {
+            "name": "Water Fishing",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Kappabe",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 45
+                },
+                {
+                  "enitoy": "Kalamarky",
+                  "formName": "",
+                  "minLevel": 6,
+                  "maxLevel": 8,
+                  "percent": 35
+                },
+                {
+                  "enitoy": "Axolittle",
+                  "formName": "",
+                  "minLevel": 6,
+                  "maxLevel": 8,
+                  "percent": 20
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Kappabe",
+                  "formName": "",
+                  "minLevel": 5,
+                  "maxLevel": 7,
+                  "percent": 45
+                },
+                {
+                  "enitoy": "Kalamarky",
+                  "formName": "",
+                  "minLevel": 6,
+                  "maxLevel": 8,
+                  "percent": 35
+                },
+                {
+                  "enitoy": "Axolittle",
+                  "formName": "",
+                  "minLevel": 6,
+                  "maxLevel": 8,
+                  "percent": 20
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Goldenstead City",
+        "connectedLocations": [
+          "Hushwood Forest",
+          "Path 03"
+        ],
+        "methods": [
+          {
+            "name": "Streets",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Foodunite",
+                  "formName": "",
+                  "minLevel": 9,
+                  "maxLevel": 11,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Mework",
+                  "formName": "",
+                  "minLevel": 7,
+                  "maxLevel": 9,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 8,
+                  "maxLevel": 10,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Necoin",
+                  "formName": "",
+                  "minLevel": 8,
+                  "maxLevel": 10,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Tanubbish",
+                  "formName": "",
+                  "minLevel": 8,
+                  "maxLevel": 10,
+                  "percent": 15
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Mework",
+                  "formName": "",
+                  "minLevel": 7,
+                  "maxLevel": 9,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 8,
+                  "maxLevel": 10,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Foodunter",
+                  "formName": "",
+                  "minLevel": 9,
+                  "maxLevel": 11,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Necoin",
+                  "formName": "",
+                  "minLevel": 8,
+                  "maxLevel": 10,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Tanubbish",
+                  "formName": "",
+                  "minLevel": 8,
+                  "maxLevel": 10,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Nickodamask",
+                  "formName": "",
+                  "minLevel": 9,
+                  "maxLevel": 11,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Path 03",
+        "connectedLocations": [
+          "Goldenstead City",
+          "Hissing Caverns"
+        ],
+        "methods": [
+          {
+            "name": "Sand",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Cactuty",
+                  "formName": "",
+                  "minLevel": 9,
+                  "maxLevel": 11,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 10,
+                  "maxLevel": 12,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Sandash",
+                  "formName": "",
+                  "minLevel": 9,
+                  "maxLevel": 11,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 10,
+                  "maxLevel": 12,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Riduni",
+                  "formName": "",
+                  "minLevel": 8,
+                  "maxLevel": 10,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 7,
+                  "maxLevel": 9,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Cactuty",
+                  "formName": "",
+                  "minLevel": 9,
+                  "maxLevel": 11,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 10,
+                  "maxLevel": 12,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Hootton",
+                  "formName": "",
+                  "minLevel": 9,
+                  "maxLevel": 11,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 10,
+                  "maxLevel": 12,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 7,
+                  "maxLevel": 9,
+                  "percent": 5
+                },
+                {
+                  "enitoy": "Riduni",
+                  "formName": "",
+                  "minLevel": 8,
+                  "maxLevel": 10,
+                  "percent": 5
+                },
+                {
+                  "enitoy": "Terrakodamask",
+                  "formName": "",
+                  "minLevel": 10,
+                  "maxLevel": 12,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Hissing Caverns",
+        "connectedLocations": [
+          "Path 03",
+          "South East Soldust Sands"
+        ],
+        "methods": [
+          {
+            "name": "Ground",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Crustone",
+                  "formName": "",
+                  "minLevel": 11,
+                  "maxLevel": 13,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 10,
+                  "maxLevel": 12,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 11,
+                  "maxLevel": 13,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 12,
+                  "maxLevel": 14,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 10,
+                  "maxLevel": 12,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Terrhidung",
+                  "formName": "",
+                  "minLevel": 10,
+                  "maxLevel": 12,
+                  "percent": 10
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Crustone",
+                  "formName": "",
+                  "minLevel": 11,
+                  "maxLevel": 13,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 10,
+                  "maxLevel": 12,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Soothorlax",
+                  "formName": "",
+                  "minLevel": 10,
+                  "maxLevel": 12,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 12,
+                  "maxLevel": 14,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 10,
+                  "maxLevel": 12,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 11,
+                  "maxLevel": 13,
+                  "percent": 10
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "South East Soldust Sands",
+        "connectedLocations": [
+          "Hissing Caverns",
+          "South West Soldust Sands"
+        ],
+        "methods": [
+          {
+            "name": "Sand",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Cactuty",
+                  "formName": "",
+                  "minLevel": 20,
+                  "maxLevel": 24,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 19,
+                  "maxLevel": 23,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Sandash",
+                  "formName": "",
+                  "minLevel": 20,
+                  "maxLevel": 24,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 21,
+                  "maxLevel": 25,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 22,
+                  "maxLevel": 25,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Foadow",
+                  "formName": "",
+                  "minLevel": 23,
+                  "maxLevel": 26,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 21,
+                  "maxLevel": 25,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 20,
+                  "maxLevel": 24,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Foadow",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 27,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 22,
+                  "maxLevel": 26,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Sandash",
+                  "formName": "",
+                  "minLevel": 20,
+                  "maxLevel": 24,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Cactuty",
+                  "formName": "",
+                  "minLevel": 19,
+                  "maxLevel": 23,
+                  "percent": 10
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "South West Soldust Sands",
+        "connectedLocations": [
+          "South East Soldust Sands",
+          "Abandoned Sky Moon Factory Entryway"
+        ],
+        "methods": [
+          {
+            "name": "Sand",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Sandash",
+                  "formName": "",
+                  "minLevel": 23,
+                  "maxLevel": 27,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Cactuty",
+                  "formName": "",
+                  "minLevel": 22,
+                  "maxLevel": 26,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 22,
+                  "maxLevel": 26,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 23,
+                  "maxLevel": 27,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Foadow",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Foadow",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 23,
+                  "maxLevel": 27,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Sandash",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Cactuty",
+                  "formName": "",
+                  "minLevel": 23,
+                  "maxLevel": 27,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 10
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Abandoned Sky Moon Factory Entryway",
+        "connectedLocations": [
+          "South West Soldust Sands",
+          "Abandoned Sky Moon Factory F1"
+        ],
+        "methods": [
+          {
+            "name": "Ground",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 22,
+                  "maxLevel": 26,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Tanubbish",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Flitmaus",
+                  "formName": "",
+                  "minLevel": 23,
+                  "maxLevel": 27,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 23,
+                  "maxLevel": 27,
+                  "percent": 15
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Flitmaus",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Nickodamask",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Tanubbish",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 26,
+                  "maxLevel": 30,
+                  "percent": 10
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Abandoned Sky Moon Factory F1",
+        "connectedLocations": [
+          "Abandoned Sky Moon Factory Entryway",
+          "Abandoned Sky Moon Factory B1"
+        ],
+        "methods": [
+          {
+            "name": "Ground",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Bytro",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Flitmaus",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Tanubbish",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 23,
+                  "maxLevel": 27,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "Fighting",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Bytro",
+                  "formName": "",
+                  "minLevel": 26,
+                  "maxLevel": 30,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 26,
+                  "maxLevel": 30,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Flitmaus",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Nickodamask",
+                  "formName": "",
+                  "minLevel": 26,
+                  "maxLevel": 30,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Tanubbish",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "Fighting",
+                  "minLevel": 26,
+                  "maxLevel": 30,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Abandoned Sky Moon Factory B1",
+        "connectedLocations": [
+          "Abandoned Sky Moon Factory F1",
+          "Abandoned Sky Moon Factory Den",
+          "Abandoned Sky Moon Factory F2"
+        ],
+        "methods": [
+          {
+            "name": "Ground",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Crustone",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 26,
+                  "maxLevel": 30,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 26,
+                  "maxLevel": 30,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Gummini",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Terrakodamask",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "Survival",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Crustone",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Flitmaus",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Gummini",
+                  "formName": "",
+                  "minLevel": 29,
+                  "maxLevel": 33,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Nickodamask",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "Survival",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Abandoned Sky Moon Factory Den",
+        "connectedLocations": [
+          "Abandoned Sky Moon Factory B1"
+        ],
+        "methods": [
+          {
+            "name": "Sand",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Crustone",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Gummini",
+                  "formName": "",
+                  "minLevel": 29,
+                  "maxLevel": 33,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 26,
+                  "maxLevel": 30,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Terrakodamask",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "Stealth",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Crustone",
+                  "formName": "",
+                  "minLevel": 29,
+                  "maxLevel": 33,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Flitmaus",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Gummini",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 34,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Terrakodamask",
+                  "formName": "",
+                  "minLevel": 29,
+                  "maxLevel": 33,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "Stealth",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Abandoned Sky Moon Factory F2",
+        "connectedLocations": [
+          "Abandoned Sky Moon Factory Entryway",
+          "Abandoned Sky Moon Factory F1",
+          "Abandoned Sky Moon Factory B1",
+          "Abandoned Sky Moon Factory Roof"
+        ],
+        "methods": [
+          {
+            "name": "Ground",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Bytro",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 34,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 29,
+                  "maxLevel": 33,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Chimajor",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Nickodamask",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 34,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "Fighting",
+                  "minLevel": 30,
+                  "maxLevel": 34,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Bytro",
+                  "formName": "",
+                  "minLevel": 31,
+                  "maxLevel": 35,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 34,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Flitmaus",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 34,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Nickodamask",
+                  "formName": "",
+                  "minLevel": 31,
+                  "maxLevel": 35,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 32,
+                  "maxLevel": 36,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "Fighting",
+                  "minLevel": 31,
+                  "maxLevel": 35,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Abandoned Sky Moon Factory Roof",
+        "connectedLocations": [
+          "Abandoned Sky Moon Factory Office",
+          "Abandoned Sky Moon Factory Entryway"
+        ],
+        "methods": [
+          {
+            "name": "Ground",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 34,
+                  "percent": 35
+                },
+                {
+                  "enitoy": "Chimajor",
+                  "formName": "",
+                  "minLevel": 31,
+                  "maxLevel": 35,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Nickodamask",
+                  "formName": "",
+                  "minLevel": 31,
+                  "maxLevel": 35,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "",
+                  "minLevel": 31,
+                  "maxLevel": 35,
+                  "percent": 5
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "Cooking",
+                  "minLevel": 31,
+                  "maxLevel": 35,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 31,
+                  "maxLevel": 35,
+                  "percent": 35
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 33,
+                  "maxLevel": 37,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Nickodamask",
+                  "formName": "",
+                  "minLevel": 32,
+                  "maxLevel": 36,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "",
+                  "minLevel": 32,
+                  "maxLevel": 36,
+                  "percent": 5
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "Pirate",
+                  "minLevel": 32,
+                  "maxLevel": 36,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Abandoned Sky Moon Factory Office",
+        "connectedLocations": [
+          "Abandoned Sky Moon Factory Roof",
+          "Abandoned Sky Moon Factory F1",
+          "Abandoned Sky Moon Factory B1"
+        ],
+        "methods": [
+          {
+            "name": "Ground",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 31,
+                  "maxLevel": 35,
+                  "percent": 50
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "",
+                  "minLevel": 32,
+                  "maxLevel": 36,
+                  "percent": 45
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "Puzzle",
+                  "minLevel": 32,
+                  "maxLevel": 36,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Bytro",
+                  "formName": "",
+                  "minLevel": 33,
+                  "maxLevel": 37,
+                  "percent": 40
+                },
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 32,
+                  "maxLevel": 36,
+                  "percent": 35
+                },
+                {
+                  "enitoy": "Nickodamask",
+                  "formName": "",
+                  "minLevel": 34,
+                  "maxLevel": 38,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Bytro",
+                  "formName": "Puzzle",
+                  "minLevel": 33,
+                  "maxLevel": 37,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "generation": "Gen 2",
+    "locations": []
+  }
+]

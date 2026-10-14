@@ -1,0 +1,152 @@
+[
+  {
+    "method": "station",
+    "resultItem": "Recruitment Tag",
+    "resultQuantity": 2,
+    "ingredients": [
+      {
+        "item": "Sheet of Paper",
+        "quantity": 1
+      },
+      {
+        "item": "Ink Bottle",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "method": "station",
+    "resultItem": "Grand Tag",
+    "resultQuantity": 1,
+    "ingredients": [
+      {
+        "item": "Sheet of Paper",
+        "quantity": 1
+      },
+      {
+        "item": "Ink Bottle",
+        "quantity": 1
+      },
+      {
+        "item": "Small Gem",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "method": "station",
+    "resultItem": "Sheet of Paper",
+    "resultQuantity": 1,
+    "ingredients": [
+      {
+        "item": "Bundle of Reeds",
+        "quantity": 2
+      }
+    ]
+  },
+  {
+    "method": "move",
+    "resultItem": "Ink Bottle",
+    "resultQuantity": 1,
+    "heldItem": "Empty Bottle",
+    "moveStitching": "Nox"
+  },
+  {
+    "method": "move",
+    "resultItem": "Aero CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Aero"
+  },
+  {
+    "method": "move",
+    "resultItem": "Lux CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Lux"
+  },
+  {
+    "method": "move",
+    "resultItem": "Spectral CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Spectral"
+  },
+  {
+    "method": "move",
+    "resultItem": "Toxic CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Toxic"
+  },
+  {
+    "method": "move",
+    "resultItem": "Cryo CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Cryo"
+  },
+  {
+    "method": "move",
+    "resultItem": "Terra CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Terra"
+  },
+  {
+    "method": "move",
+    "resultItem": "Nature CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Nature"
+  },
+  {
+    "method": "move",
+    "resultItem": "Ordinary CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Ordinary"
+  },
+  {
+    "method": "move",
+    "resultItem": "Audio CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Audio"
+  },
+  {
+    "method": "move",
+    "resultItem": "Nox CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Nox"
+  },
+  {
+    "method": "move",
+    "resultItem": "Electro CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Electro"
+  },
+  {
+    "method": "move",
+    "resultItem": "Pyro CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Pyro"
+  },
+  {
+    "method": "move",
+    "resultItem": "Hydro CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Hydro"
+  },
+  {
+    "method": "move",
+    "resultItem": "Mental CD",
+    "resultQuantity": 1,
+    "heldItem": "Blank CD",
+    "moveStitching": "Mental"
+  }
+]

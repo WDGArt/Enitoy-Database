@@ -1,0 +1,206 @@
+[
+  {
+    "name": "All-terrain",
+    "effect": "While any terrain is active, when this Enitoy uses a technique whose stitching matches that terrain, the technique receives a 20% boost and this Enitoy moves faster than normal for that turn."
+  },
+  {
+    "name": "Analytic",
+    "effect": "Techniques  with less than 100% accuracy gain 20 percentage points of accuracy, up to 100%, but deal 25% less damage."
+  },
+  {
+    "name": "Ancient Echo",
+    "effect": "When this Enitoy enters battle, its special defense is raised by 1 stage. The first time it falls to half of its MAX HP or less each battle, it restores 20% of its MAX HP."
+  },
+  {
+    "name": "Anger Prone",
+    "effect": "Techniques used against this Enitoy that make contact have a 20% chance to raise this Enitoy's attack, defense, and special defense by 1 stage."
+  },
+  {
+    "name": "Berry Pouch",
+    "effect": "The first time each battle this Enitoy's held berry activates, its effect occurs normally, but the berry is not consumed. It cannot activate again from the same triggering event. The next time it activates, it is consumed normally."
+  },
+  {
+    "name": "Chlorophyll",
+    "effect": "When this Enitoy is hit by a contact technique it is not immune to, it drains 5% of the attacker's current HP, rounded up. During harsh sunlight, it also restores 10% of its MAX HP at the end of each turn."
+  },
+  {
+    "name": "Cushioned Body",
+    "effect": "This Enitoy takes 20% less damage from contact techniques."
+  },
+  {
+    "name": "Cute Defense",
+    "effect": "When This Enitoy enters battle, the opponent's defense is lowered by 1 stage."
+  },
+  {
+    "name": "Down Pour",
+    "effect": "When this Enitoy enters battle, it will cause rain which lasts 7 turns."
+  },
+  {
+    "name": "Dream Catcher",
+    "effect": "At the end of each turn, if this Enitoy is active and at least one Enitoy on the opposing side is asleep, an effect occurs based on how many turns this Enitoy has been active, counting the turn it entered battle. On odd-numbered turns, this Enitoy restores 5% of its MAX HP. On even-numbered turns, one of its stats that is not already at +6 is chosen at random and raised by 1 stage. If all of its stats are at +6, nothing happens."
+  },
+  {
+    "name": "Dreamy Aura",
+    "effect": "While this Enitoy is in the active slot or an adjacent slot, Ordinary techniques used by its side become Lux, and Lux and Mental techniques used by its side receive a 25% boost. This skill becomes inactive while an Enitoy with Nightmare Aura is in the active slot or an adjacent slot."
+  },
+  {
+    "name": "Echolocating",
+    "effect": "Audio techniques used by this Enitoy ignore accuracy checks but deal 20% less damage."
+  },
+  {
+    "name": "Freshly Baked",
+    "effect": "When This Enitoy uses a Pyro technique, this Enitoy and its allies heal for 5% MAX HP if not fainted."
+  },
+  {
+    "name": "Flash Frozen",
+    "effect": "When this Enitoy uses a Cold technique, this Enitoy and its allies heal for 5% MAX HP if not fainted."
+  },
+  {
+    "name": "Future Energy",
+    "effect": "When this Enioty enters battle, its special attack and speed are raised by 1 stage. If the field is not already electrified, the field becomes electrified."
+  },
+  {
+    "name": "Healer",
+    "effect": "When this Enitoy is in the active slot, if at least one ally is poisoned cure a random poisoned ally's poison."
+  },
+  {
+    "name": "Hydration",
+    "effect": "When hit by a Hydro technique, instead of taking damage restore 10% of MAX HP and restore 10% at the end of turns during rain but only in the active slot."
+  },
+  {
+    "name": "Illuminate",
+    "effect": "When this Enitoy uses a technique that lowers accuracy, that technique ignores accuracy checks."
+  },
+  {
+    "name": "Intense Heat",
+    "effect": "When this Enitoy is hit by a Pyro technique, it takes no damage and its special attack is raised by 1 stage. Otherwise when it is hit contact technique it is not immune to, there is a 30% chance to inflict burn on the attacker."
+  },
+  {
+    "name": "Keen Processor",
+    "effect": "Prevents this Enitoy's accuracy or evasion from being lowered by techniques, skills, or other effects."
+  },
+  {
+    "name": "Klutzy",
+    "effect": "Prevents this Enitoy from holding an item, but makes it so being confused hurts the opponent instead of themself."
+  },
+  {
+    "name": "Living Moment",
+    "effect": "At the end of each turn, if this Enitoy is active, one of its lowered stats is chosen at random and returned to 0 stages. If none of its stats are lowered, it restores 5% of its MAX HP instead."
+  },
+  {
+    "name": "Loyal Offense",
+    "effect": "When This Enitoy enters battle, if at least one of its allies were defeated this battle, attack and special attack are raised by 1 stage."
+  },
+  {
+    "name": "Master Chef",
+    "effect": "Healing techniques used by this Enitoy that target allies heal 10% more, while the techniques gain a 20% chance to burn or freeze opponents."
+  },
+  {
+    "name": "Mindscape Nexus",
+    "effect": "While two allied Enitoy with this skill are in the active slot or adjacent slot, the active Enitoy restores 5% of its MAX HP at the end of each turn and all of its techniques receive a 15% boost."
+  },
+  {
+    "name": "Murky Ambush",
+    "effect": "When this Enitoy enters battle while in water or during rain, its speed and evasion are raised by 1 stage each. While this Enitoy is in water or rain is active, its Umbra techniques receive a 20% boost."
+  },
+  {
+    "name": "Nightmare Aura",
+    "effect": "While this Enitoy is in the active slot or an adjacent slot, Ordinary techniques used by its side become Umbra, and Umbra and Pyro techniques used by its side receive a 25% boost. This skill becomes inactive while an Enitoy with Dreamy Aura is in the active slot or an adjacent slot."
+  },
+  {
+    "name": "Possessed Idol",
+    "effect": "This Enitoy takes 20% less damage from contact techniques. It also cannot be forcibly moved out of the active slot by techniques or skills."
+  },
+  {
+    "name": "Premonition",
+    "effect": "When this Enitoy enters battle, it is alerted if the opponent knows any techniques that are super effective against it."
+  },
+  {
+    "name": "Prickily",
+    "effect": "When this Enitoy is hit by a technique that makes contact, the attacker is also hurt for 10% the damage dealt to this Enitoy"
+  },
+  {
+    "name": "Resonant",
+    "effect": "When this Enitoy uses an Ordinary technique, it uses the Audio matchup instead if the target would take more damage from Audio than from Ordinary."
+  },
+  {
+    "name": "Scavenge",
+    "effect": "When this Enitoy uses a physical technique while not holding an item, it has a 15% chance to obtain a random item based on what kind of location the fight takes place."
+  },
+  {
+    "name": "Sharp Edge",
+    "effect": "When this Enitoy uses slashing techniques, those techniques receive a 20% boost and cannot miss."
+  },
+  {
+    "name": "Soothing Glow",
+    "effect": "If an ally that is asleep is weak to the opponent's stitching, the sleeping Enitoy restores 15% of its MAX HP at the end of each turn, even if this Enitoy is not in the active slot."
+  },
+  {
+    "name": "Soundproof",
+    "effect": "This Enioty is immune to Audio techniques and other sound-based techniques."
+  },
+  {
+    "name": "Speed Up",
+    "effect": "At the end of every second consecutive turn this Enitoy spends in the active slot, its speed is raised by 1 stage."
+  },
+  {
+    "name": "Static Shock",
+    "effect": "Techniques used against this Enitoy that make contact have a 20% chance to paralyze the attacker."
+  },
+  {
+    "name": "Sweet Dreams",
+    "effect": "At the end of each turn, if at least one other Enitoy in this Enitoy's party is asleep, all sleeping party members restore 5% of their MAX HP. If this Enitoy is active, all sleeping party members and this Enitoy instead restore 10% of their MAX HP."
+  },
+  {
+    "name": "Trickster",
+    "effect": "When this Enitoy uses a non-damaging technique, it moves faster than normal for that turn."
+  },
+  {
+    "name": "Wicked Echo",
+    "effect": "When this Enitoy uses an Audio technique, it uses the Umbra matchup if the target qould take more damage from Umbra than from Audio."
+  },
+  {
+    "name": "Wicked Gaze",
+    "effect": "When this Enitoy uses a Lux technique, it uses the Umbra matchup instead if the target would take more damage from Umbra than from Lux."
+  },
+  {
+    "name": "Wicked Hearing",
+    "effect": "When this Enitoy is hit by an Audio technique, it takes no damage and its attack, special attack, and speed are raised by 1 stage."
+  },
+  {
+    "name": "Wicked Sight",
+    "effect": "When this Enitoy is hit by a Lux technique, it take no damage and its attack, special attack, and speed are raised by 1 stage."
+  },
+  {
+    "name": "Wicked Speech",
+    "effect": "When this Enitoy is hit by an Aero technique, it takes no damage and its attack, special attack, and speed are raised by 1 stage."
+  },
+  {
+    "name": "Wicked Voice",
+    "effect": "When this Enitoy uses an Aero technique, it uses the Umbra matchup instead if the target would take more damage from Umbra than from Aero."
+  },
+  {
+    "name": "Meteorology",
+    "effect": "This Enitoy changes forms based on the weather active during battle."
+  },
+  {
+    "name": "Tough Body",
+    "effect": "The first time each battle this Enitoy would be knocked out by a technique, it survives with 1 HP instead."
+  },
+  {
+    "name": "Prickly",
+    "effect": "When this Enitoy is hit by a contact technique, the attacker takes damage equal to 10% of the damage dealt to this Enitoy."
+  },
+  {
+    "name": "Rhythmic",
+    "effect": "When this Enitoy uses an Audio technique, it has a 20% chance to raise its Speed by 1 stage."
+  },
+  {
+    "name": "Fighting Spirit",
+    "effect": "When this Enitoy uses a Kinetic technique, it has a 20% chance to raise its Attack by 1 stage."
+  },
+  {
+    "name": "Winter Coat",
+    "effect": "When this Enitoy uses a Cryo technique, it has a 20% chance to raise its Defense by 1 stage."
+  }
+]

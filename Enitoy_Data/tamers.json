@@ -1,0 +1,88 @@
+[
+  {
+    "generation": "Gen 1",
+    "location": "Cottonwick Town",
+    "tamerClass": "Junior Tamer",
+    "name": "Nora",
+    "team": [
+      {
+        "generation": "Gen 1",
+        "enitoy": "Mework",
+        "level": 4,
+        "nickname": "Mewy",
+        "gender": "female",
+        "useHiddenSkill": false,
+        "misprintStatus": "locked",
+        "moves": [
+          "Tackle",
+          "Belch",
+          "Brace",
+          "Pump Up",
+          "Trick-or-Treat"
+        ]
+      },
+      {
+        "generation": "Gen 1",
+        "enitoy": "Domustel",
+        "level": 5,
+        "nickname": "Domo",
+        "gender": "female",
+        "useHiddenSkill": false,
+        "misprintStatus": "possible",
+        "moves": [
+          "Calm Down",
+          "Tackle",
+          "Belch",
+          "Leg Stretch",
+          "Startle",
+          "Trick-or-Treat"
+        ]
+      }
+    ],
+    "battleItems": []
+  },
+  {
+    "generation": "Gen 1",
+    "location": "Path 02",
+    "tamerClass": "Critter Kid",
+    "name": "James",
+    "team": [
+      {
+        "generation": "Gen 1",
+        "enitoy": "Riduni",
+        "level": 4,
+        "gender": "male",
+        "useHiddenSkill": false,
+        "misprintStatus": "possible",
+        "moves": [
+          "Tackle",
+          "Belch",
+          "Resin Shards"
+        ]
+      }
+    ],
+    "battleItems": []
+  },
+  {
+    "generation": "Gen 1",
+    "location": "Path 02",
+    "tamerClass": "Rookie Tamer",
+    "name": "Sadie",
+    "team": [
+      {
+        "generation": "Gen 1",
+        "enitoy": "Kappabe",
+        "level": 5,
+        "gender": "female",
+        "useHiddenSkill": false,
+        "misprintStatus": "possible",
+        "moves": [
+          "Tackle",
+          "Splash",
+          "Thorny Vines"
+        ]
+      }
+    ],
+    "battleItems": []
+  }
+]

@@ -1,0 +1,127 @@
+[
+  {
+    "name": "Assertive",
+    "upStat": "ATK",
+    "downStat": "ATK"
+  },
+  {
+    "name": "Reckless",
+    "upStat": "DEF",
+    "downStat": "ATK"
+  },
+  {
+    "name": "Brutish",
+    "upStat": "SP.ATK",
+    "downStat": "ATK"
+  },
+  {
+    "name": "Hot Headed",
+    "upStat": "SP.DEF",
+    "downStat": "ATK"
+  },
+  {
+    "name": "Forceful",
+    "upStat": "SPD",
+    "downStat": "ATK"
+  },
+  {
+    "name": "Guarded",
+    "upStat": "ATK",
+    "downStat": "DEF"
+  },
+  {
+    "name": "Stalwart",
+    "upStat": "DEF",
+    "downStat": "DEF"
+  },
+  {
+    "name": "Stoic",
+    "upStat": "SP.ATK",
+    "downStat": "DEF"
+  },
+  {
+    "name": "Hardened",
+    "upStat": "SP.DEF",
+    "downStat": "DEF"
+  },
+  {
+    "name": "Patient",
+    "upStat": "SPD",
+    "downStat": "DEF"
+  },
+  {
+    "name": "Cerebral",
+    "upStat": "ATK",
+    "downStat": "SP.ATK"
+  },
+  {
+    "name": "Imaginative",
+    "upStat": "DEF",
+    "downStat": "SP.ATK"
+  },
+  {
+    "name": "Curious",
+    "upStat": "SP.ATK",
+    "downStat": "SP.ATK"
+  },
+  {
+    "name": "Intense",
+    "upStat": "SP.DEF",
+    "downStat": "SP.ATK"
+  },
+  {
+    "name": "Toughtful",
+    "upStat": "SPD",
+    "downStat": "SP.ATK"
+  },
+  {
+    "name": "Peaceful",
+    "upStat": "ATK",
+    "downStat": "SP.DEF"
+  },
+  {
+    "name": "Sensitive",
+    "upStat": "DEF",
+    "downStat": "SP.DEF"
+  },
+  {
+    "name": "Grounded",
+    "upStat": "SP.ATK",
+    "downStat": "SP.DEF"
+  },
+  {
+    "name": "Serene",
+    "upStat": "SP.DEF",
+    "downStat": "SP.DEF"
+  },
+  {
+    "name": "Composed",
+    "upStat": "SPD",
+    "downStat": "SP.DEF"
+  },
+  {
+    "name": "Skittish",
+    "upStat": "ATK",
+    "downStat": "SPD"
+  },
+  {
+    "name": "Flighty",
+    "upStat": "DEF",
+    "downStat": "SPD"
+  },
+  {
+    "name": "Impulsive",
+    "upStat": "SP.ATK",
+    "downStat": "SPD"
+  },
+  {
+    "name": "Restless",
+    "upStat": "SP.DEF",
+    "downStat": "SPD"
+  },
+  {
+    "name": "Lively",
+    "upStat": "SPD",
+    "downStat": "SPD"
+  }
+]
