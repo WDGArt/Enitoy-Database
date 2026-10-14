@@ -12069,16 +12069,70 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
-          "Brace"
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Psych Up",
+          "Pump Up",
+          "Rocky Footing",
+          "Spike Trap",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Water Burst"
         ],
         "levelUpTechniques": [
           {
             "name": "Brace",
             "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Burst",
+            "level": 6
+          },
+          {
+            "name": "Calm Down",
+            "level": 10
+          },
+          {
+            "name": "Focus",
+            "level": 14
+          },
+          {
+            "name": "Psych Up",
+            "level": 18
+          },
+          {
+            "name": "Startle",
+            "level": 22
+          },
+          {
+            "name": "Spike Trap",
+            "level": 26
           }
         ],
         "scrollLearnedTechniques": [
+          "Rocky Footing",
+          "Splash",
+          "Water Burst",
+          "Leg Stretch",
+          "Calm Down",
+          "Psych Up",
+          "Pump Up",
+          "Spike Trap",
           "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Tackle",
+          "Startle",
           "Belch"
         ],
         "temperamentLock": [

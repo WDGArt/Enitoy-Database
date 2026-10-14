@@ -1263,7 +1263,9 @@
       "color3",
       "modifications",
       "catalogEntries",
-      "info"
+      "info",
+      "image",
+      "misprintImage"
     ],
     "overrides": {
       "color3": "Kinetic",
@@ -1285,7 +1287,15 @@
           "entry": "Fighting Bytro copies the movements of characters from its cartridge's fighting game. When excited, it performs increasingly complicated combinations, occasionally becoming so absorbed in practice that it fails to notice its surroundings."
         }
       ],
-      "info": "Its Fighting Cartridge causes its energy to form oversized fists and a combat-ready stance. It constantly practices combinations of attacks, occasionally challenging its own reflection to a fight."
+      "info": "Its Fighting Cartridge causes its energy to form oversized fists and a combat-ready stance. It constantly practices combinations of attacks, occasionally challenging its own reflection to a fight.",
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/74-4-Bytro.png?v=1792018199817",
+        "imageName": "74-4-Bytro.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/74-4-Bytro.png?v=1792018199817",
+        "imageName": "74-4-Bytro.png"
+      }
     },
     "levelUpTechniques": [
       {
@@ -1347,7 +1357,9 @@
       "color3",
       "modifications",
       "catalogEntries",
-      "info"
+      "info",
+      "image",
+      "misprintImage"
     ],
     "overrides": {
       "color3": "Nox",
@@ -1369,7 +1381,15 @@
           "entry": "Stealth Bytro treats ordinary activities as elaborate infiltration missions. It frequently hides behind furniture and other obstacles, remaining motionless until it believes no one is watching."
         }
       ],
-      "info": "Its Stealth Cartridge causes its energy to become dim and difficult to distinguish in darkness. It enjoys sneaking up on unsuspecting people, although the glow of its console screen sometimes gives away its position."
+      "info": "Its Stealth Cartridge causes its energy to become dim and difficult to distinguish in darkness. It enjoys sneaking up on unsuspecting people, although the glow of its console screen sometimes gives away its position.",
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/74-5-Bytro.png?v=1792018199817",
+        "imageName": "74-5-Bytro.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/74-5-Bytro.png?v=1792018199817",
+        "imageName": "74-5-Bytro.png"
+      }
     },
     "levelUpTechniques": [
       {
@@ -1431,7 +1451,9 @@
       "color3",
       "modifications",
       "catalogEntries",
-      "info"
+      "info",
+      "image",
+      "misprintImage"
     ],
     "overrides": {
       "color3": "Mental",
@@ -1453,7 +1475,15 @@
           "entry": "Puzzle Bytro is drawn to anything involving patterns, sequences, or hidden mechanisms. When presented with an unsolved problem, its energy begins forming symbols and shapes that appear to represent possible solutions."
         }
       ],
-      "info": "Its Puzzle Cartridge makes its energy form constantly shifting geometric patterns. It becomes fascinated by complicated arrangements and will spend hours attempting to solve even the simplest mechanical puzzle."
+      "info": "Its Puzzle Cartridge makes its energy form constantly shifting geometric patterns. It becomes fascinated by complicated arrangements and will spend hours attempting to solve even the simplest mechanical puzzle.",
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/74-6-Bytro.png?v=1792018199817",
+        "imageName": "74-6-Bytro.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/74-6-Bytro.png?v=1792018199817",
+        "imageName": "74-6-Bytro.png"
+      }
     },
     "levelUpTechniques": [
       {
@@ -1515,7 +1545,9 @@
       "color3",
       "modifications",
       "catalogEntries",
-      "info"
+      "info",
+      "image",
+      "misprintImage"
     ],
     "overrides": {
       "color3": "Terra",
@@ -1533,7 +1565,15 @@
           "entry": "Its Crawler Cartridge causes its energy to resemble the equipment of an underground adventurer. It is fascinated by caves and narrow passages, treating every unexplored tunnel as the entrance to a mysterious dungeon."
         }
       ],
-      "info": null
+      "info": null,
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/74-7-Bytro.png?v=1792018199817",
+        "imageName": "74-7-Bytro.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/74-7-Bytro.png?v=1792018199817",
+        "imageName": "74-7-Bytro.png"
+      }
     },
     "levelUpTechniques": [
       {
@@ -1595,7 +1635,9 @@
       "color3",
       "modifications",
       "catalogEntries",
-      "info"
+      "info",
+      "image",
+      "misprintImage"
     ],
     "overrides": {
       "color3": "Arthro",
@@ -1613,7 +1655,15 @@
           "entry": "Its poorly programmed Glitchy Cartridge causes its surrounding energy to fragment into unstable, flickering shapes. These distortions sometimes resemble missing pieces of its body, and its movements occasionally appear to skip several moments forward."
         }
       ],
-      "info": null
+      "info": null,
+      "image": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/normal/74-8-Bytro.png?v=1792018199817",
+        "imageName": "74-8-Bytro.png"
+      },
+      "misprintImage": {
+        "imageData": "https://wdgart.github.io/Enitoy-Database/assets/misprint/74-8-Bytro.png?v=1792018199817",
+        "imageName": "74-8-Bytro.png"
+      }
     },
     "levelUpTechniques": [
       {
