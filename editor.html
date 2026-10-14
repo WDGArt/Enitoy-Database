@@ -8583,29 +8583,67 @@ async function enitoyLoadModular(ref, knownRevision){
                     var copy = JSON.parse(JSON.stringify(project));
                     var uploads = new Map();
                     var items = [];
-                    function walk(node){
-                        if(!node || typeof node!=="object") return;
-                        for(var [key,value] of Object.entries(node)){
-                            if((key==="imageData"||key==="misprintImageData") && typeof value==="string" && /^data:image\/[^;]+;base64,/i.test(value)) items.push([node,key,value]);
-                            else if(value && typeof value==="object") walk(value);
+                    var pathsUsed = new Map();
+                    function safeAssetName(value){
+                        return String(value||"Unnamed").normalize("NFKC").replace(/[^a-zA-Z0-9_-]+/g,"-").replace(/^-+|-+$/g,"") || "Unnamed";
+                    }
+                    function addArtwork(holder,key,stem){
+                        if(!holder || typeof holder!=="object")return;
+                        const data=holder[key];
+                        if(typeof data!=="string" || !/^data:image\/[^;]+;base64,/i.test(data))return;
+                        const directory=key==="misprintImageData"?"misprint":"normal";
+                        items.push({holder,key,data,stem,directory});
+                    }
+                    // Base species share the same filename in two DISTINCT folders.
+                    // Base species slot numbers are the Catalog numbers (index + 1).
+                    for(var generationIndex=0;generationIndex<(copy.regionalGenerations||[]).length;generationIndex++){
+                        const generation=copy.regionalGenerations[generationIndex];
+                        const generationName=safeAssetName(generation.name||("Gen-"+(generationIndex+1)));
+                        for(var slotIndex=0;slotIndex<(generation.enitoys||[]).length;slotIndex++){
+                            const species=generation.enitoys[slotIndex];
+                            if(!species || typeof species!=="object")continue;
+                            const number=slotIndex+1;
+                            // Prefix Gen 2+ to avoid collisions with Gen 1 Catalog numbers.
+                            const prefix=generationIndex===0?"":generationName+"-";
+                            const stem=prefix+number+"-"+safeAssetName(species.name||"Enitoy");
+                            addArtwork(species,"imageData",stem);
+                            addArtwork(species,"misprintImageData",stem);
                         }
                     }
-                    walk(copy);
+                    // Form images use a separate numbered form suffix, matching naming
+                    // like 71-1-Meterupa.png, in both normal and misprint directories.
+                    const formCounters=new Map();
+                    for(const form of copy.forms||[]){
+                        if(!form || typeof form!=="object")continue;
+                        const origin=(copy.regionalGenerations||[]).find(g=>g.name===form.generation);
+                        const originalSlot=origin?.enitoys?.findIndex(e=>e?.name===form.enitoy)??-1;
+                        const family=(form.generation||"")+"|"+(form.enitoy||"");
+                        const index=(formCounters.get(family)||0)+1;
+                        formCounters.set(family,index);
+                        const prefix=(copy.regionalGenerations||[])[0]?.name===form.generation?"":safeAssetName(form.generation)+"-";
+                        const stem=prefix+(originalSlot>=0?originalSlot+1:safeAssetName(form.enitoy))+"-"+index+"-"+safeAssetName(form.enitoy);
+                        addArtwork(form.overrides?.image,"imageData",stem);
+                        if(form.overrides?.misprintImage){
+                            const before=items.length;
+                            addArtwork(form.overrides.misprintImage,"imageData",stem);
+                            if(items.length>before)items[items.length-1].directory="misprint";
+                        }
+                    }
+                    // Fail rather than silently overwrite two different species with
+                    // identical filenames. These can be renamed deliberately later.
                     for(var i=0;i<items.length;i++){
-                        var [holder,key,value]=items[i];
-                        var delimiter=value.indexOf(',');
-                        var mime=value.slice(5,delimiter).split(';')[0].toLowerCase();
-                        var suffix=mime==="image/png"?"png":mime==="image/jpeg"?"jpg":mime==="image/webp"?"webp":null;
-                        if(!suffix) throw new Error("Unsupported image type: "+mime);
-                        var encoded=value.slice(delimiter+1);
-                        // Hash bytes, not the name: identical images are uploaded once.
-                        var raw=atob(encoded);
-                        var bytes=new Uint8Array(raw.length);
-                        for(var b=0;b<raw.length;b++)bytes[b]=raw.charCodeAt(b);
-                        var hash=Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",bytes))).map(x=>x.toString(16).padStart(2,"0")).join("");
-                        var path="assets/"+hash+"."+suffix;
+                        const {holder,key,data,stem,directory}=items[i];
+                        const delimiter=data.indexOf(',');
+                        const mime=data.slice(5,delimiter).split(';')[0].toLowerCase();
+                        const suffix=mime==="image/png"?"png":mime==="image/jpeg"?"jpg":mime==="image/webp"?"webp":null;
+                        if(!suffix)throw new Error("Unsupported image type: "+mime);
+                        const encoded=data.slice(delimiter+1);
+                        const path="assets/"+directory+"/"+stem+"."+suffix;
+                        const prior=pathsUsed.get(path);
+                        if(prior && prior!==encoded)throw new Error("Two different images would overwrite "+path+". Save stopped to protect your artwork.");
+                        pathsUsed.set(path,encoded);
                         uploads.set(path,encoded);
-                        holder[key]=ENITOY_ASSET_PREFIX+hash+"."+suffix;
+                        holder[key]=ENITOY_ASSET_PREFIX+directory+"/"+stem+"."+suffix+"?v="+Date.now();
                         if(onProgress && i%10===0)onProgress("Preparing images "+(i+1)+"/"+items.length+"...");
                     }
                     var manifest={format:"EnitoySplitProject",version:1,projectFormat:copy.format,projectVersion:copy.version,savedAt:new Date().toISOString(),files:{}};
@@ -8631,7 +8669,9 @@ async function enitoyLoadModular(ref, knownRevision){
                     const known=new Set((previous.tree||[]).filter(x=>x.type==="blob").map(x=>x.path));
                     // Do not let another save overwrite changed data. Only the parent
                     // commit we read can be fast-forwarded (force:false below).
-                    const pending=Array.from(bundle.uploads.entries()).filter(([path])=>!known.has(path));
+                    // Re-upload newly selected sprites even when their filename already exists,
+                    // so replacements update the Git tree instead of showing old art.
+                    const pending=Array.from(bundle.uploads.entries());
                     const created=[];
                     let cursor=0;
                     async function worker(){
