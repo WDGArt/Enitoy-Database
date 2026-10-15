@@ -12470,10 +12470,286 @@
         ]
       },
       {
-        "kind": "blank"
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Geo",
+        "color2": "Ordinary",
+        "color3": "Mental",
+        "name": "Runidol",
+        "classification": "Living Rune",
+        "info": "Runidol are found wandering ancient ruins, their massive sandstone heads covered in mysterious symbols and carvings. Their small stone hands and feet are held against their bodies by psychic energy, allowing them to move despite their enormous weight. Researchers believe the carvings contain fragments of knowledge from a civilization that vanished long ago.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Runidol are found wandering ancient ruins, their massive sandstone heads covered in mysterious symbols and carvings. Their small stone hands and feet are held against their bodies by psychic energy, allowing them to move despite their enormous weight. Researchers believe the carvings contain fragments of knowledge from a civilization that vanished long ago."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Despite weighing nearly 5,000 pounds, Runidol move effortlessly by using psychic energy to control their small stone limbs. They are often observed tracing symbols into the sand around ancient ruins. Curiously, these markings closely resemble the carvings covering their heads, leading researchers to believe Runidol are attempting to communicate."
+          }
+        ],
+        "internalColor": "BROWN",
+        "height": "3'06\"/1.07M",
+        "weight": "4997.0Lbs/2266.60KG",
+        "genderRatio": 0,
+        "stats": [
+          60,
+          35,
+          90,
+          65,
+          60,
+          23
+        ],
+        "skill": "Tough Body",
+        "hiddenSkill": "Premonition",
+        "misprintDefect": "Loose Debris",
+        "recruitmentRate": 120,
+        "baseExp": 90,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Psych Up",
+          "Pump Up",
+          "Rocky Footing",
+          "Shadow Claw",
+          "Spatial Warp",
+          "Startle",
+          "Tackle"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Focus",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 9
+          },
+          {
+            "name": "Calm Down",
+            "level": 13
+          },
+          {
+            "name": "Disarm",
+            "level": 17
+          },
+          {
+            "name": "Rocky Footing",
+            "level": 22
+          },
+          {
+            "name": "Psych Up",
+            "level": 27
+          },
+          {
+            "name": "Burst",
+            "level": 32
+          },
+          {
+            "name": "Spatial Warp",
+            "level": 37
+          },
+          {
+            "name": "Shadow Claw",
+            "level": 41
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Rocky Footing",
+          "Leg Stretch",
+          "Calm Down",
+          "Psych Up",
+          "Pump Up",
+          "Spatial Warp",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Tackle",
+          "Shadow Claw",
+          "Startle"
+        ],
+        "temperamentLock": [
+          "Forceful",
+          "Lively",
+          "Skittish"
+        ],
+        "modifications": [
+          {
+            "target": "Wrunith",
+            "targetGeneration": "Gen 1",
+            "method": "Level Night",
+            "parameter": 42
+          }
+        ],
+        "nameOrigins": [
+          {
+            "part": "Run",
+            "word": "rune",
+            "description": "ancient alphabetic characters used by Germanic and Nordic peoples from roughly the 2nd century to the Middle Ages"
+          },
+          {
+            "part": "idol",
+            "word": "idol",
+            "description": "a physical representation or statue worshipped as a deity, a person who is greatly loved and admired (such as a sports or pop star), or anything that commands excessive devotion and replaces God in a person's life"
+          }
+        ]
       },
       {
-        "kind": "blank"
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Geo",
+        "color2": "Spectral",
+        "color3": "Mental",
+        "name": "Wrunith",
+        "classification": "Haunted Rune",
+        "info": "When Runidol modify into Wrunith under the cover of night, the psychic energy holding their limbs together becomes ghostly, and a spectral tail emerges from their bodies. The ancient symbols carved into their enormous sandstone heads are said to glow in the presence of forgotten spirits. Some archaeologists believe Wrunith possess memories of the civilization that originally carved them.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "When Runidol modify into Wrunith under the cover of night, the psychic energy holding their limbs together becomes ghostly, and a spectral tail emerges from their bodies. The ancient symbols carved into their enormous sandstone heads are said to glow in the presence of forgotten spirits. Some archaeologists believe Wrunith possess memories of the civilization that originally carved them."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Wrunith are known to wander ancient ruins after sunset, their ghostly tails leaving faint trails of spectral energy behind them. Although their stone heads weigh over 17,000 pounds, their supernatural powers allow them to move with surprising ease. When approached, they sometimes project vivid images of long-forgotten places directly into the minds of nearby people."
+          }
+        ],
+        "internalColor": "BROWN",
+        "height": "5'05\"/1.65M",
+        "weight": "17033.0Lbs/7726.04KG",
+        "genderRatio": 0,
+        "stats": [
+          80,
+          45,
+          120,
+          95,
+          90,
+          28
+        ],
+        "skill": "Tough Body",
+        "hiddenSkill": "Premonition",
+        "misprintDefect": "Loose Debris",
+        "recruitmentRate": 90,
+        "baseExp": 160,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Psych Up",
+          "Pump Up",
+          "Rocky Footing",
+          "Shadow Claw",
+          "Spatial Warp",
+          "Spike Trap",
+          "Startle",
+          "Tackle",
+          "Trick-or-Treat"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Shadow Claw",
+            "level": 0
+          },
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Focus",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 9
+          },
+          {
+            "name": "Calm Down",
+            "level": 13
+          },
+          {
+            "name": "Disarm",
+            "level": 17
+          },
+          {
+            "name": "Rocky Footing",
+            "level": 22
+          },
+          {
+            "name": "Psych Up",
+            "level": 27
+          },
+          {
+            "name": "Burst",
+            "level": 32
+          },
+          {
+            "name": "Trick-or-Treat",
+            "level": 42
+          },
+          {
+            "name": "Spike Trap",
+            "level": 46
+          },
+          {
+            "name": "Spatial Warp",
+            "level": 58
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Rocky Footing",
+          "Leg Stretch",
+          "Calm Down",
+          "Psych Up",
+          "Pump Up",
+          "Spatial Warp",
+          "Spike Trap",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Tackle",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat"
+        ],
+        "temperamentLock": [
+          "Forceful",
+          "Lively",
+          "Skittish"
+        ],
+        "nameOrigins": [
+          {
+            "part": "Wr-ith",
+            "word": "wraith",
+            "description": "a ghost, spirit, or spectral apparition"
+          },
+          {
+            "part": "run",
+            "word": "rune",
+            "description": "ancient alphabetic characters used by Germanic and Nordic peoples from roughly the 2nd century to the Middle Ages"
+          }
+        ]
       },
       {
         "kind": "blank"
