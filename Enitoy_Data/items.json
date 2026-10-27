@@ -334,5 +334,21 @@
     "sellPrice": 1750,
     "pocket": 1,
     "description": "A cartridge to be held by a certain Enitoy that contains a puzzle game."
+  },
+  {
+    "name": "Empty Soda Can",
+    "pluralName": "Empty Soda Cans",
+    "buyPrice": 0,
+    "sellPrice": 250,
+    "pocket": 1,
+    "description": "An emptied out soda can that is enjoyed by a particular Enitoy."
+  },
+  {
+    "name": "Cracked Teapot",
+    "pluralName": "Cracked Teapots",
+    "buyPrice": 0,
+    "sellPrice": 250,
+    "pocket": 1,
+    "description": "An old cracked teapot that is enjoyed by a particular Enitoy."
   }
 ]

@@ -12756,10 +12756,290 @@
         ]
       },
       {
-        "kind": "blank"
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Resin",
+        "color2": "Arthro",
+        "color3": "Lux",
+        "name": "Crabottle",
+        "classification": "Hermit Crab",
+        "info": "Crabottle makes its home inside discarded sparkling-water bottles, which protect its vulnerable abdomen. Sunlight passing through the bubbles causes its resin body to shimmer brilliantly, sometimes leading beachgoers to mistake it for a piece of washed-up treasure.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Crabottle makes its home inside discarded sparkling-water bottles, which protect its vulnerable abdomen. Sunlight passing through the bubbles causes its resin body to shimmer brilliantly, sometimes leading beachgoers to mistake it for a piece of washed-up treasure."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Crabottle is surprisingly particular about its shell, carefully inspecting discarded containers before settling inside. Some have been observed lingering around abandoned teapots, seemingly fascinated by the faint aroma of tea left within them."
+          }
+        ],
+        "internalColor": "BLUE",
+        "height": "0'11\"/0.28M",
+        "weight": "10.4Lbs/4.72KG",
+        "genderRatio": 5,
+        "stats": [
+          50,
+          60,
+          57,
+          55,
+          50,
+          45
+        ],
+        "skill": "Tough Body",
+        "hiddenSkill": "Hydration",
+        "misprintDefect": "Overstuffed",
+        "recruitmentRate": 145,
+        "baseExp": 65,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Burst",
+          "Deep Clean",
+          "Focus",
+          "Leg Stretch",
+          "Rain Call",
+          "Resin Shards",
+          "Sandstorm",
+          "Shadow Claw",
+          "Slash",
+          "Spike Trap",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Water Burst"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Water Burst",
+            "level": 5
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Burst",
+            "level": 10
+          },
+          {
+            "name": "Resin Shards",
+            "level": 13
+          },
+          {
+            "name": "Slash",
+            "level": 17
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Deep Clean",
+          "Rain Call",
+          "Splash",
+          "Water Burst",
+          "Leg Stretch",
+          "Spike Trap",
+          "Brace",
+          "Burst",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Resin Shards",
+          "Shadow Claw",
+          "Startle",
+          "Sandstorm",
+          "Belch"
+        ],
+        "temperamentLock": [
+          "Serene",
+          "Stoic"
+        ],
+        "modifications": [
+          {
+            "target": "Sodarmocean",
+            "targetGeneration": "Gen 1",
+            "method": "Give Item",
+            "parameter": "Empty Soda Can"
+          },
+          {
+            "target": "Tearmocean",
+            "targetGeneration": "Gen 2",
+            "method": "Give Item",
+            "parameter": "Cracked Teapot"
+          }
+        ],
+        "nameOrigins": [
+          {
+            "part": "Crab",
+            "word": "crab",
+            "description": "A crustacean of the infraorder Brachyura, having five pairs of legs, the foremost of which are in the form of claws, and a carapace"
+          },
+          {
+            "part": "bottle",
+            "word": "bottle",
+            "description": "A container, typically made of glass or plastic and having a tapered neck, used primarily for holding liquids"
+          }
+        ]
       },
       {
-        "kind": "blank"
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Metallic",
+        "color2": "Arthro",
+        "color3": "Toxic",
+        "name": "Sodarmocean",
+        "classification": "Hermit Crab",
+        "info": "After replacing its plastic bottle with an aluminum soda can, Sodarmocean develops a hardened metallic body and powerful claws. The leftover soda inside its shell reacts with its body, producing a toxic substance that it uses to discourage predators.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "After replacing its plastic bottle with an aluminum soda can, Sodarmocean develops a hardened metallic body and powerful claws. The leftover soda inside its shell reacts with its body, producing a toxic substance that it uses to discourage predators."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Despite its intimidating appearance, Sodarmocean is surprisingly protective of its soda can, regularly polishing its surface with its claws. When threatened, it violently shakes its shell, building up enough pressure to release a powerful spray of toxic, carbonated liquid."
+          }
+        ],
+        "internalColor": "GREY",
+        "height": "1'11\"/0.58M",
+        "weight": "38.6Lbs/17.51KG",
+        "genderRatio": 5,
+        "stats": [
+          75,
+          115,
+          105,
+          60,
+          82,
+          55
+        ],
+        "skill": "Tough Body",
+        "hiddenSkill": "Hydration",
+        "misprintDefect": "Overstuffed",
+        "recruitmentRate": 60,
+        "baseExp": 175,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Burst",
+          "Deep Clean",
+          "Focus",
+          "Leg Stretch",
+          "Rain Call",
+          "Resin Shards",
+          "Sandstorm",
+          "Shadow Claw",
+          "Slash",
+          "Spike Trap",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Water Burst"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Water Burst",
+            "level": 5
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Burst",
+            "level": 10
+          },
+          {
+            "name": "Resin Shards",
+            "level": 13
+          },
+          {
+            "name": "Slash",
+            "level": 17
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Deep Clean",
+          "Rain Call",
+          "Splash",
+          "Water Burst",
+          "Leg Stretch",
+          "Spike Trap",
+          "Brace",
+          "Burst",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Resin Shards",
+          "Shadow Claw",
+          "Startle",
+          "Sandstorm",
+          "Belch"
+        ],
+        "drops": [
+          "Empty Soda Can"
+        ],
+        "temperamentLock": [
+          "Cerebral",
+          "Serene"
+        ],
+        "nameOrigins": [
+          {
+            "part": "soda",
+            "word": "soda",
+            "description": "any non-alcoholic, sweet, and fizzy drink made with carbonated water, flavorings, and sweeteners"
+          },
+          {
+            "part": "armo",
+            "word": "armor",
+            "description": "A protective layer over a body, vehicle, or other object intended to deflect or diffuse damaging forces"
+          },
+          {
+            "part": "ocean",
+            "word": "ocean",
+            "description": "One of the large bodies of water separating the continents"
+          }
+        ]
       },
       {
         "kind": "blank"
@@ -15689,6 +15969,166 @@
             "part": "c0n50l3",
             "word": "console",
             "description": "An electronic system designed to connect to a television or display to play video games"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Geo",
+        "color2": "Arthro",
+        "color3": "Mental",
+        "name": "Tearmocean",
+        "classification": "Hermit Crab",
+        "info": "The lingering essence of tea within its ceramic teapot calms Tearmocean so profoundly that it develops extraordinary psychic abilities. It spends much of its time in quiet meditation, with gentle wisps of steam rising from its teapot's spout whenever it concentrates.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 2",
+            "entry": "The lingering essence of tea within its ceramic teapot calms Tearmocean so profoundly that it develops extraordinary psychic abilities. It spends much of its time in quiet meditation, with gentle wisps of steam rising from its teapot's spout whenever it concentrates."
+          }
+        ],
+        "internalColor": "WHITE",
+        "height": "1'10\"/0.56M",
+        "weight": "45.2Lbs/20.50KG",
+        "genderRatio": 5,
+        "stats": [
+          75,
+          60,
+          85,
+          112,
+          110,
+          50
+        ],
+        "skill": "Tough Body",
+        "hiddenSkill": "Hydration",
+        "misprintDefect": "Overstuffed",
+        "recruitmentRate": 60,
+        "baseExp": 175,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Deep Clean",
+          "Focus",
+          "Heat Puff",
+          "Leg Stretch",
+          "Psych Up",
+          "Rain Call",
+          "Resin Shards",
+          "Rocky Footing",
+          "Sandstorm",
+          "Shadow Claw",
+          "Slash",
+          "Spike Trap",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Water Burst"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Calm Down",
+            "level": 0
+          },
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Water Burst",
+            "level": 5
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Burst",
+            "level": 10
+          },
+          {
+            "name": "Resin Shards",
+            "level": 13
+          },
+          {
+            "name": "Rocky Footing",
+            "level": 13
+          },
+          {
+            "name": "Psych Up",
+            "level": 14
+          },
+          {
+            "name": "Slash",
+            "level": 17
+          },
+          {
+            "name": "Focus",
+            "level": 20
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Rocky Footing",
+          "Deep Clean",
+          "Rain Call",
+          "Splash",
+          "Water Burst",
+          "Leg Stretch",
+          "Calm Down",
+          "Psych Up",
+          "Spike Trap",
+          "Brace",
+          "Burst",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Heat Puff",
+          "Resin Shards",
+          "Shadow Claw",
+          "Startle",
+          "Sandstorm",
+          "Belch"
+        ],
+        "drops": [
+          "Cracked Teapot"
+        ],
+        "temperamentLock": [
+          "Brutish",
+          "Stoic"
+        ],
+        "nameOrigins": [
+          {
+            "part": "tea",
+            "word": "tea",
+            "description": "A hot or cold beverage made by infusing these leaves in hot water (including varieties like black, green, white, oolong, and pu-erh)"
+          },
+          {
+            "part": "armo",
+            "word": "armor",
+            "description": "A protective layer over a body, vehicle, or other object intended to deflect or diffuse damaging forces"
+          },
+          {
+            "part": "ocean",
+            "word": "ocean",
+            "description": "One of the large bodies of water separating the continents"
           }
         ]
       }
