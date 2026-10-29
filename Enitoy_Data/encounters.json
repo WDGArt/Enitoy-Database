@@ -933,7 +933,8 @@
         "name": "South East Soldust Sands",
         "connectedLocations": [
           "Hissing Caverns",
-          "South West Soldust Sands"
+          "South West Soldust Sands",
+          "North East Soldust Sands"
         ],
         "methods": [
           {
@@ -1825,6 +1826,155 @@
                   "percent": 5
                 }
               ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "North East Soldust Sands",
+        "connectedLocations": [
+          "South East Soldust Sands",
+          "Miragewell Town",
+          "Sundrift Town"
+        ],
+        "methods": [
+          {
+            "name": "Sand",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Cactuty",
+                  "formName": "",
+                  "minLevel": 23,
+                  "maxLevel": 26,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 23,
+                  "maxLevel": 27,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Sandash",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Meterupa",
+                  "formName": "",
+                  "minLevel": 23,
+                  "maxLevel": 27,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 28,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Gummini",
+                  "formName": "",
+                  "minLevel": 22,
+                  "maxLevel": 25,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Cactuty",
+                  "formName": "",
+                  "minLevel": 23,
+                  "maxLevel": 27,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 24,
+                  "maxLevel": 28,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 26,
+                  "maxLevel": 29,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Meterupa",
+                  "formName": "",
+                  "minLevel": 23,
+                  "maxLevel": 27,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Gummini",
+                  "formName": "",
+                  "minLevel": 22,
+                  "maxLevel": 26,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Miragewell Town",
+        "connectedLocations": [
+          "North East Soldust Sands"
+        ],
+        "methods": [
+          {
+            "name": "Gift",
+            "gift": {
+              "enitoy": "Gelus",
+              "formName": "",
+              "level": 5
+            }
+          }
+        ]
+      },
+      {
+        "name": "Sundrift Town",
+        "connectedLocations": [
+          "North East Soldust Sands"
+        ],
+        "methods": [
+          {
+            "name": "Gift",
+            "gift": {
+              "enitoy": "Ninaron",
+              "formName": "",
+              "level": 5
             }
           }
         ]
