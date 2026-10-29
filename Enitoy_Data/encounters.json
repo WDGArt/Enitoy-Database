@@ -2104,14 +2104,131 @@
           "North West Soldust Sands",
           "Soldust Ruins Basement Floor 1"
         ],
-        "methods": []
+        "methods": [
+          {
+            "name": "Ground",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 31,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Crustone",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 30,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Terrakodamask",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 33,
+                  "percent": 5
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 29,
+                  "maxLevel": 33,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 31,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Crustone",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 30,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Terrakodamask",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 33,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 29,
+                  "maxLevel": 33,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
       },
       {
         "name": "Soldust Ruins Floor 2",
         "connectedLocations": [
           "Soldust Ruins Basement Floor 2"
         ],
-        "methods": []
+        "methods": [
+          {
+            "name": "Non-recruitable Boss",
+            "boss": {
+              "enitoy": "Skinetic",
+              "formName": "Guardian",
+              "level": 45
+            }
+          }
+        ]
       },
       {
         "name": "Soldust Ruins Basement Floor 1",
@@ -2119,7 +2236,115 @@
           "Soldust Ruins Floor 1",
           "Soldust Ruins Basement Floor 2"
         ],
-        "methods": []
+        "methods": [
+          {
+            "name": "Ground",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Crustone",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 33,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 34,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Terrakodamask",
+                  "formName": "",
+                  "minLevel": 31,
+                  "maxLevel": 35,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 31,
+                  "maxLevel": 35,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 33,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Riduni",
+                  "formName": "",
+                  "minLevel": 32,
+                  "maxLevel": 36,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 32,
+                  "maxLevel": 36,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Terrakodamask",
+                  "formName": "",
+                  "minLevel": 31,
+                  "maxLevel": 35,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 34,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Crustone",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 33,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 32,
+                  "maxLevel": 36,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 31,
+                  "maxLevel": 35,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Riduni",
+                  "formName": "",
+                  "minLevel": 32,
+                  "maxLevel": 36,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 30,
+                  "maxLevel": 33,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
       },
       {
         "name": "Soldust Ruins Basement Floor 2",
@@ -2128,14 +2353,196 @@
           "Soldust Ruins Basement Floor 1",
           "Soldust Ruins Heart"
         ],
-        "methods": []
+        "methods": [
+          {
+            "name": "Ground",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 34,
+                  "maxLevel": 38,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Runidol",
+                  "formName": "",
+                  "minLevel": 35,
+                  "maxLevel": 39,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Terrakodamask",
+                  "formName": "",
+                  "minLevel": 34,
+                  "maxLevel": 39,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Crustone",
+                  "formName": "",
+                  "minLevel": 33,
+                  "maxLevel": 37,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 36,
+                  "maxLevel": 40,
+                  "percent": 5
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 35,
+                  "maxLevel": 39,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 34,
+                  "maxLevel": 38,
+                  "percent": 30
+                },
+                {
+                  "enitoy": "Runidol",
+                  "formName": "",
+                  "minLevel": 35,
+                  "maxLevel": 39,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Terrakodamask",
+                  "formName": "",
+                  "minLevel": 34,
+                  "maxLevel": 39,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 36,
+                  "maxLevel": 40,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Crustone",
+                  "formName": "",
+                  "minLevel": 33,
+                  "maxLevel": 37,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 35,
+                  "maxLevel": 39,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
       },
       {
         "name": "Soldust Ruins Heart",
         "connectedLocations": [
           "Soldust Ruins Basement Floor 2"
         ],
-        "methods": []
+        "methods": [
+          {
+            "name": "Ground",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 36,
+                  "maxLevel": 40,
+                  "percent": 40
+                },
+                {
+                  "enitoy": "Runidol",
+                  "formName": "",
+                  "minLevel": 38,
+                  "maxLevel": 42,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Terrakodamask",
+                  "formName": "",
+                  "minLevel": 37,
+                  "maxLevel": 41,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 39,
+                  "maxLevel": 43,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 39,
+                  "maxLevel": 43,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 36,
+                  "maxLevel": 40,
+                  "percent": 40
+                },
+                {
+                  "enitoy": "Runidol",
+                  "formName": "",
+                  "minLevel": 38,
+                  "maxLevel": 42,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Terrakodamask",
+                  "formName": "",
+                  "minLevel": 37,
+                  "maxLevel": 41,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 39,
+                  "maxLevel": 43,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 39,
+                  "maxLevel": 43,
+                  "percent": 5
+                }
+              ]
+            }
+          },
+          {
+            "name": "Post-game Boss",
+            "boss": {
+              "enitoy": "Skinetic",
+              "formName": "Guardian",
+              "level": 70
+            }
+          }
+        ]
       }
     ]
   },
