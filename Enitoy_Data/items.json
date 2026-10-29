@@ -374,5 +374,29 @@
     "sellPrice": 1500,
     "pocket": 6,
     "description": "A string of pearls that sells quite well."
+  },
+  {
+    "name": "Cave Claw Fossil",
+    "pluralName": "Cave Claw Fossils",
+    "buyPrice": 0,
+    "sellPrice": 2500,
+    "pocket": 6,
+    "description": "A fossilized bear claw from an ancient Enitoy."
+  },
+  {
+    "name": "Strange Spike Fossil",
+    "pluralName": "Strange Spike Fossils",
+    "buyPrice": 0,
+    "sellPrice": 2500,
+    "pocket": 6,
+    "description": "A fossilized strange spike of an ancient Enitoy."
+  },
+  {
+    "name": "Spooky Skull Fossil",
+    "pluralName": "Spooky Skull Fossils",
+    "buyPrice": 0,
+    "sellPrice": 2500,
+    "pocket": 6,
+    "description": "A fossilized skull from an ancient Enitoy."
   }
 ]

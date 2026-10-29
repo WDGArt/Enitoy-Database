@@ -627,7 +627,8 @@
         "name": "Goldenstead City",
         "connectedLocations": [
           "Hushwood Forest",
-          "Path 03"
+          "Path 03",
+          "Path 04"
         ],
         "methods": [
           {
@@ -2540,6 +2541,128 @@
               "enitoy": "Skinetic",
               "formName": "Guardian",
               "level": 70
+            }
+          }
+        ]
+      },
+      {
+        "name": "Path 04",
+        "connectedLocations": [
+          "Goldenstead City"
+        ],
+        "methods": [
+          {
+            "name": "Grass",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Oinklet",
+                  "formName": "",
+                  "minLevel": 39,
+                  "maxLevel": 42,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Lapaws",
+                  "formName": "",
+                  "minLevel": 40,
+                  "maxLevel": 43,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Egernutty",
+                  "formName": "",
+                  "minLevel": 39,
+                  "maxLevel": 43,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Mossker",
+                  "formName": "",
+                  "minLevel": 40,
+                  "maxLevel": 44,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 41,
+                  "maxLevel": 45,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Chicadet",
+                  "formName": "",
+                  "minLevel": 41,
+                  "maxLevel": 44,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Tanubbish",
+                  "formName": "",
+                  "minLevel": 42,
+                  "maxLevel": 45,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Oinklet",
+                  "formName": "",
+                  "minLevel": 39,
+                  "maxLevel": 42,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Hootton",
+                  "formName": "",
+                  "minLevel": 41,
+                  "maxLevel": 44,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Lapaws",
+                  "formName": "",
+                  "minLevel": 40,
+                  "maxLevel": 43,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Tanubbish",
+                  "formName": "",
+                  "minLevel": 42,
+                  "maxLevel": 45,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Chewattster",
+                  "formName": "",
+                  "minLevel": 41,
+                  "maxLevel": 45,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Egernutty",
+                  "formName": "",
+                  "minLevel": 39,
+                  "maxLevel": 43,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Mossker",
+                  "formName": "",
+                  "minLevel": 40,
+                  "maxLevel": 44,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Necoin",
+                  "formName": "",
+                  "minLevel": 43,
+                  "maxLevel": 45,
+                  "percent": 5
+                }
+              ]
             }
           }
         ]
