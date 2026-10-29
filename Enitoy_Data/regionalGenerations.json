@@ -13228,6 +13228,118 @@
         "affinityCount": 2,
         "color1": "Resin",
         "color2": "Arthro",
+        "color3": "Mental",
+        "name": "Biblosaur",
+        "classification": "Book Worm",
+        "info": "Biblosaur possesses an extraordinary intelligence and spends much of its life studying books. It creates tiny notebooks from discarded scraps of paper and uses charcoal to record its discoveries. Despite its vast knowledge, it is always eager to learn something new.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Biblosaur possesses an extraordinary intelligence and spends much of its life studying books. It creates tiny notebooks from discarded scraps of paper and uses charcoal to record its discoveries. Despite its vast knowledge, it is always eager to learn something new."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "The apple top resting on Biblosaur's head is worn as a symbol of its dedication to learning. It carefully studies its surroundings through its glasses, recording even the smallest details in its notebook. Some Biblosaur become so absorbed in their research that they forget to eat or sleep."
+          }
+        ],
+        "internalColor": "GREEN",
+        "height": "1'04\"/0.41M",
+        "weight": "10.3Lbs/4.67KG",
+        "genderRatio": 5,
+        "stats": [
+          65,
+          35,
+          50,
+          100,
+          95,
+          50
+        ],
+        "skill": "Analytic",
+        "hiddenSkill": "Premonition",
+        "misprintDefect": "Sleepless",
+        "recruitmentRate": 100,
+        "baseExp": 135,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Psych Up",
+          "Resin Shards",
+          "Startle",
+          "Tackle"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Calm Down",
+            "level": 4
+          },
+          {
+            "name": "Focus",
+            "level": 7
+          },
+          {
+            "name": "Burst",
+            "level": 10
+          },
+          {
+            "name": "Psych Up",
+            "level": 13
+          },
+          {
+            "name": "Resin Shards",
+            "level": 16
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Leg Stretch",
+          "Calm Down",
+          "Psych Up",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Tackle",
+          "Resin Shards",
+          "Startle"
+        ],
+        "temperamentLock": [
+          "Brutish",
+          "Hot Headed"
+        ],
+        "nameOrigins": [
+          {
+            "part": "Biblo",
+            "word": "Biblio",
+            "description": "Greek for book or related to books"
+          },
+          {
+            "part": "saur",
+            "word": "thesaurus",
+            "description": "A publication, usually in the form of a book, that provides synonyms (and sometimes antonyms) for the words of a given language"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Resin",
+        "color2": "Arthro",
         "color3": "Lux",
         "name": "Crabottle",
         "classification": "Hermit Crab",
@@ -13508,9 +13620,6 @@
             "description": "One of the large bodies of water separating the continents"
           }
         ]
-      },
-      {
-        "kind": "blank"
       },
       {
         "kind": "blank"
