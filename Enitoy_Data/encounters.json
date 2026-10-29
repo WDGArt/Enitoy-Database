@@ -1036,7 +1036,8 @@
         "name": "South West Soldust Sands",
         "connectedLocations": [
           "South East Soldust Sands",
-          "Abandoned Sky Moon Factory Entryway"
+          "Abandoned Sky Moon Factory Entryway",
+          "North West Soldust Sands"
         ],
         "methods": [
           {
@@ -1835,7 +1836,8 @@
         "connectedLocations": [
           "South East Soldust Sands",
           "Miragewell Town",
-          "Sundrift Town"
+          "Sundrift Town",
+          "North West Soldust Sands"
         ],
         "methods": [
           {
@@ -1978,6 +1980,160 @@
             }
           }
         ]
+      },
+      {
+        "name": "North West Soldust Sands",
+        "connectedLocations": [
+          "North East Soldust Sands",
+          "South West Soldust Sands",
+          "Soldust Ruins Floor 1"
+        ],
+        "methods": [
+          {
+            "name": "Sand",
+            "grass": {
+              "day": [
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 26,
+                  "maxLevel": 30,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Cactuty",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Sandash",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 26,
+                  "maxLevel": 30,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Foadow",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 5
+                }
+              ],
+              "night": [
+                {
+                  "enitoy": "Scorpinch",
+                  "formName": "",
+                  "minLevel": 26,
+                  "maxLevel": 30,
+                  "percent": 25
+                },
+                {
+                  "enitoy": "Buzzareap",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Rattling",
+                  "formName": "",
+                  "minLevel": 26,
+                  "maxLevel": 30,
+                  "percent": 20
+                },
+                {
+                  "enitoy": "Brawrap",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 15
+                },
+                {
+                  "enitoy": "Cactuty",
+                  "formName": "",
+                  "minLevel": 25,
+                  "maxLevel": 29,
+                  "percent": 10
+                },
+                {
+                  "enitoy": "Foadow",
+                  "formName": "",
+                  "minLevel": 28,
+                  "maxLevel": 32,
+                  "percent": 5
+                },
+                {
+                  "enitoy": "Princub",
+                  "formName": "",
+                  "minLevel": 27,
+                  "maxLevel": 31,
+                  "percent": 5
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Soldust Ruins Floor 1",
+        "connectedLocations": [
+          "North West Soldust Sands",
+          "Soldust Ruins Basement Floor 1"
+        ],
+        "methods": []
+      },
+      {
+        "name": "Soldust Ruins Floor 2",
+        "connectedLocations": [],
+        "methods": []
+      },
+      {
+        "name": "Soldust Ruins Basement Floor 1",
+        "connectedLocations": [
+          "Soldust Ruins Floor 1",
+          "Soldust Ruins Basement Floor 2"
+        ],
+        "methods": []
+      },
+      {
+        "name": "Soldust Ruins Basement Floor 2",
+        "connectedLocations": [
+          "Soldust Ruins Floor 2",
+          "Soldust Ruins Basement Floor 1",
+          "Soldust Ruins Heart"
+        ],
+        "methods": []
+      },
+      {
+        "name": "Soldust Ruins Heart",
+        "connectedLocations": [
+          "Soldust Ruins Basement Floor 2"
+        ],
+        "methods": []
       }
     ]
   },
