@@ -6304,11 +6304,18 @@ dialog,
                     <span>Level</span>
                     <input id="battle-sim-level-input" type="number" min="1" max="100" step="1" inputmode="numeric" value="1"/>
                 </label>
+                <label class="battle-sim-level-field" for="battle-sim-time-select">
+                    <span>Time of Day for Modifications</span>
+                    <select id="battle-sim-time-select">
+                        <option value="day">Day</option>
+                        <option value="night">Night</option>
+                    </select>
+                </label>
                 <label class="battle-sim-level-field" for="battle-sim-stage-select">
                     <span>Stage</span>
                     <select id="battle-sim-stage-select"></select>
                 </label>
-                <p class="battle-sim-stage-help">Available stages come from this Enitoy's Modification line. Level-based stages only appear once this party member reaches the required level.</p>
+                <p class="battle-sim-stage-help">Available stages follow the recorded Modification requirements. In Party methods require the specified Enitoy in the same party, and Day/Night methods use the time selected above. The simulator previews eligibility; modifications still happen upon level-up in the game.</p>
                 <div class="battle-sim-move-field">
                     <div class="battle-sim-move-heading">
                         <strong>Techniques Known</strong>
@@ -7520,6 +7527,7 @@ dialog,
                 var battleSimNicknameInput = document.getElementById("battle-sim-nickname-input");
                 var battleSimLevelInput = document.getElementById("battle-sim-level-input");
                 var battleSimStageSelect = document.getElementById("battle-sim-stage-select");
+                var battleSimTimeSelect = document.getElementById("battle-sim-time-select");
                 var battleSimMoveList = document.getElementById("battle-sim-move-list");
                 var battleSimLevelCancelButton = document.getElementById("battle-sim-level-cancel");
                 var battleSimLevelSaveButton = document.getElementById("battle-sim-level-save");
@@ -9515,6 +9523,11 @@ async function enitoyLoadModular(ref, knownRevision){
                                                     if (regionalModificationDefinition.parameterType === "item" && !data.items.some(function (item) { return item.name.trim().toLowerCase() === regionalModificationParameterKey; })) return "An item-based Modification parameter is not present in the Item List.";
                                                     if (regionalModificationDefinition.parameterType === "technique" && !data.moves.some(function (move) { return move.name.trim().toLowerCase() === regionalModificationParameterKey; })) return "A technique-based Modification parameter is not present in the Move List.";
                                                     if (regionalModificationDefinition.parameterType === "stitching" && !data.materials.concat(data.affinities).some(function (stitchingName) { return stitchingName.toLowerCase() === regionalModificationParameterKey; })) return "A Stitching-based Modification parameter is not present in the Type Chart.";
+                                                    if (regionalModificationDefinition.parameterType === "enitoy" && !data.regionalGenerations.some(function (companionGeneration) {
+                                                        return Array.isArray(companionGeneration.enitoys) && companionGeneration.enitoys.some(function (companion) {
+                                                            return companion && companion.kind === "concept" && typeof companion.name === "string" && companion.name.trim().toLowerCase() === regionalModificationParameterKey;
+                                                        });
+                                                    })) return "An In Party Modification parameter must reference an existing Enitoy.";
                                                 }
 
                                                 var regionalModificationKey = regionalModificationSourceFormKey + "|" +
@@ -10313,6 +10326,23 @@ async function enitoyLoadModular(ref, knownRevision){
                                                             importedTargetForm = rawTargetForm.formName.trim();
                                                         }
                                                         var importedParameter = canonicalRegionalModificationParameter(modification.method, modification.parameter);
+                                                        // During import, the new Regional roster is still being mapped.
+                                                        // Resolve species parameters against the incoming JSON, not the old roster.
+                                                        if (definition.parameterType === "enitoy") {
+                                                            var wantedPartyEnitoy = String(modification.parameter || "").trim().toLowerCase();
+                                                            var importedPartyEnitoy = null;
+                                                            data.regionalGenerations.some(function (partyGeneration) {
+                                                                return (partyGeneration.enitoys || []).some(function (candidate) {
+                                                                    if (candidate && candidate.kind === "concept" && typeof candidate.name === "string" &&
+                                                                        candidate.name.trim().toLowerCase() === wantedPartyEnitoy) {
+                                                                        importedPartyEnitoy = candidate.name.trim();
+                                                                        return true;
+                                                                    }
+                                                                    return false;
+                                                                });
+                                                            });
+                                                            importedParameter = importedPartyEnitoy;
+                                                        }
                                                         if (importedParameter === null) return;
                                                         var importedModificationKey = importedSourceForm.toLowerCase() + "|" + targetGeneration.name.toLowerCase() + "|" +
                                                             targetEntry.name.trim().toLowerCase() + "|" + importedTargetForm.toLowerCase() + "|" +
@@ -13436,7 +13466,10 @@ async function enitoyLoadModular(ref, knownRevision){
                     { name: "Level Windy", parameterType: "level" },
                     { name: "Level Rain", parameterType: "level" },
                     { name: "Level Defeat Own Kind", parameterType: "level" },
-                    { name: "Party has Stitching", parameterType: "stitching" }
+                    { name: "Party has Stitching", parameterType: "stitching" },
+                    { name: "In Party", parameterType: "enitoy" },
+                    { name: "In Party Night", parameterType: "enitoy" },
+                    { name: "In Party Day", parameterType: "enitoy" }
                 ];
 
                 function regionalModificationMethodDefinition(methodName) {
@@ -13462,6 +13495,8 @@ async function enitoyLoadModular(ref, knownRevision){
                         source = moves.map(function (move) { return move.name; });
                     } else if (definition.parameterType === "stitching") {
                         source = allTypes();
+                    } else if (definition.parameterType === "enitoy") {
+                        source = regionalTargetCandidates().map(function (candidate) { return candidate.name; });
                     }
                     return source.find(function (name) {
                         return name.toLowerCase() === wanted;
@@ -13727,6 +13762,19 @@ async function enitoyLoadModular(ref, knownRevision){
                             return { value: name, label: "Affinity — " + name };
                         }));
                         fillRegionalModificationStringSelect(select, stitchingValues, "No Materials or Affinities are available");
+                    } else if (definition.parameterType === "enitoy") {
+                        // A companion is a species, not the modification target or a form.
+                        // Keep the saved parameter as the Enitoy's name, as with other
+                        // method parameters, so exported JSON and the viewer work unchanged.
+                        var availableEnitoys = [];
+                        var seenEnitoyNames = {};
+                        regionalTargetCandidates().forEach(function (candidate) {
+                            var key = candidate.name.toLowerCase();
+                            if (seenEnitoyNames[key]) return;
+                            seenEnitoyNames[key] = true;
+                            availableEnitoys.push({ value: candidate.name, label: candidate.name });
+                        });
+                        fillRegionalModificationStringSelect(select, availableEnitoys, "No Enitoys are available");
                     }
                     regionalModificationAddButton.disabled = regionalModificationTargetSelect.disabled || select.disabled;
                 }
@@ -13843,6 +13891,7 @@ async function enitoyLoadModular(ref, knownRevision){
 
                 function renameRegionalModificationTarget(generationId, oldName, newName) {
                     if (!oldName || !newName || oldName.toLowerCase() === newName.toLowerCase()) return;
+                    renameRegionalModificationPartyRequirement(oldName, newName);
                     var targetGeneration = regionalGenerations.find(function (entry) { return entry.id === generationId; });
                     if (!targetGeneration) return;
 
@@ -13855,7 +13904,7 @@ async function enitoyLoadModular(ref, knownRevision){
                                     modification.targetGeneration = targetGeneration.name;
                                 }
                             });
-                            entry.modifications = normalizedRegionalModifications(entry);
+                            // Keep the modified references intact until the renamed Enitoy is committed.
                             normalizeRegionalEntryKind(entry);
                         });
                     });
@@ -13863,6 +13912,7 @@ async function enitoyLoadModular(ref, knownRevision){
 
                 function deleteRegionalModificationTarget(generationId, name) {
                     if (!name) return;
+                    deleteRegionalModificationPartyRequirement(name);
                     var targetGeneration = regionalGenerations.find(function (entry) { return entry.id === generationId; });
                     if (!targetGeneration) return;
 
@@ -13873,6 +13923,36 @@ async function enitoyLoadModular(ref, knownRevision){
                                 return !regionalReferenceTargetsGeneration(modification, ownerGeneration.name, targetGeneration.name, name);
                             });
                             normalizeRegionalEntryKind(entry);
+                        });
+                    });
+                }
+
+                function renameRegionalModificationPartyRequirement(oldName, newName) {
+                    if (!oldName || !newName || oldName.toLowerCase() === newName.toLowerCase()) return;
+                    regionalGenerations.forEach(function (generation) {
+                        (generation.enitoys || []).forEach(function (entry) {
+                            if (!entry || !Array.isArray(entry.modifications)) return;
+                            entry.modifications.forEach(function (modification) {
+                                var definition = regionalModificationMethodDefinition(modification.method);
+                                if (definition && definition.parameterType === "enitoy" &&
+                                    String(modification.parameter || "").toLowerCase() === oldName.toLowerCase()) {
+                                    modification.parameter = newName;
+                                }
+                            });
+                        });
+                    });
+                }
+
+                function deleteRegionalModificationPartyRequirement(name) {
+                    if (!name) return;
+                    regionalGenerations.forEach(function (generation) {
+                        (generation.enitoys || []).forEach(function (entry) {
+                            if (!entry || !Array.isArray(entry.modifications)) return;
+                            entry.modifications = entry.modifications.filter(function (modification) {
+                                var definition = regionalModificationMethodDefinition(modification.method);
+                                return !(definition && definition.parameterType === "enitoy" &&
+                                    String(modification.parameter || "").toLowerCase() === name.toLowerCase());
+                            });
                         });
                     });
                 }
@@ -21236,7 +21316,7 @@ async function enitoyLoadModular(ref, knownRevision){
                     var stageKey = battleSimStageSelect && battleSimStageSelect.value
                         ? battleSimStageSelect.value
                         : battleSimPartySlotStageKey(battleSimEditingSide, battleSimEditingIndex);
-                    stageKey = battleSimBestAvailableStage(rootKey, stageKey || rootKey, level, battleSimEditingMoves);
+                    stageKey = battleSimBestAvailableStage(rootKey, stageKey || rootKey, level, battleSimEditingMoves, battleSimEditingSide, battleSimEditingIndex);
                     var accessible = battleSimAccessibleTechniques(stageKey, level);
                     var availableByKey = {};
                     accessible.forEach(function (entry) { availableByKey[entry.name.toLowerCase()] = entry.name; });
@@ -21330,7 +21410,7 @@ async function enitoyLoadModular(ref, knownRevision){
                     });
                 }
 
-                function battleSimModificationAvailableAtLevel(modification, level, knownMoves) {
+                function battleSimModificationAvailableAtLevel(modification, level, knownMoves, side, slotIndex) {
                     if (!modification || !modification.definition) return false;
                     if (modification.definition.parameterType === "level") {
                         return battleSimClampLevel(level) >= Number(modification.parameter);
@@ -21338,10 +21418,22 @@ async function enitoyLoadModular(ref, knownRevision){
                     if (modification.definition.parameterType === "technique") {
                         return battleSimKnownMovesContain(knownMoves, modification.parameter);
                     }
+                    if (modification.definition.parameterType === "enitoy") {
+                        var method = modification.method;
+                        var timeOfDay = battleSimTimeSelect ? battleSimTimeSelect.value : "day";
+                        if (method === "In Party Night" && timeOfDay !== "night") return false;
+                        if (method === "In Party Day" && timeOfDay !== "day") return false;
+                        var wantedEnitoy = String(modification.parameter || "").trim().toLowerCase();
+                        return !!(battleSimPartyState[side] || []).some(function (rootKey, candidateIndex) {
+                            if (!rootKey || candidateIndex === slotIndex) return false;
+                            var companion = battleSimFindEnitoyByKey(battleSimPartySlotStageKey(side, candidateIndex));
+                            return companion && companion.name.toLowerCase() === wantedEnitoy;
+                        });
+                    }
                     return true;
                 }
 
-                function battleSimReachableStages(rootKey, level, knownMoves) {
+                function battleSimReachableStages(rootKey, level, knownMoves, side, slotIndex) {
                     var root = battleSimFindEnitoyByKey(rootKey);
                     if (!root) return [];
                     var output = [root];
@@ -21352,7 +21444,7 @@ async function enitoyLoadModular(ref, knownRevision){
                     while (queue.length) {
                         var current = queue.shift();
                         battleSimRawOutgoingModifications(current).forEach(function (modification) {
-                            if (!battleSimModificationAvailableAtLevel(modification, level, knownMoves)) return;
+                            if (!battleSimModificationAvailableAtLevel(modification, level, knownMoves, side, slotIndex)) return;
                             if (visited[modification.key]) return;
                             var target = battleSimFindEnitoyByKey(modification.key);
                             if (!target) return;
@@ -21389,8 +21481,8 @@ async function enitoyLoadModular(ref, knownRevision){
                     return [];
                 }
 
-                function battleSimBestAvailableStage(rootKey, wantedStageKey, level, knownMoves) {
-                    var reachable = battleSimReachableStages(rootKey, level, knownMoves);
+                function battleSimBestAvailableStage(rootKey, wantedStageKey, level, knownMoves, side, slotIndex) {
+                    var reachable = battleSimReachableStages(rootKey, level, knownMoves, side, slotIndex);
                     if (!reachable.length) return rootKey;
                     var available = {};
                     reachable.forEach(function (candidate) {
@@ -21413,8 +21505,8 @@ async function enitoyLoadModular(ref, knownRevision){
                     if (!rootKey) return;
                     var level = battleSimClampLevel(battleSimLevelInput ? battleSimLevelInput.value : battleSimPartySlotLevel(side, index));
                     var currentStageKey = preferredStageKey || battleSimStageSelect.value || battleSimPartySlotStageKey(side, index) || rootKey;
-                    currentStageKey = battleSimBestAvailableStage(rootKey, currentStageKey, level, battleSimEditingMoves);
-                    var stages = battleSimReachableStages(rootKey, level, battleSimEditingMoves);
+                    currentStageKey = battleSimBestAvailableStage(rootKey, currentStageKey, level, battleSimEditingMoves, side, index);
+                    var stages = battleSimReachableStages(rootKey, level, battleSimEditingMoves, side, index);
                     // Stage choices follow Regional catalog order, not alphabetical order.
                     stages.sort(function (a, b) {
                         var generationA = regionalGenerations.findIndex(function (generation) { return generation.name === a.generationName; });
@@ -21485,7 +21577,7 @@ async function enitoyLoadModular(ref, knownRevision){
                     var rootKey = battleSimPartyState[side][index];
                     var level = battleSimClampLevel(battleSimLevelInput ? battleSimLevelInput.value : 1);
                     var wantedStageKey = battleSimStageSelect && battleSimStageSelect.value ? battleSimStageSelect.value : battleSimPartySlotStageKey(side, index);
-                    var stageKey = battleSimBestAvailableStage(rootKey, wantedStageKey, level, battleSimEditingMoves);
+                    var stageKey = battleSimBestAvailableStage(rootKey, wantedStageKey, level, battleSimEditingMoves, side, index);
                     var nickname = battleSimNicknameInput ? battleSimNicknameInput.value.trim().slice(0, 40) : "";
 
                     var accessibleTechniques = battleSimAccessibleTechniques(stageKey, level);
@@ -21526,6 +21618,13 @@ async function enitoyLoadModular(ref, knownRevision){
                                 event.preventDefault();
                                 saveBattleSimLevelEditor();
                             }
+                        }, false);
+                    }
+                    if (battleSimTimeSelect) {
+                        battleSimTimeSelect.addEventListener("change", function () {
+                            renderBattleSimStageOptions(battleSimStageSelect ? battleSimStageSelect.value : null);
+                            renderBattleSimMoveOptions();
+                            renderBattleSimPartySlots();
                         }, false);
                     }
                     if (battleSimStageSelect) {
@@ -21578,7 +21677,7 @@ async function enitoyLoadModular(ref, knownRevision){
 
                         var currentLevel = battleSimPartySlotLevel(side, index);
                         if (battleSimPartyLevels[side][index] == null) battleSimPartyLevels[side][index] = currentLevel;
-                        var stageKey = battleSimBestAvailableStage(rootKey, battleSimPartySlotStageKey(side, index), currentLevel, battleSimPartySlotMoves(side, index));
+                        var stageKey = battleSimBestAvailableStage(rootKey, battleSimPartySlotStageKey(side, index), currentLevel, battleSimPartySlotMoves(side, index), side, index);
                         battleSimPartyStages[side][index] = stageKey;
                         var stageCandidate = battleSimFindEnitoyByKey(stageKey) || rootCandidate;
                         var accessibleMoves = battleSimAccessibleTechniques(stageKey, currentLevel);
@@ -21693,7 +21792,8 @@ async function enitoyLoadModular(ref, knownRevision){
                                 payload.key,
                                 typeof payload.stageKey === "string" ? payload.stageKey : payload.key,
                                 battleSimPartyLevels[side][index],
-                                Array.isArray(payload.knownMoves) ? payload.knownMoves : []
+                                Array.isArray(payload.knownMoves) ? payload.knownMoves : [],
+                                side, index
                             );
                             var droppedAccessible = battleSimAccessibleTechniques(
                                 battleSimPartyStages[side][index],
