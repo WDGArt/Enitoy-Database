@@ -68,7 +68,7 @@
     "pluralName": "Aero CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Aero energy."
   },
   {
@@ -76,7 +76,7 @@
     "pluralName": "Lux CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Lux energy."
   },
   {
@@ -84,7 +84,7 @@
     "pluralName": "Spectral CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Spectral energy."
   },
   {
@@ -92,7 +92,7 @@
     "pluralName": "Toxic CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Toxic energy."
   },
   {
@@ -100,7 +100,7 @@
     "pluralName": "Cryo CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Cryo energy."
   },
   {
@@ -108,7 +108,7 @@
     "pluralName": "Terra CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Terra energy."
   },
   {
@@ -116,7 +116,7 @@
     "pluralName": "Nature CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Nature energy."
   },
   {
@@ -124,7 +124,7 @@
     "pluralName": "Ordinary CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Ordinary energy."
   },
   {
@@ -132,7 +132,7 @@
     "pluralName": "Audio CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Audio energy."
   },
   {
@@ -140,7 +140,7 @@
     "pluralName": "Nox CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Nox energy."
   },
   {
@@ -148,7 +148,7 @@
     "pluralName": "Electro CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Electro energy."
   },
   {
@@ -156,7 +156,7 @@
     "pluralName": "Pyro CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Pyro energy."
   },
   {
@@ -164,7 +164,7 @@
     "pluralName": "Hydro CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Hydro energy."
   },
   {
@@ -172,7 +172,7 @@
     "pluralName": "Mental CDs",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A compact disc that was used to store Mental energy."
   },
   {
@@ -292,7 +292,7 @@
     "pluralName": "Survival Cartridges",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A cartridge to be held by a certain Enitoy that contains a survival sandbox game."
   },
   {
@@ -300,7 +300,7 @@
     "pluralName": "Cooking Cartridges",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A cartridge to be held by a certain Enitoy that contains a cooking game."
   },
   {
@@ -308,7 +308,7 @@
     "pluralName": "Pirate Cartridges",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A cartridge to be held by a certain Enitoy that contains a game about being a pirate."
   },
   {
@@ -316,7 +316,7 @@
     "pluralName": "Fighting Cartridges",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A cartridge to be held by a certain Enitoy that contains a two-player fighting game."
   },
   {
@@ -324,7 +324,7 @@
     "pluralName": "Stealth Cartridges",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A cartridge to be held by a certain Enitoy that contains a stealth survival game."
   },
   {
@@ -332,7 +332,7 @@
     "pluralName": "Puzzle Cartridges",
     "buyPrice": 2000,
     "sellPrice": 1750,
-    "pocket": 1,
+    "pocket": 4,
     "description": "A cartridge to be held by a certain Enitoy that contains a puzzle game."
   },
   {
@@ -350,5 +350,29 @@
     "sellPrice": 250,
     "pocket": 1,
     "description": "An old cracked teapot that is enjoyed by a particular Enitoy."
+  },
+  {
+    "name": "Light Feather",
+    "pluralName": "Light Feathers",
+    "buyPrice": 300,
+    "sellPrice": 250,
+    "pocket": 4,
+    "description": "A light weight feather to be held by an Enitoy to make Aero Techniques move slightly faster."
+  },
+  {
+    "name": "Soft Dirt Bag",
+    "pluralName": "Soft Dirt Bags",
+    "buyPrice": 300,
+    "sellPrice": 250,
+    "pocket": 4,
+    "description": "A bag of soft dirt to be held by an Enitoy to make Geo and Terra techniques slightly stronger."
+  },
+  {
+    "name": "Pearl String",
+    "pluralName": "Pearl Strings",
+    "buyPrice": 0,
+    "sellPrice": 1500,
+    "pocket": 6,
+    "description": "A string of pearls that sells quite well."
   }
 ]

@@ -12757,6 +12757,474 @@
       },
       {
         "kind": "concept",
+        "affinityCount": 1,
+        "color1": "Plush",
+        "color2": "Ordinary",
+        "name": "Oinklet",
+        "classification": "Piglet",
+        "info": "Oinklet possesses an extraordinary sense of smell, allowing it to locate objects buried deep underground. Farmers often raise them to search for valuable truffles, though their insatiable appetites occasionally lead them to eat their discoveries before anyone can collect them.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Oinklet possesses an extraordinary sense of smell, allowing it to locate objects buried deep underground. Farmers often raise them to search for valuable truffles, though their insatiable appetites occasionally lead them to eat their discoveries before anyone can collect them."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Despite its small size, Oinklet has an enormous appetite and spends much of its day searching for food. Strangely, certain objects have been observed triggering dramatic changes in its appearance when it grows stronger, leading researchers to investigate its unusual modifications."
+          }
+        ],
+        "internalColor": "PINK",
+        "height": "1'00\"/0.30M",
+        "weight": "13.8Lbs/6.26KG",
+        "genderRatio": 5,
+        "stats": [
+          66,
+          55,
+          50,
+          45,
+          55,
+          60
+        ],
+        "skill": "Scavenge",
+        "hiddenSkill": "Berry Pouch",
+        "misprintDefect": "Overstuffed",
+        "recruitmentRate": 150,
+        "baseExp": 70,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Calm Down",
+          "Focus",
+          "Leg Stretch",
+          "Pump Up",
+          "Rocky Footing",
+          "Splash",
+          "Startle",
+          "Tackle"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Focus",
+            "level": 10
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Rocky Footing",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Pump Up",
+          "Brace",
+          "Focus",
+          "Tackle",
+          "Startle",
+          "Belch"
+        ],
+        "temperamentLock": [
+          "Brutish",
+          "Serene"
+        ],
+        "modifications": [
+          {
+            "target": "Beaduroc",
+            "targetGeneration": "Gen 1",
+            "method": "Hold Item",
+            "parameter": "Pearl String"
+          },
+          {
+            "target": "Clouduroc",
+            "targetGeneration": "Gen 1",
+            "method": "Hold Item",
+            "parameter": "Light Feather"
+          },
+          {
+            "target": "Muduroc",
+            "targetGeneration": "Gen 1",
+            "method": "Hold Item",
+            "parameter": "Soft Dirt Bag"
+          }
+        ],
+        "nameOrigins": [
+          {
+            "part": "oink",
+            "word": "oink",
+            "description": "The sound made by a pig, or an imitation thereof"
+          },
+          {
+            "part": "let",
+            "word": "let",
+            "description": "small, lesser, or a young version of something"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Plush",
+        "color2": "Ordinary",
+        "color3": "Aero",
+        "name": "Clouduroc",
+        "classification": "Flying Pig",
+        "info": "Once thought to exist only in impossible stories, Clouduroc soars through the skies using its powerful wings. The soft clouds surrounding its body cushion incoming attacks, allowing it to withstand collisions that would otherwise send it plummeting to the ground.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Once thought to exist only in impossible stories, Clouduroc soars through the skies using its powerful wings. The soft clouds surrounding its body cushion incoming attacks, allowing it to withstand collisions that would otherwise send it plummeting to the ground."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Sightings of Clouduroc were once dismissed as elaborate hoaxes, as few believed a pig could truly fly. It enjoys drifting lazily among the clouds, occasionally descending to surprise unsuspecting travelers who mistake its fluffy silhouette for an ordinary cloud."
+          }
+        ],
+        "internalColor": "PINK",
+        "height": "2'10\"/0.86M",
+        "weight": "185.4Lbs/84.10KG",
+        "genderRatio": 5,
+        "stats": [
+          75,
+          85,
+          65,
+          85,
+          70,
+          115
+        ],
+        "skill": "Cushioned Body",
+        "hiddenSkill": "Berry Pouch",
+        "misprintDefect": "Overstuffed",
+        "recruitmentRate": 60,
+        "baseExp": 180,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Calm Down",
+          "Focus",
+          "Leg Stretch",
+          "Pump Up",
+          "Rocky Footing",
+          "Splash",
+          "Startle",
+          "Tackle"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Focus",
+            "level": 10
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Rocky Footing",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Pump Up",
+          "Brace",
+          "Focus",
+          "Tackle",
+          "Startle",
+          "Belch"
+        ],
+        "drops": [
+          "Light Feather"
+        ],
+        "temperamentLock": [
+          "Brutish",
+          "Serene"
+        ],
+        "nameOrigins": [
+          {
+            "part": "cloud",
+            "word": "cloud",
+            "description": "A visible mass of condensed water droplets or ice crystals suspended in the atmosphere of a planet or moon"
+          },
+          {
+            "part": "duroc",
+            "word": "duroc",
+            "description": "A pig of a reddish breed developed in North America"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Plush",
+        "color2": "Ordinary",
+        "color3": "Terra",
+        "name": "Muduroc",
+        "classification": "Muddy Pig",
+        "info": "Muduroc is happiest when completely submerged in thick, sticky mud. Its enormous weight comes partly from the heavy layers of dirt coating its body, which it refuses to wash away. Even powerful rainstorms rarely disturb its cheerful wallowing.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Muduroc is happiest when completely submerged in thick, sticky mud. Its enormous weight comes partly from the heavy layers of dirt coating its body, which it refuses to wash away. Even powerful rainstorms rarely disturb its cheerful wallowing."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "No terrain seems capable of dampening Muduroc's spirits. Whether trudging through swamps, crossing rocky hillsides, or rolling through muddy fields, it remains remarkably content. It is said that a Muduroc without mud is a Muduroc without happiness."
+          }
+        ],
+        "internalColor": "PINK",
+        "height": "2'10\"/0.86M",
+        "weight": "575.6Lbs/261.09KG",
+        "genderRatio": 5,
+        "stats": [
+          110,
+          105,
+          110,
+          45,
+          80,
+          45
+        ],
+        "skill": "All-terrain",
+        "hiddenSkill": "Berry Pouch",
+        "misprintDefect": "Overstuffed",
+        "recruitmentRate": 60,
+        "baseExp": 180,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Calm Down",
+          "Focus",
+          "Leg Stretch",
+          "Pump Up",
+          "Rocky Footing",
+          "Sandstorm",
+          "Splash",
+          "Startle",
+          "Tackle"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Focus",
+            "level": 10
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Rocky Footing",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Pump Up",
+          "Brace",
+          "Focus",
+          "Tackle",
+          "Startle",
+          "Sandstorm",
+          "Belch"
+        ],
+        "drops": [
+          "Soft Dirt Bag"
+        ],
+        "temperamentLock": [
+          "Brutish",
+          "Serene"
+        ],
+        "nameOrigins": [
+          {
+            "part": "mud",
+            "word": "mud",
+            "description": "a wet, sticky mixture of soil, silt, clay, or loam combined with water"
+          },
+          {
+            "part": "duroc",
+            "word": "duroc",
+            "description": "A pig of a reddish breed developed in North America"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Plush",
+        "color2": "Ordinary",
+        "color3": "Lux",
+        "name": "Beaduroc",
+        "classification": "Pearl Pig",
+        "info": "Beaduroc decorates itself with beautiful strings of pearls, completely unaware of their immense value. The pearls absorb Lux energy from its body and glow brilliantly when threatened, allowing it to unleash sudden bursts of radiant energy against approaching enemies.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Beaduroc decorates itself with beautiful strings of pearls, completely unaware of their immense value. The pearls absorb Lux energy from its body and glow brilliantly when threatened, allowing it to unleash sudden bursts of radiant energy against approaching enemies."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Despite carrying precious jewels worth enormous sums, Beaduroc shows little interest in their value. Researchers have observed individuals happily exchanging flawless pearls for ordinary berries, much to the frustration of collectors who struggle to understand their peculiar behavior."
+          }
+        ],
+        "internalColor": "PINK",
+        "height": "2'10\"/0.86M",
+        "weight": "510.2Lbs/231.42KG",
+        "genderRatio": 5,
+        "stats": [
+          80,
+          55,
+          70,
+          115,
+          120,
+          55
+        ],
+        "skill": "Illuminate",
+        "hiddenSkill": "Berry Pouch",
+        "misprintDefect": "Overstuffed",
+        "recruitmentRate": 60,
+        "baseExp": 180,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Focus",
+          "Leg Stretch",
+          "Pump Up",
+          "Rocky Footing",
+          "Splash",
+          "Startle",
+          "Tackle"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 4
+          },
+          {
+            "name": "Belch",
+            "level": 7
+          },
+          {
+            "name": "Focus",
+            "level": 10
+          },
+          {
+            "name": "Burst",
+            "level": 13
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Rocky Footing",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Pump Up",
+          "Brace",
+          "Burst",
+          "Focus",
+          "Tackle",
+          "Startle",
+          "Belch"
+        ],
+        "drops": [
+          "Pearl String"
+        ],
+        "temperamentLock": [
+          "Brutish",
+          "Serene"
+        ],
+        "nameOrigins": [
+          {
+            "part": "bead",
+            "word": "bead",
+            "description": "a small, perforated piece of material—such as glass, wood, stone, plastic, or shell—threaded onto a string or wire to create jewelry or decorative items"
+          },
+          {
+            "part": "duroc",
+            "word": "duroc",
+            "description": "A pig of a reddish breed developed in North America"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
         "affinityCount": 2,
         "color1": "Resin",
         "color2": "Arthro",
@@ -13040,18 +13508,6 @@
             "description": "One of the large bodies of water separating the continents"
           }
         ]
-      },
-      {
-        "kind": "blank"
-      },
-      {
-        "kind": "blank"
-      },
-      {
-        "kind": "blank"
-      },
-      {
-        "kind": "blank"
       },
       {
         "kind": "blank"
