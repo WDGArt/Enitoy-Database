@@ -6315,7 +6315,7 @@ dialog,
                     <span>Stage</span>
                     <select id="battle-sim-stage-select"></select>
                 </label>
-                <p class="battle-sim-stage-help">Available stages follow the recorded Modification requirements. In Party methods require the specified Enitoy in the same party, and Day/Night methods use the time selected above. The simulator previews eligibility; modifications still happen upon level-up in the game.</p>
+                <p class="battle-sim-stage-help">Available stages follow the recorded Modification requirements. In Party methods require the specified companion when leveling up; Has Technique methods require the specified technique to be known when leveling up; Give Item methods require giving the specified item to the Enitoy. Day/Night methods use the time selected above. The simulator previews eligibility and assumes any required item is available; Give Item modifications happen when the item is given, not on level-up.</p>
                 <div class="battle-sim-move-field">
                     <div class="battle-sim-move-heading">
                         <strong>Techniques Known</strong>
@@ -13454,9 +13454,13 @@ async function enitoyLoadModular(ref, knownRevision){
 
                 var regionalModificationMethods = [
                     { name: "Give Item", parameterType: "item" },
+                    { name: "Give Item Night", parameterType: "item" },
+                    { name: "Give Item Day", parameterType: "item" },
                     { name: "Level Max Happiness", parameterType: "level" },
                     { name: "Level Night", parameterType: "level" },
                     { name: "Has Technique", parameterType: "technique" },
+                    { name: "Has Technique Night", parameterType: "technique" },
+                    { name: "Has Technique Day", parameterType: "technique" },
                     { name: "Level", parameterType: "level" },
                     { name: "Level Day", parameterType: "level" },
                     { name: "Level male", parameterType: "level" },
@@ -14001,7 +14005,7 @@ async function enitoyLoadModular(ref, knownRevision){
                     forEachRegionalEnitoy(function (entry) {
                         if (!Array.isArray(entry.modifications)) return;
                         entry.modifications.forEach(function (modification) {
-                            if ((modification.method === "Give Item" || modification.method === "Hold Item") && modification.parameter === oldName) modification.parameter = newName;
+                            if ((modification.method === "Give Item" || modification.method === "Give Item Night" || modification.method === "Give Item Day" || modification.method === "Hold Item") && modification.parameter === oldName) modification.parameter = newName;
                         });
                         entry.modifications = normalizedRegionalModifications(entry);
                         normalizeRegionalEntryKind(entry);
@@ -14013,7 +14017,7 @@ async function enitoyLoadModular(ref, knownRevision){
                     forEachRegionalEnitoy(function (entry) {
                         if (!Array.isArray(entry.modifications)) return;
                         entry.modifications = entry.modifications.filter(function (modification) {
-                            return !((modification.method === "Give Item" || modification.method === "Hold Item") && modification.parameter === name);
+                            return !((modification.method === "Give Item" || modification.method === "Give Item Night" || modification.method === "Give Item Day" || modification.method === "Hold Item") && modification.parameter === name);
                         });
                         normalizeRegionalEntryKind(entry);
                     });
@@ -14024,7 +14028,7 @@ async function enitoyLoadModular(ref, knownRevision){
                     forEachRegionalEnitoy(function (entry) {
                         if (!Array.isArray(entry.modifications)) return;
                         entry.modifications.forEach(function (modification) {
-                            if (modification.method === "Has Technique" && modification.parameter === oldName) modification.parameter = newName;
+                            if ((modification.method === "Has Technique" || modification.method === "Has Technique Night" || modification.method === "Has Technique Day") && modification.parameter === oldName) modification.parameter = newName;
                         });
                         entry.modifications = normalizedRegionalModifications(entry);
                         normalizeRegionalEntryKind(entry);
@@ -14036,7 +14040,7 @@ async function enitoyLoadModular(ref, knownRevision){
                     forEachRegionalEnitoy(function (entry) {
                         if (!Array.isArray(entry.modifications)) return;
                         entry.modifications = entry.modifications.filter(function (modification) {
-                            return !(modification.method === "Has Technique" && modification.parameter === name);
+                            return !((modification.method === "Has Technique" || modification.method === "Has Technique Night" || modification.method === "Has Technique Day") && modification.parameter === name);
                         });
                         normalizeRegionalEntryKind(entry);
                     });
@@ -21412,10 +21416,24 @@ async function enitoyLoadModular(ref, knownRevision){
 
                 function battleSimModificationAvailableAtLevel(modification, level, knownMoves, side, slotIndex) {
                     if (!modification || !modification.definition) return false;
+                    // Item-giving conditions take effect when the item is given,
+                    // rather than when the Enitoy levels up. The battle simulator
+                    // previews the available form, assuming the item is used.
+                    if (modification.method === "Give Item Night" || modification.method === "Give Item Day") {
+                        var currentTimeOfDay = battleSimTimeSelect ? battleSimTimeSelect.value : "day";
+                        if (modification.method === "Give Item Night" && currentTimeOfDay !== "night") return false;
+                        if (modification.method === "Give Item Day" && currentTimeOfDay !== "day") return false;
+                    }
                     if (modification.definition.parameterType === "level") {
                         return battleSimClampLevel(level) >= Number(modification.parameter);
                     }
                     if (modification.definition.parameterType === "technique") {
+                        // Has Technique methods require a level-up while the
+                        // specified move is known. Day/Night versions also need
+                        // the chosen time at that level-up.
+                        var techniqueTimeOfDay = battleSimTimeSelect ? battleSimTimeSelect.value : "day";
+                        if (modification.method === "Has Technique Night" && techniqueTimeOfDay !== "night") return false;
+                        if (modification.method === "Has Technique Day" && techniqueTimeOfDay !== "day") return false;
                         return battleSimKnownMovesContain(knownMoves, modification.parameter);
                     }
                     if (modification.definition.parameterType === "enitoy") {
