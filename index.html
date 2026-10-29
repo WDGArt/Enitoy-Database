@@ -747,8 +747,11 @@ function findEncounters(name,formName=''){
     if(matches(m.gift)){
       out.push({generation:g.generation,location:l.name,method:m.name,methodIndex,giftLevel:m.gift.level,day:null,night:null});
     }
+    if(matches(m.boss)){
+      out.push({generation:g.generation,location:l.name,method:m.name,methodIndex,bossLevel:m.boss.level,bossDetails:bossEncounterDetails(m.name),day:null,night:null});
+    }
     Object.keys(m).forEach(k=>{
-      if(k==='gift'||k==='name')return;
+      if(k==='gift'||k==='boss'||k==='name')return;
       const pool=m[k];
       if(!pool||typeof pool!=='object'||Array.isArray(pool))return;
       const day=(Array.isArray(pool.day)?pool.day:[]).filter(matches);
@@ -762,7 +765,7 @@ function findEncounters(name,formName=''){
 }
 function renderEncounterSection(enc){
   const cells=row=>`<td>${row?encounterValue(row.minLevel):'—'}</td><td>${row?encounterValue(row.maxLevel):'—'}</td><td>${row?encounterValue(row.percent,'%'):'—'}</td>`;
-  return `<section class="section"><h2 class="section-title">Where to find</h2><div class="card encounter-table-wrap"><table class="data-table encounter-table"><thead><tr><th rowspan="2">Location</th><th rowspan="2">Method</th><th colspan="3" class="encounter-time-group">Day</th><th colspan="3" class="encounter-time-group">Night</th></tr><tr><th>Min Lv.</th><th>Max Lv.</th><th>Chance</th><th>Min Lv.</th><th>Max Lv.</th><th>Chance</th></tr></thead><tbody>${enc.map(x=>`<tr><td>${routeLink(`location/${slug(x.generation)}/${slug(x.location)}`,x.location)}</td><td>${routeLink(encounterMethodRoute(x.generation,x.location,x.methodIndex),x.method)}</td>${x.giftLevel!==undefined?`<td colspan="6">Gift · Lv. ${encounterValue(x.giftLevel)}</td>`:cells(x.day)+cells(x.night)}</tr>`).join('')}</tbody></table></div></section>`;
+  return `<section class="section"><h2 class="section-title">Where to find</h2><div class="card encounter-table-wrap"><table class="data-table encounter-table"><thead><tr><th rowspan="2">Location</th><th rowspan="2">Method</th><th colspan="3" class="encounter-time-group">Day</th><th colspan="3" class="encounter-time-group">Night</th></tr><tr><th>Min Lv.</th><th>Max Lv.</th><th>Chance</th><th>Min Lv.</th><th>Max Lv.</th><th>Chance</th></tr></thead><tbody>${enc.map(x=>`<tr><td>${routeLink(`location/${slug(x.generation)}/${slug(x.location)}`,x.location)}</td><td>${routeLink(encounterMethodRoute(x.generation,x.location,x.methodIndex),x.method)}</td>${x.giftLevel!==undefined?`<td colspan="6">Gift · Lv. ${encounterValue(x.giftLevel)}</td>`:x.bossLevel!==undefined?`<td colspan="6">${esc(x.bossDetails)} · Lv. ${encounterValue(x.bossLevel)}</td>`:cells(x.day)+cells(x.night)}</tr>`).join('')}</tbody></table></div></section>`;
 }
 function renderMoves(){ const moves=db.moves||[]; app.innerHTML=`${breadcrumbs([{label:'Techniques'}])}<h1 class="page-title">Techniques</h1><p class="subtitle">${moves.length} techniques in this project.</p><div class="card"><div class="chart-wrap"><table class="data-table"><thead><tr><th>#</th><th>Name</th><th>Stitching</th><th>Category</th><th>Power</th><th>Accuracy</th><th>Uses</th><th>Priority</th><th>Effect</th></tr></thead><tbody>${moves.map((m,i)=>`<tr><td>${i+1}</td><td>${routeLink(`move/${slug(m.name)}`,m.name)}</td><td>${pill(m.stitching,true)}</td><td>${fmt(m.category)}</td><td>${fmt(m.power)}</td><td>${fmt(m.accuracy)}</td><td>${fmt(m.uses)}</td><td>${fmt(m.priority)}</td><td>${fmt(m.effect)}</td></tr>`).join('')}</tbody></table></div></div>`; }
 function renderMove(name){ const m=lookup(db.moves,name); if(!m){app.innerHTML=empty('Technique not found.');return;} const learners=[]; const add=(label,route,method)=>learners.push({label,route,method}); species.forEach(s=>{const e=s.entry; (e.levelUpTechniques||[]).forEach(x=>{if(x.name===m.name)add(e.name,`enitoy/${slug(s.generation)}/${slug(e.name)}`,Number(x.level)===0?'Mod Move':`Lv. ${x.level}`)}); (e.scrollLearnedTechniques||[]).forEach(x=>{const n=typeof x==='string'?x:x.name;if(n===m.name)add(e.name,`enitoy/${slug(s.generation)}/${slug(e.name)}`,'Scroll')}); }); forms.forEach(f=>{const e=f.entry;(e.levelUpTechniques||[]).forEach(x=>{if(x.name===m.name)add(e.name,`form/${slug(f.form.generation)}/${slug(f.form.enitoy)}/${slug(f.form.formName)}`,Number(x.level)===0?'Mod Move':`Lv. ${x.level}`)});(e.scrollLearnedTechniques||[]).forEach(x=>{const n=typeof x==='string'?x:x.name;if(n===m.name)add(e.name,`form/${slug(f.form.generation)}/${slug(f.form.enitoy)}/${slug(f.form.formName)}`,'Scroll')})}); app.innerHTML=`${breadcrumbs([{label:'Techniques',route:'moves'},{label:m.name}])}<h1 class="page-title">${esc(m.name)}</h1><div class="stitches" style="margin-bottom:18px">${pill(m.stitching)}</div><div class="grid-2"><div class="card"><h2>Technique data</h2><table class="key-table"><tr><th>Category</th><td>${fmt(m.category)}</td></tr><tr><th>Power</th><td>${fmt(m.power)}</td></tr><tr><th>Accuracy</th><td>${fmt(m.accuracy)}</td></tr><tr><th>Uses</th><td>${fmt(m.uses)}</td></tr><tr><th>Priority</th><td>${fmt(m.priority)}</td></tr><tr><th>Effect chance</th><td>${m.effectChance===undefined?'—':esc(m.effectChance)+'%'}</td></tr></table></div><div class="card"><h2>Effect</h2><p>${fmt(m.effect)}</p>${m.description&&m.description!=='--'?`<p class="muted">${esc(m.description)}</p>`:''}</div></div><section class="section"><h2 class="section-title">Learned by</h2>${learners.length?`<div class="card"><table class="data-table"><thead><tr><th>Enitoy</th><th>Method</th></tr></thead><tbody>${learners.map(x=>`<tr><td>${routeLink(x.route,x.label)}</td><td>${esc(x.method)}</td></tr>`).join('')}</tbody></table></div>`:empty('No learner data is present in this export.')}</section>`; }
@@ -1385,14 +1388,26 @@ function encounterName(gen,name,formName=''){
 function encounterValue(value,suffix=''){
   return value===undefined||value===null||value===''?'—':`${esc(value)}${suffix}`;
 }
+function bossEncounterDetails(name) {
+  switch(String(name||'').trim().toLowerCase()){
+    case 'boss':return 'One-time boss encounter · Recruitment permitted';
+    case 'non-recruitable boss':return 'One-time story boss · Before post-game · Cannot recruit';
+    case 'post-game boss':return 'One-time boss · Post-game only · Recruitable';
+    default:return '';
+  }
+}
 function renderMethod(gen,m,index){
   const id=`encounter-method-${index}`;
   if(m.gift){
     const name=m.gift.enitoy;
     return `<section id="${id}" class="section encounter-method-target"><h2 class="section-title">${esc(m.name)}</h2><div class="card encounter-table-wrap"><table class="data-table encounter-table"><thead><tr><th>Enitoy</th><th>Level</th></tr></thead><tbody><tr><td><div class="encounter-species">${encounterArt(gen,name,m.gift.formName)}<span>${encounterName(gen,name,m.gift.formName)}</span></div></td><td>${encounterValue(m.gift.level)}</td></tr></tbody></table></div></section>`;
   }
+  if(['boss','non-recruitable boss','post-game boss'].includes(String(m.name||'').toLowerCase())){
+    const boss=m.boss, detail=bossEncounterDetails(m.name);
+    return `<section id="${id}" class="section encounter-method-target"><h2 class="section-title">${esc(m.name)}</h2><p class="muted" style="margin:0 0 9px">${esc(detail)}</p><div class="card encounter-table-wrap">${boss&&boss.enitoy?`<table class="data-table encounter-table"><thead><tr><th>Enitoy</th><th>Level</th><th>Encounter</th></tr></thead><tbody><tr><td><div class="encounter-species">${encounterArt(gen,boss.enitoy,boss.formName||'')}<span>${encounterName(gen,boss.enitoy,boss.formName||'')}</span></div></td><td>${encounterValue(boss.level)}</td><td>Once</td></tr></tbody></table>`:'<span class="muted">No boss recorded.</span>'}</div></section>`;
+  }
   let pool=null;
-  Object.keys(m).forEach(k=>{if(k!=='name'&&m[k]&&typeof m[k]==='object')pool=m[k]});
+  Object.keys(m).forEach(k=>{if(k!=='name'&&k!=='boss'&&m[k]&&typeof m[k]==='object')pool=m[k]});
   if(!pool)return `<section id="${id}" class="section encounter-method-target"><h2 class="section-title">${esc(m.name)}</h2><div class="card muted">No encounters recorded.</div></section>`;
   const day=Array.isArray(pool.day)?pool.day:[];
   const night=Array.isArray(pool.night)?pool.night:[];
