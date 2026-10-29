@@ -2187,6 +2187,13 @@
                 background: #FFFFFF;
             }
 
+            .encounter-boss-description {
+                margin: 2px 0 11px;
+                color: #65451c;
+                font-size: 12px;
+                font-weight: 650;
+            }
+
             .encounter-gift-row {
                 display: grid;
                 grid-template-columns: minmax(180px, 1fr) minmax(120px, 160px) auto;
@@ -6377,6 +6384,9 @@ dialog,
                     <span>Method</span>
                     <select id="encounter-method-name" aria-label="Encounter method">
                         <option value="Gift">Gift</option>
+                        <option value="Boss">Boss</option>
+                        <option value="Non-recruitable Boss">Non-recruitable Boss</option>
+                        <option value="Post-game Boss">Post-game Boss</option>
                         <option value="Grass">Grass</option>
                         <option value="Water Edge Grass">Water Edge Grass</option>
                         <option value="Water Surface">Water Surface</option>
@@ -8195,6 +8205,14 @@ dialog,
                                                     };
                                                 }
 
+                                                if (isBossEncounterMethodName(method.name) && method.boss && method.boss.enitoy && Number.isInteger(method.boss.level)) {
+                                                    exportedMethod.boss = {
+                                                        enitoy: method.boss.enitoy.trim(),
+                                                        formName: method.boss.formName || "",
+                                                        level: Math.max(1, Math.min(100, method.boss.level))
+                                                    };
+                                                }
+
                                                 if (isGrassLikeEncounterMethodName(method.name)) {
                                                     var grassPools = normalizedGrassEncounterPools(method.grass);
                                                     exportedMethod.grass = {
@@ -9734,6 +9752,25 @@ async function enitoyLoadModular(ref, knownRevision){
                                             }
                                         }
 
+                                        if (isBossEncounterMethodName(encounterMethod.name) && encounterMethod.boss !== undefined) {
+                                            var candidateBoss = encounterMethod.boss;
+                                            if (!candidateBoss || typeof candidateBoss !== "object" || Array.isArray(candidateBoss) ||
+                                                typeof candidateBoss.enitoy !== "string" || !candidateBoss.enitoy.trim() ||
+                                                !Number.isInteger(candidateBoss.level) || candidateBoss.level < 1 || candidateBoss.level > 100 ||
+                                                (candidateBoss.formName !== undefined && typeof candidateBoss.formName !== "string")) {
+                                                return "A " + encounterMethod.name + " encounter must have a valid Enitoy, optional form, and level from 1 to 100.";
+                                            }
+                                            var bossRegionalGen = data.regionalGenerations.find(function (generation) {
+                                                return generation && generation.name === encounterGeneration.generation;
+                                            });
+                                            var bossExists = bossRegionalGen && Array.isArray(bossRegionalGen.enitoys) &&
+                                                bossRegionalGen.enitoys.some(function (entry) {
+                                                    return entry && entry.kind === "concept" && typeof entry.name === "string" &&
+                                                        entry.name.trim().toLowerCase() === candidateBoss.enitoy.trim().toLowerCase();
+                                                });
+                                            if (!bossExists) return "A " + encounterMethod.name + " encounter refers to an Enitoy not in that generation.";
+                                        }
+
                                         if (data.version >= 75 && isGrassLikeEncounterMethodName(encounterMethod.name)) {
                                             if (!encounterMethod.grass || typeof encounterMethod.grass !== "object" ||
                                                 Array.isArray(encounterMethod.grass) ||
@@ -10464,6 +10501,19 @@ async function enitoyLoadModular(ref, knownRevision){
                                                                 enitoy: method.gift.enitoy.trim(),
                                                                 level: Math.max(1, Math.min(100, method.gift.level))
                                                             };
+                                                        }
+
+                                                        if (isBossEncounterMethodName(importedMethod.name) && method.boss &&
+                                                            typeof method.boss.enitoy === "string" && method.boss.enitoy.trim() &&
+                                                            Number.isInteger(method.boss.level)) {
+                                                            importedMethod.boss = {
+                                                                enitoy: method.boss.enitoy.trim(),
+                                                                formName: typeof method.boss.formName === "string" ? method.boss.formName.trim() : "",
+                                                                level: Math.max(1, Math.min(100, method.boss.level))
+                                                            };
+                                                        }
+                                                        if (data.version >= 73 && importedMethod.name.toLowerCase() === "gift" && importedMethod.gift) {
+                                                            importedMethod.gift.formName = typeof method.gift.formName === "string" ? method.gift.formName.trim() : "";
                                                         }
 
                                                         if (data.version >= 75 &&
@@ -17739,6 +17789,9 @@ async function enitoyLoadModular(ref, knownRevision){
 
                 var encounterMethodOptions = [
                     "Gift",
+                    "Boss",
+                    "Non-recruitable Boss",
+                    "Post-game Boss",
                     "Grass",
                     "Water Edge Grass",
                     "Water Surface",
@@ -17766,6 +17819,19 @@ async function enitoyLoadModular(ref, knownRevision){
                         return option.toLowerCase() === value.toLowerCase();
                     });
                     return match || "";
+                }
+
+                function isBossEncounterMethodName(name) {
+                    return ["boss", "non-recruitable boss", "post-game boss"].indexOf(String(name || "").trim().toLowerCase()) !== -1;
+                }
+
+                function encounterBossDescription(name) {
+                    switch (String(name || "").trim().toLowerCase()) {
+                        case "boss": return "One-time boss encounter at a fixed level. Recruitment is permitted.";
+                        case "non-recruitable boss": return "One-time story boss, available before post-game. Recruitment is disabled.";
+                        case "post-game boss": return "One-time boss available only after the main story. Recruitment is permitted.";
+                        default: return "";
+                    }
                 }
 
                 function isGrassLikeEncounterMethodName(name) {
@@ -17926,6 +17992,17 @@ async function enitoyLoadModular(ref, knownRevision){
                             }
                         }
 
+                        if (isBossEncounterMethodName(name) && entry.boss && typeof entry.boss === "object" && !Array.isArray(entry.boss)) {
+                            var bossEnitoy = typeof entry.boss.enitoy === "string" ? entry.boss.enitoy.trim() : "";
+                            if (bossEnitoy) {
+                                normalizedMethod.boss = {
+                                    enitoy: bossEnitoy,
+                                    formName: typeof entry.boss.formName === "string" ? entry.boss.formName.trim() : "",
+                                    level: Number.isInteger(entry.boss.level) ? Math.max(1, Math.min(100, entry.boss.level)) : 1
+                                };
+                            }
+                        }
+
                         if (isGrassLikeEncounterMethodName(name)) {
                             normalizedMethod.grass = normalizedGrassEncounterPools(entry.grass);
                         }
@@ -18051,6 +18128,24 @@ async function enitoyLoadModular(ref, knownRevision){
                             level: cleanLevel
                         };
                     }
+                }
+
+                function setEncounterBossData(locationName, methodIndex, enitoyName, level, formName) {
+                    var location = findActiveEncounterLocation(locationName);
+                    if (!location) return;
+                    location.methods = normalizedEncounterMethods(location.methods);
+                    var method = location.methods[methodIndex];
+                    if (!method || !isBossEncounterMethodName(method.name)) return;
+                    var cleanEnitoy = typeof enitoyName === "string" ? enitoyName.trim() : "";
+                    if (!cleanEnitoy) {
+                        delete method.boss;
+                        return;
+                    }
+                    method.boss = {
+                        enitoy: cleanEnitoy,
+                        formName: typeof formName === "string" ? formName.trim() : "",
+                        level: Number.isInteger(level) ? Math.max(1, Math.min(100, level)) : 1
+                    };
                 }
 
                 function encounterGrassCandidates(method, poolName, rowIndex) {
@@ -18570,7 +18665,15 @@ async function enitoyLoadModular(ref, knownRevision){
                                 var methodBody = document.createElement("div");
                                 methodBody.className = "encounter-method-body";
 
-                                if (method.name.toLowerCase() === "gift") {
+                                if (method.name.toLowerCase() === "gift" || isBossEncounterMethodName(method.name)) {
+                                    var singleKey = isBossEncounterMethodName(method.name) ? "boss" : "gift";
+                                    var isBoss = singleKey === "boss";
+                                    if (isBoss) {
+                                        var bossInfo = document.createElement("p");
+                                        bossInfo.className = "encounter-boss-description";
+                                        bossInfo.textContent = encounterBossDescription(method.name);
+                                        methodBody.appendChild(bossInfo);
+                                    }
                                     var giftRow = document.createElement("div");
                                     giftRow.className = "encounter-gift-row";
 
@@ -18582,7 +18685,7 @@ async function enitoyLoadModular(ref, knownRevision){
                                     enitoyField.appendChild(enitoyFieldLabel);
 
                                     var enitoySelect = document.createElement("select");
-                                    enitoySelect.setAttribute("aria-label", "Gift Enitoy");
+                                    enitoySelect.setAttribute("aria-label", isBoss ? "Boss Enitoy" : "Gift Enitoy");
 
                                     var blankGiftOption = document.createElement("option");
                                     blankGiftOption.value = "";
@@ -18597,8 +18700,8 @@ async function enitoyLoadModular(ref, knownRevision){
                                         enitoySelect.appendChild(option);
                                     });
 
-                                    var currentGiftName = method.gift && typeof method.gift.enitoy === "string"
-                                        ? method.gift.enitoy
+                                    var currentGiftName = method[singleKey] && typeof method[singleKey].enitoy === "string"
+                                        ? method[singleKey].enitoy
                                         : "";
                                     var matchingGiftCandidate = giftCandidates.find(function (candidate) {
                                         return candidate.name.toLowerCase() === currentGiftName.toLowerCase();
@@ -18607,8 +18710,8 @@ async function enitoyLoadModular(ref, knownRevision){
 
                                     enitoyField.appendChild(enitoySelect);
                                     giftRow.appendChild(enitoyField);
-                                    var giftFormControl = createEncounterFormField(enitoySelect, method.gift && method.gift.formName, function (formName) {
-                                        setEncounterGiftData(location.name, methodIndex, enitoySelect.value, currentGiftLevel(), formName);
+                                    var giftFormControl = createEncounterFormField(enitoySelect, method[singleKey] && method[singleKey].formName, function (formName) {
+                                        (isBoss ? setEncounterBossData : setEncounterGiftData)(location.name, methodIndex, enitoySelect.value, currentGiftLevel(), formName);
                                     });
                                     giftRow.appendChild(giftFormControl.field);
 
@@ -18628,8 +18731,8 @@ async function enitoyLoadModular(ref, knownRevision){
                                     levelInput.max = "100";
                                     levelInput.step = "1";
                                     levelInput.inputMode = "numeric";
-                                    levelInput.value = String(method.gift && Number.isInteger(method.gift.level) ? method.gift.level : 1);
-                                    levelInput.setAttribute("aria-label", "Gift Enitoy level");
+                                    levelInput.value = String(method[singleKey] && Number.isInteger(method[singleKey].level) ? method[singleKey].level : 1);
+                                    levelInput.setAttribute("aria-label", isBoss ? "Boss Enitoy level" : "Gift Enitoy level");
 
                                     var levelArrows = document.createElement("div");
                                     levelArrows.className = "encounter-gift-level-arrows";
@@ -18653,15 +18756,15 @@ async function enitoyLoadModular(ref, knownRevision){
 
                                     var onceBadge = document.createElement("div");
                                     onceBadge.className = "encounter-gift-once";
-                                    onceBadge.textContent = "ONCE";
-                                    onceBadge.title = "This Enitoy can only be received once as a gift.";
+                                    onceBadge.textContent = isBoss ? "BOSS · ONCE" : "ONCE";
+                                    onceBadge.title = isBoss ? encounterBossDescription(method.name) : "This Enitoy can only be received once as a gift.";
                                     giftRow.appendChild(onceBadge);
 
                                     function currentGiftLevel() {
                                         var parsed = regionalTypedInteger(levelInput.value, 1, 100);
                                         if (parsed === null) {
-                                            parsed = method.gift && Number.isInteger(method.gift.level)
-                                                ? Math.max(1, Math.min(100, method.gift.level))
+                                            parsed = method[singleKey] && Number.isInteger(method[singleKey].level)
+                                                ? Math.max(1, Math.min(100, method[singleKey].level))
                                                 : 1;
                                         }
                                         levelInput.value = String(parsed);
@@ -18670,14 +18773,14 @@ async function enitoyLoadModular(ref, knownRevision){
 
                                     function commitGift() {
                                         var level = currentGiftLevel();
-                                        setEncounterGiftData(location.name, methodIndex, enitoySelect.value, level, giftFormControl.select.value);
+                                        (isBoss ? setEncounterBossData : setEncounterGiftData)(location.name, methodIndex, enitoySelect.value, level, giftFormControl.select.value);
                                     }
 
                                     function stepGiftLevel(delta) {
                                         var level = currentGiftLevel();
                                         level = Math.max(1, Math.min(100, level + delta));
                                         levelInput.value = String(level);
-                                        setEncounterGiftData(location.name, methodIndex, enitoySelect.value, level, giftFormControl.select.value);
+                                        (isBoss ? setEncounterBossData : setEncounterGiftData)(location.name, methodIndex, enitoySelect.value, level, giftFormControl.select.value);
                                     }
 
                                     enitoySelect.addEventListener("change", function () {
@@ -18696,7 +18799,7 @@ async function enitoyLoadModular(ref, knownRevision){
                                             levelInput.select();
                                         } else if (event.key === "Escape") {
                                             event.preventDefault();
-                                            levelInput.value = String(method.gift && Number.isInteger(method.gift.level) ? method.gift.level : 1);
+                                            levelInput.value = String(method[singleKey] && Number.isInteger(method[singleKey].level) ? method[singleKey].level : 1);
                                             levelInput.blur();
                                         }
                                     }, false);
@@ -18812,6 +18915,7 @@ async function enitoyLoadModular(ref, knownRevision){
 
                         if (newIsGrassLike) {
                             delete existingMethod.gift;
+                            delete existingMethod.boss;
                             if (!oldWasGrassLike) {
                                 existingMethod.grass = {
                                     day: [blankGrassPoolRow()],
@@ -18825,9 +18929,15 @@ async function enitoyLoadModular(ref, knownRevision){
                                 delete existingMethod.grass;
                                 delete existingMethod.gift;
                             }
+                            delete existingMethod.boss;
+                        } else if (isBossEncounterMethodName(name)) {
+                            delete existingMethod.grass;
+                            delete existingMethod.gift;
+                            if (!isBossEncounterMethodName(oldKey)) delete existingMethod.boss;
                         } else {
                             delete existingMethod.grass;
                             delete existingMethod.gift;
+                            delete existingMethod.boss;
                         }
 
                         // Rename in place so method order never changes.
@@ -19805,6 +19915,11 @@ async function enitoyLoadModular(ref, knownRevision){
                                 method.gift.enitoy.toLowerCase() === oldName.toLowerCase()) {
                                 method.gift.enitoy = newName;
                             }
+                            if (isBossEncounterMethodName(method.name) && method.boss &&
+                                typeof method.boss.enitoy === "string" &&
+                                method.boss.enitoy.toLowerCase() === oldName.toLowerCase()) {
+                                method.boss.enitoy = newName;
+                            }
 
                             if (isGrassLikeEncounterMethodName(method.name)) {
                                 method.grass = normalizedGrassEncounterPools(method.grass);
@@ -19841,6 +19956,11 @@ async function enitoyLoadModular(ref, knownRevision){
                                 typeof method.gift.enitoy === "string" &&
                                 method.gift.enitoy.toLowerCase() === name.toLowerCase()) {
                                 delete method.gift;
+                            }
+                            if (isBossEncounterMethodName(method.name) && method.boss &&
+                                typeof method.boss.enitoy === "string" &&
+                                method.boss.enitoy.toLowerCase() === name.toLowerCase()) {
+                                delete method.boss;
                             }
 
                             if (isGrassLikeEncounterMethodName(method.name)) {
