@@ -394,5 +394,17 @@
     "effect": "During a weather condition, this move's Stitching changes to match the weather and its Power increases to 80.",
     "effectChance": 100,
     "description": "The user launches a burst that is modified by the immediate area's weather."
+  },
+  {
+    "name": "Bite",
+    "stitching": "Nox",
+    "category": "Physical",
+    "power": 40,
+    "accuracy": 100,
+    "uses": 10,
+    "priority": 0,
+    "effect": "Causes the opponent to flinch this turn if they haven't gone yet skipping their turn.",
+    "effectChance": 20,
+    "description": "The user bites the target with a chance to flinch."
   }
 ]
