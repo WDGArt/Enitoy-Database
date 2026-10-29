@@ -1169,6 +1169,7 @@
         "growthRate": "Fast Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Disarm",
@@ -1187,6 +1188,10 @@
           {
             "name": "Focus",
             "level": 5
+          },
+          {
+            "name": "Bite",
+            "level": 8
           },
           {
             "name": "Leg Stretch",
@@ -1209,6 +1214,7 @@
           "Leg Stretch",
           "Calm Down",
           "Pump Up",
+          "Bite",
           "Brace",
           "Disarm",
           "Focus",
@@ -1300,6 +1306,7 @@
         "growthRate": "Fast Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Disarm",
@@ -1325,6 +1332,10 @@
           {
             "name": "Focus",
             "level": 5
+          },
+          {
+            "name": "Bite",
+            "level": 8
           },
           {
             "name": "Leg Stretch",
@@ -1356,6 +1367,7 @@
           "Calm Down",
           "Pump Up",
           "Spatial Warp",
+          "Bite",
           "Brace",
           "Disarm",
           "Focus",
@@ -1455,6 +1467,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Cosplay",
@@ -1482,6 +1495,10 @@
           {
             "name": "Focus",
             "level": 5
+          },
+          {
+            "name": "Bite",
+            "level": 8
           },
           {
             "name": "Leg Stretch",
@@ -1523,6 +1540,7 @@
           "Method Act",
           "Pump Up",
           "Spatial Warp",
+          "Bite",
           "Brace",
           "Disarm",
           "Focus",
@@ -2418,6 +2436,7 @@
         "growthRate": "Fast Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Focus",
           "Leg Stretch",
@@ -2455,6 +2474,7 @@
         "scrollLearnedTechniques": [
           "Leg Stretch",
           "Pump Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -2550,6 +2570,7 @@
         "growthRate": "Fast Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Focus",
@@ -2599,6 +2620,7 @@
           "Leg Stretch",
           "Calm Down",
           "Pump Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -2682,6 +2704,7 @@
         "baseExp": 75,
         "growthRate": "Fast Growth",
         "availableTechniques": [
+          "Bite",
           "Calm Down",
           "Focus",
           "Resin Shards",
@@ -2703,6 +2726,7 @@
         ],
         "scrollLearnedTechniques": [
           "Calm Down",
+          "Bite",
           "Focus",
           "Tackle",
           "Resin Shards"
@@ -2790,6 +2814,7 @@
         "growthRate": "Fast Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Calm Down",
           "Focus",
           "Resin Shards",
@@ -2811,6 +2836,7 @@
         ],
         "scrollLearnedTechniques": [
           "Calm Down",
+          "Bite",
           "Focus",
           "Tackle",
           "Resin Shards",
@@ -2905,6 +2931,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Focus",
@@ -2932,6 +2959,10 @@
             "level": 9
           },
           {
+            "name": "Bite",
+            "level": 11
+          },
+          {
             "name": "Psych Up",
             "level": 12
           }
@@ -2940,6 +2971,7 @@
           "Leg Stretch",
           "Calm Down",
           "Psych Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -3036,6 +3068,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Focus",
@@ -3063,6 +3096,10 @@
             "level": 9
           },
           {
+            "name": "Bite",
+            "level": 11
+          },
+          {
             "name": "Psych Up",
             "level": 12
           }
@@ -3071,6 +3108,7 @@
           "Leg Stretch",
           "Calm Down",
           "Psych Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -3180,6 +3218,7 @@
         "growthRate": "Slow Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Focus",
@@ -3216,6 +3255,10 @@
             "level": 10
           },
           {
+            "name": "Bite",
+            "level": 12
+          },
+          {
             "name": "Belch",
             "level": 14
           },
@@ -3229,6 +3272,7 @@
           "Calm Down",
           "Psych Up",
           "Pump Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -3326,6 +3370,7 @@
         "growthRate": "Slow Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -3367,6 +3412,10 @@
             "level": 10
           },
           {
+            "name": "Bite",
+            "level": 12
+          },
+          {
             "name": "Belch",
             "level": 14
           },
@@ -3384,6 +3433,7 @@
           "Calm Down",
           "Psych Up",
           "Pump Up",
+          "Bite",
           "Brace",
           "Burst",
           "Focus",
@@ -3482,6 +3532,7 @@
         "growthRate": "Slow Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Focus",
@@ -3517,6 +3568,10 @@
             "level": 10
           },
           {
+            "name": "Bite",
+            "level": 12
+          },
+          {
             "name": "Belch",
             "level": 14
           },
@@ -3529,6 +3584,7 @@
           "Leg Stretch",
           "Calm Down",
           "Pump Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -3626,6 +3682,7 @@
         "growthRate": "Slow Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -3666,6 +3723,10 @@
             "level": 10
           },
           {
+            "name": "Bite",
+            "level": 12
+          },
+          {
             "name": "Belch",
             "level": 14
           },
@@ -3682,6 +3743,7 @@
           "Leg Stretch",
           "Calm Down",
           "Pump Up",
+          "Bite",
           "Brace",
           "Burst",
           "Focus",
@@ -3780,6 +3842,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Deep Clean",
@@ -3812,6 +3875,10 @@
             "level": 9
           },
           {
+            "name": "Bite",
+            "level": 11
+          },
+          {
             "name": "Calm Down",
             "level": 12
           },
@@ -3825,6 +3892,7 @@
           "Splash",
           "Water Burst",
           "Calm Down",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -3942,6 +4010,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Deep Clean",
@@ -3976,6 +4045,10 @@
             "level": 9
           },
           {
+            "name": "Bite",
+            "level": 11
+          },
+          {
             "name": "Calm Down",
             "level": 12
           },
@@ -3998,6 +4071,7 @@
           "Water Burst",
           "Calm Down",
           "Pump Up",
+          "Bite",
           "Brace",
           "Focus",
           "Slash",
@@ -4110,6 +4184,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Deep Clean",
@@ -4151,6 +4226,10 @@
             "level": 9
           },
           {
+            "name": "Bite",
+            "level": 11
+          },
+          {
             "name": "Calm Down",
             "level": 12
           },
@@ -4178,6 +4257,7 @@
           "Leg Stretch",
           "Calm Down",
           "Pump Up",
+          "Bite",
           "Brace",
           "Disarm",
           "Focus",
@@ -4289,6 +4369,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Cosplay",
@@ -4325,6 +4406,10 @@
             "level": 9
           },
           {
+            "name": "Bite",
+            "level": 11
+          },
+          {
             "name": "Calm Down",
             "level": 12
           },
@@ -4354,6 +4439,7 @@
           "Cosplay",
           "Method Act",
           "Psych Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -4465,6 +4551,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Cosplay",
@@ -4507,6 +4594,10 @@
             "level": 9
           },
           {
+            "name": "Bite",
+            "level": 11
+          },
+          {
             "name": "Calm Down",
             "level": 12
           },
@@ -4541,6 +4632,7 @@
           "Cosplay",
           "Method Act",
           "Psych Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -4654,6 +4746,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Splash",
           "Tackle",
           "Trick-or-Treat",
@@ -4677,6 +4770,10 @@
             "level": 10
           },
           {
+            "name": "Bite",
+            "level": 13
+          },
+          {
             "name": "Trick-or-Treat",
             "level": 16
           }
@@ -4684,6 +4781,7 @@
         "scrollLearnedTechniques": [
           "Splash",
           "Water Burst",
+          "Bite",
           "Tackle",
           "Trick-or-Treat",
           "Belch"
@@ -4774,6 +4872,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Cosplay",
           "Focus",
           "Psych Up",
@@ -4813,6 +4912,10 @@
             "level": 11
           },
           {
+            "name": "Bite",
+            "level": 13
+          },
+          {
             "name": "Trick-or-Treat",
             "level": 16
           }
@@ -4823,6 +4926,7 @@
           "Cosplay",
           "Psych Up",
           "Spatial Warp",
+          "Bite",
           "Focus",
           "Tackle",
           "Trick-or-Treat",
@@ -4909,6 +5013,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Calm Down",
           "Focus",
           "Leg Stretch",
@@ -4941,6 +5046,7 @@
           "Sing",
           "Leg Stretch",
           "Calm Down",
+          "Bite",
           "Focus",
           "Tackle",
           "Belch"
@@ -5045,6 +5151,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Calm Down",
           "Focus",
           "Heart Song",
@@ -5089,6 +5196,7 @@
           "Leg Stretch",
           "Calm Down",
           "Psych Up",
+          "Bite",
           "Focus",
           "Tackle",
           "Belch"
@@ -5211,6 +5319,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Calm Down",
           "Focus",
           "Heart Song",
@@ -5255,6 +5364,7 @@
           "Leg Stretch",
           "Calm Down",
           "Psych Up",
+          "Bite",
           "Focus",
           "Tackle",
           "Belch"
@@ -5357,6 +5467,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Calm Down",
           "Cosplay",
           "Focus",
@@ -5407,6 +5518,7 @@
           "Calm Down",
           "Cosplay",
           "Psych Up",
+          "Bite",
           "Focus",
           "Tackle",
           "Belch"
@@ -5509,6 +5621,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Calm Down",
           "Focus",
           "Heart Song",
@@ -5564,6 +5677,7 @@
           "Calm Down",
           "Psych Up",
           "Pump Up",
+          "Bite",
           "Focus",
           "Slash",
           "Tackle",
@@ -5902,6 +6016,7 @@
         "baseExp": 90,
         "growthRate": "Medium Growth",
         "availableTechniques": [
+          "Bite",
           "Brace",
           "Focus",
           "Psych Up",
@@ -5928,6 +6043,7 @@
         ],
         "scrollLearnedTechniques": [
           "Psych Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -6019,6 +6135,7 @@
         "baseExp": 155,
         "growthRate": "Medium Growth",
         "availableTechniques": [
+          "Bite",
           "Brace",
           "Burst",
           "Focus",
@@ -6056,6 +6173,7 @@
         "scrollLearnedTechniques": [
           "Psych Up",
           "Pump Up",
+          "Bite",
           "Brace",
           "Burst",
           "Focus",
@@ -6134,6 +6252,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Focus",
@@ -6156,6 +6275,10 @@
             "level": 6
           },
           {
+            "name": "Bite",
+            "level": 7
+          },
+          {
             "name": "Calm Down",
             "level": 8
           },
@@ -6173,6 +6296,7 @@
           "Splash",
           "Water Burst",
           "Calm Down",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -6255,6 +6379,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Disarm",
@@ -6280,6 +6405,10 @@
             "level": 6
           },
           {
+            "name": "Bite",
+            "level": 7
+          },
+          {
             "name": "Calm Down",
             "level": 8
           },
@@ -6303,6 +6432,7 @@
           "Water Burst",
           "Calm Down",
           "Pump Up",
+          "Bite",
           "Brace",
           "Disarm",
           "Focus",
@@ -6388,6 +6518,7 @@
         "baseExp": 75,
         "growthRate": "Medium Growth",
         "availableTechniques": [
+          "Bite",
           "Brace",
           "Focus",
           "Root Whip",
@@ -6410,10 +6541,15 @@
           {
             "name": "Root Whip",
             "level": 7
+          },
+          {
+            "name": "Bite",
+            "level": 10
           }
         ],
         "scrollLearnedTechniques": [
           "Root Whip",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -6504,6 +6640,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Focus",
           "Leg Stretch",
           "Pump Up",
@@ -6524,6 +6661,10 @@
             "level": 6
           },
           {
+            "name": "Bite",
+            "level": 8
+          },
+          {
             "name": "Slash",
             "level": 10
           },
@@ -6539,6 +6680,7 @@
         "scrollLearnedTechniques": [
           "Leg Stretch",
           "Pump Up",
+          "Bite",
           "Focus",
           "Slash",
           "Tackle",
@@ -6639,6 +6781,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Focus",
           "Leg Stretch",
           "Pump Up",
@@ -6659,6 +6802,10 @@
             "level": 6
           },
           {
+            "name": "Bite",
+            "level": 8
+          },
+          {
             "name": "Slash",
             "level": 10
           },
@@ -6674,6 +6821,7 @@
         "scrollLearnedTechniques": [
           "Leg Stretch",
           "Pump Up",
+          "Bite",
           "Focus",
           "Slash",
           "Tackle",
@@ -6765,6 +6913,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Focus",
           "Tackle",
           "Trick-or-Treat"
@@ -6783,11 +6932,16 @@
             "level": 7
           },
           {
+            "name": "Bite",
+            "level": 10
+          },
+          {
             "name": "Trick-or-Treat",
             "level": 12
           }
         ],
         "scrollLearnedTechniques": [
+          "Bite",
           "Focus",
           "Tackle",
           "Trick-or-Treat",
@@ -7139,6 +7293,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Disarm",
           "Leg Stretch",
           "Slash",
@@ -7164,6 +7319,10 @@
             "level": 11
           },
           {
+            "name": "Bite",
+            "level": 12
+          },
+          {
             "name": "Belch",
             "level": 14
           },
@@ -7175,6 +7334,7 @@
         "scrollLearnedTechniques": [
           "Leg Stretch",
           "Spike Trap",
+          "Bite",
           "Disarm",
           "Slash",
           "Tackle",
@@ -7281,6 +7441,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Focus",
           "Leg Stretch",
@@ -7295,6 +7456,10 @@
           {
             "name": "Tackle",
             "level": 1
+          },
+          {
+            "name": "Bite",
+            "level": 4
           },
           {
             "name": "Psych Up",
@@ -7316,6 +7481,7 @@
         "scrollLearnedTechniques": [
           "Leg Stretch",
           "Psych Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -8998,6 +9164,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Focus",
           "Pump Up",
@@ -9020,10 +9187,15 @@
           {
             "name": "Pump Up",
             "level": 8
+          },
+          {
+            "name": "Bite",
+            "level": 11
           }
         ],
         "scrollLearnedTechniques": [
           "Pump Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -9110,6 +9282,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Focus",
           "Pump Up",
@@ -9132,10 +9305,15 @@
           {
             "name": "Pump Up",
             "level": 8
+          },
+          {
+            "name": "Bite",
+            "level": 11
           }
         ],
         "scrollLearnedTechniques": [
           "Pump Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -9437,6 +9615,7 @@
         "baseExp": 65,
         "growthRate": "Medium Growth",
         "availableTechniques": [
+          "Bite",
           "Focus",
           "Sandstorm",
           "Tackle"
@@ -9449,9 +9628,14 @@
           {
             "name": "Tackle",
             "level": 1
+          },
+          {
+            "name": "Bite",
+            "level": 7
           }
         ],
         "scrollLearnedTechniques": [
+          "Bite",
           "Focus",
           "Tackle",
           "Sandstorm"
@@ -9532,6 +9716,7 @@
         "baseExp": 89,
         "growthRate": "Medium Growth",
         "availableTechniques": [
+          "Bite",
           "Focus",
           "Pump Up",
           "Sandstorm",
@@ -9552,12 +9737,17 @@
             "level": 1
           },
           {
+            "name": "Bite",
+            "level": 7
+          },
+          {
             "name": "Pump Up",
             "level": 10
           }
         ],
         "scrollLearnedTechniques": [
           "Pump Up",
+          "Bite",
           "Focus",
           "Tackle",
           "Startle",
@@ -9636,6 +9826,7 @@
         "baseExp": 65,
         "growthRate": "Medium Growth",
         "availableTechniques": [
+          "Bite",
           "Brace",
           "Calm Down",
           "Disarm",
@@ -9665,6 +9856,10 @@
             "level": 9
           },
           {
+            "name": "Bite",
+            "level": 12
+          },
+          {
             "name": "Brace",
             "level": 14
           },
@@ -9681,6 +9876,7 @@
           "Leg Stretch",
           "Calm Down",
           "Pump Up",
+          "Bite",
           "Brace",
           "Disarm",
           "Focus",
@@ -9778,6 +9974,7 @@
         "baseExp": 105,
         "growthRate": "Medium Growth",
         "availableTechniques": [
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -9816,6 +10013,10 @@
             "level": 9
           },
           {
+            "name": "Bite",
+            "level": 12
+          },
+          {
             "name": "Brace",
             "level": 14
           },
@@ -9851,6 +10052,7 @@
           "Psych Up",
           "Pump Up",
           "Spatial Warp",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -10229,6 +10431,7 @@
         "growthRate": "Slow Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -10305,6 +10508,7 @@
           "Pump Up",
           "Spatial Warp",
           "Spike Trap",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -11364,6 +11568,7 @@
         "growthRate": "Slow Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -11427,6 +11632,7 @@
           "Psych Up",
           "Pump Up",
           "Spatial Warp",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -11518,6 +11724,7 @@
         "growthRate": "Slow Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -11583,6 +11790,7 @@
           "Pump Up",
           "Spatial Warp",
           "Spike Trap",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -11675,6 +11883,7 @@
         "growthRate": "Slow Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -11745,6 +11954,7 @@
           "Pump Up",
           "Spatial Warp",
           "Spike Trap",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -11824,6 +12034,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -11853,6 +12064,10 @@
             "level": 7
           },
           {
+            "name": "Bite",
+            "level": 9
+          },
+          {
             "name": "Startle",
             "level": 9
           },
@@ -11879,6 +12094,7 @@
           "Calm Down",
           "Psych Up",
           "Pump Up",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -11955,6 +12171,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -11982,6 +12199,10 @@
           {
             "name": "Burst",
             "level": 7
+          },
+          {
+            "name": "Bite",
+            "level": 9
           },
           {
             "name": "Startle",
@@ -12018,6 +12239,7 @@
           "Calm Down",
           "Psych Up",
           "Pump Up",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -12088,6 +12310,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -12146,6 +12369,7 @@
           "Psych Up",
           "Pump Up",
           "Spike Trap",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -12213,6 +12437,7 @@
         "baseExp": 115,
         "growthRate": "Medium Growth",
         "availableTechniques": [
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -12246,6 +12471,10 @@
           {
             "name": "Burst",
             "level": 5
+          },
+          {
+            "name": "Bite",
+            "level": 7
           },
           {
             "name": "Calm Down",
@@ -12291,6 +12520,7 @@
           "Psych Up",
           "Pump Up",
           "Spatial Warp",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -12365,6 +12595,7 @@
         "baseExp": 175,
         "growthRate": "Medium Growth",
         "availableTechniques": [
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -12398,6 +12629,10 @@
           {
             "name": "Burst",
             "level": 5
+          },
+          {
+            "name": "Bite",
+            "level": 7
           },
           {
             "name": "Calm Down",
@@ -12443,6 +12678,7 @@
           "Psych Up",
           "Pump Up",
           "Spatial Warp",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -12792,6 +13028,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Focus",
@@ -12838,6 +13075,7 @@
           "Leg Stretch",
           "Calm Down",
           "Pump Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -12920,6 +13158,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Focus",
@@ -12966,6 +13205,7 @@
           "Leg Stretch",
           "Calm Down",
           "Pump Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -13031,6 +13271,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Focus",
@@ -13078,6 +13319,7 @@
           "Leg Stretch",
           "Calm Down",
           "Pump Up",
+          "Bite",
           "Brace",
           "Focus",
           "Tackle",
@@ -13144,6 +13386,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -13195,6 +13438,7 @@
           "Leg Stretch",
           "Calm Down",
           "Pump Up",
+          "Bite",
           "Brace",
           "Burst",
           "Focus",
@@ -13260,6 +13504,7 @@
         "baseExp": 135,
         "growthRate": "Medium Growth",
         "availableTechniques": [
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -13309,6 +13554,7 @@
           "Leg Stretch",
           "Calm Down",
           "Psych Up",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -13868,6 +14114,7 @@
         "baseExp": 145,
         "growthRate": "Medium Growth",
         "availableTechniques": [
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -13938,6 +14185,7 @@
           "Calm Down",
           "Psych Up",
           "Pump Up",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -14003,6 +14251,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Calm Down",
           "Cosplay",
@@ -14050,6 +14299,10 @@
             "level": 7
           },
           {
+            "name": "Bite",
+            "level": 8
+          },
+          {
             "name": "Focus",
             "level": 10
           },
@@ -14077,6 +14330,7 @@
           "Calm Down",
           "Cosplay",
           "Psych Up",
+          "Bite",
           "Brace",
           "Disarm",
           "Focus",
@@ -14149,6 +14403,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -14199,6 +14454,10 @@
             "level": 7
           },
           {
+            "name": "Bite",
+            "level": 8
+          },
+          {
             "name": "Focus",
             "level": 10
           },
@@ -14234,6 +14493,7 @@
           "Calm Down",
           "Cosplay",
           "Psych Up",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -14270,6 +14530,17 @@
         "color3": "Ordinary",
         "name": "Victurn",
         "classification": "Hunter",
+        "info": "Victurn is a fearless monster hunter whose hands can transform into various hunting tools and weapons. Its hat-shaped head and coat-like back give it the appearance of an old-fashioned gentleman. It spends its nights searching for dangerous Enitoy, seemingly unafraid of anything it encounters.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Victurn is a fearless monster hunter whose hands can transform into various hunting tools and weapons. Its hat-shaped head and coat-like back give it the appearance of an old-fashioned gentleman. It spends its nights searching for dangerous Enitoy, seemingly unafraid of anything it encounters."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Although Victurn dedicates its life to hunting monsters, it possesses the strange ability to become one itself. Its resin body reacts to certain objects and supernatural influences, causing it to undergo dramatic transformations. Some believe that every monster Victurn hunts brings it closer to becoming the very thing it fears."
+          }
+        ],
         "internalColor": "WHITE",
         "height": "4'03\"/1.30M",
         "weight": "145.0Lbs/65.77KG",
@@ -14287,7 +14558,117 @@
         "misprintDefect": "Poor Camouflage",
         "recruitmentRate": 110,
         "baseExp": 110,
-        "growthRate": "Medium Growth"
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Bite",
+          "Brace",
+          "Calm Down",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Psych Up",
+          "Pump Up",
+          "Rocky Footing",
+          "Shadow Claw",
+          "Slash",
+          "Spike Trap",
+          "Startle",
+          "Tackle"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Focus",
+            "level": 4
+          },
+          {
+            "name": "Disarm",
+            "level": 7
+          },
+          {
+            "name": "Slash",
+            "level": 10
+          },
+          {
+            "name": "Spike Trap",
+            "level": 13
+          },
+          {
+            "name": "Bite",
+            "level": 16
+          },
+          {
+            "name": "Calm Down",
+            "level": 19
+          },
+          {
+            "name": "Pump Up",
+            "level": 22
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Rocky Footing",
+          "Leg Stretch",
+          "Calm Down",
+          "Psych Up",
+          "Pump Up",
+          "Spike Trap",
+          "Bite",
+          "Brace",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Shadow Claw",
+          "Startle"
+        ],
+        "temperamentLock": [
+          "Peaceful",
+          "Sensitive"
+        ],
+        "modifications": [
+          {
+            "target": "Monsiod",
+            "targetGeneration": "Gen 1",
+            "method": "Has Technique Night",
+            "parameter": "Bite"
+          },
+          {
+            "target": "Monstein",
+            "targetGeneration": "Gen 1",
+            "method": "Give Item Night",
+            "parameter": "Staticstone"
+          },
+          {
+            "target": "Monstoker",
+            "targetGeneration": "Gen 1",
+            "method": "In Party Night",
+            "parameter": "Flitmaus"
+          }
+        ],
+        "nameOrigins": [
+          {
+            "part": "Vict",
+            "word": "Victor Frankenstein",
+            "description": "the scientist responsible for creating Frankenstein's monster"
+          },
+          {
+            "part": "turn",
+            "word": "turn",
+            "description": "To change into a different state, color, age, or condition"
+          }
+        ]
       },
       {
         "kind": "concept",
@@ -14297,11 +14678,131 @@
         "color3": "Electro",
         "name": "Monstein",
         "classification": "Reanimated",
+        "info": "Monstein's body is composed of hardened resin that resembles pieces of several different creatures stitched together. Electrical energy constantly flows beneath its grey surface, occasionally causing its limbs to twitch uncontrollably. Despite its frightening appearance, it rarely attacks unless provoked.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Monstein's body is composed of hardened resin that resembles pieces of several different creatures stitched together. Electrical energy constantly flows beneath its grey surface, occasionally causing its limbs to twitch uncontrollably. Despite its frightening appearance, it rarely attacks unless provoked."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "According to an old horror story, Monstein was created when lightning struck a lifeless monster during a terrible storm. It can store tremendous amounts of electricity within its body, releasing powerful bursts when threatened. Its unusual movements and intimidating appearance often cause others to flee before discovering its gentle nature."
+          }
+        ],
         "internalColor": "GREY",
         "height": "4'06\"/1.37M",
         "weight": "165.0Lbs/74.84KG",
         "genderRatio": 1,
-        "growthRate": "Medium Growth"
+        "stats": [
+          75,
+          95,
+          85,
+          70,
+          60,
+          50
+        ],
+        "skill": "Murky Ambush",
+        "hiddenSkill": "Static Shock",
+        "misprintDefect": "Poor Camouflage",
+        "recruitmentRate": 75,
+        "baseExp": 150,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Bite",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Psych Up",
+          "Pump Up",
+          "Rocky Footing",
+          "Shadow Claw",
+          "Slash",
+          "Spike Trap",
+          "Startle",
+          "Tackle"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Focus",
+            "level": 4
+          },
+          {
+            "name": "Disarm",
+            "level": 7
+          },
+          {
+            "name": "Slash",
+            "level": 10
+          },
+          {
+            "name": "Spike Trap",
+            "level": 13
+          },
+          {
+            "name": "Bite",
+            "level": 16
+          },
+          {
+            "name": "Calm Down",
+            "level": 19
+          },
+          {
+            "name": "Pump Up",
+            "level": 22
+          },
+          {
+            "name": "Burst",
+            "level": 25
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Rocky Footing",
+          "Leg Stretch",
+          "Calm Down",
+          "Psych Up",
+          "Pump Up",
+          "Spike Trap",
+          "Bite",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Shadow Claw",
+          "Startle"
+        ],
+        "temperamentLock": [
+          "Hot Headed",
+          "Lively"
+        ],
+        "nameOrigins": [
+          {
+            "part": "Mons",
+            "word": "Monster",
+            "description": "a frightening, unnatural, or grotesque creature—real, mythical, or figurative—that disrupts moral, social, or physical order"
+          },
+          {
+            "part": "stein",
+            "word": "Frankenstein",
+            "description": "the scientist responsible for creating Frankenstein's monster"
+          }
+        ]
       },
       {
         "kind": "concept",
@@ -14311,11 +14812,131 @@
         "color3": "Aero",
         "name": "Monstoker",
         "classification": "Vampire",
+        "info": "Monstoker prowls through the darkness in search of unsuspecting prey. Its body has developed bat-like characteristics, allowing it to move silently through the night. It is said that those who meet its piercing gaze become so frightened that they cannot move.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Monstoker prowls through the darkness in search of unsuspecting prey. Its body has developed bat-like characteristics, allowing it to move silently through the night. It is said that those who meet its piercing gaze become so frightened that they cannot move."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Legends describe Monstoker as a mysterious creature that appears wherever large groups of Flitmaus gather. It possesses an extraordinary sense of hearing and can navigate through complete darkness without difficulty. Although it resembles the vampires of old horror stories, no one has confirmed whether it actually drinks blood."
+          }
+        ],
         "internalColor": "BLACK",
         "height": "4'06\"/1.37M",
         "weight": "165.0Lbs/74.84KG",
         "genderRatio": 1,
-        "growthRate": "Medium Growth"
+        "stats": [
+          65,
+          90,
+          70,
+          70,
+          65,
+          75
+        ],
+        "skill": "Murky Ambush",
+        "hiddenSkill": "Echolocating",
+        "misprintDefect": "Poor Camouflage",
+        "recruitmentRate": 75,
+        "baseExp": 150,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Bite",
+          "Brace",
+          "Calm Down",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Psych Up",
+          "Pump Up",
+          "Rocky Footing",
+          "Shadow Claw",
+          "Slash",
+          "Spike Trap",
+          "Startle",
+          "Tackle",
+          "Trick-or-Treat"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Focus",
+            "level": 4
+          },
+          {
+            "name": "Disarm",
+            "level": 7
+          },
+          {
+            "name": "Slash",
+            "level": 10
+          },
+          {
+            "name": "Spike Trap",
+            "level": 13
+          },
+          {
+            "name": "Bite",
+            "level": 16
+          },
+          {
+            "name": "Calm Down",
+            "level": 19
+          },
+          {
+            "name": "Pump Up",
+            "level": 22
+          },
+          {
+            "name": "Trick-or-Treat",
+            "level": 25
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Rocky Footing",
+          "Leg Stretch",
+          "Calm Down",
+          "Psych Up",
+          "Pump Up",
+          "Spike Trap",
+          "Bite",
+          "Brace",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat"
+        ],
+        "temperamentLock": [
+          "Curious",
+          "Lively"
+        ],
+        "nameOrigins": [
+          {
+            "part": "Mons",
+            "word": "Monster",
+            "description": "a frightening, unnatural, or grotesque creature—real, mythical, or figurative—that disrupts moral, social, or physical order"
+          },
+          {
+            "part": "stoker",
+            "word": "Bram Stoker",
+            "description": "Irish writer, barrister, literary critic, and theatre manager who write Dracula"
+          }
+        ]
       },
       {
         "kind": "concept",
@@ -14325,11 +14946,133 @@
         "color3": "Nature",
         "name": "Monsiod",
         "classification": "Lycan",
+        "info": "Monsiod possesses powerful jaws, sharp claws, and a thick covering of brown fur-like resin. Its normally controlled movements become wild and unpredictable after sunset. It frequently releases terrifying howls that can be heard from great distances.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Monsiod possesses powerful jaws, sharp claws, and a thick covering of brown fur-like resin. Its normally controlled movements become wild and unpredictable after sunset. It frequently releases terrifying howls that can be heard from great distances."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "An ancient legend tells of a monster hunter who became a fearsome beast after being bitten by a mysterious creature. Monsiod is believed to be the inspiration behind this tale, as its transformation is closely associated with nighttime and biting attacks. Despite its savage appearance, traces of its former hunter instincts remain."
+          }
+        ],
         "internalColor": "BROWN",
         "height": "4'06\"/1.37M",
         "weight": "165.0Lbs/74.84KG",
         "genderRatio": 1,
-        "growthRate": "Medium Growth"
+        "stats": [
+          75,
+          105,
+          75,
+          55,
+          65,
+          60
+        ],
+        "skill": "Murky Ambush",
+        "hiddenSkill": "Cushioned Body",
+        "misprintDefect": "Poor Camouflage",
+        "recruitmentRate": 75,
+        "baseExp": 150,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Bite",
+          "Brace",
+          "Calm Down",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Psych Up",
+          "Pump Up",
+          "Rocky Footing",
+          "Shadow Claw",
+          "Slash",
+          "Spike Trap",
+          "Startle",
+          "Tackle"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Focus",
+            "level": 4
+          },
+          {
+            "name": "Disarm",
+            "level": 7
+          },
+          {
+            "name": "Slash",
+            "level": 10
+          },
+          {
+            "name": "Spike Trap",
+            "level": 13
+          },
+          {
+            "name": "Bite",
+            "level": 16
+          },
+          {
+            "name": "Calm Down",
+            "level": 19
+          },
+          {
+            "name": "Pump Up",
+            "level": 22
+          },
+          {
+            "name": "Shadow Claw",
+            "level": 25
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Rocky Footing",
+          "Leg Stretch",
+          "Calm Down",
+          "Psych Up",
+          "Pump Up",
+          "Spike Trap",
+          "Bite",
+          "Brace",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Shadow Claw",
+          "Startle"
+        ],
+        "temperamentLock": [
+          "Cerebral",
+          "Peaceful"
+        ],
+        "nameOrigins": [
+          {
+            "part": "Mons",
+            "word": "Monster",
+            "description": "a frightening, unnatural, or grotesque creature—real, mythical, or figurative—that disrupts moral, social, or physical order"
+          },
+          {
+            "part": "siod",
+            "word": "Curt Siodmak",
+            "description": "A German-American novelist, screenwriter, and director who wrote the Wolfman"
+          }
+        ]
       },
       {
         "kind": "concept",
@@ -15737,6 +16480,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -15777,6 +16521,10 @@
             "level": 10
           },
           {
+            "name": "Bite",
+            "level": 11
+          },
+          {
             "name": "Disarm",
             "level": 13
           },
@@ -15815,6 +16563,7 @@
           "Method Act",
           "Psych Up",
           "Pump Up",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -15892,6 +16641,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -15934,6 +16684,10 @@
           {
             "name": "Focus",
             "level": 10
+          },
+          {
+            "name": "Bite",
+            "level": 11
           },
           {
             "name": "Disarm",
@@ -15988,6 +16742,7 @@
           "Psych Up",
           "Pump Up",
           "Root Whip",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -16056,6 +16811,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -16100,6 +16856,10 @@
           {
             "name": "Focus",
             "level": 10
+          },
+          {
+            "name": "Bite",
+            "level": 11
           },
           {
             "name": "Disarm",
@@ -16159,6 +16919,7 @@
           "Psych Up",
           "Pump Up",
           "Root Whip",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -16224,6 +16985,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -16265,6 +17027,10 @@
           {
             "name": "Focus",
             "level": 10
+          },
+          {
+            "name": "Bite",
+            "level": 11
           },
           {
             "name": "Disarm",
@@ -16314,6 +17080,7 @@
           "Method Act",
           "Psych Up",
           "Pump Up",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -16382,6 +17149,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -16425,6 +17193,10 @@
           {
             "name": "Focus",
             "level": 10
+          },
+          {
+            "name": "Bite",
+            "level": 11
           },
           {
             "name": "Disarm",
@@ -16479,6 +17251,7 @@
           "Psych Up",
           "Pump Up",
           "Spike Trap",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -16544,6 +17317,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -16585,6 +17359,10 @@
           {
             "name": "Focus",
             "level": 10
+          },
+          {
+            "name": "Bite",
+            "level": 11
           },
           {
             "name": "Disarm",
@@ -16636,6 +17414,7 @@
           "Method Act",
           "Psych Up",
           "Pump Up",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -16702,6 +17481,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -16745,6 +17525,10 @@
           {
             "name": "Focus",
             "level": 10
+          },
+          {
+            "name": "Bite",
+            "level": 11
           },
           {
             "name": "Disarm",
@@ -16801,6 +17585,7 @@
           "Psych Up",
           "Pump Up",
           "Spike Trap",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",
@@ -16865,6 +17650,7 @@
         "growthRate": "Medium Growth",
         "availableTechniques": [
           "Belch",
+          "Bite",
           "Brace",
           "Burst",
           "Calm Down",
@@ -16897,6 +17683,10 @@
           {
             "name": "Splash",
             "level": 6
+          },
+          {
+            "name": "Bite",
+            "level": 7
           },
           {
             "name": "Calm Down",
@@ -16940,6 +17730,7 @@
           "Calm Down",
           "Psych Up",
           "Pump Up",
+          "Bite",
           "Brace",
           "Burst",
           "Disarm",

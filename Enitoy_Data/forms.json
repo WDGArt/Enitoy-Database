@@ -36,6 +36,7 @@
       "info": "When this Skinetic was flooded with cosmic infinity energy, the overpowering energy petrified the shed skin that its boxing gloves were made out of turning into its now-large stone gauntlets. Average Skinetic can punch their way through a boulder with a single punch while this single Skinetic can do the same to a mountain. Being flooded with that much energy is painful to Skinetic causing it to be constantly ready for an attack with four of its own.",
       "availableTechniques": [
         "Belch",
+        "Bite",
         "Brace",
         "Burst",
         "Disarm",
@@ -82,6 +83,10 @@
         "level": 10
       },
       {
+        "name": "Bite",
+        "level": 11
+      },
+      {
         "name": "Rocky Footing",
         "level": 40
       }
@@ -89,6 +94,7 @@
     "scrollLearnedTechniques": [
       "Rocky Footing",
       "Pump Up",
+      "Bite",
       "Brace",
       "Burst",
       "Disarm",
