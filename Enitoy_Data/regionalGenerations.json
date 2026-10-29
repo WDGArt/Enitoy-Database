@@ -13838,6 +13838,17 @@
         "color3": "Nox",
         "name": "Charmeow",
         "classification": "Piper Cat",
+        "info": "By swinging its flute-shaped tail through the air, Charmeow produces enchanting melodies capable of hypnotizing those who hear them. It is especially fond of leading groups of smaller Enitoy through towns at night. Where it takes its followers remains a mystery.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "By swinging its flute-shaped tail through the air, Charmeow produces enchanting melodies capable of hypnotizing those who hear them. It is especially fond of leading groups of smaller Enitoy through towns at night. Where it takes its followers remains a mystery."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "According to an old legend, a Charmeow once rid an entire town of troublesome mice by leading them toward a nearby river. When the townspeople refused to reward it, Charmeow returned the following night and played a different melody. By morning, every Pipmouse in the town had vanished."
+          }
+        ],
         "internalColor": "GREEN",
         "height": "3'03\"/0.99M",
         "weight": "32.6Lbs/14.79KG",
@@ -13950,6 +13961,304 @@
             "part": "meow",
             "word": "meow",
             "description": "The cry of a cat"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Plush",
+        "color2": "Ordinary",
+        "color3": "Hydro",
+        "name": "Pipmouse",
+        "classification": "Child Mouse",
+        "info": "Pipmouse is a playful little Enitoy that enjoys gathering in large groups near rivers and streams. Its innocent curiosity makes it particularly susceptible to enchanting sounds. Upon hearing a beautiful melody, it may abandon everything it was doing to follow the source.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Pipmouse is a playful little Enitoy that enjoys gathering in large groups near rivers and streams. Its innocent curiosity makes it particularly susceptible to enchanting sounds. Upon hearing a beautiful melody, it may abandon everything it was doing to follow the source."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Old stories warn that Pipmouse should never be allowed to follow a Charmeow after sunset. Those that hear its hypnotic music are said to march toward the nearest river without noticing the dangers around them. Some are never seen in their original forms again."
+          }
+        ],
+        "internalColor": "BLUE",
+        "height": "1'02\"/0.36M",
+        "weight": "5.3Lbs/2.40KG",
+        "genderRatio": 5,
+        "stats": [
+          60,
+          45,
+          50,
+          70,
+          55,
+          75
+        ],
+        "skill": "Scavenge",
+        "hiddenSkill": "Cute Defense",
+        "misprintDefect": "Overstuffed",
+        "recruitmentRate": 160,
+        "baseExp": 80,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Calm Down",
+          "Cosplay",
+          "Deep Clean",
+          "Disarm",
+          "Focus",
+          "Heart Song",
+          "Leg Stretch",
+          "Psych Up",
+          "Rain Call",
+          "Sing",
+          "Slash",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Water Burst"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Sing",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Calm Down",
+            "level": 4
+          },
+          {
+            "name": "Cosplay",
+            "level": 7
+          },
+          {
+            "name": "Focus",
+            "level": 10
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 13
+          },
+          {
+            "name": "Water Burst",
+            "level": 16
+          },
+          {
+            "name": "Belch",
+            "level": 19
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Heart Song",
+          "Sing",
+          "Deep Clean",
+          "Rain Call",
+          "Splash",
+          "Water Burst",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Psych Up",
+          "Brace",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Startle",
+          "Belch"
+        ],
+        "temperamentLock": [
+          "Assertive",
+          "Brutish"
+        ],
+        "modifications": [
+          {
+            "target": "Hamelost",
+            "targetGeneration": "Gen 1",
+            "method": "In Party Night",
+            "parameter": "Charmeow"
+          }
+        ],
+        "nameOrigins": [
+          {
+            "part": "pip",
+            "word": "pipe",
+            "description": "Meanings relating to a wind instrument"
+          },
+          {
+            "part": "mouse",
+            "word": "mouse",
+            "description": "Any small rodent of the genus Mus"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Plush",
+        "color2": "Spectral",
+        "color3": "Hydro",
+        "name": "Hamelost",
+        "classification": "Lost Soul",
+        "info": "Hamelost is believed to be the wandering spirit of a Pipmouse that followed a mysterious melody into a river at night. Although its body has grown larger, it has become eerily light. It often wanders along riverbanks, searching for the source of a song it can no longer remember.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Hamelost is believed to be the wandering spirit of a Pipmouse that followed a mysterious melody into a river at night. Although its body has grown larger, it has become eerily light. It often wanders along riverbanks, searching for the source of a song it can no longer remember."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "According to folklore, Hamelost are the lost souls of innocent creatures led away by Charmeow's enchanting music. On quiet nights, groups of Hamelost can be heard singing beside the water. Their haunting melodies are said to resemble the laughter of children who disappeared long ago."
+          }
+        ],
+        "internalColor": "BLUE",
+        "height": "1'08\"/0.51M",
+        "weight": "4.4Lbs/2.00KG",
+        "genderRatio": 5,
+        "stats": [
+          70,
+          45,
+          55,
+          100,
+          70,
+          85
+        ],
+        "skill": "Scavenge",
+        "hiddenSkill": "Cute Defense",
+        "misprintDefect": "Overstuffed",
+        "recruitmentRate": 85,
+        "baseExp": 140,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Deep Clean",
+          "Disarm",
+          "Focus",
+          "Heart Song",
+          "Leg Stretch",
+          "Psych Up",
+          "Rain Call",
+          "Shadow Claw",
+          "Sing",
+          "Slash",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Trick-or-Treat",
+          "Water Burst"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Sing",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Calm Down",
+            "level": 4
+          },
+          {
+            "name": "Cosplay",
+            "level": 7
+          },
+          {
+            "name": "Focus",
+            "level": 10
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 13
+          },
+          {
+            "name": "Trick-or-Treat",
+            "level": 16
+          },
+          {
+            "name": "Water Burst",
+            "level": 16
+          },
+          {
+            "name": "Belch",
+            "level": 19
+          },
+          {
+            "name": "Burst",
+            "level": 22
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Heart Song",
+          "Sing",
+          "Deep Clean",
+          "Rain Call",
+          "Splash",
+          "Water Burst",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Psych Up",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat",
+          "Belch"
+        ],
+        "temperamentLock": [
+          "Lively",
+          "Peaceful"
+        ],
+        "nameOrigins": [
+          {
+            "part": "Hamel",
+            "word": "Hamelin",
+            "description": "a town located along the Weser River in Lower Saxony, German in which the story of the Pied Piper was set."
+          },
+          {
+            "part": "lost",
+            "word": "lost soul",
+            "description": "(set phrase, religion) A soul that is destined to go to hell; a person possessing such a soul"
           }
         ]
       },
@@ -14238,12 +14547,6 @@
             "description": "One of the large bodies of water separating the continents"
           }
         ]
-      },
-      {
-        "kind": "blank"
-      },
-      {
-        "kind": "blank"
       },
       {
         "kind": "blank"
