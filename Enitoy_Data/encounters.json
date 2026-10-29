@@ -2108,7 +2108,9 @@
       },
       {
         "name": "Soldust Ruins Floor 2",
-        "connectedLocations": [],
+        "connectedLocations": [
+          "Soldust Ruins Basement Floor 2"
+        ],
         "methods": []
       },
       {
