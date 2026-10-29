@@ -122,6 +122,15 @@ button,input,select{font:inherit}
 .encounter-method-target{scroll-margin-top:86px}
 .encounter-method-target:target{outline:2px solid #9ab8ce;outline-offset:5px}
 @media(max-width:650px){.encounter-table{font-size:12px}.encounter-icon{width:32px;height:32px}}
+/* Connected encounter locations — clickable shortcuts to neighboring locations. */
+.location-connections{margin:18px 0 24px;padding:17px 20px}
+.location-connections h2{margin:0 0 11px;font-size:1rem}
+.location-connections .muted{margin:0}
+.location-connection-links{display:flex;flex-wrap:wrap;gap:9px}
+.location-connection-links a,.location-connection-links .location-unlinked{display:inline-flex;align-items:center;border:1px solid #bdb4d9;background:#f4f0ff;color:#48378c;border-radius:999px;padding:7px 13px;font-weight:650}
+.location-connection-links a{text-decoration:none}
+.location-connection-links a:hover,.location-connection-links a:focus-visible{background:#e5dcff;text-decoration:underline}
+.location-connection-links .location-unlinked{background:#f6f6f6;border-color:#d7dbe0;color:#828b95;cursor:default}
 </style>
 </head>
 <body>
@@ -1297,10 +1306,32 @@ function encounterMethodRoute(gen,locationName,methodIndex){
 function renderLocations(){
   app.innerHTML=`${breadcrumbs([{label:'Encounters'}])}<h1 class="page-title">Encounter Locations</h1><p class="subtitle">Wild, fishing, gift, street, sand, and other encounter data from the project.</p>${(db.encounters||[]).map(g=>`<section class="section"><h2 class="section-title">${esc(g.generation)}</h2><div class="grid-3">${(g.locations||[]).map(l=>`<div class="card"><h3>${routeLink(`location/${slug(g.generation)}/${slug(l.name)}`,l.name)}</h3><p class="muted">${(l.methods||[]).map((m,i)=>routeLink(encounterMethodRoute(g.generation,l.name,i),m.name)).join(' · ')||'No methods'}</p></div>`).join('')}</div></section>`).join('')}`;
 }
+// Restore clickable neighboring locations in encounter-page details.
+function renderLocationConnections(g,location){
+  const connected=Array.isArray(location.connectedLocations)?location.connectedLocations:[];
+  const allLocations=Array.isArray(g.locations)?g.locations:[];
+  const ownName=String(location.name||'').trim().toLowerCase();
+  const seen=new Set();
+  const links=[];
+  for(const entry of connected){
+    const name=(typeof entry==='string'?entry:entry&&typeof entry.name==='string'?entry.name:'').trim();
+    const key=name.toLowerCase();
+    if(!name||key===ownName||seen.has(key))continue;
+    seen.add(key);
+    const target=allLocations.find(loc=>String(loc.name||'').trim().toLowerCase()===key);
+    if(target){
+      links.push(routeLink(`location/${slug(g.generation)}/${slug(target.name)}`,target.name));
+    }else{
+      // Keep obsolete or not-yet-created links visible, without pointing to broken pages.
+      links.push(`<span class="location-unlinked" title="No encounter page found for this connected location">${esc(name)}</span>`);
+    }
+  }
+  return `<section class="location-connections card"><h2>Connected Locations</h2>${links.length?`<div class="location-connection-links">${links.join('')}</div>`:'<p class="muted">No connected locations recorded.</p>'}</section>`;
+}
 function renderLocation(gen,name,methodIndex){
   const g=(db.encounters||[]).find(x=>x.generation===gen), l=g?.locations?.find(x=>x.name===name);
   if(!l){app.innerHTML=empty('Location not found.');return;}
-  app.innerHTML=`${breadcrumbs([{label:'Encounters',route:'locations'},{label:name}])}<h1 class="page-title">${esc(name)}</h1><p class="subtitle">${esc(gen)}</p>${(l.methods||[]).map((m,i)=>renderMethod(gen,m,i)).join('')}`;
+  app.innerHTML=`${breadcrumbs([{label:'Encounters',route:'locations'},{label:name}])}<h1 class="page-title">${esc(name)}</h1><p class="subtitle">${esc(gen)}</p>${renderLocationConnections(g,l)}${(l.methods||[]).map((m,i)=>renderMethod(gen,m,i)).join('')}`;
   if(methodIndex!==undefined&&methodIndex!==null&&String(methodIndex).trim()!==''){
     const idx=Number(methodIndex);
     if(Number.isInteger(idx)&&idx>=0&&idx<(l.methods||[]).length){
