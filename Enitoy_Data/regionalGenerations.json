@@ -12083,7 +12083,6 @@
           30
         ],
         "skill": "Tough Body",
-        "hiddenSkill": "Prickly",
         "misprintDefect": "Loose Debris",
         "recruitmentRate": 45,
         "growthRate": "Medium Growth",
@@ -13338,6 +13337,502 @@
       {
         "kind": "concept",
         "affinityCount": 2,
+        "color1": "Plush",
+        "color2": "Audio",
+        "color3": "Ordinary",
+        "name": "Spiriting",
+        "classification": "Little Sprite",
+        "info": "Spiriting loves listening to stories and will often act out its favorite characters for anyone willing to watch. Its playful performances can range from cheerful fairy tales to frightening ghost stories, although it rarely understands why some of its audience becomes scared.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Spiriting loves listening to stories and will often act out its favorite characters for anyone willing to watch. Its playful performances can range from cheerful fairy tales to frightening ghost stories, although it rarely understands why some of its audience becomes scared."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "These mischievous little spirits gather wherever people exchange stories and legends. They are remarkably talented at imitating voices and sounds, sometimes convincing listeners that the characters in a story have come to life. The company Spiriting keeps is said to influence the kinds of tales it prefers."
+          }
+        ],
+        "internalColor": "PINK",
+        "height": "1'04\"/0.41M",
+        "weight": "11.7Lbs/5.31KG",
+        "genderRatio": 5,
+        "stats": [
+          55,
+          40,
+          45,
+          70,
+          55,
+          64
+        ],
+        "skill": "Resonant",
+        "hiddenSkill": "Trickster",
+        "misprintDefect": "Squeaky Speaker",
+        "recruitmentRate": 150,
+        "baseExp": 70,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Disarm",
+          "Focus",
+          "Heart Song",
+          "Leg Stretch",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Shadow Claw",
+          "Sing",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Trick-or-Treat"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Sing",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Calm Down",
+            "level": 4
+          },
+          {
+            "name": "Cosplay",
+            "level": 7
+          },
+          {
+            "name": "Burst",
+            "level": 10
+          },
+          {
+            "name": "Disarm",
+            "level": 13
+          },
+          {
+            "name": "Focus",
+            "level": 16
+          },
+          {
+            "name": "Heart Song",
+            "level": 19
+          },
+          {
+            "name": "Method Act",
+            "level": 22
+          },
+          {
+            "name": "Psych Up",
+            "level": 25
+          },
+          {
+            "name": "Trick-or-Treat",
+            "level": 28
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Heart Song",
+          "Sing",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Tackle",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat"
+        ],
+        "drops": [
+          "Sheet of Paper"
+        ],
+        "temperamentLock": [
+          "Brutish",
+          "Hardened"
+        ],
+        "modifications": [
+          {
+            "target": "Folkami",
+            "targetGeneration": "Gen 1",
+            "method": "Party has Stitching",
+            "parameter": "Lux"
+          },
+          {
+            "target": "Hauntale",
+            "targetGeneration": "Gen 1",
+            "method": "Has Technique Stitching",
+            "parameter": "Spectral"
+          }
+        ],
+        "nameOrigins": [
+          {
+            "part": "spirit",
+            "word": "spirit",
+            "description": "The soul of a person or other creature"
+          },
+          {
+            "part": "ting",
+            "word": "writing",
+            "description": "Graphism of symbols such as letters that express some meaning"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Plush",
+        "color2": "Audio",
+        "color3": "Spectral",
+        "name": "Hauntale",
+        "classification": "Haunting Spirit",
+        "info": "Hauntale delights in frightening others by recreating scenes from ghost stories. It can distort the space around itself, making familiar hallways seem endless and doors appear to lead somewhere entirely different. Despite its terrifying performances, it usually means no genuine harm.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Hauntale delights in frightening others by recreating scenes from ghost stories. It can distort the space around itself, making familiar hallways seem endless and doors appear to lead somewhere entirely different. Despite its terrifying performances, it usually means no genuine harm."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "When someone tells a frightening story after sunset, Hauntale may secretly listen from the shadows. It waits until the most suspenseful moment before producing eerie whispers and ghostly apparitions. Many supposedly haunted buildings owe their reputations to a particularly theatrical Hauntale."
+          }
+        ],
+        "internalColor": "PURPLE",
+        "height": "5'03\"/1.60M",
+        "weight": "0.9Lbs/0.41KG",
+        "genderRatio": 5,
+        "stats": [
+          70,
+          45,
+          55,
+          125,
+          72,
+          100
+        ],
+        "skill": "Resonant",
+        "hiddenSkill": "Trickster",
+        "misprintDefect": "Squeaky Speaker",
+        "recruitmentRate": 75,
+        "baseExp": 165,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Disarm",
+          "Focus",
+          "Heart Song",
+          "Leg Stretch",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Shadow Claw",
+          "Sing",
+          "Slash",
+          "Spatial Warp",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Trick-or-Treat"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Sing",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Calm Down",
+            "level": 4
+          },
+          {
+            "name": "Cosplay",
+            "level": 7
+          },
+          {
+            "name": "Burst",
+            "level": 10
+          },
+          {
+            "name": "Disarm",
+            "level": 13
+          },
+          {
+            "name": "Focus",
+            "level": 16
+          },
+          {
+            "name": "Heart Song",
+            "level": 19
+          },
+          {
+            "name": "Method Act",
+            "level": 22
+          },
+          {
+            "name": "Psych Up",
+            "level": 25
+          },
+          {
+            "name": "Trick-or-Treat",
+            "level": 28
+          },
+          {
+            "name": "Spatial Warp",
+            "level": 31
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Heart Song",
+          "Sing",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat"
+        ],
+        "drops": [
+          "Sheet of Paper"
+        ],
+        "temperamentLock": [
+          "Brutish",
+          "Hardened"
+        ],
+        "nameOrigins": [
+          {
+            "part": "haunt",
+            "word": "haunt",
+            "description": "A place at which one is regularly found; a habitation or hangout"
+          },
+          {
+            "part": "tale",
+            "word": "tale",
+            "description": "A rehearsal of what has occurred; narrative; discourse; statement; history; story"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Plush",
+        "color2": "Audio",
+        "color3": "Lux",
+        "name": "Folkami",
+        "classification": "Folk Tale Spirit",
+        "info": "Folkami adores fairy tales and uses its magical powers to recreate their most wondrous moments. It is especially fond of helping those who show kindness to others, sometimes tidying an entire room before its occupants awaken. However, its enchantments occasionally produce unexpected results.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Folkami adores fairy tales and uses its magical powers to recreate their most wondrous moments. It is especially fond of helping those who show kindness to others, sometimes tidying an entire room before its occupants awaken. However, its enchantments occasionally produce unexpected results."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "According to old folklore, Folkami appears before travelers who have lost their way, guiding them through enchanted passages to safety. Its beautiful songs are said to inspire dreams of distant kingdoms and magical adventures. Children who hear its melodies often grow up remembering them as fairy tales."
+          }
+        ],
+        "internalColor": "PINK",
+        "height": "4'03\"/1.30M",
+        "weight": "57.8Lbs/26.22KG",
+        "genderRatio": 5,
+        "stats": [
+          75,
+          45,
+          70,
+          110,
+          102,
+          65
+        ],
+        "skill": "Resonant",
+        "hiddenSkill": "Trickster",
+        "misprintDefect": "Squeaky Speaker",
+        "recruitmentRate": 75,
+        "baseExp": 165,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Deep Clean",
+          "Disarm",
+          "Focus",
+          "Heart Song",
+          "Leg Stretch",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Shadow Claw",
+          "Sing",
+          "Spatial Warp",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Thorny Vines",
+          "Trick-or-Treat",
+          "Wood Double"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Sing",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Calm Down",
+            "level": 4
+          },
+          {
+            "name": "Cosplay",
+            "level": 7
+          },
+          {
+            "name": "Burst",
+            "level": 10
+          },
+          {
+            "name": "Disarm",
+            "level": 13
+          },
+          {
+            "name": "Focus",
+            "level": 16
+          },
+          {
+            "name": "Heart Song",
+            "level": 19
+          },
+          {
+            "name": "Method Act",
+            "level": 22
+          },
+          {
+            "name": "Psych Up",
+            "level": 25
+          },
+          {
+            "name": "Trick-or-Treat",
+            "level": 28
+          },
+          {
+            "name": "Deep Clean",
+            "level": 31
+          },
+          {
+            "name": "Spatial Warp",
+            "level": 34
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Heart Song",
+          "Sing",
+          "Deep Clean",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Spatial Warp",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Tackle",
+          "Thorny Vines",
+          "Wood Double",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat"
+        ],
+        "drops": [
+          "Sheet of Paper"
+        ],
+        "temperamentLock": [
+          "Brutish",
+          "Hardened"
+        ],
+        "nameOrigins": [
+          {
+            "part": "folk",
+            "word": "folk tale",
+            "description": "A tale or story that is part of the oral tradition of a people or a place"
+          },
+          {
+            "part": "kami",
+            "word": "kami",
+            "description": "An animistic God or spirit in the Shinto religion of Japan"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
         "color1": "Resin",
         "color2": "Arthro",
         "color3": "Lux",
@@ -13620,15 +14115,6 @@
             "description": "One of the large bodies of water separating the continents"
           }
         ]
-      },
-      {
-        "kind": "blank"
-      },
-      {
-        "kind": "blank"
-      },
-      {
-        "kind": "blank"
       },
       {
         "kind": "blank"

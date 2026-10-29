@@ -188,10 +188,6 @@
     "effect": "The first time each battle this Enitoy would be knocked out by a technique, it survives with 1 HP instead."
   },
   {
-    "name": "Prickly",
-    "effect": "When this Enitoy is hit by a contact technique, the attacker takes damage equal to 10% of the damage dealt to this Enitoy."
-  },
-  {
     "name": "Rhythmic",
     "effect": "When this Enitoy uses an Audio technique, it has a 20% chance to raise its Speed by 1 stage."
   },
