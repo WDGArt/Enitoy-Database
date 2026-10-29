@@ -13833,6 +13833,129 @@
       {
         "kind": "concept",
         "affinityCount": 2,
+        "color1": "Plant",
+        "color2": "Audio",
+        "color3": "Nox",
+        "name": "Charmeow",
+        "classification": "Piper Cat",
+        "internalColor": "GREEN",
+        "height": "3'03\"/0.99M",
+        "weight": "32.6Lbs/14.79KG",
+        "genderRatio": 1,
+        "stats": [
+          65,
+          55,
+          55,
+          90,
+          70,
+          95
+        ],
+        "skill": "Resonant",
+        "hiddenSkill": "Echolocating",
+        "misprintDefect": "Squeaky Speaker",
+        "recruitmentRate": 100,
+        "baseExp": 145,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Disarm",
+          "Focus",
+          "Heart Song",
+          "Leg Stretch",
+          "Psych Up",
+          "Pump Up",
+          "Shadow Claw",
+          "Sing",
+          "Slash",
+          "Splash",
+          "Startle",
+          "Tackle"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Sing",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Calm Down",
+            "level": 4
+          },
+          {
+            "name": "Startle",
+            "level": 7
+          },
+          {
+            "name": "Burst",
+            "level": 10
+          },
+          {
+            "name": "Focus",
+            "level": 13
+          },
+          {
+            "name": "Leg Stretch",
+            "level": 16
+          },
+          {
+            "name": "Slash",
+            "level": 19
+          },
+          {
+            "name": "Heart Song",
+            "level": 22
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Heart Song",
+          "Sing",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Psych Up",
+          "Pump Up",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Shadow Claw",
+          "Startle"
+        ],
+        "temperamentLock": [
+          "Patient",
+          "Peaceful"
+        ],
+        "nameOrigins": [
+          {
+            "part": "Charm",
+            "word": "charm",
+            "description": "To affect, control, or protect someone or something by or as if by magic"
+          },
+          {
+            "part": "meow",
+            "word": "meow",
+            "description": "The cry of a cat"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
         "color1": "Resin",
         "color2": "Arthro",
         "color3": "Lux",
@@ -14115,9 +14238,6 @@
             "description": "One of the large bodies of water separating the continents"
           }
         ]
-      },
-      {
-        "kind": "blank"
       },
       {
         "kind": "blank"
