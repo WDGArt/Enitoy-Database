@@ -14266,6 +14266,75 @@
         "kind": "concept",
         "affinityCount": 2,
         "color1": "Resin",
+        "color2": "Nox",
+        "color3": "Ordinary",
+        "name": "Victurn",
+        "classification": "Hunter",
+        "internalColor": "WHITE",
+        "height": "4'03\"/1.30M",
+        "weight": "145.0Lbs/65.77KG",
+        "genderRatio": 1,
+        "stats": [
+          65,
+          85,
+          70,
+          55,
+          60,
+          50
+        ],
+        "skill": "Murky Ambush",
+        "hiddenSkill": "Sharp Edge",
+        "misprintDefect": "Poor Camouflage",
+        "recruitmentRate": 110,
+        "baseExp": 110,
+        "growthRate": "Medium Growth"
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Resin",
+        "color2": "Nox",
+        "color3": "Electro",
+        "name": "Monstein",
+        "classification": "Reanimated",
+        "internalColor": "GREY",
+        "height": "4'06\"/1.37M",
+        "weight": "165.0Lbs/74.84KG",
+        "genderRatio": 1,
+        "growthRate": "Medium Growth"
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Resin",
+        "color2": "Nox",
+        "color3": "Aero",
+        "name": "Monstoker",
+        "classification": "Vampire",
+        "internalColor": "BLACK",
+        "height": "4'06\"/1.37M",
+        "weight": "165.0Lbs/74.84KG",
+        "genderRatio": 1,
+        "growthRate": "Medium Growth"
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Resin",
+        "color2": "Nox",
+        "color3": "Nature",
+        "name": "Monsiod",
+        "classification": "Lycan",
+        "internalColor": "BROWN",
+        "height": "4'06\"/1.37M",
+        "weight": "165.0Lbs/74.84KG",
+        "genderRatio": 1,
+        "growthRate": "Medium Growth"
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Resin",
         "color2": "Arthro",
         "color3": "Lux",
         "name": "Crabottle",
@@ -14547,18 +14616,6 @@
             "description": "One of the large bodies of water separating the continents"
           }
         ]
-      },
-      {
-        "kind": "blank"
-      },
-      {
-        "kind": "blank"
-      },
-      {
-        "kind": "blank"
-      },
-      {
-        "kind": "blank"
       },
       {
         "kind": "blank"
