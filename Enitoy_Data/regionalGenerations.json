@@ -15076,6 +15076,473 @@
       },
       {
         "kind": "concept",
+        "affinityCount": 1,
+        "color1": "Plush",
+        "color2": "Lux",
+        "name": "Chilord",
+        "classification": "Young Royal",
+        "info": "Chilord is a young royal that dreams of someday ruling a magnificent kingdom. Despite its privileged upbringing, it frequently sneaks away from its caretakers to play with ordinary Enitoy. Its childish curiosity often leads it into trouble.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Chilord is a young royal that dreams of someday ruling a magnificent kingdom. Despite its privileged upbringing, it frequently sneaks away from its caretakers to play with ordinary Enitoy. Its childish curiosity often leads it into trouble."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Although Chilord is treated like royalty from birth, it has yet to discover what kind of ruler it wishes to become. Female Chilord are naturally drawn to magic, while males often imitate heroic knights. Upon reaching maturity, its soft body transforms into a metallic form reflecting its chosen path."
+          }
+        ],
+        "internalColor": "WHITE",
+        "height": "3'04\"/1.02M",
+        "weight": "125.5Lbs/56.93KG",
+        "genderRatio": 5,
+        "stats": [
+          50,
+          25,
+          40,
+          55,
+          45,
+          29
+        ],
+        "skill": "Cushioned Body",
+        "hiddenSkill": "Cute Defense",
+        "misprintDefect": "Split Seam",
+        "recruitmentRate": 120,
+        "baseExp": 75,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Bite",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Psych Up",
+          "Pump Up",
+          "Shadow Claw",
+          "Sing",
+          "Slash",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Trick-or-Treat"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Sing",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Belch",
+            "level": 4
+          },
+          {
+            "name": "Bite",
+            "level": 7
+          },
+          {
+            "name": "Cosplay",
+            "level": 10
+          },
+          {
+            "name": "Burst",
+            "level": 13
+          },
+          {
+            "name": "Focus",
+            "level": 16
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Sing",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Psych Up",
+          "Pump Up",
+          "Bite",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat",
+          "Belch"
+        ],
+        "temperamentLock": [
+          "Flighty",
+          "Hot Headed"
+        ],
+        "modifications": [
+          {
+            "target": "Armorich",
+            "targetGeneration": "Gen 1",
+            "method": "Level male",
+            "parameter": 18
+          },
+          {
+            "target": "Spella",
+            "targetGeneration": "Gen 1",
+            "method": "Level Female",
+            "parameter": 18
+          }
+        ],
+        "nameOrigins": [
+          {
+            "part": "chil",
+            "word": "child",
+            "description": "A person who has not yet reached adulthood, whether natural (puberty), cultural (initiation), or legal (majority)"
+          },
+          {
+            "part": "lord",
+            "word": "lord",
+            "description": "The master of the servants of a household; the master of a feudal manor"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Metallic",
+        "color2": "Lux",
+        "color3": "Mental",
+        "name": "Spella",
+        "classification": "Princess Mage",
+        "info": "Spella is a royal princess who has mastered the art of magical combat. It can manipulate powerful psychic energies to protect its allies and overwhelm its opponents. Despite its considerable abilities, it prefers resolving conflicts peacefully whenever possible.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Spella is a royal princess who has mastered the art of magical combat. It can manipulate powerful psychic energies to protect its allies and overwhelm its opponents. Despite its considerable abilities, it prefers resolving conflicts peacefully whenever possible."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Spella studies ancient spells passed down through generations of royalty. Its magical abilities are said to grow stronger whenever it sings, and legends claim that a sufficiently powerful Spella can transport an entire royal court across vast distances in an instant."
+          }
+        ],
+        "internalColor": "WHITE",
+        "height": "5'06\"/1.68M",
+        "weight": "165.4Lbs/75.02KG",
+        "genderRatio": 9,
+        "stats": [
+          70,
+          35,
+          65,
+          125,
+          110,
+          68
+        ],
+        "skill": "Tough Body",
+        "hiddenSkill": "Healer",
+        "misprintDefect": "Overcharged",
+        "recruitmentRate": 95,
+        "baseExp": 110,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Bite",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Deep Clean",
+          "Disarm",
+          "Focus",
+          "Heart Song",
+          "Leg Stretch",
+          "Psych Up",
+          "Pump Up",
+          "Rain Call",
+          "Shadow Claw",
+          "Sing",
+          "Slash",
+          "Spatial Warp",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Trick-or-Treat"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Deep Clean",
+            "level": 0
+          },
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Sing",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Belch",
+            "level": 4
+          },
+          {
+            "name": "Bite",
+            "level": 7
+          },
+          {
+            "name": "Cosplay",
+            "level": 10
+          },
+          {
+            "name": "Burst",
+            "level": 13
+          },
+          {
+            "name": "Focus",
+            "level": 16
+          },
+          {
+            "name": "Heart Song",
+            "level": 22
+          },
+          {
+            "name": "Spatial Warp",
+            "level": 28
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Heart Song",
+          "Sing",
+          "Deep Clean",
+          "Rain Call",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Psych Up",
+          "Pump Up",
+          "Spatial Warp",
+          "Bite",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat",
+          "Belch"
+        ],
+        "temperamentLock": [
+          "Flighty",
+          "Hot Headed"
+        ],
+        "nameOrigins": [
+          {
+            "part": "spell",
+            "word": "spell",
+            "description": "Words or a formula supposed to have magical powers"
+          },
+          {
+            "part": "la",
+            "word": "la",
+            "description": "A common suffix for female names in medieval times"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
+        "affinityCount": 2,
+        "color1": "Metallic",
+        "color2": "Lux",
+        "color3": "Kinetic",
+        "name": "Armorich",
+        "classification": "Prince Knight",
+        "info": "Armorich is a courageous prince whose metallic body resembles a knight clad in shining armor. It charges fearlessly into battle to protect weaker Enitoy, using its tremendous physical strength to overcome opponents. Its sense of duty is stronger than its desire for glory.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Armorich is a courageous prince whose metallic body resembles a knight clad in shining armor. It charges fearlessly into battle to protect weaker Enitoy, using its tremendous physical strength to overcome opponents. Its sense of duty is stronger than its desire for glory."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Armorich trains relentlessly to become a knight worthy of leading its kingdom. It has learned to manipulate the battlefield using rocks, roots, and thorny vines, creating barriers that protect its companions. Ancient tales describe an Armorich that defended an entire castle against an invading army without retreating a single step."
+          }
+        ],
+        "internalColor": "WHITE",
+        "height": "5'11\"/1.80M",
+        "weight": "195.7Lbs/88.77KG",
+        "genderRatio": 1,
+        "stats": [
+          80,
+          125,
+          105,
+          55,
+          65,
+          43
+        ],
+        "skill": "Tough Body",
+        "hiddenSkill": "Sharp Edge",
+        "misprintDefect": "Overcharged",
+        "recruitmentRate": 95,
+        "baseExp": 110,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Belch",
+          "Bite",
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Psych Up",
+          "Pump Up",
+          "Resin Shards",
+          "Rocky Footing",
+          "Root Whip",
+          "Shadow Claw",
+          "Sing",
+          "Slash",
+          "Splash",
+          "Startle",
+          "Tackle",
+          "Thorny Vines",
+          "Trick-or-Treat",
+          "Wood Double"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Resin Shards",
+            "level": 0
+          },
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Sing",
+            "level": 1
+          },
+          {
+            "name": "Splash",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Belch",
+            "level": 4
+          },
+          {
+            "name": "Bite",
+            "level": 7
+          },
+          {
+            "name": "Cosplay",
+            "level": 10
+          },
+          {
+            "name": "Burst",
+            "level": 13
+          },
+          {
+            "name": "Focus",
+            "level": 16
+          },
+          {
+            "name": "Rocky Footing",
+            "level": 22
+          },
+          {
+            "name": "Root Whip",
+            "level": 25
+          },
+          {
+            "name": "Wood Double",
+            "level": 28
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Sing",
+          "Rocky Footing",
+          "Splash",
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Psych Up",
+          "Pump Up",
+          "Root Whip",
+          "Bite",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Thorny Vines",
+          "Wood Double",
+          "Resin Shards",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat",
+          "Belch"
+        ],
+        "temperamentLock": [
+          "Flighty",
+          "Hot Headed"
+        ],
+        "nameOrigins": [
+          {
+            "part": "armor",
+            "word": "armor",
+            "description": "A protective layer over a body, vehicle, or other object intended to deflect or diffuse damaging forces"
+          },
+          {
+            "part": "rich",
+            "word": "rich",
+            "description": "A common suffix for males in medieval times"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
         "affinityCount": 2,
         "color1": "Resin",
         "color2": "Arthro",
@@ -15359,15 +15826,6 @@
             "description": "One of the large bodies of water separating the continents"
           }
         ]
-      },
-      {
-        "kind": "blank"
-      },
-      {
-        "kind": "blank"
-      },
-      {
-        "kind": "blank"
       },
       {
         "kind": "blank"
