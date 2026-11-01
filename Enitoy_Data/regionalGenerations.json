@@ -15543,6 +15543,154 @@
       },
       {
         "kind": "concept",
+        "affinityCount": 1,
+        "color1": "Plant",
+        "color2": "Mental",
+        "name": "Origonal",
+        "classification": "Folded",
+        "info": "Origonal is formed from a single sheet of paper folded into a humanoid shape. Despite its delicate appearance, its tightly compressed folds give it surprising durability. It can rearrange its body into countless shapes, using its razor-sharp edges to defend itself against threats.",
+        "catalogEntries": [
+          {
+            "generation": "Gen 1",
+            "entry": "Origonal is formed from a single sheet of paper folded into a humanoid shape. Despite its delicate appearance, its tightly compressed folds give it surprising durability. It can rearrange its body into countless shapes, using its razor-sharp edges to defend itself against threats."
+          },
+          {
+            "generation": "Gen 2",
+            "entry": "Origonal is frequently discovered wandering through libraries, where it spends hours studying the books surrounding it. It is said to remember every word it has ever read. When startled, it folds itself into the shape of an ordinary piece of paper, making it nearly impossible to distinguish from its surroundings."
+          }
+        ],
+        "internalColor": "WHITE",
+        "height": "1'06\"/0.46M",
+        "weight": "5.0Lbs/2.27KG",
+        "genderRatio": 0,
+        "stats": [
+          65,
+          45,
+          75,
+          130,
+          110,
+          118
+        ],
+        "skill": "Sharp Edge",
+        "hiddenSkill": "Trickster",
+        "misprintDefect": "Split Seam",
+        "recruitmentRate": 100,
+        "baseExp": 70,
+        "growthRate": "Medium Growth",
+        "availableTechniques": [
+          "Brace",
+          "Burst",
+          "Calm Down",
+          "Cosplay",
+          "Disarm",
+          "Focus",
+          "Leg Stretch",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Root Whip",
+          "Shadow Claw",
+          "Slash",
+          "Spatial Warp",
+          "Spike Trap",
+          "Startle",
+          "Tackle",
+          "Trick-or-Treat",
+          "Wood Double"
+        ],
+        "levelUpTechniques": [
+          {
+            "name": "Brace",
+            "level": 1
+          },
+          {
+            "name": "Startle",
+            "level": 1
+          },
+          {
+            "name": "Tackle",
+            "level": 1
+          },
+          {
+            "name": "Cosplay",
+            "level": 4
+          },
+          {
+            "name": "Focus",
+            "level": 7
+          },
+          {
+            "name": "Slash",
+            "level": 10
+          },
+          {
+            "name": "Disarm",
+            "level": 13
+          },
+          {
+            "name": "Burst",
+            "level": 16
+          },
+          {
+            "name": "Method Act",
+            "level": 19
+          },
+          {
+            "name": "Psych Up",
+            "level": 22
+          },
+          {
+            "name": "Wood Double",
+            "level": 25
+          },
+          {
+            "name": "Spatial Warp",
+            "level": 31
+          }
+        ],
+        "scrollLearnedTechniques": [
+          "Leg Stretch",
+          "Calm Down",
+          "Cosplay",
+          "Method Act",
+          "Psych Up",
+          "Pump Up",
+          "Spatial Warp",
+          "Spike Trap",
+          "Root Whip",
+          "Brace",
+          "Burst",
+          "Disarm",
+          "Focus",
+          "Slash",
+          "Tackle",
+          "Wood Double",
+          "Shadow Claw",
+          "Startle",
+          "Trick-or-Treat"
+        ],
+        "drops": [
+          "Sheet of Paper"
+        ],
+        "temperamentLock": [
+          "Flighty",
+          "Intense"
+        ],
+        "nameOrigins": [
+          {
+            "part": "Orig",
+            "word": "origami",
+            "description": "The Japanese art of paper folding"
+          },
+          {
+            "part": "gonal",
+            "word": "polygonal",
+            "description": "Having many angles; hence characteristic of a polygon"
+          }
+        ]
+      },
+      {
+        "kind": "concept",
         "affinityCount": 2,
         "color1": "Resin",
         "color2": "Arthro",
@@ -15826,9 +15974,6 @@
             "description": "One of the large bodies of water separating the continents"
           }
         ]
-      },
-      {
-        "kind": "blank"
       },
       {
         "kind": "blank"
