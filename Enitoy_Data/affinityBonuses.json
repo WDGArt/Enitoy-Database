@@ -1,15 +1,15 @@
 {
   "Ordinary": {
-    "effect": "immune",
-    "type": "Spectral"
+    "effect": "none",
+    "type": ""
   },
   "Nature": {
     "effect": "none",
     "type": ""
   },
   "Terra": {
-    "effect": "immune",
-    "type": "Electro"
+    "effect": "none",
+    "type": ""
   },
   "Pyro": {
     "effect": "none",
@@ -24,16 +24,16 @@
     "type": ""
   },
   "Nox": {
-    "effect": "immune",
-    "type": "Mental"
+    "effect": "none",
+    "type": ""
   },
   "Spectral": {
     "effect": "none",
     "type": ""
   },
   "Aero": {
-    "effect": "immune",
-    "type": "Terra"
+    "effect": "none",
+    "type": ""
   },
   "Audio": {
     "effect": "none",
@@ -48,8 +48,8 @@
     "type": ""
   },
   "Lux": {
-    "effect": "immune",
-    "type": "Ancient"
+    "effect": "none",
+    "type": ""
   },
   "Electro": {
     "effect": "none",
