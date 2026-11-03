@@ -71,6 +71,7 @@ button,input,select{font:inherit}
       <input id="search" type="search" placeholder="Search Enitoys, techniques, skills, items…" autocomplete="off" disabled>
       <div id="search-results" class="search-results"></div>
     </div>
+    <button id="refresh-btn" class="file-button" type="button" title="Reload the latest saved project from GitHub">Refresh GitHub</button>
     <button id="load-btn" class="file-button" type="button">Load JSON</button>
     <input id="file-input" type="file" accept=".json,application/json" hidden>
   </div>
@@ -84,6 +85,9 @@ button,input,select{font:inherit}
 (() => {
 'use strict';
 let db = null, loadedFileName = '', species = [], forms = [], searchable = [];
+let manualProjectSelected = false, githubLoadSequence = 0;
+const GITHUB_BASE = 'https://raw.githubusercontent.com/wdgart/Enitoy-Database/main/';
+const MODULAR_KEYS = ['materials','affinities','affinityBonuses','colors','matrix','moves','temperaments','skills','defects','items','regionalGenerations','forms','encounters','tamers','crafts'];
 const $ = s => document.querySelector(s);
 const app = $('#app'), search = $('#search'), searchResults = $('#search-results'), fileInput = $('#file-input');
 const GENDERS = ['Genderless','Male 8/8','Male 7/8','Male 6/8','Male 5/8','Male 4/8','Male 3/8','Male 2/8','Male 1/8','Female 8/8'];
@@ -129,8 +133,59 @@ function rebuild(){ species=[]; forms=[]; searchable=[]; let offset=0;
   search.disabled=false;
 }
 function loadObject(obj,name){ if(!obj || typeof obj!=='object' || !Array.isArray(obj.regionalGenerations)) throw new Error('This does not look like an Enitoy Database Editor project JSON.'); db=obj; loadedFileName=name||'Project JSON'; rebuild(); search.value=''; searchResults.classList.remove('show'); location.hash='#home'; render(); }
-function readFile(file){ const r=new FileReader(); r.onload=()=>{ try{ loadObject(JSON.parse(r.result),file.name); }catch(err){ showLoadError(err.message); } }; r.onerror=()=>showLoadError('The file could not be read.'); r.readAsText(file); }
+function readFile(file){ manualProjectSelected = true; ++githubLoadSequence; const r=new FileReader(); r.onload=()=>{ try{ loadObject(JSON.parse(r.result),file.name); }catch(err){ showLoadError(err.message); } }; r.onerror=()=>showLoadError('The file could not be read.'); r.readAsText(file); }
 function showLoadError(msg){ app.innerHTML=`<div class="notice error"><b>Could not load JSON.</b><br>${esc(msg)}</div>`; }
+// Follow the Editor's GitHub project format: modular manifest first, legacy JSON fallback.
+async function loadGithubProject(force=false){
+  const sequence=++githubLoadSequence;
+  if (manualProjectSelected && !force) return;
+  const refresh=$('#refresh-btn');
+  if(refresh){refresh.disabled=true;refresh.textContent='Loading GitHub…';}
+  if (!db) app.innerHTML='<div class="card muted">Loading the latest Enitoy project from GitHub…</div>';
+  try {
+    const cacheBust='?viewer='+Date.now();
+    const loadJson=async path=>{
+      const response=await fetch(GITHUB_BASE+path+cacheBust,{cache:'no-store'});
+      if(!response.ok) throw new Error(path+' returned HTTP '+response.status);
+      return response.json();
+    };
+    let project, source;
+    let manifest;
+    try { manifest=await loadJson('Enitoy_Data/manifest.json'); }
+    catch(e){if(!/HTTP 404/.test(e.message))throw e;}
+    if(manifest){
+      if(manifest.format!=='EnitoySplitProject'||!manifest.files)throw new Error('Invalid GitHub modular project manifest.');
+      project={format:manifest.projectFormat||'EnitoyMaterialAffinityChart',version:manifest.projectVersion||86};
+      await Promise.all(Object.entries(manifest.files).map(async ([key,path])=>{
+        if(!MODULAR_KEYS.includes(key)||typeof path!=='string'||!path.startsWith('Enitoy_Data/'))throw new Error('Unexpected project section: '+key);
+        project[key]=await loadJson(path);
+      }));
+      for(const key of MODULAR_KEYS){
+        if(key!=='affinityBonuses' && !(key in project))throw new Error('Missing project section: '+key);
+      }
+      if(!project.affinityBonuses)project.affinityBonuses={};
+      source='GitHub modular project';
+    }else{
+      project=await loadJson('Enitoy_Project.json');
+      source='GitHub Enitoy_Project.json';
+    }
+    if(sequence!==githubLoadSequence || (manualProjectSelected&&!force))return;
+    loadObject(project,source);
+    manualProjectSelected=false;
+  } catch(err){
+    if(sequence!==githubLoadSequence)return;
+    if(!db){
+      renderLoader();
+      const dz=$('#dropzone');
+      if(dz)dz.insertAdjacentHTML('beforeend',`<p class="notice error"><b>Could not auto-load GitHub project.</b> ${esc(err.message)}<br>You can still load a local project JSON using the button above.</p>`);
+    }else{
+      const note=document.createElement('div');note.className='notice error';note.textContent='GitHub refresh failed: '+err.message;app.prepend(note);
+    }
+  }finally{
+    if(sequence===githubLoadSequence && refresh){refresh.disabled=false;refresh.textContent='Refresh GitHub';}
+  }
+}
+$('#refresh-btn').addEventListener('click',()=>{manualProjectSelected=false;void loadGithubProject(true);});
 $('#load-btn').addEventListener('click',()=>fileInput.click());
 fileInput.addEventListener('change',()=>{ if(fileInput.files?.[0]) readFile(fileInput.files[0]); fileInput.value=''; });
 document.addEventListener('dragover',e=>{e.preventDefault(); const d=$('.dropzone'); if(d)d.classList.add('drag');});
@@ -142,7 +197,7 @@ document.addEventListener('click',e=>{if(!e.target.closest('.global-search'))sea
 window.addEventListener('hashchange',render);
 function render(){ if(!db){ renderLoader(); return; } const raw=(location.hash||'#home').slice(1); const p=raw.split('/').map(decodeURIComponent); window.scrollTo(0,0); switch(p[0]){
   case '': case 'home': return renderHome(); case 'enitoys':return renderCatalog(); case 'enitoy':return renderSpecies(p[1],p[2]); case 'form':return renderForm(p[1],p[2],p[3]); case 'moves':return renderMoves(); case 'move':return renderMove(p[1]); case 'types':return renderTypes(); case 'type':return renderType(p[1]); case 'skills':return p[1]?renderNamedListDetail('Skill',db.skills,p[1],'skills'):renderNamedList('Skills',db.skills,'skills'); case 'defects':return p[1]?renderNamedListDetail('Defect',db.defects,p[1],'defects'):renderNamedList('Defects',db.defects,'defects'); case 'items':return p[1]?renderItem(p[1]):renderItems(); case 'temperaments':return renderTemperaments(); case 'locations':return renderLocations(); case 'location':return renderLocation(p[1],p[2]); case 'crafts':return renderCrafts(); default:return renderHome(); } }
-function renderLoader(){ app.innerHTML=`<div id="dropzone" class="dropzone"><h1>Enitoy Database Viewer</h1><p class="muted">Load a JSON export from the Enitoy Database Editor to browse it as a read-only encyclopedia.</p><p><button class="primary" type="button" id="open-json">Choose JSON file</button></p><div class="tiny muted">You can also drag and drop the JSON anywhere on this page. Nothing is uploaded or edited.</div></div>`; $('#open-json').onclick=()=>fileInput.click(); }
+function renderLoader(){ app.innerHTML=`<div id="dropzone" class="dropzone"><h1>Enitoy Database Viewer</h1><p class="muted">The Viewer automatically loads your saved project from GitHub. You can also choose a local JSON file.</p><p><button class="primary" type="button" id="open-json">Choose JSON file</button></p><div class="tiny muted">You can also drag and drop the JSON anywhere on this page. Nothing is uploaded or edited.</div></div>`; $('#open-json').onclick=()=>fileInput.click(); }
 function renderHome(){ const gens=db.regionalGenerations||[]; app.innerHTML=`${breadcrumbs([])}<h1 class="page-title">Enitoy Database</h1><p class="subtitle">Read-only encyclopedia generated from <b>${esc(loadedFileName)}</b> · Project version ${fmt(db.version)}</p>
 <div class="quick-stats"><div class="quick-stat"><b>${species.length}</b><span>Enitoys entered</span></div><div class="quick-stat"><b>${forms.length}</b><span>Forms</span></div><div class="quick-stat"><b>${(db.moves||[]).length}</b><span>Techniques</span></div><div class="quick-stat"><b>${(db.skills||[]).length}</b><span>Skills</span></div><div class="quick-stat"><b>${(db.items||[]).length}</b><span>Items</span></div></div>
 <div class="section grid-2"><div class="card"><h2>Browse the Catalog</h2><p>View every entered Enitoy with its image, Stitching, base stats, Skills, Defect, modifications, movepool, encounters, forms, and other recorded data.</p><p><a class="primary" style="display:inline-block;color:#fff;text-decoration:none" href="#enitoys">Open Enitoy Catalog</a></p></div><div class="card"><h2>Stitching</h2><div class="stitches">${allTypes().map(t=>pill(t)).join('')}</div></div></div>
@@ -224,6 +279,7 @@ function renderMethod(gen,m){ if(m.gift)return `<section class="section"><h2 cla
 function renderCraftLine(c){ const method=c.method==='station'?'Crafting Station':c.method==='holdMove'?'Hold + Move Stitch':c.method||'Craft'; return `<div style="padding:8px 0;border-bottom:1px solid #e8ebee"><b>${esc(method)}</b>: ${(c.ingredients||[]).map(i=>`${esc(i.quantity||1)}× ${routeLink(`items/${slug(i.item)}`,i.item)}`).join(' + ')} → ${esc(c.resultQuantity||1)}× ${routeLink(`items/${slug(c.resultItem)}`,c.resultItem)}</div>`; }
 function renderCrafts(){ const cs=db.crafts||[]; app.innerHTML=`${breadcrumbs([{label:'Crafts'}])}<h1 class="page-title">Crafts</h1><p class="subtitle">${cs.length} recipes.</p><div class="card">${cs.length?cs.map(renderCraftLine).join(''):'<span class="muted">No recipes recorded.</span>'}</div>`; }
 render();
+void loadGithubProject();
 })();
 </script>
 </body>
