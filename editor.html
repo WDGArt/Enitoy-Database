@@ -12,8 +12,9 @@
             .affinity-bonuses-list { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 12px; }
             .affinity-bonus-entry { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
             .affinity-bonus-entry label { font-weight: 700; }
-            .affinity-bonus-entry textarea { box-sizing: border-box; width: 100%; min-height: 88px; padding: 10px; border: 1px solid #b8c4d2; border-radius: 7px; background: #fff; color: #283544; font: inherit; resize: vertical; }
-            .affinity-bonus-entry textarea:focus { outline: 2px solid #377dc4; outline-offset: 1px; }
+            .affinity-bonus-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+            .affinity-bonus-entry select { box-sizing: border-box; flex: 1 1 120px; min-width: 0; padding: 10px; border: 1px solid #b8c4d2; border-radius: 7px; background: #fff; color: #283544; font: inherit; }
+            .affinity-bonus-entry select:focus { outline: 2px solid #377dc4; outline-offset: 1px; }
             .affinity-bonus-empty { color: #657080; font-style: italic; }
 
             html {
@@ -5889,7 +5890,7 @@ dialog,
         </table>
         <div class="affinity-bonuses-panel" aria-labelledby="affinity-bonuses-heading">
             <h2 id="affinity-bonuses-heading">Affinity Bonuses</h2>
-            <p>Describe the passive bonus granted by each Affinity. These are separate from defensive matchups, which depend only on Material. Entries are saved with your project.</p>
+            <p>Assign a mechanical bonus to each Affinity. Choose an effect, then its target attacking type. Bonuses override Material matchups only for Enitoy that possess the Affinity and are saved with your project.</p>
             <div id="affinity-bonuses-list" class="affinity-bonuses-list"></div>
         </div>
         </section>
@@ -5897,23 +5898,23 @@ dialog,
         <section class="type-calculator page-section" id="type-calculator" hidden>
             <div class="section-title-row">
                 <span class="section-title-spacer" aria-hidden="true"></span>
-                <h2>Material Defense Calculator</h2>
+                <h2>Enitoy Defense Calculator</h2>
             </div>
             <div class="calculator-selects">
                 <div class="calculator-field">
                     <label for="calculator-material">Material</label>
                     <select id="calculator-material"></select>
                 </div>
-                <div class="calculator-field" hidden>
+                <div class="calculator-field">
                     <label for="calculator-affinity-one">Affinity</label>
                     <select id="calculator-affinity-one"></select>
                 </div>
-                <div class="calculator-field" hidden>
+                <div class="calculator-field">
                     <label for="calculator-affinity-two">Second Affinity (Optional)</label>
                     <select id="calculator-affinity-two"></select>
                 </div>
             </div>
-            <p class="calculator-note">Only the Material determines an Enitoy’s defensive matchups. Both Materials and Affinities can attack, but Affinities do not add defensive weaknesses, resistances, or immunities.</p>
+            <p class="calculator-note">The Material determines base effectiveness. The selected Affinities can add defensive immunities through their assigned bonuses. An Affinity immunity overrides a Material weakness or resistance.</p>
             <div class="calculator-results" aria-live="polite">
                 <div class="calculator-result-group">
                     <h3>Weaknesses (2×)</h3>
@@ -7221,6 +7222,22 @@ dialog,
                 var materials = [baseMaterial].concat(params.getAll("material"));
                 var affinities = params.getAll("affinity");
                 var affinityBonuses = {};
+                // Structured bonuses; legacy plain descriptions are upgraded when recognized.
+                function normalizeAffinityBonus(bonus) {
+                    if (bonus && typeof bonus === "object" && !Array.isArray(bonus)) {
+                        return bonus.effect === "immune" && typeof bonus.type === "string" ? {effect:"immune", type:bonus.type} : {effect:"none", type:""};
+                    }
+                    if (typeof bonus === "string") {
+                        var match = bonus.match(/(?:immune to|immunity to|protection from)\s+([A-Za-z]{3,12})\s+techniques?/i);
+                        if (match) return {effect:"immune",type:match[1]};
+                    }
+                    return {effect:"none",type:""};
+                }
+                function affinityGrantsImmunity(affinityName, attackingType) {
+                    if (!affinities.includes(affinityName)) return false;
+                    var bonus = normalizeAffinityBonus(affinityBonuses[affinityName]);
+                    return bonus.effect === "immune" && bonus.type === attackingType;
+                }
                 var colorOverrides = {};
 
                 params.getAll("color").forEach(function (entry) {
@@ -7807,7 +7824,7 @@ dialog,
 
                     list[index] = name;
                     if (kind === "Affinity") {
-                        affinityBonuses[name] = affinityBonuses[oldName] || "";
+                        affinityBonuses[name] = affinityBonuses[oldName] || {effect:"none",type:""};
                         delete affinityBonuses[oldName];
                     }
                     renameRegionalModificationStitchingReference(oldName, name);
@@ -8110,7 +8127,7 @@ dialog,
                         version: 86,
                         materials: materials.slice(),
                         affinities: affinities.slice(),
-                        affinityBonuses: Object.fromEntries(affinities.map(function (name) { return [name, affinityBonuses[name] || ""]; })),
+                        affinityBonuses: Object.fromEntries(affinities.map(function (name) { return [name, normalizeAffinityBonus(affinityBonuses[name])]; })),
                         colors: colors,
                         matrix: matrix.map(function (row) { return row.slice(); }),
                         moves: moves.map(function (move) {
@@ -9170,11 +9187,17 @@ async function enitoyLoadModular(ref, knownRevision){
 
                     if (data.affinityBonuses !== undefined) {
                         if (!data.affinityBonuses || typeof data.affinityBonuses !== "object" || Array.isArray(data.affinityBonuses)) {
-                            return "Affinity bonuses must be an object containing text descriptions.";
+                            return "Affinity bonuses must be an object.";
                         }
                         for (var bonusName of Object.keys(data.affinityBonuses)) {
-                            if (data.affinities.indexOf(bonusName) < 0 || typeof data.affinityBonuses[bonusName] !== "string") {
-                                return "Affinity bonuses contain an unknown Affinity or an invalid description.";
+                            var bonus = data.affinityBonuses[bonusName];
+                            if (data.affinities.indexOf(bonusName) < 0) return "Affinity bonuses contain an unknown Affinity.";
+                            if (typeof bonus === "string") continue; // Old projects
+                            if (!bonus || typeof bonus !== "object" || Array.isArray(bonus) ||
+                                !["none", "immune"].includes(bonus.effect) ||
+                                typeof bonus.type !== "string" ||
+                                (bonus.effect === "immune" && data.materials.concat(data.affinities).indexOf(bonus.type) < 0)) {
+                                return "Affinity bonuses contain an invalid effect or attacking type.";
                             }
                         }
                     }
@@ -10004,7 +10027,7 @@ async function enitoyLoadModular(ref, knownRevision){
                         affinities = data.affinities.slice();
                         affinityBonuses = {};
                         affinities.forEach(function(name) {
-                            affinityBonuses[name] = (data.affinityBonuses && typeof data.affinityBonuses[name] === "string") ? data.affinityBonuses[name] : "";
+                            affinityBonuses[name] = normalizeAffinityBonus(data.affinityBonuses && data.affinityBonuses[name]);
                         });
                         matrix = data.matrix.map(function (row) { return row.slice(); });
                         enforceMaterialOnlyDefense();
@@ -15622,22 +15645,54 @@ async function enitoyLoadModular(ref, knownRevision){
                         return;
                     }
                     affinities.forEach(function(name) {
+                        var current = normalizeAffinityBonus(affinityBonuses[name]);
+                        // Do not keep references to types removed from the project.
+                        if (current.type && allTypes().indexOf(current.type) === -1) current = {effect:"none",type:""};
+                        affinityBonuses[name] = current;
                         var entry = document.createElement("div");
                         entry.className = "affinity-bonus-entry";
                         var label = document.createElement("label");
                         var id = "affinity-bonus-" + name.toLowerCase();
                         label.htmlFor = id;
                         label.textContent = name;
-                        var input = document.createElement("textarea");
-                        input.id = id;
-                        input.placeholder = "Enter the bonus granted by " + name + "...";
-                        input.value = affinityBonuses[name] || "";
-                        input.addEventListener("input", function() {
-                            affinityBonuses[name] = input.value;
-                            enitoyProjectRevision++;
+                        var controls = document.createElement("div");
+                        controls.className = "affinity-bonus-controls";
+                        var effect = document.createElement("select");
+                        effect.id = id;
+                        effect.setAttribute("aria-label", name + " effect");
+                        [{value:"none",label:"No bonus"},{value:"immune",label:"Immune to"}].forEach(function(item) {
+                            var option = document.createElement("option");
+                            option.value = item.value;
+                            option.textContent = item.label;
+                            effect.appendChild(option);
                         });
+                        effect.value = current.effect;
+                        var target = document.createElement("select");
+                        target.setAttribute("aria-label", name + " target attacking type");
+                        var blank = document.createElement("option");
+                        blank.value = "";
+                        blank.textContent = "Select type...";
+                        target.appendChild(blank);
+                        allTypes().forEach(function(type) {
+                            var option = document.createElement("option");
+                            option.value = type;
+                            option.textContent = type;
+                            target.appendChild(option);
+                        });
+                        target.value = current.type;
+                        target.disabled = effect.value === "none";
+                        function updateBonus() {
+                            target.disabled = effect.value === "none";
+                            affinityBonuses[name] = {effect:effect.value, type:effect.value === "immune" ? target.value : ""};
+                            enitoyProjectRevision++;
+                            updateTypeCalculator();
+                        }
+                        effect.addEventListener("change", updateBonus);
+                        target.addEventListener("change", updateBonus);
+                        controls.appendChild(effect);
+                        controls.appendChild(target);
                         entry.appendChild(label);
-                        entry.appendChild(input);
+                        entry.appendChild(controls);
                         list.appendChild(entry);
                     });
                 }
@@ -22471,6 +22526,11 @@ async function enitoyLoadModular(ref, knownRevision){
                     names.forEach(function (attackName, attackIndex) {
                         if (materialIndex < 0) return;
                         var result = matrix[attackIndex][materialIndex];
+                        // Immunity bonuses are applied after the Material chart; no stacking or matrix modification.
+                        if (affinityGrantsImmunity(calculatorAffinityOne.value, attackName) ||
+                            (calculatorAffinityTwo.value && affinityGrantsImmunity(calculatorAffinityTwo.value, attackName))) {
+                            result = 0;
+                        }
                         if (result === 0) immunities.push(attackName);
                         else if (result === 1) resistances.push(attackName);
                         else if (result === 3) weaknesses.push(attackName);
