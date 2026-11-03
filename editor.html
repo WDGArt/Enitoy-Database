@@ -8078,6 +8078,7 @@ dialog,
                 }
 
                 function chartProjectData() {
+                    enforceMaterialOnlyDefense();
                     var colors = {};
                     allTypes().forEach(function (name) {
                         colors[name] = colorForName(name).toUpperCase();
@@ -8780,8 +8781,22 @@ async function enitoyLoadModular(ref, knownRevision){
                 }
 
 
+                // Prevent a late GitHub startup response from overwriting an imported project.
+                var enitoyProjectRevision = 0;
+                // Keep the legacy 24x24 JSON shape for older projects, but prohibit
+                // obsolete Affinity-as-defender entries from affecting any exported data.
+                function enforceMaterialOnlyDefense() {
+                    var materialCount = materials.length;
+                    var total = materials.length + affinities.length;
+                    for (var r = 0; r < total; r++) {
+                        if (!Array.isArray(matrix[r])) continue;
+                        for (var c = materialCount; c < total; c++) matrix[r][c] = 2;
+                    }
+                }
+
                 async function loadGitHubProjectOnStartup(){
                     if(!/\.github\.io$/i.test(window.location.hostname))return;
+                    const initialRevision = enitoyProjectRevision;
                     try{
                         let obj=await enitoyLoadModular(githubBranch);
                         if(!obj){
@@ -8791,6 +8806,8 @@ async function enitoyLoadModular(ref, knownRevision){
                             const parsed=parseGitHubProjectJson(await response.text());
                             obj=parsed.data;
                         }
+                        // User edits/imports take precedence over the background startup load.
+                        if (enitoyProjectRevision !== initialRevision) return;
                         const error=validateImportedChart(obj);
                         if(error)throw new Error(error);
                         importChartFile(new Blob([JSON.stringify(obj)],{type:"application/json"}));
@@ -9949,6 +9966,8 @@ async function enitoyLoadModular(ref, knownRevision){
                         materials = data.materials.slice();
                         affinities = data.affinities.slice();
                         matrix = data.matrix.map(function (row) { return row.slice(); });
+                        enforceMaterialOnlyDefense();
+                        enitoyProjectRevision++;
                         colorOverrides = {};
                         allTypes().forEach(function (name) {
                             colorOverrides[name.toLowerCase()] = data.colors[name].toUpperCase();
@@ -15432,6 +15451,8 @@ async function enitoyLoadModular(ref, knownRevision){
                     var decoded = decodeHash(window.location.hash, materials.length + affinities.length);
                     if (decoded) {
                         matrix = decoded;
+                        enforceMaterialOnlyDefense();
+                        enitoyProjectRevision++;
                         applyMatrix();
                         updateTypeCalculator();
                     }
@@ -22438,6 +22459,8 @@ async function enitoyLoadModular(ref, knownRevision){
                 }
 
                 function saveHash() {
+                    enforceMaterialOnlyDefense();
+                    enitoyProjectRevision++;
                     var hash = encodeHash();
                     if (window.location.hash !== hash) {
                         history.replaceState(null, "", window.location.pathname + window.location.search + hash);
@@ -22445,6 +22468,8 @@ async function enitoyLoadModular(ref, knownRevision){
                 }
 
                 function saveState() {
+                    enforceMaterialOnlyDefense();
+                    enitoyProjectRevision++;
                     var query = new URLSearchParams();
                     if (materials[0] !== "Metallic") {
                         query.set("baseMaterial", materials[0]);
