@@ -5862,7 +5862,7 @@ dialog,
         <table class="type-table">
             <thead>
                 <tr id="typechart-head">
-                    <th class="cell-nano">DEFENSE&nbsp;&#8594;<br/>ATTACK&nbsp;&#8628;</th>
+                    <th class="cell-nano">DEFENSE (MATERIAL)&nbsp;&#8594;<br/>ATTACK (ALL TYPES)&nbsp;&#8628;</th>
                     <th>
                         <a class="type-abbr type-steel">MET</a>
                     </th>
@@ -5882,23 +5882,23 @@ dialog,
         <section class="type-calculator page-section" id="type-calculator" hidden>
             <div class="section-title-row">
                 <span class="section-title-spacer" aria-hidden="true"></span>
-                <h2>Defensive Type Calculator</h2>
+                <h2>Material Defense Calculator</h2>
             </div>
             <div class="calculator-selects">
                 <div class="calculator-field">
                     <label for="calculator-material">Material</label>
                     <select id="calculator-material"></select>
                 </div>
-                <div class="calculator-field">
+                <div class="calculator-field" hidden>
                     <label for="calculator-affinity-one">Affinity</label>
                     <select id="calculator-affinity-one"></select>
                 </div>
-                <div class="calculator-field">
+                <div class="calculator-field" hidden>
                     <label for="calculator-affinity-two">Second Affinity (Optional)</label>
                     <select id="calculator-affinity-two"></select>
                 </div>
             </div>
-            <p class="calculator-note">Combined matchups are capped at 0×, ½×, 1×, or 2×. Weaknesses and resistances cancel each other out; immunities always remain immune.</p>
+            <p class="calculator-note">Only the Material determines an Enitoy’s defensive matchups. Both Materials and Affinities can attack, but Affinities do not add defensive weaknesses, resistances, or immunities.</p>
             <div class="calculator-results" aria-live="polite">
                 <div class="calculator-result-group">
                     <h3>Weaknesses (2×)</h3>
@@ -15549,24 +15549,29 @@ async function enitoyLoadModular(ref, knownRevision){
                 }
 
                 function renderChart() {
-                    var names = allTypes();
+                    // Attack: every Material and Affinity. Defense: Materials only.
+                    // The full legacy matrix is retained internally so older saved
+                    // projects continue to import/export without losing other data.
+                    var attackNames = allTypes();
+                    var defenseNames = materials;
 
                     while (typechartHead.children.length > 1) {
                         typechartHead.removeChild(typechartHead.lastChild);
                     }
                     typechartBody.innerHTML = "";
 
-                    names.forEach(function (name) {
+                    defenseNames.forEach(function (name) {
                         var th = document.createElement("th");
                         var a = document.createElement("a");
                         a.className = "type-abbr";
                         a.textContent = name.slice(0, 3).toUpperCase();
+                        a.title = name + " (defending Material)";
                         applyNameColor(a, name);
                         th.appendChild(a);
                         typechartHead.appendChild(th);
                     });
 
-                    names.forEach(function (rowName, rowIndex) {
+                    attackNames.forEach(function (rowName, rowIndex) {
                         var tr = document.createElement("tr");
                         tr.id = rowName;
 
@@ -15574,15 +15579,17 @@ async function enitoyLoadModular(ref, knownRevision){
                         var a = document.createElement("a");
                         a.className = "type-icon-th";
                         a.textContent = rowName;
+                        a.title = rowName + " (attacking type)";
                         applyNameColor(a, rowName);
                         th.appendChild(a);
                         tr.appendChild(th);
 
-                        names.forEach(function (colName, colIndex) {
+                        defenseNames.forEach(function (colName, colIndex) {
                             var td = document.createElement("td");
                             td.id = rowName + " → " + colName;
                             td.className = "type-fx-cell";
                             td.style.cursor = "pointer";
+                            td.title = rowName + " attacking " + colName;
                             td.addEventListener("click", function () {
                                 matrix[rowIndex][colIndex] = (matrix[rowIndex][colIndex] + 1) % 4;
                                 updateCell(td, matrix[rowIndex][colIndex]);
@@ -15604,11 +15611,11 @@ async function enitoyLoadModular(ref, knownRevision){
                 }
 
                 function applyMatrix() {
-                    var names = allTypes();
-                    for (var row = 0; row < names.length; row++) {
-                        for (var col = 0; col < names.length; col++) {
-                            var cell = document.getElementById(names[row] + " → " + names[col]);
-                            updateCell(cell, matrix[row][col]);
+                    var attackNames = allTypes();
+                    for (var row = 0; row < attackNames.length; row++) {
+                        for (var col = 0; col < materials.length; col++) {
+                            var cell = document.getElementById(attackNames[row] + " → " + materials[col]);
+                            if (cell) updateCell(cell, matrix[row][col]);
                         }
                     }
                 }
@@ -22352,32 +22359,23 @@ async function enitoyLoadModular(ref, knownRevision){
                 }
 
                 function updateTypeCalculator() {
-                    if (!calculatorMaterial || !calculatorAffinityOne) return;
-                    if (!materials.length || !affinities.length) {
+                    if (!calculatorMaterial) return;
+                    if (!materials.length) {
                         renderCalculatorList(calculatorWeaknesses, []);
                         renderCalculatorList(calculatorResistances, []);
                         renderCalculatorList(calculatorImmunities, []);
                         return;
                     }
 
-                    var selected = [calculatorMaterial.value, calculatorAffinityOne.value];
-                    if (calculatorAffinityTwo.value && calculatorAffinityTwo.value !== calculatorAffinityOne.value) {
-                        selected.push(calculatorAffinityTwo.value);
-                    }
-
                     var names = allTypes();
-                    var defenseIndexes = selected.map(function (name) {
-                        return names.indexOf(name);
-                    }).filter(function (index) {
-                        return index >= 0;
-                    });
-
+                    var materialIndex = names.indexOf(calculatorMaterial.value);
                     var weaknesses = [];
                     var resistances = [];
                     var immunities = [];
 
                     names.forEach(function (attackName, attackIndex) {
-                        var result = combinedDefenseValue(attackIndex, defenseIndexes);
+                        if (materialIndex < 0) return;
+                        var result = matrix[attackIndex][materialIndex];
                         if (result === 0) immunities.push(attackName);
                         else if (result === 1) resistances.push(attackName);
                         else if (result === 3) weaknesses.push(attackName);
