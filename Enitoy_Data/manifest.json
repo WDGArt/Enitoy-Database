@@ -3,10 +3,11 @@
   "version": 1,
   "projectFormat": "EnitoyMaterialAffinityChart",
   "projectVersion": 86,
-  "savedAt": "2026-11-03T08:23:01.776Z",
+  "savedAt": "2026-11-03T08:36:21.277Z",
   "files": {
     "materials": "Enitoy_Data/materials.json",
     "affinities": "Enitoy_Data/affinities.json",
+    "affinityBonuses": "Enitoy_Data/affinityBonuses.json",
     "colors": "Enitoy_Data/colors.json",
     "matrix": "Enitoy_Data/matrix.json",
     "moves": "Enitoy_Data/moves.json",

@@ -1,0 +1,66 @@
+{
+  "Ordinary": {
+    "effect": "none",
+    "type": ""
+  },
+  "Nature": {
+    "effect": "none",
+    "type": ""
+  },
+  "Terra": {
+    "effect": "none",
+    "type": ""
+  },
+  "Pyro": {
+    "effect": "none",
+    "type": ""
+  },
+  "Toxic": {
+    "effect": "none",
+    "type": ""
+  },
+  "Hydro": {
+    "effect": "none",
+    "type": ""
+  },
+  "Nox": {
+    "effect": "none",
+    "type": ""
+  },
+  "Spectral": {
+    "effect": "none",
+    "type": ""
+  },
+  "Aero": {
+    "effect": "none",
+    "type": ""
+  },
+  "Audio": {
+    "effect": "none",
+    "type": ""
+  },
+  "Mental": {
+    "effect": "none",
+    "type": ""
+  },
+  "Arthro": {
+    "effect": "none",
+    "type": ""
+  },
+  "Lux": {
+    "effect": "none",
+    "type": ""
+  },
+  "Electro": {
+    "effect": "none",
+    "type": ""
+  },
+  "Cryo": {
+    "effect": "none",
+    "type": ""
+  },
+  "Kinetic": {
+    "effect": "none",
+    "type": ""
+  }
+}
