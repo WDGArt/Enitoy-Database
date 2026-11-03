@@ -16,6 +16,22 @@
             .affinity-bonus-entry select { box-sizing: border-box; flex: 1 1 120px; min-width: 0; padding: 10px; border: 1px solid #b8c4d2; border-radius: 7px; background: #fff; color: #283544; font: inherit; }
             .affinity-bonus-entry select:focus { outline: 2px solid #377dc4; outline-offset: 1px; }
             .affinity-bonus-empty { color: #657080; font-style: italic; }
+            /* Effect menu uses native details/summary so it always opens by click or keyboard. */
+            .affinity-effect-menu { position:relative; flex: 1 1 120px; min-width:0; z-index:2; }
+            .affinity-effect-menu[open] { z-index:20; }
+            .affinity-effect-menu > summary { display:flex; align-items:center; justify-content:space-between; gap:6px; min-height:44px; box-sizing:border-box; padding:9px 11px; border:1px solid #b8c4d2; border-radius:7px; background:#fff; color:#283544; cursor:pointer; list-style:none; user-select:none; }
+            .affinity-effect-menu > summary::-webkit-details-marker { display:none; }
+            .affinity-effect-menu > summary::after { content:"▾"; font-size:12px; flex-shrink:0; }
+            .affinity-effect-menu[open] > summary::after { content:"▴"; }
+            .affinity-effect-menu > summary:focus-visible { outline:2px solid #377dc4; outline-offset:2px; }
+            .affinity-effect-choices { display:flex; flex-direction:column; position:absolute; z-index:30; top:calc(100% + 3px); left:0; right:0; padding:4px; border:1px solid #b8c4d2; border-radius:7px; background:#fff; box-shadow:0 5px 18px #28354433; }
+            .affinity-effect-option { padding:10px 9px; border:0; background:#fff; color:#283544; cursor:pointer; text-align:left; font:inherit; border-radius:4px; }
+            .affinity-effect-option:hover, .affinity-effect-option:focus-visible { background:#dbeafe; }
+            .affinity-effect-option[aria-pressed="true"] { font-weight:700; background:#e8f2ff; }
+            .affinity-bonuses-panel { overflow:visible; }
+            .affinity-bonus-controls { align-items:flex-start; }
+            .affinity-bonus-controls > select { min-height:44px; }
+
 
             html {
                 scroll-behavior: smooth;
@@ -15657,16 +15673,19 @@ async function enitoyLoadModular(ref, knownRevision){
                         label.textContent = name;
                         var controls = document.createElement("div");
                         controls.className = "affinity-bonus-controls";
-                        var effect = document.createElement("select");
-                        effect.id = id;
-                        effect.setAttribute("aria-label", name + " effect");
-                        [{value:"none",label:"No bonus"},{value:"immune",label:"Immune to"}].forEach(function(item) {
-                            var option = document.createElement("option");
-                            option.value = item.value;
-                            option.textContent = item.label;
-                            effect.appendChild(option);
-                        });
-                        effect.value = current.effect;
+                        // Custom, keyboard-accessible dropdown avoids native-select click issues
+                        // in the editor's scrollable Type Chart container.
+                        var effectMenu = document.createElement("details");
+                        effectMenu.className = "affinity-effect-menu";
+                        var effectSummary = document.createElement("summary");
+                        effectSummary.id = id;
+                        effectSummary.setAttribute("aria-label", name + " effect");
+                        effectSummary.textContent = current.effect === "immune" ? "Immune to" : "No bonus";
+                        var effectChoices = document.createElement("div");
+                        effectChoices.className = "affinity-effect-choices";
+                        effectMenu.appendChild(effectSummary);
+                        effectMenu.appendChild(effectChoices);
+                        var selectedEffect = current.effect;
                         var target = document.createElement("select");
                         target.setAttribute("aria-label", name + " target attacking type");
                         var blank = document.createElement("option");
@@ -15680,16 +15699,32 @@ async function enitoyLoadModular(ref, knownRevision){
                             target.appendChild(option);
                         });
                         target.value = current.type;
-                        target.disabled = effect.value === "none";
+                        target.disabled = selectedEffect !== "immune";
                         function updateBonus() {
-                            target.disabled = effect.value === "none";
-                            affinityBonuses[name] = {effect:effect.value, type:effect.value === "immune" ? target.value : ""};
+                            target.disabled = selectedEffect !== "immune";
+                            affinityBonuses[name] = {effect:selectedEffect, type:selectedEffect === "immune" ? target.value : ""};
                             enitoyProjectRevision++;
                             updateTypeCalculator();
                         }
-                        effect.addEventListener("change", updateBonus);
+                        [{value:"none",label:"No bonus"},{value:"immune",label:"Immune to"}].forEach(function(item) {
+                            var button = document.createElement("button");
+                            button.type = "button";
+                            button.className = "affinity-effect-option";
+                            button.textContent = item.label;
+                            button.setAttribute("aria-pressed", selectedEffect === item.value ? "true" : "false");
+                            button.addEventListener("click", function() {
+                                selectedEffect = item.value;
+                                effectSummary.textContent = item.label;
+                                effectMenu.open = false;
+                                Array.from(effectChoices.children).forEach(function(choice) {
+                                    choice.setAttribute("aria-pressed", choice === button ? "true" : "false");
+                                });
+                                updateBonus();
+                            });
+                            effectChoices.appendChild(button);
+                        });
                         target.addEventListener("change", updateBonus);
-                        controls.appendChild(effect);
+                        controls.appendChild(effectMenu);
                         controls.appendChild(target);
                         entry.appendChild(label);
                         entry.appendChild(controls);
